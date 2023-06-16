@@ -193,44 +193,28 @@ def run(args, device, data):
 			if args.num_batch > 1:
 				b_block_dataloader, weights_list, time_collection = generate_dataloader_bucket_block(g, full_batch_dataloader, args)
 				connection_time, block_gen_time, _ = time_collection
-				log_file = "nvidia-smi_24_backpack.log"
-				update_interval = 1  # sec
-				logging_process = start_memory_logging(log_file, update_interval)
-
-				see_memory_usage("----------------------------------------after generate_dataloader_bucket_block ")
+				time_start = time.time()
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
-					# if step != 2: continue # we check the 1-24 bucket batch train memory consumption
-					print("batch " + str(step))
-					print('src global ', len(input_nodes))
-					print('seeds global ', len(seeds))
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
-					see_memory_usage("----------------------------------------after load_block_subtensor")
-
 					blocks = [block.int().to(device) for block in blocks]#------------*
-					see_memory_usage("----------------------------------------after blocks to device")
-
-					# Compute loss and prediction
 					batch_pred = model(blocks, batch_inputs)#------------*
-					see_memory_usage("----------------------------------------after model forward")
-
 					pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
-					see_memory_usage("----------------------------------------after loss_fcn calculation")
-
+					print('step ', step )
+					see_memory_usage("----------------------------------------after loss function")
 					pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
 					pseudo_mini_loss.backward()#------------*
-					see_memory_usage("----------------------------------------after loss backward")
-
-					see_memory_usage("---------------------------------------- batch " + str(step))
 					loss_sum += pseudo_mini_loss#------------*
+					
 
 				optimizer.step()
 				optimizer.zero_grad()
 				see_memory_usage("----------------------------------------after optimizer")
 
+				time_end = time.time()
 				print('----------------------------------------------------------pseudo_mini_loss sum ' + str(loss_sum.tolist()))
-				see_memory_usage("---------------------------------------- batch " + str(step)+ ' after optimizer')
-				# Stop memory logging when desired
-				stop_memory_logging(logging_process)
+				print('train time : ', time_end-time_start )
+				print('connection check time: ', connection_time)
+				print('block generation time ', block_gen_time)
 			elif args.num_batch == 1:
 				# print('orignal labels: ', labels)
 				for step, (input_nodes, seeds, blocks) in enumerate(full_batch_dataloader):
@@ -289,8 +273,8 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
-	argparser.add_argument('--num-batch', type=int, default=14)
-	argparser.add_argument('--mem-constraint', type=int, default=18)
+	argparser.add_argument('--num-batch', type=int, default=11)
+	argparser.add_argument('--mem-constraint', type=float, default=18.1)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
