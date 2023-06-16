@@ -232,6 +232,7 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 	blocks_list=[]
 	connect_checking_time_list=[]
 	block_gen_time_total=0
+	num_batch = 0
 	for _,(src_full, dst_full, full_blocks) in enumerate(full_block_dataloader):
 
 		dst_nids = dst_full
@@ -249,6 +250,7 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 				batched_output_nid_list,weights_list,batch_list_generation_time, p_len_list = bucket_partitioner.init_partition()
 
 				num_batch=len(batched_output_nid_list)
+				print('layer ',layer_id )
 				print(' the number of batches: ', num_batch)
 				# print('the batched output global nids ', batched_output_nid_list)
 
@@ -269,6 +271,7 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 				grouped_output_nid_list=gen_grouped_dst_list(prev_layer_blocks)
 				# print('gen group dst list time: ', time.time()-tmm)
 				num_batch=len(grouped_output_nid_list)
+				print('layer ',layer_id )
 				print('num of batch ',num_batch )
 				blocks, src_list, dst_list, time_1 = generate_blocks_for_one_layer_block(raw_graph, layer_block, grouped_output_nid_list)
 

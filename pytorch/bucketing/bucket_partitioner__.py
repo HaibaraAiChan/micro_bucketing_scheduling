@@ -259,8 +259,9 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				print(len(estimated_mem))
 				# capacity_imp = min(max(estimated_mem), capacity_est)
 				# capacity_imp = max(estimated_mem) + 0.01
-				capacity_imp = 0.59523
-				capacity_imp = 0.8
+				# capacity_imp = 0.59523
+				capacity_imp = max(estimated_mem)+ min(estimated_mem)
+				capacity_imp = 1.5
 				if max(estimated_mem) > capacity_imp:
 					print('max degree bucket (1-fanout-1) >capacity')
 					print('we can reschedule split K-->K+1 ')
@@ -289,8 +290,6 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 
 				else:
 					print("length of split fanout is smaller than len of group bucket_nids_list")
-					print('-*_error_'*20)
-					print()
 					return
 				print('the length of split_batches_nid_list ', len(split_batches_nid_list))
 				# return
@@ -543,13 +542,12 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 
 
 	def buckets_partition(self):
-		t1 = time.time()
+		
 		bkt_dst_nodes_list = self.get_in_degree_bucketing()
 		t2 = time.time()
-		
+
 		self.gen_batches_seeds_list(bkt_dst_nodes_list)
-		print('bkt_dst_nodes_list = self.get_in_degree_bucketing() spend: ', t2-t1)
-		print('total k batches seeds list generation spend ', time.time()-t2 )
+		# print('total k batches seeds list generation spend ', time.time()-t2 )
 
 		# self.get_partition_src_len_list()
 
@@ -609,5 +607,5 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 		# after that, we transfer the nids of batched output nodes from local to global.
 		self.local_to_global() # local to global         self.global_batched_seeds_list
 		t_total=time.time()-ts
-		print('partition total batch output list spend : ', t_total)
+
 		return self.global_batched_seeds_list, self.weights_list, t_total, self.partition_len_list

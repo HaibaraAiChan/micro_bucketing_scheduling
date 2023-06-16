@@ -94,7 +94,8 @@ def split_all(weights, values, capacity):
             max_values, packs = backpack_split(weights, values, capacity)
             
             res_tmp = np.array(weights)[packs[0]]
-            if len(packs[0]) > 3 or  (len(packs[0]) > 2 and max(res_tmp) > min(res_tmp)* 1.5) :
+            if len(packs[0]) > 4 or  (len(packs[0]) > 3 and max(res_tmp) > min(res_tmp)* 1.5) :
+            # if len(packs[0]) > 3 or  (len(packs[0]) > 2 and max(res_tmp) > min(res_tmp)* 1.5) :
             # if len(packs[0]) > 2 and  max(res_tmp) > min(res_tmp)*1.5 :
                 aa = min(packs[0]) # remove this aa from current group
                 packs[0].remove(aa)
