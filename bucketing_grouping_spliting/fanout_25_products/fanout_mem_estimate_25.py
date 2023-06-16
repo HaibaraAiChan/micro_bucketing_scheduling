@@ -243,15 +243,15 @@ def run(args, device, data):
 	g, nfeats, labels, n_classes, train_nid, val_nid, test_nid = data
 	in_feats = len(nfeats[0])
 	# print('in feats: ', in_feats)
-	nvidia_smi_list=[]
+	# nvidia_smi_list=[]
 
 	if args.selection_method =='metis':
 		args.o_graph = dgl.node_subgraph(g, train_nid)
 
 
-	sampler = dgl.dataloading.MultiLayerNeighborSampler(
-		[int(fanout) for fanout in args.fan_out.split(',')])
-	full_batch_size = len(train_nid)
+	# sampler = dgl.dataloading.MultiLayerNeighborSampler(
+	# 	[int(fanout) for fanout in args.fan_out.split(',')])
+	# full_batch_size = len(train_nid)
 
 
 	args.num_workers = 0
@@ -297,7 +297,8 @@ def run(args, device, data):
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
 					print(len(input_nodes)/len(seeds)/(step+1))
 					redundant_ratio.append(len(input_nodes)/len(seeds)/(step+1))
-
+    
+				time_dict_start = time.time()
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
 					layer = 0
 					dict_list =[]
@@ -312,10 +313,13 @@ def run(args, device, data):
 						layer = layer +1
 					print()
 					data_dict.append(dict_list)
+				time_dict_end = time.time()
+    
 				print('data_dict')
 				print(data_dict)
-				
+				time_est_start = time.time()
 				modified_res, res = estimate_mem(data_dict, 100, args.num_hidden, redundant_ratio)
+				time_est_end = time.time()
 				fanout_list = [int(fanout) for fanout in args.fan_out.split(',')]
 				fanout = fanout_list[1]
 				print('modified_mem [1, fanout-1]: ' )
@@ -325,7 +329,9 @@ def run(args, device, data):
 
 				print('the modified memory estimation spend (sec)', time.time()-time1)
 				print('the time of number of fanout blocks generation (sec)', time1-time0)
-				
+
+				print('the time dict collection (sec)', time_dict_end - time_dict_start)
+				print('the time estimate mem (sec)', time_est_end - time_est_start)
 				
 				
 				
@@ -390,6 +396,7 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='__bucketing')
 	argparser.add_argument('--num-batch', type=int, default=25)
+	argparser.add_argument('--mem-constraint', type=float, default=18.1)
 	# argparser.add_argument('--num-batch', type=int, default=100)
 
 	argparser.add_argument('--num-runs', type=int, default=1)

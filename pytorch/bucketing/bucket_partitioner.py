@@ -217,6 +217,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 			if '25_backpack_' in self.selection_method:
 				# print_(bkt_dst_nodes_list)
 				# print()
+				time_split_start = time.time()
 				fanout_dst_nids = bkt_dst_nodes_list[-1]
 				fanout = len(bkt_dst_nodes_list)
 				while(True):
@@ -248,7 +249,8 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				capacity_est = self.memory_constraint-max(redundant_ratio)*30.85/self.K
 				print('average memory estimation for each split fanout bucket batch', mean(redundant_ratio)*30.85/self.K)
 				print('capacity est: ', capacity_est)
-				
+				time_split_end = time.time()
+				print('split fanout degree bucket spend /sec: ', time_split_end - time_split_start)
 				adjust =1000
 				# estimated_mem = Estimate_MEM(bkt_dst_nodes_list)
 				# estimated_mem = [0.03173831570355189, 0.05356346886621881, 0.04711123806907531, 0.07226774258244979, 0.09551787968431964, 0.1325150206414136, 0.16567610820741147, 0.18105303097399883, 0.2113949286027087, 0.2532854815945029, 0.28107834893923545, 0.2823118815649026, 0.33190986587898375, 0.3619426326234686, 0.3814523874739127, 0.3890698973198667, 0.40976734184772345, 0.4268743659042759, 0.4544031402175385, 0.44849912694596744, 0.49506335349881553, 0.5441759409753638, 0.5855775860088747, 0.5946814550216808]
@@ -260,6 +262,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				# capacity_imp = min(max(estimated_mem), capacity_est)
 				# capacity_imp = max(estimated_mem) + 0.01
 				capacity_imp = 0.59523
+				time_backpack_start = time.time()
 				capacity_imp = 0.8
 				if max(estimated_mem) > capacity_imp:
 					print('max degree bucket (1-fanout-1) >capacity')
@@ -275,8 +278,11 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				g_bucket_nids_list=self.get_nids_by_degree_bucket_ID(G_BUCKET_ID_list, bkt_dst_nodes_list)
 				# print(g_bucket_nids_list)
 				# return 
+				time_backpack_end = time.time()
+				print('backpack scheduling spend ', time_backpack_end-time_backpack_start)
+
 				print('split_batches_nid_list ', len(split_batches_nid_list))
-    
+				time_batch_gen_start = time.time()
 				if len(split_batches_nid_list)>=len(g_bucket_nids_list):
 					print('estimated_mem ', estimated_mem)
 					for j in range(len(g_bucket_nids_list)):
@@ -294,6 +300,8 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					return
 				print('the length of split_batches_nid_list ', len(split_batches_nid_list))
 				# return
+				time_batch_gen_end = time.time()
+				print('batches output list generation spend ', time_batch_gen_end-time_batch_gen_start)
 				self.weights_list = weights_list
 				# split_batches_nid_list = g_bucket_nids_list #################
 				self.local_batched_seeds_list = split_batches_nid_list
