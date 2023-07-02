@@ -145,7 +145,8 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 		mini_batch_src_local= list(local_in_edges_tensor)[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
 		
 		# print('mini_batch_src_local', mini_batch_src_local)
-		mini_batch_src_local = list(OrderedDict.fromkeys(mini_batch_src_local.tolist()))
+		# mini_batch_src_local = list(OrderedDict.fromkeys(mini_batch_src_local.tolist()))
+		mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local.tolist()))
 
 
 		# mini_batch_src_local = torch.tensor(mini_batch_src_local, dtype=torch.long)

@@ -1,0 +1,165 @@
+main start at this time 1686873899.5918818
+-----------------------------------------before load data 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+#nodes: 2449029
+#edges: 123718024
+#classes: 47
+success----------------------------------------
+196571
+39255
+2164782
+# Nodes: 2400608
+# Edges: 123718024
+# Train: 196571
+# Val: 39255
+# Test: 2164782
+# Classes: 47
+
+----------------------------------------start of run function 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  12
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.07774290205574576, 0.07774290205574576, 0.07774290205574576, 0.07774290205574576, 0.07774290205574576, 0.07774290205574576, 0.07774290205574576, 0.07774290205574576, 0.07774290205574576, 0.07774290205574576, 0.07774290205574576, 0.07771237873338387]
+check_connections_block*********************************
+num of batch  12
+check_connections_block*********************************
+generate_K_hop_neighbors time  51.43523693084717
+6.521662016060751
+6.537532348060836
+6.50851103870113
+6.50938989336245
+6.528444481381815
+6.5051675698808875
+6.543792595394738
+6.512338514436303
+6.519999834418687
+6.506269322463557
+6.531609631864977
+6.532575947258202
+the split redundant ratio 
+[6.521662016060751, 6.537532348060836, 6.50851103870113, 6.50938989336245, 6.528444481381815, 6.5051675698808875, 6.543792595394738, 6.512338514436303, 6.519999834418687, 6.506269322463557, 6.531609631864977, 6.532575947258202]
+12
+average memory estimation for each split fanout bucket batch 16.76553815981126
+capacity est:  1.1769998693393617
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  1300
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [0, 3, 15]
+original bucket_id :,  [23, 20, 8]
+remove weights:  [595 494 211], 		------------sum 1300
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [583, 545, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [2, 7, 10, 13]
+original bucket_id :,  [18, 14, 11, 7]
+remove weights:  [455 383 281 181], 		------------sum 1300
+
+before remove weights,  [583, 545, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [583, 545, 448, 427, 410, 388, 362, 331, 280, 253, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 4, 7, 11]
+original bucket_id :,  [17, 16, 12, 5]
+remove weights:  [427 410 331 132], 		------------sum 1300
+
+before remove weights,  [583, 545, 448, 427, 410, 388, 362, 331, 280, 253, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [583, 545, 448, 388, 362, 280, 253, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [4, 6, 7, 9]
+original bucket_id :,  [13, 9, 6, 3]
+remove weights:  [362 253 165  72], 		------------sum 852
+
+before remove weights,  [583, 545, 448, 388, 362, 280, 253, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [583, 545, 448, 388, 280, 95, 53, 46, 31]
+
+remove bucket_id:  [1, 5, 7, 8]
+original bucket_id :,  [21, 4, 2, 0]
+remove weights:  [545  95  46  31], 		------------sum 717
+
+before remove weights,  [583, 545, 448, 388, 280, 95, 53, 46, 31]
+after remove pre pack weights,  [583, 448, 388, 280, 53]
+
+remove bucket_id:  [0, 2, 3]
+original bucket_id :,  [22, 15, 10]
+remove weights:  [583 388 280], 		------------sum 1251
+
+before remove weights,  [583, 448, 388, 280, 53]
+after remove pre pack weights,  [448, 53]
+G_BUCKET_ID_list [[23, 20, 8], [18, 14, 11, 7], [17, 16, 12, 5], [13, 9, 6, 3], [21, 4, 2, 0], [22, 15, 10], [19, 1]]
+[[23, 20, 8], [18, 14, 11, 7], [17, 16, 12, 5], [13, 9, 6, 3], [21, 4, 2, 0], [22, 15, 10], [19, 1]]
+G_BUCKET_ID_list length 7
+split_batches_nid_list  12
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[23, 20, 8]
+current group_mem  1.300889067002492
+the new estimated memory cost(GB) for batch 0 18.06642722681375
+[18, 14, 11, 7]
+current group_mem  1.3019392239734167
+the new estimated memory cost(GB) for batch 1 18.067477383784677
+[17, 16, 12, 5]
+current group_mem  1.3019618683223144
+the new estimated memory cost(GB) for batch 2 18.067500028133576
+[13, 9, 6, 3]
+current group_mem  0.8530600367803349
+the new estimated memory cost(GB) for batch 3 17.618598196591595
+[21, 4, 2, 0]
+current group_mem  0.7194937114306054
+the new estimated memory cost(GB) for batch 4 17.485031871241866
+[22, 15, 10]
+current group_mem  1.2533060703488572
+the new estimated memory cost(GB) for batch 5 18.018844230160116
+[19, 1]
+current group_mem  0.5016943880531927
+the new estimated memory cost(GB) for batch 6 17.267232547864452
+the length of split_batches_nid_list  12
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.024024486541748047
+total k batches seeds list generation spend  51.591394662857056
+len local_batched_seeds_list  12
+partition total batch output list spend :  55.18175935745239
+ the number of batches:  12
+check_connections_block*********************************
+num of batch  12
+check_connections_block*********************************
+----------------------------------------------------------pseudo_mini_loss sum 4.853099822998047
+train time :  6.490648984909058
+connection check time:  52.8173291683197
+block generation time  46.93413758277893

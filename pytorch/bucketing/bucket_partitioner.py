@@ -24,6 +24,7 @@ from cpu_mem_usage import get_memory
 from my_utils import torch_is_in_1d
 import pdb
 
+
 from gen_K_hop_neighbors import generate_K_hop_neighbors
 from grouping_float import grouping_fanout_1
 
@@ -554,10 +555,10 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 		t1 = time.time()
 		bkt_dst_nodes_list = self.get_in_degree_bucketing()
 		t2 = time.time()
-		
 		self.gen_batches_seeds_list(bkt_dst_nodes_list)
+		t3 = time.time()
 		print('bkt_dst_nodes_list = self.get_in_degree_bucketing() spend: ', t2-t1)
-		print('total k batches seeds list generation spend ', time.time()-t2 )
+		print('self.gen_batches_seeds_list(bkt_dst_nodes_list) spend ', t3-t2 )
 
 		# self.get_partition_src_len_list()
 
@@ -611,11 +612,13 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 		self.global_to_local() # global to local           
 		
 		t2=time.time()
+		print('self.global_to_local() spend sec: ', t2-ts)
 		# Then, the graph_parition is run in block to graph local nids,it has no relationship with raw graph
 		self.buckets_partition()  # generate  self.local_batched_seeds_list 
-
+		t3=time.time()
 		# after that, we transfer the nids of batched output nodes from local to global.
 		self.local_to_global() # local to global         self.global_batched_seeds_list
 		t_total=time.time()-ts
 		print('partition total batch output list spend : ', t_total)
+		print('self.buckets_partition() spend  sec: ', t3-t2)
 		return self.global_batched_seeds_list, self.weights_list, t_total, self.partition_len_list

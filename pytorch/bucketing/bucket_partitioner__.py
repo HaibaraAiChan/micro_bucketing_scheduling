@@ -24,7 +24,7 @@ from cpu_mem_usage import get_memory
 from my_utils import torch_is_in_1d
 import pdb
 
-from gen_K_hop_neighbors import generate_K_hop_neighbors
+from Betty_baseline.pytorch.bucketing.gen_K_hop_neighbors_time import generate_K_hop_neighbors
 from grouping_float import grouping_fanout_1
 
 def print_(list_):
