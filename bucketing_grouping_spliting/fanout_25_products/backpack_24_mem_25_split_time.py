@@ -193,10 +193,12 @@ def run(args, device, data):
 			if args.num_batch > 1:
 				b_block_dataloader, weights_list, time_collection = generate_dataloader_bucket_block(g, full_batch_dataloader, args)
 				connection_time, block_gen_time, _ = time_collection
+				pure_train_time = []
 				time_start = time.time()
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 					blocks = [block.int().to(device) for block in blocks]#------------*
+					time11= time.time()
 					batch_pred = model(blocks, batch_inputs)#------------*
 					pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
 					print('step ', step )
@@ -204,14 +206,19 @@ def run(args, device, data):
 					pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
 					pseudo_mini_loss.backward()#------------*
 					loss_sum += pseudo_mini_loss#------------*
+					time12= time.time()
+					pure_train_time.append(time12-time11)
 					
-
+				time13= time.time()
 				optimizer.step()
 				optimizer.zero_grad()
+				
 				see_memory_usage("----------------------------------------after optimizer")
 
 				time_end = time.time()
+				pure_train_time.append(time_end-time13)
 				print('----------------------------------------------------------pseudo_mini_loss sum ' + str(loss_sum.tolist()))
+				print('pure train time : ', sum(pure_train_time) )
 				print('train time : ', time_end-time_start )
 				print('connection check time: ', connection_time)
 				print('block generation time ', block_gen_time)
@@ -273,11 +280,11 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
-	argparser.add_argument('--num-batch', type=int, default=12)
+	argparser.add_argument('--num-batch', type=int, default=15)
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=1)
+	argparser.add_argument('--num-epochs', type=int, default=10)
 
 	argparser.add_argument('--num-hidden', type=int, default=128)
 	# argparser.add_argument('--num-hidden', type=int, default=512)
