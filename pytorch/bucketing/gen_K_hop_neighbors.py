@@ -26,7 +26,17 @@ import copy
 from typing import Union, Collection
 from my_utils import torch_is_in_1d
 
+# import sys
+sys.path.insert(0, './pybind_mp')
+import remove_values
+
+
+
+
+
 import pdb
+from multiprocessing import Pool
+values_to_remove = set()
 
 class OrderedCounter(Counter, OrderedDict):
 	'Counter that remembers the order elements are first encountered'
@@ -85,106 +95,72 @@ def remove_duplicated_values(my_dict):
 			new_dict[k] = v
 	return new_dict
 
+# def remove_values_mp(item):
+# 	global values_to_remove
+# 	if item not in values_to_remove:
+# 		return item
+# 	else:
+# 		return None
 
 def check_connections_block(batched_nodes_list, current_layer_block):
 	str_=''
 	res=[]
-	print('check connections block*********************************')
-	time1 = time.time()
+	print('check_connections_block*********************************')
+
 	induced_src = current_layer_block.srcdata[dgl.NID]
-	# print(torch.nonzero(induced_src > 90941 ))
-	# print(torch.nonzero(induced_src >= 4 ))
-
 	induced_dst = current_layer_block.dstdata[dgl.NID]
-	# print(current_layer_block.dstdata[dgl.NID])
-	# print(torch.nonzero(induced_dst > 90941 ))
-	# print(torch.nonzero(induced_dst >= 4 ))
-
 	eids_global = current_layer_block.edata['_ID']
-	time2 = time.time()
+	
 	src_nid_list = induced_src.tolist()
-	# print('src_nid_list ', src_nid_list)
-	# the order of srcdata in current block is not increased as the original graph. For example,
-	# src_nid_list  [1049, 432, 741, 554, ... 1683, 1857, 1183, ... 1676]
-	# dst_nid_list  [1049, 432, 741, 554, ... 1683]
-	time3 = time.time()
+	
 	dict_nid_2_local = dict(zip(src_nid_list, range(len(src_nid_list)))) # speedup 
-	time4 = time.time()
-
-	g_2_l_time=[]
-	in_edges_time = []
-	OrderedDict_time =[]
-	local_2_global_time = []
-	remove_repeate_time = []
-	batch_time =[]
+	
 	for step, output_nid in enumerate(batched_nodes_list):
+		if step>=1: break
 		# in current layer subgraph, only has src and dst nodes,
 		# and src nodes includes dst nodes, src nodes equals dst nodes.
 		if torch.is_tensor(output_nid): output_nid = output_nid.tolist()
 		print('step start', step)
-		time41 = time.time()
+		
 		local_output_nid = list(map(dict_nid_2_local.get, output_nid))
-		time42 = time.time()
-		g_2_l_time.append(time42-time41)
-		# print('local_output_nid ', local_output_nid)
-		# local_output_nid_tmp = torch.tensor(local_output_nid)
-		# ind_tmp = torch.nonzero(local_output_nid_tmp > 90941 )
-		# if len(ind_tmp)>1:
-		# 	print((local_output_nid_tmp > 90941).nonzero(as_tuple=True)[0])
-		
 		local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
-		time43 = time.time()
-		in_edges_time.append(time43-time42)
-		# return (𝑈,𝑉,𝐸𝐼𝐷)
-		# get local srcnid and dstnid from subgraph
 		mini_batch_src_local= list(local_in_edges_tensor)[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
-		time44 = time.time()
-		# print('mini_batch_src_local', mini_batch_src_local)
+		# temp_list = mini_batch_src_local.tolist()
+		# print('before (mini_batch_src_local) ', temp_list)
+		# return
 		mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local.tolist())) 
-		# mini_batch_src_local = list(OrderedDict.fromkeys(mini_batch_src_local.tolist()))
-		# mini_batch_src_local_idx_dict = dict(zip(range(len(mini_batch_src_local)), mini_batch_src_local.tolist()))
-		# sorted_dict = dict(sorted(mini_batch_src_local_idx_dict.items(), key=lambda item: item[1]))
-		# final_dict = remove_duplicated_values(sorted_dict)
+		# seen = set()
+		# seen_add = seen.add
+		# mini_batch_src_local = [x for x in mini_batch_src_local if not (x in seen or seen_add(x))]
 		
-		# sorted_dict_idx = {k: final_dict[k] for k in sorted(final_dict)}
-		# mini_batch_src_local = list(sorted_dict_idx.values())
-		time45 = time.time()
-		OrderedDict_time.append(time45-time44)
-		# mini_batch_src_local = torch.tensor(mini_batch_src_local, dtype=torch.long)
+		# mini_batch_src_local = list(OrderedDict.fromkeys(mini_batch_src_local.tolist())) 
+		# print('after (mini_batch_src_local) ',mini_batch_src_local)
+		
+		
 		mini_batch_src_global= induced_src[mini_batch_src_local].tolist() # map local src nid to global.
-		time46 = time.time()
 
-		mini_batch_dst_local= list(local_in_edges_tensor)[1]
-		time47 = time.time()
-		if set(mini_batch_dst_local.tolist()) != set(local_output_nid):
-			print('local dst not match')
+
 		eid_local_list = list(local_in_edges_tensor)[2] # local (𝑈,𝑉,𝐸𝐼𝐷); 
 		global_eid_tensor = eids_global[eid_local_list] # map local eid to global.
-		
-		time48 = time.time()
-		local_2_global_time.append(time48-time45)
-		c=OrderedCounter(mini_batch_src_global)
-		list(map(c.__delitem__, filter(c.__contains__,output_nid)))
-		r_=list(c.keys())
-		time49 = time.time()
+		print("len(mini_batch_src_global) ", len(mini_batch_src_global))
+		# import copy
+		# copied_version = copy.deepcopy(mini_batch_src_global)
+		time1=time.time()
+		# c=OrderedCounter(mini_batch_src_global)
+		# list(map(c.__delitem__, filter(c.__contains__,output_nid)))
+		# r_=list(c.keys())
+		r_ = remove_values.remove_values(mini_batch_src_global, output_nid)
+		time2=time.time()
+		print("len(r_) ", len(r_))
+		print("remove values openmp spend ", time2-time1)
+		# print("orderedCounter spend ", time2-time1)
 
-		remove_repeate_time.append(time49-time48)
+		
 		src_nid = torch.tensor(output_nid + r_, dtype=torch.long)
 		output_nid = torch.tensor(output_nid, dtype=torch.long)
 
 		res.append((src_nid, output_nid, global_eid_tensor))
-		print('step end ', step)
-		print()
-		batch_time.append(time.time()-time41)
-	time5 = time.time()
-	print('all time spend ', time5-time4)
-	print('each batch time ', batch_time)
-	print(' global to local time ', sum(g_2_l_time))
-	print('in edges time ', sum(in_edges_time))
-	print('OrderedDict time ', sum(OrderedDict_time))
-	print('local to global time ', sum(local_2_global_time))
-	print('remove repeate  dst time ', sum(remove_repeate_time))
-	print('dict_nid_2_local = dict(zip(src_nid_list, range(len(src_nid_list)))) ', time4-time3)
+	print('one layer mini_batch_src_local collection stoped ')
 	# return
 	return res
 
@@ -238,8 +214,6 @@ def cal_weights_list(batched_output_nid_list, len_dst_full):
 def	generate_K_hop_neighbors(full_block_dataloader, args, batched_output_nid_list):
     # batched_output_nid_list can be the whole number of output nids
     # or it equals partial of the output nids
-	
-	dst_nids = []
 	
 	connect_checking_time_list=[]
 	

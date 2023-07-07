@@ -111,3 +111,46 @@
 	
 	
 
+# from multiprocessing import Pool
+
+# # Define your global variable here
+# values_to_remove = {'banana'}
+
+# def remove_values(item):
+#     # Here you are saying that you want to use the global variable values_to_remove
+#     global values_to_remove
+#     return item not in values_to_remove
+
+# # Create your list here
+# long_list = ['apple', 'banana', 'cherry', 'banana', 'pear', 'apple', 'orange']
+
+# # Create your pool and map the function to the list
+# with Pool() as pool:
+#     new_list = pool.map(remove_values, long_list)
+
+# print(new_list)
+
+from multiprocessing import Pool
+
+# Define your global variable here
+values_to_remove = {'banana'}
+
+def remove_values(item):
+    # Here you are saying that you want to use the global variable values_to_remove
+    global values_to_remove
+    if item not in values_to_remove:
+        return item
+    else:
+        return None
+
+# Create your list here
+long_list = ['apple', 'banana', 'cherry', 'banana', 'pear', 'apple', 'orange']
+
+# Create your pool and map the function to the list
+with Pool() as pool:
+    new_list = pool.map(remove_values, long_list)
+
+# Filter out the None values
+new_list = [i for i in new_list if i]
+
+print(new_list)

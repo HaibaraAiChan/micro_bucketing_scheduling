@@ -27,7 +27,8 @@ from collections import Counter, OrderedDict
 import copy
 from typing import Union, Collection
 from my_utils import torch_is_in_1d
-
+sys.path.insert(0, './pybind_mp')
+import remove_values
 import pdb
 
 class OrderedCounter(Counter, OrderedDict):
@@ -160,11 +161,12 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 		eid_local_list = list(local_in_edges_tensor)[2] # local (𝑈,𝑉,𝐸𝐼𝐷); 
 		global_eid_tensor = eids_global[eid_local_list] # map local eid to global.
 		
-
-		c=OrderedCounter(mini_batch_src_global)
-		list(map(c.__delitem__, filter(c.__contains__,output_nid)))
-		r_=list(c.keys())
-		
+		# seen = set()
+		# r_ = [x for x in mini_batch_src_global if not (x in seen or seen.add(x))]
+		# c=OrderedCounter(mini_batch_src_global)
+		# list(map(c.__delitem__, filter(c.__contains__,output_nid)))
+		# r_=list(c.keys())
+		r_ = remove_values.remove_values(mini_batch_src_global, output_nid)
 		src_nid = torch.tensor(output_nid + r_, dtype=torch.long)
 		output_nid = torch.tensor(output_nid, dtype=torch.long)
 

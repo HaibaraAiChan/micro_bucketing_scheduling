@@ -1,0 +1,2747 @@
+main start at this time 1688701688.4871185
+-----------------------------------------before load data 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+#nodes: 2449029
+#edges: 123718024
+#classes: 47
+success----------------------------------------
+196571
+39255
+2164782
+# Nodes: 2400608
+# Edges: 123718024
+# Train: 196571
+# Val: 39255
+# Test: 2164782
+# Classes: 47
+
+----------------------------------------start of run function 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+self.global_to_local() spend sec:  0.3257918357849121
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  15
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06213530988803028]
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  230597
+orderedCounter spend  0.16258478164672852
+one layer mini_batch_src_local collection stoped 
+num of batch  1
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  894958
+orderedCounter spend  0.9642720222473145
+one layer mini_batch_src_local collection stoped 
+generate_K_hop_neighbors time  4.041251182556152
+7.439619525696702
+the split redundant ratio 
+[7.439619525696702]
+1
+average memory estimation for each split fanout bucket batch 15.300817491182885
+capacity est:  2.7991825088171165
+split fanout degree bucket spend /sec:  4.041792392730713
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  800
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [8, 13, 18]
+original bucket_id :,  [15, 10, 5]
+remove weights:  [388 280 132], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 13, 16]
+original bucket_id :,  [20, 8, 4]
+remove weights:  [494 211  95], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+
+remove bucket_id:  [11, 15, 16]
+original bucket_id :,  [9, 1, 2]
+remove weights:  [253  53  46], 		------------sum 352
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+
+remove bucket_id:  [2, 11, 13]
+original bucket_id :,  [21, 7, 3]
+remove weights:  [545 181  72], 		------------sum 798
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [5, 6]
+original bucket_id :,  [16, 14]
+remove weights:  [410 383], 		------------sum 793
+
+before remove weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [0, 8, 9]
+original bucket_id :,  [23, 6, 0]
+remove weights:  [595 165  31], 		------------sum 791
+
+before remove weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [583, 455, 448, 427, 362, 331, 281]
+
+remove bucket_id:  [3, 4]
+original bucket_id :,  [17, 13]
+remove weights:  [427 362], 		------------sum 789
+
+before remove weights,  [583, 455, 448, 427, 362, 331, 281]
+after remove pre pack weights,  [583, 455, 448, 331, 281]
+
+remove bucket_id:  [1, 3]
+original bucket_id :,  [18, 12]
+remove weights:  [455 331], 		------------sum 786
+
+before remove weights,  [583, 455, 448, 331, 281]
+after remove pre pack weights,  [583, 448, 281]
+
+remove bucket_id:  [1, 2]
+original bucket_id :,  [19, 11]
+remove weights:  [448 281], 		------------sum 729
+
+before remove weights,  [583, 448, 281]
+after remove pre pack weights,  [583]
+the last batch value is  583
+G_BUCKET_ID_list [[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+[[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+G_BUCKET_ID_list length 10
+backpack scheduling spend  0.10661673545837402
+split_batches_nid_list  15
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[15, 10, 5]
+current group_mem  0.8019796341228467
+the new estimated memory cost(GB) for batch 0 16.10279712530573
+[20, 8, 4]
+current group_mem  0.8010797697750498
+the new estimated memory cost(GB) for batch 1 16.101897260957934
+[9, 1, 2]
+current group_mem  0.3533575516234331
+the new estimated memory cost(GB) for batch 2 15.654175042806319
+[21, 7, 3]
+current group_mem  0.7989636946111522
+the new estimated memory cost(GB) for batch 3 16.099781185794036
+[16, 14]
+current group_mem  0.7939272227587294
+the new estimated memory cost(GB) for batch 4 16.094744713941616
+[23, 6, 0]
+current group_mem  0.7924511371955659
+the new estimated memory cost(GB) for batch 5 16.09326862837845
+[17, 13]
+current group_mem  0.7893589757965587
+the new estimated memory cost(GB) for batch 6 16.090176466979443
+[18, 12]
+current group_mem  0.7878507379176494
+the new estimated memory cost(GB) for batch 7 16.088668229100534
+[19, 11]
+current group_mem  0.729541067709857
+the new estimated memory cost(GB) for batch 8 16.030358558892743
+[22]
+current group_mem  0.5838345744003708
+the new estimated memory cost(GB) for batch 9 15.884652065583255
+the length of split_batches_nid_list  15
+batches output list generation spend  0.0015437602996826172
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.02376079559326172
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  4.1500279903411865
+len local_batched_seeds_list  15
+partition total batch output list spend :  8.376426219940186
+self.buckets_partition() spend  sec:  4.1738386154174805
+layer  0
+ the number of batches:  15
+check_connections_block*********************************
+layer  1
+num of batch  15
+check_connections_block*********************************
+step  0
+----------------------------------------after loss function
+ Nvidia-smi: 19.443359375 GB
+    Memory Allocated: 17.581791400909424  GigaBytes
+Max Memory Allocated: 17.874614238739014  GigaBytes
+
+step  1
+----------------------------------------after loss function
+ Nvidia-smi: 20.390625 GB
+    Memory Allocated: 17.57583236694336  GigaBytes
+Max Memory Allocated: 17.874614238739014  GigaBytes
+
+step  2
+----------------------------------------after loss function
+ Nvidia-smi: 20.390625 GB
+    Memory Allocated: 17.130779266357422  GigaBytes
+Max Memory Allocated: 17.874614238739014  GigaBytes
+
+step  3
+----------------------------------------after loss function
+ Nvidia-smi: 20.412109375 GB
+    Memory Allocated: 17.57193422317505  GigaBytes
+Max Memory Allocated: 17.874614238739014  GigaBytes
+
+step  4
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 17.639742374420166  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  5
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 17.62327527999878  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  6
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 17.622475624084473  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  7
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 17.623799324035645  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  8
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 17.61250591278076  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  9
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 17.417141914367676  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  10
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 16.906456470489502  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  11
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 16.904105186462402  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  12
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 16.941370964050293  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  13
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 16.91430377960205  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  14
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 16.889575958251953  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 0.5319304466247559  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 4.858091354370117
+pure train time :  2.974365234375
+train time :  6.7232985496521
+end to end time :  111.48167705535889
+connection check time:  48.789788246154785
+block generation time  47.45891189575195
+self.global_to_local() spend sec:  0.34140515327453613
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  15
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06213530988803028]
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  230450
+orderedCounter spend  0.16110634803771973
+one layer mini_batch_src_local collection stoped 
+num of batch  1
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  894311
+orderedCounter spend  0.9812757968902588
+one layer mini_batch_src_local collection stoped 
+generate_K_hop_neighbors time  4.07142448425293
+7.433306944674964
+the split redundant ratio 
+[7.433306944674964]
+1
+average memory estimation for each split fanout bucket batch 15.287834616214843
+capacity est:  2.8121653837851586
+split fanout degree bucket spend /sec:  4.0718464851379395
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  800
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [8, 13, 18]
+original bucket_id :,  [15, 10, 5]
+remove weights:  [388 280 132], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 13, 16]
+original bucket_id :,  [20, 8, 4]
+remove weights:  [494 211  95], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+
+remove bucket_id:  [11, 15, 16]
+original bucket_id :,  [9, 1, 2]
+remove weights:  [253  53  46], 		------------sum 352
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+
+remove bucket_id:  [2, 11, 13]
+original bucket_id :,  [21, 7, 3]
+remove weights:  [545 181  72], 		------------sum 798
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [5, 6]
+original bucket_id :,  [16, 14]
+remove weights:  [410 383], 		------------sum 793
+
+before remove weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [0, 8, 9]
+original bucket_id :,  [23, 6, 0]
+remove weights:  [595 165  31], 		------------sum 791
+
+before remove weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [583, 455, 448, 427, 362, 331, 281]
+
+remove bucket_id:  [3, 4]
+original bucket_id :,  [17, 13]
+remove weights:  [427 362], 		------------sum 789
+
+before remove weights,  [583, 455, 448, 427, 362, 331, 281]
+after remove pre pack weights,  [583, 455, 448, 331, 281]
+
+remove bucket_id:  [1, 3]
+original bucket_id :,  [18, 12]
+remove weights:  [455 331], 		------------sum 786
+
+before remove weights,  [583, 455, 448, 331, 281]
+after remove pre pack weights,  [583, 448, 281]
+
+remove bucket_id:  [1, 2]
+original bucket_id :,  [19, 11]
+remove weights:  [448 281], 		------------sum 729
+
+before remove weights,  [583, 448, 281]
+after remove pre pack weights,  [583]
+the last batch value is  583
+G_BUCKET_ID_list [[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+[[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+G_BUCKET_ID_list length 10
+backpack scheduling spend  0.12283444404602051
+split_batches_nid_list  15
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[15, 10, 5]
+current group_mem  0.8019796341228467
+the new estimated memory cost(GB) for batch 0 16.08981425033769
+[20, 8, 4]
+current group_mem  0.8010797697750498
+the new estimated memory cost(GB) for batch 1 16.08891438598989
+[9, 1, 2]
+current group_mem  0.3533575516234331
+the new estimated memory cost(GB) for batch 2 15.641192167838277
+[21, 7, 3]
+current group_mem  0.7989636946111522
+the new estimated memory cost(GB) for batch 3 16.086798310825994
+[16, 14]
+current group_mem  0.7939272227587294
+the new estimated memory cost(GB) for batch 4 16.081761838973573
+[23, 6, 0]
+current group_mem  0.7924511371955659
+the new estimated memory cost(GB) for batch 5 16.080285753410408
+[17, 13]
+current group_mem  0.7893589757965587
+the new estimated memory cost(GB) for batch 6 16.0771935920114
+[18, 12]
+current group_mem  0.7878507379176494
+the new estimated memory cost(GB) for batch 7 16.075685354132492
+[19, 11]
+current group_mem  0.729541067709857
+the new estimated memory cost(GB) for batch 8 16.0173756839247
+[22]
+current group_mem  0.5838345744003708
+the new estimated memory cost(GB) for batch 9 15.871669190615213
+the length of split_batches_nid_list  15
+batches output list generation spend  0.0013706684112548828
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.024244308471679688
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  4.196123123168945
+len local_batched_seeds_list  15
+partition total batch output list spend :  8.463591575622559
+self.buckets_partition() spend  sec:  4.220438480377197
+layer  0
+ the number of batches:  15
+check_connections_block*********************************
+layer  1
+num of batch  15
+check_connections_block*********************************
+step  0
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 17.596715450286865  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  1
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 17.575809955596924  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  2
+----------------------------------------after loss function
+ Nvidia-smi: 22.28515625 GB
+    Memory Allocated: 17.172163009643555  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  3
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.618446826934814  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  4
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.547412395477295  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  5
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.54929494857788  GigaBytes
+Max Memory Allocated: 17.935585021972656  GigaBytes
+
+step  6
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.654581546783447  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  7
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.58952808380127  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  8
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.580771923065186  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  9
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.458148956298828  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  10
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.91869878768921  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  11
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.92529296875  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  12
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.93944549560547  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  13
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.007383823394775  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  14
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.936796188354492  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 0.5387721061706543  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 3.245551824569702
+pure train time :  2.527949571609497
+train time :  5.900099992752075
+end to end time :  111.65193915367126
+connection check time:  49.78965616226196
+block generation time  47.36569571495056
+self.global_to_local() spend sec:  0.3409230709075928
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  15
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06213530988803028]
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  230891
+orderedCounter spend  0.1619586944580078
+one layer mini_batch_src_local collection stoped 
+num of batch  1
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  895258
+orderedCounter spend  0.960625410079956
+one layer mini_batch_src_local collection stoped 
+generate_K_hop_neighbors time  3.9594130516052246
+7.443464389042856
+the split redundant ratio 
+[7.443464389042856]
+1
+average memory estimation for each split fanout bucket batch 15.308725093464808
+capacity est:  2.791274906535193
+split fanout degree bucket spend /sec:  3.960087299346924
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  800
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [8, 13, 18]
+original bucket_id :,  [15, 10, 5]
+remove weights:  [388 280 132], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 13, 16]
+original bucket_id :,  [20, 8, 4]
+remove weights:  [494 211  95], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+
+remove bucket_id:  [11, 15, 16]
+original bucket_id :,  [9, 1, 2]
+remove weights:  [253  53  46], 		------------sum 352
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+
+remove bucket_id:  [2, 11, 13]
+original bucket_id :,  [21, 7, 3]
+remove weights:  [545 181  72], 		------------sum 798
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [5, 6]
+original bucket_id :,  [16, 14]
+remove weights:  [410 383], 		------------sum 793
+
+before remove weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [0, 8, 9]
+original bucket_id :,  [23, 6, 0]
+remove weights:  [595 165  31], 		------------sum 791
+
+before remove weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [583, 455, 448, 427, 362, 331, 281]
+
+remove bucket_id:  [3, 4]
+original bucket_id :,  [17, 13]
+remove weights:  [427 362], 		------------sum 789
+
+before remove weights,  [583, 455, 448, 427, 362, 331, 281]
+after remove pre pack weights,  [583, 455, 448, 331, 281]
+
+remove bucket_id:  [1, 3]
+original bucket_id :,  [18, 12]
+remove weights:  [455 331], 		------------sum 786
+
+before remove weights,  [583, 455, 448, 331, 281]
+after remove pre pack weights,  [583, 448, 281]
+
+remove bucket_id:  [1, 2]
+original bucket_id :,  [19, 11]
+remove weights:  [448 281], 		------------sum 729
+
+before remove weights,  [583, 448, 281]
+after remove pre pack weights,  [583]
+the last batch value is  583
+G_BUCKET_ID_list [[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+[[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+G_BUCKET_ID_list length 10
+backpack scheduling spend  0.10872173309326172
+split_batches_nid_list  15
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[15, 10, 5]
+current group_mem  0.8019796341228467
+the new estimated memory cost(GB) for batch 0 16.110704727587656
+[20, 8, 4]
+current group_mem  0.8010797697750498
+the new estimated memory cost(GB) for batch 1 16.10980486323986
+[9, 1, 2]
+current group_mem  0.3533575516234331
+the new estimated memory cost(GB) for batch 2 15.66208264508824
+[21, 7, 3]
+current group_mem  0.7989636946111522
+the new estimated memory cost(GB) for batch 3 16.10768878807596
+[16, 14]
+current group_mem  0.7939272227587294
+the new estimated memory cost(GB) for batch 4 16.102652316223537
+[23, 6, 0]
+current group_mem  0.7924511371955659
+the new estimated memory cost(GB) for batch 5 16.101176230660375
+[17, 13]
+current group_mem  0.7893589757965587
+the new estimated memory cost(GB) for batch 6 16.09808406926137
+[18, 12]
+current group_mem  0.7878507379176494
+the new estimated memory cost(GB) for batch 7 16.09657583138246
+[19, 11]
+current group_mem  0.729541067709857
+the new estimated memory cost(GB) for batch 8 16.038266161174665
+[22]
+current group_mem  0.5838345744003708
+the new estimated memory cost(GB) for batch 9 15.892559667865179
+the length of split_batches_nid_list  15
+batches output list generation spend  0.0010113716125488281
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.029979705810546875
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  4.069887638092041
+len local_batched_seeds_list  15
+partition total batch output list spend :  8.33194899559021
+self.buckets_partition() spend  sec:  4.099913597106934
+layer  0
+ the number of batches:  15
+check_connections_block*********************************
+layer  1
+num of batch  15
+check_connections_block*********************************
+step  0
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.555415630340576  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  1
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.606321811676025  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  2
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.15727186203003  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  3
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.615346908569336  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  4
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.582358837127686  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  5
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.622174739837646  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  6
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.64965581893921  GigaBytes
+Max Memory Allocated: 17.94985294342041  GigaBytes
+
+step  7
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.664918422698975  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  8
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.578879356384277  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  9
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.4912428855896  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  10
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.878056049346924  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  11
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.898398399353027  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  12
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.938734531402588  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  13
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.875965118408203  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  14
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.914766788482666  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 0.5393218994140625  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 2.5481271743774414
+pure train time :  2.6217525005340576
+train time :  5.85183572769165
+end to end time :  108.51305985450745
+connection check time:  48.07238054275513
+block generation time  46.12569260597229
+self.global_to_local() spend sec:  0.3255486488342285
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  15
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06213530988803028]
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  230503
+orderedCounter spend  0.16222476959228516
+one layer mini_batch_src_local collection stoped 
+num of batch  1
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  895201
+orderedCounter spend  0.9454860687255859
+one layer mini_batch_src_local collection stoped 
+generate_K_hop_neighbors time  3.931063413619995
+7.444499238390682
+the split redundant ratio 
+[7.444499238390682]
+1
+average memory estimation for each split fanout bucket batch 15.310853433623503
+capacity est:  2.7891465663764983
+split fanout degree bucket spend /sec:  3.9319941997528076
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  800
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [8, 13, 18]
+original bucket_id :,  [15, 10, 5]
+remove weights:  [388 280 132], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 13, 16]
+original bucket_id :,  [20, 8, 4]
+remove weights:  [494 211  95], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+
+remove bucket_id:  [11, 15, 16]
+original bucket_id :,  [9, 1, 2]
+remove weights:  [253  53  46], 		------------sum 352
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+
+remove bucket_id:  [2, 11, 13]
+original bucket_id :,  [21, 7, 3]
+remove weights:  [545 181  72], 		------------sum 798
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [5, 6]
+original bucket_id :,  [16, 14]
+remove weights:  [410 383], 		------------sum 793
+
+before remove weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [0, 8, 9]
+original bucket_id :,  [23, 6, 0]
+remove weights:  [595 165  31], 		------------sum 791
+
+before remove weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [583, 455, 448, 427, 362, 331, 281]
+
+remove bucket_id:  [3, 4]
+original bucket_id :,  [17, 13]
+remove weights:  [427 362], 		------------sum 789
+
+before remove weights,  [583, 455, 448, 427, 362, 331, 281]
+after remove pre pack weights,  [583, 455, 448, 331, 281]
+
+remove bucket_id:  [1, 3]
+original bucket_id :,  [18, 12]
+remove weights:  [455 331], 		------------sum 786
+
+before remove weights,  [583, 455, 448, 331, 281]
+after remove pre pack weights,  [583, 448, 281]
+
+remove bucket_id:  [1, 2]
+original bucket_id :,  [19, 11]
+remove weights:  [448 281], 		------------sum 729
+
+before remove weights,  [583, 448, 281]
+after remove pre pack weights,  [583]
+the last batch value is  583
+G_BUCKET_ID_list [[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+[[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+G_BUCKET_ID_list length 10
+backpack scheduling spend  0.10824108123779297
+split_batches_nid_list  15
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[15, 10, 5]
+current group_mem  0.8019796341228467
+the new estimated memory cost(GB) for batch 0 16.11283306774635
+[20, 8, 4]
+current group_mem  0.8010797697750498
+the new estimated memory cost(GB) for batch 1 16.111933203398554
+[9, 1, 2]
+current group_mem  0.3533575516234331
+the new estimated memory cost(GB) for batch 2 15.664210985246935
+[21, 7, 3]
+current group_mem  0.7989636946111522
+the new estimated memory cost(GB) for batch 3 16.109817128234656
+[16, 14]
+current group_mem  0.7939272227587294
+the new estimated memory cost(GB) for batch 4 16.104780656382232
+[23, 6, 0]
+current group_mem  0.7924511371955659
+the new estimated memory cost(GB) for batch 5 16.10330457081907
+[17, 13]
+current group_mem  0.7893589757965587
+the new estimated memory cost(GB) for batch 6 16.100212409420063
+[18, 12]
+current group_mem  0.7878507379176494
+the new estimated memory cost(GB) for batch 7 16.09870417154115
+[19, 11]
+current group_mem  0.729541067709857
+the new estimated memory cost(GB) for batch 8 16.04039450133336
+[22]
+current group_mem  0.5838345744003708
+the new estimated memory cost(GB) for batch 9 15.894688008023873
+the length of split_batches_nid_list  15
+batches output list generation spend  0.0009617805480957031
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.032311201095581055
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  4.041593074798584
+len local_batched_seeds_list  15
+partition total batch output list spend :  8.313119888305664
+self.buckets_partition() spend  sec:  4.073949575424194
+layer  0
+ the number of batches:  15
+check_connections_block*********************************
+layer  1
+num of batch  15
+check_connections_block*********************************
+step  0
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.591707706451416  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  1
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.590797424316406  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  2
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.166817665100098  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  3
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.616113662719727  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  4
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.58665370941162  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  5
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.551655769348145  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  6
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.656723022460938  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  7
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.62311887741089  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  8
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.62688398361206  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  9
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.427054405212402  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  10
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.93182611465454  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  11
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.979472637176514  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  12
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.949604034423828  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  13
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.930774688720703  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  14
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 16.922796726226807  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 0.5356054306030273  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 2.0847322940826416
+pure train time :  2.5597264766693115
+train time :  5.91109037399292
+end to end time :  109.76502990722656
+connection check time:  48.50669002532959
+block generation time  46.907098054885864
+self.global_to_local() spend sec:  0.35446763038635254
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  15
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06213530988803028]
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  230772
+orderedCounter spend  0.16178011894226074
+one layer mini_batch_src_local collection stoped 
+num of batch  1
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  894922
+orderedCounter spend  0.9426388740539551
+one layer mini_batch_src_local collection stoped 
+generate_K_hop_neighbors time  3.902226209640503
+7.440335959860583
+the split redundant ratio 
+[7.440335959860583]
+1
+average memory estimation for each split fanout bucket batch 15.3022909574466
+capacity est:  2.797709042553402
+split fanout degree bucket spend /sec:  3.9026472568511963
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  800
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [8, 13, 18]
+original bucket_id :,  [15, 10, 5]
+remove weights:  [388 280 132], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 13, 16]
+original bucket_id :,  [20, 8, 4]
+remove weights:  [494 211  95], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+
+remove bucket_id:  [11, 15, 16]
+original bucket_id :,  [9, 1, 2]
+remove weights:  [253  53  46], 		------------sum 352
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+
+remove bucket_id:  [2, 11, 13]
+original bucket_id :,  [21, 7, 3]
+remove weights:  [545 181  72], 		------------sum 798
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [5, 6]
+original bucket_id :,  [16, 14]
+remove weights:  [410 383], 		------------sum 793
+
+before remove weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [0, 8, 9]
+original bucket_id :,  [23, 6, 0]
+remove weights:  [595 165  31], 		------------sum 791
+
+before remove weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [583, 455, 448, 427, 362, 331, 281]
+
+remove bucket_id:  [3, 4]
+original bucket_id :,  [17, 13]
+remove weights:  [427 362], 		------------sum 789
+
+before remove weights,  [583, 455, 448, 427, 362, 331, 281]
+after remove pre pack weights,  [583, 455, 448, 331, 281]
+
+remove bucket_id:  [1, 3]
+original bucket_id :,  [18, 12]
+remove weights:  [455 331], 		------------sum 786
+
+before remove weights,  [583, 455, 448, 331, 281]
+after remove pre pack weights,  [583, 448, 281]
+
+remove bucket_id:  [1, 2]
+original bucket_id :,  [19, 11]
+remove weights:  [448 281], 		------------sum 729
+
+before remove weights,  [583, 448, 281]
+after remove pre pack weights,  [583]
+the last batch value is  583
+G_BUCKET_ID_list [[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+[[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+G_BUCKET_ID_list length 10
+backpack scheduling spend  0.10866641998291016
+split_batches_nid_list  15
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[15, 10, 5]
+current group_mem  0.8019796341228467
+the new estimated memory cost(GB) for batch 0 16.104270591569446
+[20, 8, 4]
+current group_mem  0.8010797697750498
+the new estimated memory cost(GB) for batch 1 16.103370727221648
+[9, 1, 2]
+current group_mem  0.3533575516234331
+the new estimated memory cost(GB) for batch 2 15.655648509070033
+[21, 7, 3]
+current group_mem  0.7989636946111522
+the new estimated memory cost(GB) for batch 3 16.10125465205775
+[16, 14]
+current group_mem  0.7939272227587294
+the new estimated memory cost(GB) for batch 4 16.09621818020533
+[23, 6, 0]
+current group_mem  0.7924511371955659
+the new estimated memory cost(GB) for batch 5 16.094742094642164
+[17, 13]
+current group_mem  0.7893589757965587
+the new estimated memory cost(GB) for batch 6 16.091649933243158
+[18, 12]
+current group_mem  0.7878507379176494
+the new estimated memory cost(GB) for batch 7 16.09014169536425
+[19, 11]
+current group_mem  0.729541067709857
+the new estimated memory cost(GB) for batch 8 16.031832025156458
+[22]
+current group_mem  0.5838345744003708
+the new estimated memory cost(GB) for batch 9 15.88612553184697
+the length of split_batches_nid_list  15
+batches output list generation spend  0.0010676383972167969
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.035515785217285156
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  4.012474298477173
+len local_batched_seeds_list  15
+partition total batch output list spend :  6.772974491119385
+self.buckets_partition() spend  sec:  4.048036336898804
+layer  0
+ the number of batches:  15
+check_connections_block*********************************
+layer  1
+num of batch  15
+check_connections_block*********************************
+step  0
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.59064817428589  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  1
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.565646171569824  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  2
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.18490219116211  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  3
+----------------------------------------after loss function
+ Nvidia-smi: 22.2890625 GB
+    Memory Allocated: 17.6155743598938  GigaBytes
+Max Memory Allocated: 17.9596209526062  GigaBytes
+
+step  4
+----------------------------------------after loss function
+ Nvidia-smi: 19.662109375 GB
+    Memory Allocated: 17.667460918426514  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  5
+----------------------------------------after loss function
+ Nvidia-smi: 19.669921875 GB
+    Memory Allocated: 17.616936206817627  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  6
+----------------------------------------after loss function
+ Nvidia-smi: 19.763671875 GB
+    Memory Allocated: 17.622918128967285  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  7
+----------------------------------------after loss function
+ Nvidia-smi: 19.763671875 GB
+    Memory Allocated: 17.578850269317627  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  8
+----------------------------------------after loss function
+ Nvidia-smi: 19.771484375 GB
+    Memory Allocated: 17.55960178375244  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  9
+----------------------------------------after loss function
+ Nvidia-smi: 19.771484375 GB
+    Memory Allocated: 17.47514581680298  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  10
+----------------------------------------after loss function
+ Nvidia-smi: 19.771484375 GB
+    Memory Allocated: 16.869243621826172  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  11
+----------------------------------------after loss function
+ Nvidia-smi: 19.771484375 GB
+    Memory Allocated: 16.92943525314331  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  12
+----------------------------------------after loss function
+ Nvidia-smi: 19.771484375 GB
+    Memory Allocated: 16.92266845703125  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  13
+----------------------------------------after loss function
+ Nvidia-smi: 19.771484375 GB
+    Memory Allocated: 16.92857837677002  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  14
+----------------------------------------after loss function
+ Nvidia-smi: 19.771484375 GB
+    Memory Allocated: 16.925329208374023  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 19.771484375 GB
+    Memory Allocated: 0.5379219055175781  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.659633755683899
+pure train time :  2.7941854000091553
+train time :  6.081220626831055
+end to end time :  99.85441184043884
+connection check time:  42.41484332084656
+block generation time  44.4406795501709
+self.global_to_local() spend sec:  0.34450650215148926
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  15
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06213530988803028]
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  231057
+orderedCounter spend  0.16253447532653809
+one layer mini_batch_src_local collection stoped 
+num of batch  1
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  895607
+orderedCounter spend  0.9683139324188232
+one layer mini_batch_src_local collection stoped 
+generate_K_hop_neighbors time  3.972186803817749
+7.446178878486
+the split redundant ratio 
+[7.446178878486]
+1
+average memory estimation for each split fanout bucket batch 15.31430789341954
+capacity est:  2.785692106580461
+split fanout degree bucket spend /sec:  3.9727954864501953
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  800
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [8, 13, 18]
+original bucket_id :,  [15, 10, 5]
+remove weights:  [388 280 132], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 13, 16]
+original bucket_id :,  [20, 8, 4]
+remove weights:  [494 211  95], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+
+remove bucket_id:  [11, 15, 16]
+original bucket_id :,  [9, 1, 2]
+remove weights:  [253  53  46], 		------------sum 352
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+
+remove bucket_id:  [2, 11, 13]
+original bucket_id :,  [21, 7, 3]
+remove weights:  [545 181  72], 		------------sum 798
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [5, 6]
+original bucket_id :,  [16, 14]
+remove weights:  [410 383], 		------------sum 793
+
+before remove weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [0, 8, 9]
+original bucket_id :,  [23, 6, 0]
+remove weights:  [595 165  31], 		------------sum 791
+
+before remove weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [583, 455, 448, 427, 362, 331, 281]
+
+remove bucket_id:  [3, 4]
+original bucket_id :,  [17, 13]
+remove weights:  [427 362], 		------------sum 789
+
+before remove weights,  [583, 455, 448, 427, 362, 331, 281]
+after remove pre pack weights,  [583, 455, 448, 331, 281]
+
+remove bucket_id:  [1, 3]
+original bucket_id :,  [18, 12]
+remove weights:  [455 331], 		------------sum 786
+
+before remove weights,  [583, 455, 448, 331, 281]
+after remove pre pack weights,  [583, 448, 281]
+
+remove bucket_id:  [1, 2]
+original bucket_id :,  [19, 11]
+remove weights:  [448 281], 		------------sum 729
+
+before remove weights,  [583, 448, 281]
+after remove pre pack weights,  [583]
+the last batch value is  583
+G_BUCKET_ID_list [[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+[[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+G_BUCKET_ID_list length 10
+backpack scheduling spend  0.10910439491271973
+split_batches_nid_list  15
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[15, 10, 5]
+current group_mem  0.8019796341228467
+the new estimated memory cost(GB) for batch 0 16.116287527542386
+[20, 8, 4]
+current group_mem  0.8010797697750498
+the new estimated memory cost(GB) for batch 1 16.11538766319459
+[9, 1, 2]
+current group_mem  0.3533575516234331
+the new estimated memory cost(GB) for batch 2 15.667665445042974
+[21, 7, 3]
+current group_mem  0.7989636946111522
+the new estimated memory cost(GB) for batch 3 16.113271588030692
+[16, 14]
+current group_mem  0.7939272227587294
+the new estimated memory cost(GB) for batch 4 16.10823511617827
+[23, 6, 0]
+current group_mem  0.7924511371955659
+the new estimated memory cost(GB) for batch 5 16.106759030615105
+[17, 13]
+current group_mem  0.7893589757965587
+the new estimated memory cost(GB) for batch 6 16.1036668692161
+[18, 12]
+current group_mem  0.7878507379176494
+the new estimated memory cost(GB) for batch 7 16.10215863133719
+[19, 11]
+current group_mem  0.729541067709857
+the new estimated memory cost(GB) for batch 8 16.0438489611294
+[22]
+current group_mem  0.5838345744003708
+the new estimated memory cost(GB) for batch 9 15.89814246781991
+the length of split_batches_nid_list  15
+batches output list generation spend  0.0009834766387939453
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.03634285926818848
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  4.082960605621338
+len local_batched_seeds_list  15
+partition total batch output list spend :  8.328290462493896
+self.buckets_partition() spend  sec:  4.1193671226501465
+layer  0
+ the number of batches:  15
+check_connections_block*********************************
+layer  1
+num of batch  15
+check_connections_block*********************************
+step  0
+----------------------------------------after loss function
+ Nvidia-smi: 19.771484375 GB
+    Memory Allocated: 17.572404861450195  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  1
+----------------------------------------after loss function
+ Nvidia-smi: 19.7734375 GB
+    Memory Allocated: 17.55394411087036  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  2
+----------------------------------------after loss function
+ Nvidia-smi: 19.7734375 GB
+    Memory Allocated: 17.173369884490967  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  3
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.600218296051025  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  4
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.597291469573975  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  5
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.60251235961914  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  6
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.597944736480713  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  7
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.62536907196045  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  8
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.572097301483154  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  9
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.42219877243042  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  10
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 16.874956607818604  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  11
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 16.916991233825684  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  12
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 16.976070880889893  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  13
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 16.923829078674316  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  14
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 16.94977903366089  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 0.5350823402404785  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.4461495876312256
+pure train time :  2.5577385425567627
+train time :  5.766981840133667
+end to end time :  107.94737935066223
+connection check time:  47.80393195152283
+block generation time  45.922712087631226
+self.global_to_local() spend sec:  0.3386213779449463
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  15
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06213530988803028]
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  230860
+orderedCounter spend  0.16080760955810547
+one layer mini_batch_src_local collection stoped 
+num of batch  1
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  896347
+orderedCounter spend  0.9411165714263916
+one layer mini_batch_src_local collection stoped 
+generate_K_hop_neighbors time  3.885756254196167
+7.450573008024461
+the split redundant ratio 
+[7.450573008024461]
+1
+average memory estimation for each split fanout bucket batch 15.32334515317031
+capacity est:  2.7766548468296914
+split fanout degree bucket spend /sec:  3.88621187210083
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  800
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [8, 13, 18]
+original bucket_id :,  [15, 10, 5]
+remove weights:  [388 280 132], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 13, 16]
+original bucket_id :,  [20, 8, 4]
+remove weights:  [494 211  95], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+
+remove bucket_id:  [11, 15, 16]
+original bucket_id :,  [9, 1, 2]
+remove weights:  [253  53  46], 		------------sum 352
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+
+remove bucket_id:  [2, 11, 13]
+original bucket_id :,  [21, 7, 3]
+remove weights:  [545 181  72], 		------------sum 798
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [5, 6]
+original bucket_id :,  [16, 14]
+remove weights:  [410 383], 		------------sum 793
+
+before remove weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [0, 8, 9]
+original bucket_id :,  [23, 6, 0]
+remove weights:  [595 165  31], 		------------sum 791
+
+before remove weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [583, 455, 448, 427, 362, 331, 281]
+
+remove bucket_id:  [3, 4]
+original bucket_id :,  [17, 13]
+remove weights:  [427 362], 		------------sum 789
+
+before remove weights,  [583, 455, 448, 427, 362, 331, 281]
+after remove pre pack weights,  [583, 455, 448, 331, 281]
+
+remove bucket_id:  [1, 3]
+original bucket_id :,  [18, 12]
+remove weights:  [455 331], 		------------sum 786
+
+before remove weights,  [583, 455, 448, 331, 281]
+after remove pre pack weights,  [583, 448, 281]
+
+remove bucket_id:  [1, 2]
+original bucket_id :,  [19, 11]
+remove weights:  [448 281], 		------------sum 729
+
+before remove weights,  [583, 448, 281]
+after remove pre pack weights,  [583]
+the last batch value is  583
+G_BUCKET_ID_list [[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+[[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+G_BUCKET_ID_list length 10
+backpack scheduling spend  0.20934844017028809
+split_batches_nid_list  15
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[15, 10, 5]
+current group_mem  0.8019796341228467
+the new estimated memory cost(GB) for batch 0 16.125324787293156
+[20, 8, 4]
+current group_mem  0.8010797697750498
+the new estimated memory cost(GB) for batch 1 16.12442492294536
+[9, 1, 2]
+current group_mem  0.3533575516234331
+the new estimated memory cost(GB) for batch 2 15.676702704793744
+[21, 7, 3]
+current group_mem  0.7989636946111522
+the new estimated memory cost(GB) for batch 3 16.12230884778146
+[16, 14]
+current group_mem  0.7939272227587294
+the new estimated memory cost(GB) for batch 4 16.11727237592904
+[23, 6, 0]
+current group_mem  0.7924511371955659
+the new estimated memory cost(GB) for batch 5 16.115796290365875
+[17, 13]
+current group_mem  0.7893589757965587
+the new estimated memory cost(GB) for batch 6 16.112704128966868
+[18, 12]
+current group_mem  0.7878507379176494
+the new estimated memory cost(GB) for batch 7 16.11119589108796
+[19, 11]
+current group_mem  0.729541067709857
+the new estimated memory cost(GB) for batch 8 16.05288622088017
+[22]
+current group_mem  0.5838345744003708
+the new estimated memory cost(GB) for batch 9 15.90717972757068
+the length of split_batches_nid_list  15
+batches output list generation spend  0.001046895980834961
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.026537179946899414
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  4.096721410751343
+len local_batched_seeds_list  15
+partition total batch output list spend :  8.344051122665405
+self.buckets_partition() spend  sec:  4.123350620269775
+layer  0
+ the number of batches:  15
+check_connections_block*********************************
+layer  1
+num of batch  15
+check_connections_block*********************************
+step  0
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.60389280319214  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  1
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.558614253997803  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  2
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.16384220123291  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  3
+----------------------------------------after loss function
+ Nvidia-smi: 19.796875 GB
+    Memory Allocated: 17.51261615753174  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  4
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 17.600993156433105  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  5
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 17.570932865142822  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  6
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 17.603301525115967  GigaBytes
+Max Memory Allocated: 17.963185787200928  GigaBytes
+
+step  7
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 17.672311305999756  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  8
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 17.605626106262207  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  9
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 17.493159770965576  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  10
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 16.94732427597046  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  11
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 16.946226596832275  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  12
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 16.876973628997803  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  13
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 16.931751251220703  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  14
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 16.91761589050293  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 0.537379264831543  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.301452398300171
+pure train time :  2.5813100337982178
+train time :  5.8518500328063965
+end to end time :  107.21093273162842
+connection check time:  47.77553701400757
+block generation time  45.109275579452515
+self.global_to_local() spend sec:  0.335834264755249
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  15
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06213530988803028]
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  230689
+orderedCounter spend  0.16310358047485352
+one layer mini_batch_src_local collection stoped 
+num of batch  1
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  896293
+orderedCounter spend  0.9933261871337891
+one layer mini_batch_src_local collection stoped 
+generate_K_hop_neighbors time  4.0262227058410645
+7.451424768641518
+the split redundant ratio 
+[7.451424768641518]
+1
+average memory estimation for each split fanout bucket batch 15.325096940839389
+capacity est:  2.7749030591606125
+split fanout degree bucket spend /sec:  4.026744842529297
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  800
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [8, 13, 18]
+original bucket_id :,  [15, 10, 5]
+remove weights:  [388 280 132], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 13, 16]
+original bucket_id :,  [20, 8, 4]
+remove weights:  [494 211  95], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+
+remove bucket_id:  [11, 15, 16]
+original bucket_id :,  [9, 1, 2]
+remove weights:  [253  53  46], 		------------sum 352
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+
+remove bucket_id:  [2, 11, 13]
+original bucket_id :,  [21, 7, 3]
+remove weights:  [545 181  72], 		------------sum 798
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [5, 6]
+original bucket_id :,  [16, 14]
+remove weights:  [410 383], 		------------sum 793
+
+before remove weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [0, 8, 9]
+original bucket_id :,  [23, 6, 0]
+remove weights:  [595 165  31], 		------------sum 791
+
+before remove weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [583, 455, 448, 427, 362, 331, 281]
+
+remove bucket_id:  [3, 4]
+original bucket_id :,  [17, 13]
+remove weights:  [427 362], 		------------sum 789
+
+before remove weights,  [583, 455, 448, 427, 362, 331, 281]
+after remove pre pack weights,  [583, 455, 448, 331, 281]
+
+remove bucket_id:  [1, 3]
+original bucket_id :,  [18, 12]
+remove weights:  [455 331], 		------------sum 786
+
+before remove weights,  [583, 455, 448, 331, 281]
+after remove pre pack weights,  [583, 448, 281]
+
+remove bucket_id:  [1, 2]
+original bucket_id :,  [19, 11]
+remove weights:  [448 281], 		------------sum 729
+
+before remove weights,  [583, 448, 281]
+after remove pre pack weights,  [583]
+the last batch value is  583
+G_BUCKET_ID_list [[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+[[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+G_BUCKET_ID_list length 10
+backpack scheduling spend  0.11803603172302246
+split_batches_nid_list  15
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[15, 10, 5]
+current group_mem  0.8019796341228467
+the new estimated memory cost(GB) for batch 0 16.127076574962235
+[20, 8, 4]
+current group_mem  0.8010797697750498
+the new estimated memory cost(GB) for batch 1 16.126176710614438
+[9, 1, 2]
+current group_mem  0.3533575516234331
+the new estimated memory cost(GB) for batch 2 15.678454492462823
+[21, 7, 3]
+current group_mem  0.7989636946111522
+the new estimated memory cost(GB) for batch 3 16.12406063545054
+[16, 14]
+current group_mem  0.7939272227587294
+the new estimated memory cost(GB) for batch 4 16.11902416359812
+[23, 6, 0]
+current group_mem  0.7924511371955659
+the new estimated memory cost(GB) for batch 5 16.117548078034954
+[17, 13]
+current group_mem  0.7893589757965587
+the new estimated memory cost(GB) for batch 6 16.114455916635947
+[18, 12]
+current group_mem  0.7878507379176494
+the new estimated memory cost(GB) for batch 7 16.11294767875704
+[19, 11]
+current group_mem  0.729541067709857
+the new estimated memory cost(GB) for batch 8 16.054638008549247
+[22]
+current group_mem  0.5838345744003708
+the new estimated memory cost(GB) for batch 9 15.90893151523976
+the length of split_batches_nid_list  15
+batches output list generation spend  0.001020193099975586
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.029679298400878906
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  4.145867109298706
+len local_batched_seeds_list  15
+partition total batch output list spend :  8.433656692504883
+self.buckets_partition() spend  sec:  4.175675868988037
+layer  0
+ the number of batches:  15
+check_connections_block*********************************
+layer  1
+num of batch  15
+check_connections_block*********************************
+step  0
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 17.531173706054688  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  1
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 17.557904720306396  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  2
+----------------------------------------after loss function
+ Nvidia-smi: 20.72265625 GB
+    Memory Allocated: 17.17266607284546  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  3
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.604175090789795  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  4
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.540587425231934  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  5
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.606200695037842  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  6
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.62940216064453  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  7
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.615747451782227  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  8
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.576852798461914  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  9
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.463168144226074  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  10
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.953118801116943  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  11
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.871203422546387  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  12
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.90648317337036  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  13
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.975603580474854  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  14
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.925703048706055  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 0.5333318710327148  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.1869854927062988
+pure train time :  2.538231134414673
+train time :  5.786633729934692
+end to end time :  107.54408931732178
+connection check time:  47.40199637413025
+block generation time  45.798229455947876
+self.global_to_local() spend sec:  0.31635069847106934
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  15
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06213530988803028]
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  230585
+orderedCounter spend  0.15955424308776855
+one layer mini_batch_src_local collection stoped 
+num of batch  1
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  896069
+orderedCounter spend  0.9865930080413818
+one layer mini_batch_src_local collection stoped 
+generate_K_hop_neighbors time  3.833120584487915
+7.446258482281986
+the split redundant ratio 
+[7.446258482281986]
+1
+average memory estimation for each split fanout bucket batch 15.314471611893286
+capacity est:  2.785528388106716
+split fanout degree bucket spend /sec:  3.8337347507476807
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  800
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [8, 13, 18]
+original bucket_id :,  [15, 10, 5]
+remove weights:  [388 280 132], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 13, 16]
+original bucket_id :,  [20, 8, 4]
+remove weights:  [494 211  95], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+
+remove bucket_id:  [11, 15, 16]
+original bucket_id :,  [9, 1, 2]
+remove weights:  [253  53  46], 		------------sum 352
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+
+remove bucket_id:  [2, 11, 13]
+original bucket_id :,  [21, 7, 3]
+remove weights:  [545 181  72], 		------------sum 798
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [5, 6]
+original bucket_id :,  [16, 14]
+remove weights:  [410 383], 		------------sum 793
+
+before remove weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [0, 8, 9]
+original bucket_id :,  [23, 6, 0]
+remove weights:  [595 165  31], 		------------sum 791
+
+before remove weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [583, 455, 448, 427, 362, 331, 281]
+
+remove bucket_id:  [3, 4]
+original bucket_id :,  [17, 13]
+remove weights:  [427 362], 		------------sum 789
+
+before remove weights,  [583, 455, 448, 427, 362, 331, 281]
+after remove pre pack weights,  [583, 455, 448, 331, 281]
+
+remove bucket_id:  [1, 3]
+original bucket_id :,  [18, 12]
+remove weights:  [455 331], 		------------sum 786
+
+before remove weights,  [583, 455, 448, 331, 281]
+after remove pre pack weights,  [583, 448, 281]
+
+remove bucket_id:  [1, 2]
+original bucket_id :,  [19, 11]
+remove weights:  [448 281], 		------------sum 729
+
+before remove weights,  [583, 448, 281]
+after remove pre pack weights,  [583]
+the last batch value is  583
+G_BUCKET_ID_list [[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+[[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+G_BUCKET_ID_list length 10
+backpack scheduling spend  0.11773562431335449
+split_batches_nid_list  15
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[15, 10, 5]
+current group_mem  0.8019796341228467
+the new estimated memory cost(GB) for batch 0 16.116451246016133
+[20, 8, 4]
+current group_mem  0.8010797697750498
+the new estimated memory cost(GB) for batch 1 16.115551381668336
+[9, 1, 2]
+current group_mem  0.3533575516234331
+the new estimated memory cost(GB) for batch 2 15.667829163516718
+[21, 7, 3]
+current group_mem  0.7989636946111522
+the new estimated memory cost(GB) for batch 3 16.11343530650444
+[16, 14]
+current group_mem  0.7939272227587294
+the new estimated memory cost(GB) for batch 4 16.108398834652014
+[23, 6, 0]
+current group_mem  0.7924511371955659
+the new estimated memory cost(GB) for batch 5 16.106922749088852
+[17, 13]
+current group_mem  0.7893589757965587
+the new estimated memory cost(GB) for batch 6 16.103830587689846
+[18, 12]
+current group_mem  0.7878507379176494
+the new estimated memory cost(GB) for batch 7 16.102322349810933
+[19, 11]
+current group_mem  0.729541067709857
+the new estimated memory cost(GB) for batch 8 16.044012679603142
+[22]
+current group_mem  0.5838345744003708
+the new estimated memory cost(GB) for batch 9 15.898306186293656
+the length of split_batches_nid_list  15
+batches output list generation spend  0.0010325908660888672
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.02469348907470703
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  3.9525716304779053
+len local_batched_seeds_list  15
+partition total batch output list spend :  8.196861505508423
+self.buckets_partition() spend  sec:  3.9773292541503906
+layer  0
+ the number of batches:  15
+check_connections_block*********************************
+layer  1
+num of batch  15
+check_connections_block*********************************
+step  0
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.566000938415527  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  1
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.58672857284546  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  2
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.138737678527832  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  3
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.585803508758545  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  4
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.592971324920654  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  5
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.561326503753662  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  6
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.667943954467773  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  7
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.63284730911255  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  8
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.611411571502686  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  9
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.469887256622314  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  10
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.905908584594727  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  11
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.899291038513184  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  12
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.91017436981201  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  13
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.909240245819092  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  14
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.907110691070557  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 0.5319066047668457  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.101770281791687
+pure train time :  2.555493116378784
+train time :  5.684499979019165
+end to end time :  106.5748085975647
+connection check time:  47.50915002822876
+block generation time  45.06773114204407
+self.global_to_local() spend sec:  0.3258626461029053
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  572
+len(bkt)  586
+len(bkt)  592
+len(bkt)  648
+len(bkt)  645
+len(bkt)  183378
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+
+ the number of batches:  15
+the ratio of the output nids to be processed:  0.9328843013465873
+weights list of these nids:  [0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06219635653275407, 0.06213530988803028]
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  230523
+orderedCounter spend  0.1607661247253418
+one layer mini_batch_src_local collection stoped 
+num of batch  1
+check_connections_block*********************************
+step start 0
+len(mini_batch_src_global)  893932
+orderedCounter spend  0.9306826591491699
+one layer mini_batch_src_local collection stoped 
+generate_K_hop_neighbors time  3.873655080795288
+7.430751662823794
+the split redundant ratio 
+[7.430751662823794]
+1
+average memory estimation for each split fanout bucket batch 15.282579253207604
+capacity est:  2.817420746792397
+split fanout degree bucket spend /sec:  3.8743791580200195
+sum(estimated_mem)
+7.232344365911213
+24
+the grouping_fanout_1 called successfully
+capacity  800
+sorted_dict  {23: 595, 22: 583, 21: 545, 20: 494, 18: 455, 19: 448, 17: 427, 16: 410, 15: 388, 14: 383, 13: 362, 12: 331, 11: 281, 10: 280, 9: 253, 8: 211, 7: 181, 6: 165, 5: 132, 4: 95, 3: 72, 1: 53, 2: 46, 0: 31}
+
+weights after sort [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [8, 13, 18]
+original bucket_id :,  [15, 10, 5]
+remove weights:  [388 280 132], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 388, 383, 362, 331, 281, 280, 253, 211, 181, 165, 132, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+
+remove bucket_id:  [3, 13, 16]
+original bucket_id :,  [20, 8, 4]
+remove weights:  [494 211  95], 		------------sum 800
+
+before remove weights,  [595, 583, 545, 494, 455, 448, 427, 410, 383, 362, 331, 281, 253, 211, 181, 165, 95, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+
+remove bucket_id:  [11, 15, 16]
+original bucket_id :,  [9, 1, 2]
+remove weights:  [253  53  46], 		------------sum 352
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 253, 181, 165, 72, 53, 46, 31]
+after remove pre pack weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+
+remove bucket_id:  [2, 11, 13]
+original bucket_id :,  [21, 7, 3]
+remove weights:  [545 181  72], 		------------sum 798
+
+before remove weights,  [595, 583, 545, 455, 448, 427, 410, 383, 362, 331, 281, 181, 165, 72, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [5, 6]
+original bucket_id :,  [16, 14]
+remove weights:  [410 383], 		------------sum 793
+
+before remove weights,  [595, 583, 455, 448, 427, 410, 383, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+
+remove bucket_id:  [0, 8, 9]
+original bucket_id :,  [23, 6, 0]
+remove weights:  [595 165  31], 		------------sum 791
+
+before remove weights,  [595, 583, 455, 448, 427, 362, 331, 281, 165, 31]
+after remove pre pack weights,  [583, 455, 448, 427, 362, 331, 281]
+
+remove bucket_id:  [3, 4]
+original bucket_id :,  [17, 13]
+remove weights:  [427 362], 		------------sum 789
+
+before remove weights,  [583, 455, 448, 427, 362, 331, 281]
+after remove pre pack weights,  [583, 455, 448, 331, 281]
+
+remove bucket_id:  [1, 3]
+original bucket_id :,  [18, 12]
+remove weights:  [455 331], 		------------sum 786
+
+before remove weights,  [583, 455, 448, 331, 281]
+after remove pre pack weights,  [583, 448, 281]
+
+remove bucket_id:  [1, 2]
+original bucket_id :,  [19, 11]
+remove weights:  [448 281], 		------------sum 729
+
+before remove weights,  [583, 448, 281]
+after remove pre pack weights,  [583]
+the last batch value is  583
+G_BUCKET_ID_list [[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+[[15, 10, 5], [20, 8, 4], [9, 1, 2], [21, 7, 3], [16, 14], [23, 6, 0], [17, 13], [18, 12], [19, 11], [22]]
+G_BUCKET_ID_list length 10
+backpack scheduling spend  0.2082815170288086
+split_batches_nid_list  15
+estimated_mem  [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+[15, 10, 5]
+current group_mem  0.8019796341228467
+the new estimated memory cost(GB) for batch 0 16.084558887330452
+[20, 8, 4]
+current group_mem  0.8010797697750498
+the new estimated memory cost(GB) for batch 1 16.083659022982655
+[9, 1, 2]
+current group_mem  0.3533575516234331
+the new estimated memory cost(GB) for batch 2 15.635936804831037
+[21, 7, 3]
+current group_mem  0.7989636946111522
+the new estimated memory cost(GB) for batch 3 16.081542947818757
+[16, 14]
+current group_mem  0.7939272227587294
+the new estimated memory cost(GB) for batch 4 16.076506475966333
+[23, 6, 0]
+current group_mem  0.7924511371955659
+the new estimated memory cost(GB) for batch 5 16.07503039040317
+[17, 13]
+current group_mem  0.7893589757965587
+the new estimated memory cost(GB) for batch 6 16.071938229004164
+[18, 12]
+current group_mem  0.7878507379176494
+the new estimated memory cost(GB) for batch 7 16.070429991125252
+[19, 11]
+current group_mem  0.729541067709857
+the new estimated memory cost(GB) for batch 8 16.01212032091746
+[22]
+current group_mem  0.5838345744003708
+the new estimated memory cost(GB) for batch 9 15.866413827607975
+the length of split_batches_nid_list  15
+batches output list generation spend  0.0009810924530029297
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.030011415481567383
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  4.0837507247924805
+len local_batched_seeds_list  15
+partition total batch output list spend :  7.647907257080078
+self.buckets_partition() spend  sec:  4.1138293743133545
+layer  0
+ the number of batches:  15
+check_connections_block*********************************
+layer  1
+num of batch  15
+check_connections_block*********************************
+step  0
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.55880355834961  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  1
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.593412399291992  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  2
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.129989624023438  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  3
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.6009202003479  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  4
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.526814460754395  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  5
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.600209712982178  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  6
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.606996059417725  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  7
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.637528896331787  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  8
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.634799480438232  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  9
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 17.466800689697266  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  10
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.95788335800171  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  11
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.89527654647827  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  12
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.897963523864746  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  13
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.933051586151123  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+step  14
+----------------------------------------after loss function
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 16.91321325302124  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 20.724609375 GB
+    Memory Allocated: 0.530329704284668  GigaBytes
+Max Memory Allocated: 17.96762990951538  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.008060336112976
+pure train time :  2.4229941368103027
+train time :  5.769068002700806
+end to end time :  106.1190505027771
+connection check time:  47.455628395080566
+block generation time  45.12145280838013
+end to end time  106.8941159248352
+Total (block generation + training)time/epoch 106.8941159248352

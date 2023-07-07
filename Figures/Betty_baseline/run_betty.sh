@@ -41,10 +41,23 @@ mkdir $save_path
 #     --lr 1e-2 \
 #     > ${save_path}/nb_7_betty.log
 
-echo '---start Betty_time.py REG  10 batches '
+# echo '---start Betty_time.py REG  10 batches '
+# python Betty_time.py \
+#     --dataset ogbn-products \
+#     --num-batch 10 \
+#     --num-layers 2 \
+#     --fan-out 10,25 \
+#     --num-hidden 128 \
+#     --num-runs 1 \
+#     --num-epoch 10 \
+#     --aggre lstm \
+#     --lr 1e-2 \
+#     > ${save_path}/nb_10_betty.log
+
+echo '---start Betty_time.py REG  12 batches '
 python Betty_time.py \
     --dataset ogbn-products \
-    --num-batch 10 \
+    --num-batch 12 \
     --num-layers 2 \
     --fan-out 10,25 \
     --num-hidden 128 \
@@ -52,4 +65,4 @@ python Betty_time.py \
     --num-epoch 10 \
     --aggre lstm \
     --lr 1e-2 \
-    > ${save_path}/nb_10_betty.log
+    > ${save_path}/nb_12_betty.log

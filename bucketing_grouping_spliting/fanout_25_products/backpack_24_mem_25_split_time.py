@@ -174,13 +174,15 @@ def run(args, device, data):
 	# if args.GPUmem:
 	# 	see_memory_usage("----------------------------------------after model to device")
 	logger = Logger(args.num_runs, args)
+	dur = []
 	for run in range(args.num_runs):
 		model.reset_parameters()
 		# optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
 		optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 		for epoch in range(args.num_epochs):
 			model.train()
-
+			if epoch >= args.log_indent:
+				t0 = time.time()
 			loss_sum=0
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
@@ -191,6 +193,7 @@ def run(args, device, data):
 					full_batch_dataloader.append(item)
 			
 			if args.num_batch > 1:
+				time_s = time.time()
 				b_block_dataloader, weights_list, time_collection = generate_dataloader_bucket_block(g, full_batch_dataloader, args)
 				connection_time, block_gen_time, _ = time_collection
 				pure_train_time = []
@@ -220,8 +223,10 @@ def run(args, device, data):
 				print('----------------------------------------------------------pseudo_mini_loss sum ' + str(loss_sum.tolist()))
 				print('pure train time : ', sum(pure_train_time) )
 				print('train time : ', time_end-time_start )
+				print('end to end time : ', time_end-time_s )
 				print('connection check time: ', connection_time)
 				print('block generation time ', block_gen_time)
+
 			elif args.num_batch == 1:
 				# print('orignal labels: ', labels)
 				for step, (input_nodes, seeds, blocks) in enumerate(full_batch_dataloader):
@@ -253,7 +258,12 @@ def run(args, device, data):
 					optimizer.zero_grad()
 					print()
 					see_memory_usage("----------------------------------------full batch")
-					
+		if epoch >= args.log_indent:
+			
+			full_epoch=time.time() - t0
+			print('end to end time ', full_epoch)
+			dur.append(full_epoch)
+		print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))			
 
 def main():
 	# get_memory("-----------------------------------------main_start***************************")
@@ -280,7 +290,7 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
-	argparser.add_argument('--num-batch', type=int, default=15)
+	argparser.add_argument('--num-batch', type=int, default=12)
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
