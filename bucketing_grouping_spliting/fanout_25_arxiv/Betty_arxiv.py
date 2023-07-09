@@ -323,16 +323,16 @@ def run(args, device, data):
 				tmp_t2=time.time()
 				full_epoch=time.time() - t0
 				dur.append(time.time() - t0)
-				# print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))
-				# # print('Training 1 time/epoch {}'.format(np.mean(full_epoch-gen_block)))
-				# print('Training time/epoch {}'.format(tmp_t2-tmp_t-time_ex))
-				# print('Training time without block to device /epoch {}'.format(tmp_t2-tmp_t-time_ex-sum(block_to_t)))
-				# # print('Training time without total dataloading part /epoch {}'.format(tmp_t2-tmp_t-sum(block_to_t)-sum(data_loading_t)))
-				# print('Training time without total dataloading part /epoch {}'.format(sum(modeling_t)+sum(loss_cal_t)+sum(backward_t)+ttend-tte))
-				# print('load block tensor time/epoch {}'.format(np.sum(data_loading_t)))
-				# print('block to device time/epoch {}'.format(np.sum(block_to_t)))
-				# print('input features size transfer per epoch {}'.format(np.sum(data_size_transfer)/1024/1024/1024))
-				# print('blocks size to device per epoch {}'.format(np.sum(blocks_size)/1024/1024/1024))
+				print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))
+				# print('Training 1 time/epoch {}'.format(np.mean(full_epoch-gen_block)))
+				print('Training time/epoch {}'.format(tmp_t2-tmp_t-time_ex))
+				print('Training time without block to device /epoch {}'.format(tmp_t2-tmp_t-time_ex-sum(block_to_t)))
+				# print('Training time without total dataloading part /epoch {}'.format(tmp_t2-tmp_t-sum(block_to_t)-sum(data_loading_t)))
+				print('Training time without total dataloading part /epoch {}'.format(sum(modeling_t)+sum(loss_cal_t)+sum(backward_t)+ttend-tte))
+				print('load block tensor time/epoch {}'.format(np.sum(data_loading_t)))
+				print('block to device time/epoch {}'.format(np.sum(block_to_t)))
+				print('input features size transfer per epoch {}'.format(np.sum(data_size_transfer)/1024/1024/1024))
+				print('blocks size to device per epoch {}'.format(np.sum(blocks_size)/1024/1024/1024))
 
 			if args.eval:
 				

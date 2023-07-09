@@ -291,7 +291,7 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	argparser.add_argument('--num-batch', type=int, default=3)
-	argparser.add_argument('--mem-constraint', type=float, default=10)
+	argparser.add_argument('--mem-constraint', type=float, default=18)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=10)

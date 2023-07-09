@@ -1,4 +1,4 @@
-main start at this time 1688877223.8626478
+main start at this time 1688917574.5799146
 -----------------------------------------before load data 
  Nvidia-smi: 0.166015625 GB
     Memory Allocated: 0.0  GigaBytes
@@ -17,7 +17,8 @@ ogbn-arxiv
     Memory Allocated: 0.0  GigaBytes
 Max Memory Allocated: 0.0  GigaBytes
 
-self.global_to_local() spend sec:  0.047130584716796875
+in feats:  128
+self.global_to_local() spend sec:  0.04596853256225586
 len(bkt)  13428
 len(bkt)  11706
 len(bkt)  9277
@@ -48,17 +49,19 @@ len(bkt)  9460
 25
 25
 [0.14765617268338813, 0.12872081899253363, 0.10201119407088112, 0.08049174739666377, 0.06841798528716421, 0.05352921124685236, 0.04447938773490505, 0.038178599311641616, 0.03272451369569281, 0.028578968781957533, 0.02422449720148228, 0.02129952386712264, 0.01820960842744197, 0.01576846526869069, 0.014174024917254044, 0.012216711934111127, 0.011326024565377553, 0.010424341056289243, 0.009192773336558867, 0.00887388526627154, 0.007884232634345345, 0.006113854037232931, 0.005706996844107718, 0.005772973686236131, 0.10402348775579771]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.014826297760009766
-self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  0.0001201629638671875
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.015326261520385742
+self.gen_batches_seeds_list(bkt_dst_nodes_list) spend  0.00012302398681640625
 len local_batched_seeds_list  25
-partition total batch output list spend :  0.9152061939239502
-self.buckets_partition() spend  sec:  0.014986753463745117
+partition total batch output list spend :  0.9226062297821045
+self.buckets_partition() spend  sec:  0.01549220085144043
 layer  0
  the number of batches:  25
 check_connections_block*********************************
+res  length 25
 layer  1
 num of batch  25
 check_connections_block*********************************
+res  length 25
 redundancy ratio #input/#seeds/degree
 4.5732797140303845
 3.1955407483341878
@@ -212,38 +215,320 @@ layer  1
 
 data_dict
 [[{1: 13428, 2: 1514, 3: 1424, 4: 1036, 5: 890, 6: 712, 7: 552, 8: 442, 9: 392, 10: 3685}, {1: 13428}], [{1: 1525, 2: 12162, 3: 2064, 4: 1606, 5: 1420, 6: 1110, 7: 954, 8: 766, 9: 639, 10: 5875}, {2: 11706}], [{1: 1582, 2: 2280, 3: 9755, 4: 1987, 5: 1726, 6: 1356, 7: 1163, 8: 966, 9: 828, 10: 7423}, {3: 9277}], [{1: 1251, 2: 1864, 3: 2112, 4: 7759, 5: 1867, 6: 1529, 7: 1277, 8: 1115, 9: 912, 10: 8511}, {4: 7320}], [{1: 1076, 2: 1735, 3: 2034, 4: 2003, 5: 6670, 6: 1576, 7: 1397, 8: 1196, 9: 1033, 10: 9513}, {5: 6222}], [{1: 904, 2: 1401, 3: 1546, 4: 1745, 5: 1668, 6: 5231, 7: 1341, 8: 1178, 9: 993, 10: 9999}, {6: 4868}], [{1: 724, 2: 1210, 3: 1421, 4: 1525, 5: 1541, 6: 1424, 7: 4368, 8: 1150, 9: 1022, 10: 10305}, {7: 4045}], [{1: 615, 2: 990, 3: 1214, 4: 1372, 5: 1431, 6: 1273, 7: 1220, 8: 3789, 9: 1041, 10: 10789}, {8: 3472}], [{1: 519, 2: 890, 3: 1092, 4: 1243, 5: 1253, 6: 1154, 7: 1128, 8: 1065, 9: 3251, 10: 10836}, {9: 2976}], [{1: 457, 2: 779, 3: 940, 4: 1085, 5: 1115, 6: 1112, 7: 1051, 8: 1002, 9: 910, 10: 13099}, {10: 2599}], [{1: 373, 2: 610, 3: 837, 4: 910, 5: 994, 6: 944, 7: 952, 8: 949, 9: 857, 10: 12460}, {11: 2203}], [{1: 345, 2: 621, 3: 789, 4: 892, 5: 968, 6: 980, 7: 898, 8: 920, 9: 813, 10: 12180}, {12: 1937}], [{1: 357, 2: 566, 3: 685, 4: 775, 5: 803, 6: 793, 7: 797, 8: 819, 9: 733, 10: 11507}, {13: 1656}], [{1: 279, 2: 460, 3: 602, 4: 672, 5: 713, 6: 780, 7: 730, 8: 740, 9: 657, 10: 11030}, {14: 1434}], [{1: 280, 2: 457, 3: 563, 4: 621, 5: 651, 6: 667, 7: 663, 8: 707, 9: 659, 10: 10813}, {15: 1289}], [{1: 195, 2: 356, 3: 454, 4: 544, 5: 576, 6: 610, 7: 579, 8: 589, 9: 572, 10: 10217}, {16: 1111}], [{1: 205, 2: 377, 3: 470, 4: 546, 5: 572, 6: 590, 7: 564, 8: 547, 9: 612, 10: 10194}, {17: 1030}], [{1: 204, 2: 315, 3: 373, 4: 487, 5: 485, 6: 570, 7: 536, 8: 542, 9: 542, 10: 9940}, {18: 948}], [{1: 199, 2: 299, 3: 387, 4: 450, 5: 489, 6: 514, 7: 507, 8: 514, 9: 532, 10: 9413}, {19: 836}], [{1: 143, 2: 272, 3: 351, 4: 424, 5: 444, 6: 496, 7: 474, 8: 532, 9: 494, 10: 9707}, {20: 807}], [{1: 203, 2: 288, 3: 371, 4: 397, 5: 448, 6: 453, 7: 433, 8: 441, 9: 491, 10: 9029}, {21: 717}], [{1: 105, 2: 206, 3: 255, 4: 308, 5: 307, 6: 349, 7: 377, 8: 386, 9: 342, 10: 7803}, {22: 556}], [{1: 125, 2: 220, 3: 284, 4: 287, 5: 318, 6: 324, 7: 350, 8: 357, 9: 353, 10: 7787}, {23: 519}], [{1: 115, 2: 197, 3: 259, 4: 313, 5: 337, 6: 338, 7: 332, 8: 333, 9: 373, 10: 7982}, {24: 525}], [{1: 1520, 2: 2559, 3: 3183, 4: 3484, 5: 3744, 6: 3737, 7: 3707, 8: 3588, 9: 3442, 10: 51826}, {25: 9460}]]
- MM estimated memory/GB degree 0: 0.7450554370880127 * 4.5732797140303845
- MM estimated memory/GB degree 1: 1.0546706020832062 * 3.1955407483341878
- MM estimated memory/GB degree 2: 0.40809836983680725 * 2.835830548668751
- MM estimated memory/GB degree 3: 0.37566670775413513 * 2.6975751366120218
- MM estimated memory/GB degree 4: 0.37189847230911255 * 2.5698810671809706
- MM estimated memory/GB degree 5: 0.32915210723876953 * 2.6380101342098055
- MM estimated memory/GB degree 6: 0.30266234278678894 * 2.630372594031432
- MM estimated memory/GB degree 7: 0.27946874499320984 * 2.619419642857143
- MM estimated memory/GB degree 8: 0.262010782957077 * 2.640681003584229
- MM estimated memory/GB degree 9: 0.2465204894542694 * 2.658907272027703
- MM estimated memory/GB degree 10: 0.21968740224838257 * 2.6945074897866546
- MM estimated memory/GB degree 11: 0.21266189217567444 * 2.7856220960247806
- MM estimated memory/GB degree 12: 0.1978711187839508 * 2.837931995540691
- MM estimated memory/GB degree 13: 0.17765530943870544 * 2.9378860330743177
- MM estimated memory/GB degree 14: 0.17252156138420105 * 2.9799844840961986
- MM estimated memory/GB degree 15: 0.15164431929588318 * 3.0256525652565256
- MM estimated memory/GB degree 16: 0.15171298384666443 * 3.065562535693889
- MM estimated memory/GB degree 17: 0.14442408084869385 * 3.05983356774496
- MM estimated memory/GB degree 18: 0.13520774245262146 * 3.2087635356333415
- MM estimated memory/GB degree 19: 0.132772296667099 * 3.0985749690210658
- MM estimated memory/GB degree 20: 0.12907111644744873 * 3.2045560204556023
- MM estimated memory/GB degree 21: 0.10047581791877747 * 3.4635382603008504
- MM estimated memory/GB degree 22: 0.10027974843978882 * 3.5387450783278878
- MM estimated memory/GB degree 23: 0.10273584723472595 * 3.427698412698413
- MM estimated memory/GB degree 24: 1.8239461183547974 * 0.5191585623678647
+idx (key, val)0 1 13428
+idx (key, val)1 2 1514
+idx (key, val)2 3 1424
+idx (key, val)3 4 1036
+idx (key, val)4 5 890
+idx (key, val)5 6 712
+idx (key, val)6 7 552
+idx (key, val)7 8 442
+idx (key, val)8 9 392
+idx (key, val)9 10 3685
+idx (key, val)0 1 13428
+idx (key, val)0 1 1525
+idx (key, val)1 2 12162
+idx (key, val)2 3 2064
+idx (key, val)3 4 1606
+idx (key, val)4 5 1420
+idx (key, val)5 6 1110
+idx (key, val)6 7 954
+idx (key, val)7 8 766
+idx (key, val)8 9 639
+idx (key, val)9 10 5875
+idx (key, val)0 2 11706
+idx (key, val)0 1 1582
+idx (key, val)1 2 2280
+idx (key, val)2 3 9755
+idx (key, val)3 4 1987
+idx (key, val)4 5 1726
+idx (key, val)5 6 1356
+idx (key, val)6 7 1163
+idx (key, val)7 8 966
+idx (key, val)8 9 828
+idx (key, val)9 10 7423
+idx (key, val)0 3 9277
+idx (key, val)0 1 1251
+idx (key, val)1 2 1864
+idx (key, val)2 3 2112
+idx (key, val)3 4 7759
+idx (key, val)4 5 1867
+idx (key, val)5 6 1529
+idx (key, val)6 7 1277
+idx (key, val)7 8 1115
+idx (key, val)8 9 912
+idx (key, val)9 10 8511
+idx (key, val)0 4 7320
+idx (key, val)0 1 1076
+idx (key, val)1 2 1735
+idx (key, val)2 3 2034
+idx (key, val)3 4 2003
+idx (key, val)4 5 6670
+idx (key, val)5 6 1576
+idx (key, val)6 7 1397
+idx (key, val)7 8 1196
+idx (key, val)8 9 1033
+idx (key, val)9 10 9513
+idx (key, val)0 5 6222
+idx (key, val)0 1 904
+idx (key, val)1 2 1401
+idx (key, val)2 3 1546
+idx (key, val)3 4 1745
+idx (key, val)4 5 1668
+idx (key, val)5 6 5231
+idx (key, val)6 7 1341
+idx (key, val)7 8 1178
+idx (key, val)8 9 993
+idx (key, val)9 10 9999
+idx (key, val)0 6 4868
+idx (key, val)0 1 724
+idx (key, val)1 2 1210
+idx (key, val)2 3 1421
+idx (key, val)3 4 1525
+idx (key, val)4 5 1541
+idx (key, val)5 6 1424
+idx (key, val)6 7 4368
+idx (key, val)7 8 1150
+idx (key, val)8 9 1022
+idx (key, val)9 10 10305
+idx (key, val)0 7 4045
+idx (key, val)0 1 615
+idx (key, val)1 2 990
+idx (key, val)2 3 1214
+idx (key, val)3 4 1372
+idx (key, val)4 5 1431
+idx (key, val)5 6 1273
+idx (key, val)6 7 1220
+idx (key, val)7 8 3789
+idx (key, val)8 9 1041
+idx (key, val)9 10 10789
+idx (key, val)0 8 3472
+idx (key, val)0 1 519
+idx (key, val)1 2 890
+idx (key, val)2 3 1092
+idx (key, val)3 4 1243
+idx (key, val)4 5 1253
+idx (key, val)5 6 1154
+idx (key, val)6 7 1128
+idx (key, val)7 8 1065
+idx (key, val)8 9 3251
+idx (key, val)9 10 10836
+idx (key, val)0 9 2976
+idx (key, val)0 1 457
+idx (key, val)1 2 779
+idx (key, val)2 3 940
+idx (key, val)3 4 1085
+idx (key, val)4 5 1115
+idx (key, val)5 6 1112
+idx (key, val)6 7 1051
+idx (key, val)7 8 1002
+idx (key, val)8 9 910
+idx (key, val)9 10 13099
+idx (key, val)0 10 2599
+idx (key, val)0 1 373
+idx (key, val)1 2 610
+idx (key, val)2 3 837
+idx (key, val)3 4 910
+idx (key, val)4 5 994
+idx (key, val)5 6 944
+idx (key, val)6 7 952
+idx (key, val)7 8 949
+idx (key, val)8 9 857
+idx (key, val)9 10 12460
+idx (key, val)0 11 2203
+idx (key, val)0 1 345
+idx (key, val)1 2 621
+idx (key, val)2 3 789
+idx (key, val)3 4 892
+idx (key, val)4 5 968
+idx (key, val)5 6 980
+idx (key, val)6 7 898
+idx (key, val)7 8 920
+idx (key, val)8 9 813
+idx (key, val)9 10 12180
+idx (key, val)0 12 1937
+idx (key, val)0 1 357
+idx (key, val)1 2 566
+idx (key, val)2 3 685
+idx (key, val)3 4 775
+idx (key, val)4 5 803
+idx (key, val)5 6 793
+idx (key, val)6 7 797
+idx (key, val)7 8 819
+idx (key, val)8 9 733
+idx (key, val)9 10 11507
+idx (key, val)0 13 1656
+idx (key, val)0 1 279
+idx (key, val)1 2 460
+idx (key, val)2 3 602
+idx (key, val)3 4 672
+idx (key, val)4 5 713
+idx (key, val)5 6 780
+idx (key, val)6 7 730
+idx (key, val)7 8 740
+idx (key, val)8 9 657
+idx (key, val)9 10 11030
+idx (key, val)0 14 1434
+idx (key, val)0 1 280
+idx (key, val)1 2 457
+idx (key, val)2 3 563
+idx (key, val)3 4 621
+idx (key, val)4 5 651
+idx (key, val)5 6 667
+idx (key, val)6 7 663
+idx (key, val)7 8 707
+idx (key, val)8 9 659
+idx (key, val)9 10 10813
+idx (key, val)0 15 1289
+idx (key, val)0 1 195
+idx (key, val)1 2 356
+idx (key, val)2 3 454
+idx (key, val)3 4 544
+idx (key, val)4 5 576
+idx (key, val)5 6 610
+idx (key, val)6 7 579
+idx (key, val)7 8 589
+idx (key, val)8 9 572
+idx (key, val)9 10 10217
+idx (key, val)0 16 1111
+idx (key, val)0 1 205
+idx (key, val)1 2 377
+idx (key, val)2 3 470
+idx (key, val)3 4 546
+idx (key, val)4 5 572
+idx (key, val)5 6 590
+idx (key, val)6 7 564
+idx (key, val)7 8 547
+idx (key, val)8 9 612
+idx (key, val)9 10 10194
+idx (key, val)0 17 1030
+idx (key, val)0 1 204
+idx (key, val)1 2 315
+idx (key, val)2 3 373
+idx (key, val)3 4 487
+idx (key, val)4 5 485
+idx (key, val)5 6 570
+idx (key, val)6 7 536
+idx (key, val)7 8 542
+idx (key, val)8 9 542
+idx (key, val)9 10 9940
+idx (key, val)0 18 948
+idx (key, val)0 1 199
+idx (key, val)1 2 299
+idx (key, val)2 3 387
+idx (key, val)3 4 450
+idx (key, val)4 5 489
+idx (key, val)5 6 514
+idx (key, val)6 7 507
+idx (key, val)7 8 514
+idx (key, val)8 9 532
+idx (key, val)9 10 9413
+idx (key, val)0 19 836
+idx (key, val)0 1 143
+idx (key, val)1 2 272
+idx (key, val)2 3 351
+idx (key, val)3 4 424
+idx (key, val)4 5 444
+idx (key, val)5 6 496
+idx (key, val)6 7 474
+idx (key, val)7 8 532
+idx (key, val)8 9 494
+idx (key, val)9 10 9707
+idx (key, val)0 20 807
+idx (key, val)0 1 203
+idx (key, val)1 2 288
+idx (key, val)2 3 371
+idx (key, val)3 4 397
+idx (key, val)4 5 448
+idx (key, val)5 6 453
+idx (key, val)6 7 433
+idx (key, val)7 8 441
+idx (key, val)8 9 491
+idx (key, val)9 10 9029
+idx (key, val)0 21 717
+idx (key, val)0 1 105
+idx (key, val)1 2 206
+idx (key, val)2 3 255
+idx (key, val)3 4 308
+idx (key, val)4 5 307
+idx (key, val)5 6 349
+idx (key, val)6 7 377
+idx (key, val)7 8 386
+idx (key, val)8 9 342
+idx (key, val)9 10 7803
+idx (key, val)0 22 556
+idx (key, val)0 1 125
+idx (key, val)1 2 220
+idx (key, val)2 3 284
+idx (key, val)3 4 287
+idx (key, val)4 5 318
+idx (key, val)5 6 324
+idx (key, val)6 7 350
+idx (key, val)7 8 357
+idx (key, val)8 9 353
+idx (key, val)9 10 7787
+idx (key, val)0 23 519
+idx (key, val)0 1 115
+idx (key, val)1 2 197
+idx (key, val)2 3 259
+idx (key, val)3 4 313
+idx (key, val)4 5 337
+idx (key, val)5 6 338
+idx (key, val)6 7 332
+idx (key, val)7 8 333
+idx (key, val)8 9 373
+idx (key, val)9 10 7982
+idx (key, val)0 24 525
+idx (key, val)0 1 1520
+0.0130462646484375
+idx (key, val)1 2 2559
+0.24094390869140625
+idx (key, val)2 3 3183
+idx (key, val)3 4 3484
+idx (key, val)4 5 3744
+idx (key, val)5 6 3737
+idx (key, val)6 7 3707
+idx (key, val)7 8 3588
+idx (key, val)8 9 3442
+idx (key, val)9 10 51826
+idx (key, val)0 25 9460
+2.2708396911621094
+estimated_mem_list[-1]
+2.2708396911621094
+ MM estimated memory/GB degree 0: 0.7954788208007812 * 4.5732797140303845
+ MM estimated memory/GB degree 1: 1.1014909744262695 * 3.1955407483341878
+ MM estimated memory/GB degree 2: 0.46332263946533203 * 2.835830548668751
+ MM estimated memory/GB degree 3: 0.43299007415771484 * 2.6975751366120218
+ MM estimated memory/GB degree 4: 0.4323291778564453 * 2.5698810671809706
+ MM estimated memory/GB degree 5: 0.38568878173828125 * 2.6380101342098055
+ MM estimated memory/GB degree 6: 0.35718441009521484 * 2.630372594031432
+ MM estimated memory/GB degree 7: 0.33277416229248047 * 2.619419642857143
+ MM estimated memory/GB degree 8: 0.31327342987060547 * 2.640681003584229
+ MM estimated memory/GB degree 9: 0.2961759567260742 * 2.658907272027703
+ MM estimated memory/GB degree 10: 0.2658863067626953 * 2.6945074897866546
+ MM estimated memory/GB degree 11: 0.25695133209228516 * 2.7856220960247806
+ MM estimated memory/GB degree 12: 0.23896121978759766 * 2.837931995540691
+ MM estimated memory/GB degree 13: 0.21587276458740234 * 2.9378860330743177
+ MM estimated memory/GB degree 14: 0.2093496322631836 * 2.9799844840961986
+ MM estimated memory/GB degree 15: 0.18538570404052734 * 3.0256525652565256
+ MM estimated memory/GB degree 16: 0.18497371673583984 * 3.065562535693889
+ MM estimated memory/GB degree 17: 0.17684555053710938 * 3.05983356774496
+ MM estimated memory/GB degree 18: 0.1654043197631836 * 3.2087635356333415
+ MM estimated memory/GB degree 19: 0.1633443832397461 * 3.0985749690210658
+ MM estimated memory/GB degree 20: 0.15772247314453125 * 3.2045560204556023
+ MM estimated memory/GB degree 21: 0.12363910675048828 * 3.4635382603008504
+ MM estimated memory/GB degree 22: 0.12292671203613281 * 3.5387450783278878
+ MM estimated memory/GB degree 23: 0.12660884857177734 * 3.427698412698413
+ MM estimated memory/GB degree 24: 2.2708396911621094 * 0.5191585623678647
 
 modified_mem [1, fanout-1]: 
-[3.4073469162626497, 3.370242885027037, 1.157297824045136, 1.0133891704904496, 0.9557348429007149, 0.8683065945923867, 0.7961147317117165, 0.7320459201998476, 0.6918868972889838, 0.6554751221137857, 0.5919493507700404, 0.5923956658269981, 0.5615447789904067, 0.5219310523014687, 0.514111576096969, 0.4588230236841686, 0.46508563945866666, 0.44191365057154547, 0.4338496737172759, 0.411404915032112, 0.41361562327859797, 0.3480018395967075, 0.35486446624726137, 0.3521475004936968]
+[3.6379471541090243, 3.519859292701475, 1.3139044948856264, 1.168023258447647, 1.1110345689631933, 1.0174509148766198, 0.939528083329737, 0.871675177344254, 0.8272551951869841, 0.7875044051387211, 0.7164326450037946, 0.7157693082792709, 0.6781556913286547, 0.6342095800024695, 0.623858655895532, 0.5609127309921086, 0.5670484961134443, 0.5411179518397851, 0.5307433498923407, 0.5061348172368614, 0.5054305008764547, 0.4282287766997373, 0.4350062972128945, 0.43397694928305497]
 
-mem size of fanout degree bucket by formula (GB):  1.8239461183547974
+sum[1-24] = 23.07120829563968
+mem size of fanout degree bucket (25) by formula (GB):  2.2708396911621094
+//# mem size of fanout degree bucket (25) by formula (GB):  13.2 //
 
-the modified memory estimation spend (sec) 0.1206979751586914
-the time of number of fanout blocks generation (sec) 8.660377025604248
-the time dict collection (sec) 0.11983680725097656
-the time estimate mem (sec) 0.00042176246643066406
+the modified memory estimation spend (sec) 0.11557149887084961
+the time of number of fanout blocks generation (sec) 8.31222128868103
+the time dict collection (sec) 0.114227294921875
+the time estimate mem (sec) 0.0008819103240966797

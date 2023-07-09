@@ -140,9 +140,73 @@ def grouping_fanout_1(adjust, weights, capacity):
 
 	GROUPS_weight, GROUPS_bucket_idx = split_all(weights, values, capacity)
 
-	
 	return GROUPS_weight, GROUPS_bucket_idx
 
+def split_all_arxiv(weights, values, capacity):
+    
+    # weights.sort(reverse=True)
+    sorted_indices, sorted_values, my_dict, sorted_dict = sort_with_original_index(weights)
+    print('sorted_dict ', sorted_dict)
+    print()
+    print('weights after sort', sorted_values)
+    weights = sorted_values
+    values = sorted_values
+    GROUPS_weight =[]
+    GROUPS_bucket_idx =[]
+    while len(weights)>=1:
+        if sum(weights)< capacity:
+
+            original_index = get_index_by_value(sorted_dict, weights)
+            GROUPS_weight.append(weights)
+            GROUPS_bucket_idx.append(original_index)
+            break
+        else:    # sum(weights)>= capacity
+            max_values, packs = backpack_split(weights, values, capacity)
+            
+            res_tmp = np.array(weights)[packs[0]]
+            if len(packs[0]) > 4 or  (len(packs[0]) > 3 and max(res_tmp) > min(res_tmp)* 2.5) :
+            # if len(packs[0]) > 3 or  (len(packs[0]) > 2 and max(res_tmp) > min(res_tmp)* 1.5) :
+            # if len(packs[0]) > 2 and  max(res_tmp) > min(res_tmp)*1.5 :
+                aa = min(packs[0]) # remove this aa from current group
+                packs[0].remove(aa)
+                res_tmp = np.array(weights)[packs[0]]
+            GROUPS_weight.append(list(res_tmp))
+            
+
+            original_index = get_index_by_value(sorted_dict, res_tmp)
+            GROUPS_bucket_idx.append(original_index)
+            print()
+            print("remove bucket_id: ",packs[0])
+            print('original bucket_id :, ', original_index)
+            print("remove weights:  "+ str(res_tmp) + ", \t\t------------sum "+ str(sum(res_tmp)))
+            print()
+            print('before remove weights, ',weights)
+            weights = remove_items_by_indices(weights, packs[0])
+            print('after remove pre pack weights, ', weights)
+            values = weights
+                
+    if len(weights)==1 :
+        if sum(weights)< capacity:
+            print('the last batch value is ', weights[0])
+            GROUPS_weight.append([weights[0]])
+        else:
+            print('error, OOM!')
+            
+    return GROUPS_weight, GROUPS_bucket_idx
+
+
+def grouping_fanout_arxiv(adjust, weights, capacity):
+	print('the grouping_fanout_arxiv called successfully')
+	weights = [int(item * adjust) for item in weights]
+
+	values =  weights 
+	capacity = int(capacity * adjust)
+	print('capacity ', capacity)
+
+
+	GROUPS_weight, GROUPS_bucket_idx = split_all(weights, values, capacity)
+
+	return GROUPS_weight, GROUPS_bucket_idx
 
 
 

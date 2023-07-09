@@ -26,7 +26,7 @@ import pdb
 
 
 from gen_K_hop_neighbors import generate_K_hop_neighbors
-from grouping_float import grouping_fanout_1
+from grouping_float import grouping_fanout_1, grouping_fanout_arxiv
 
 def print_(list_):
     for ll in list_:
@@ -312,7 +312,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				print('memory_constraint: ', self.memory_constraint)
 				
 				adjust =1000
-				estimated_mem = [3.4073469162626497, 3.370242885027037, 1.157297824045136, 1.0133891704904496, 0.9557348429007149, 0.8683065945923867, 0.7961147317117165, 0.7320459201998476, 0.6918868972889838, 0.6554751221137857, 0.5919493507700404, 0.5923956658269981, 0.5615447789904067, 0.5219310523014687, 0.514111576096969, 0.4588230236841686, 0.46508563945866666, 0.44191365057154547, 0.4338496737172759, 0.411404915032112, 0.41361562327859797, 0.3480018395967075, 0.35486446624726137, 0.3521475004936968, 1.8239461183547974]
+				estimated_mem = [3.6379471541090243, 3.519859292701475, 1.3139044948856264, 1.168023258447647, 1.1110345689631933, 1.0174509148766198, 0.939528083329737, 0.871675177344254, 0.8272551951869841, 0.7875044051387211, 0.7164326450037946, 0.7157693082792709, 0.6781556913286547, 0.6342095800024695, 0.623858655895532, 0.5609127309921086, 0.5670484961134443, 0.5411179518397851, 0.5307433498923407, 0.5061348172368614, 0.5054305008764547, 0.4282287766997373, 0.4350062972128945, 0.43397694928305497, 13.2]
 
 				print('sum(estimated_mem)')
 				print(sum(estimated_mem))
@@ -325,7 +325,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					print('we can reschedule split K-->K+1 ')
 					self.K = self.K + 1
 				print('self.K ', self.K)
-				Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_1(adjust, estimated_mem, capacity = capacity_imp)
+				Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_arxiv(adjust, estimated_mem, capacity = capacity_imp)
 				print("G_BUCKET_ID_list" , G_BUCKET_ID_list)
 				print("Groups_mem_list ", Groups_mem_list)
 				
