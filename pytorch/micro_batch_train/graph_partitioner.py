@@ -181,8 +181,8 @@ class Graph_Partitioner:  # ----------------------*** split the output layer blo
 				# print(len(nids))
 			print('REG metis partition end ----................................')
 			# print('the time spent: ', tp2-ts)
-			# print('REG construction  time spent: ', tp1-ts)
-			# print('pure dgl.metis_partition the time spent: ', tp2-tp1)
+			print('REG construction  time spent: ', tp1-ts)
+			print('pure dgl.metis_partition the time spent: ', tp2-tp1)
 			self.local_batched_seeds_list=res
 		return
 

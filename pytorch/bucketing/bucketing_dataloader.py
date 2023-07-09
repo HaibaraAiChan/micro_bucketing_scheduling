@@ -171,7 +171,7 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 		output_nid = torch.tensor(output_nid, dtype=torch.long)
 
 		res.append((src_nid, output_nid, global_eid_tensor))
-
+	print("res  length", len(res))
 	return res
 
 

@@ -30,6 +30,9 @@ from my_utils import torch_is_in_1d
 sys.path.insert(0, './pybind_mp')
 import remove_values
 
+sys.path.insert(0, './pybind_remove_duplicates')
+import remove_duplicates
+
 
 
 
@@ -128,7 +131,13 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 		# temp_list = mini_batch_src_local.tolist()
 		# print('before (mini_batch_src_local) ', temp_list)
 		# return
+		time11=time.time()
 		mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local.tolist())) 
+		
+		# mini_batch_src_local = remove_duplicates.remove_duplicates(mini_batch_src_local.tolist())
+		time22=time.time()
+		print("remove duplicated spend dict ", time22-time11)
+
 		# seen = set()
 		# seen_add = seen.add
 		# mini_batch_src_local = [x for x in mini_batch_src_local if not (x in seen or seen_add(x))]
@@ -254,3 +263,13 @@ def	generate_K_hop_neighbors(full_block_dataloader, args, batched_output_nid_lis
 
 	
 	return  final_src_list, weights_list, sum(connect_checking_time_list)
+
+
+if __name__=='__main__':
+	
+
+	my_list = [1, 2, 2, 3, 3, 4, 4, 5, 5]
+	new_list = remove_duplicates.remove_duplicates(my_list)
+
+	print(new_list)  # Outputs: [1, 2, 3, 4, 5]
+

@@ -307,6 +307,53 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				# split_batches_nid_list = g_bucket_nids_list #################
 				self.local_batched_seeds_list = split_batches_nid_list
 				return
+			if 'arxiv_' in self.selection_method:
+				
+				print('memory_constraint: ', self.memory_constraint)
+				
+				adjust =1000
+				estimated_mem = [3.4073469162626497, 3.370242885027037, 1.157297824045136, 1.0133891704904496, 0.9557348429007149, 0.8683065945923867, 0.7961147317117165, 0.7320459201998476, 0.6918868972889838, 0.6554751221137857, 0.5919493507700404, 0.5923956658269981, 0.5615447789904067, 0.5219310523014687, 0.514111576096969, 0.4588230236841686, 0.46508563945866666, 0.44191365057154547, 0.4338496737172759, 0.411404915032112, 0.41361562327859797, 0.3480018395967075, 0.35486446624726137, 0.3521475004936968, 1.8239461183547974]
+
+				print('sum(estimated_mem)')
+				print(sum(estimated_mem))
+				print(len(estimated_mem))
+				
+				time_backpack_start = time.time()
+				capacity_imp = self.memory_constraint
+				if max(estimated_mem) > capacity_imp:
+					print('max degree bucket (1-fanout-1) >capacity')
+					print('we can reschedule split K-->K+1 ')
+					self.K = self.K + 1
+				print('self.K ', self.K)
+				Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_1(adjust, estimated_mem, capacity = capacity_imp)
+				print("G_BUCKET_ID_list" , G_BUCKET_ID_list)
+				print("Groups_mem_list ", Groups_mem_list)
+				
+				print("G_BUCKET_ID_list length" , len(G_BUCKET_ID_list))
+				g_bucket_nids_list=self.get_nids_by_degree_bucket_ID(G_BUCKET_ID_list, bkt_dst_nodes_list)
+				
+				time_backpack_end = time.time()
+				print('backpack scheduling spend ', time_backpack_end-time_backpack_start)
+				split_batches_nid_list =[]
+				
+				time_batch_gen_start = time.time()
+				for j in range(len(g_bucket_nids_list)):
+					tensor_group = torch.tensor(g_bucket_nids_list[j], dtype=torch.long)
+					current_group_mem = get_sum(G_BUCKET_ID_list[j], estimated_mem)
+					print("current group_mem ", current_group_mem)
+					
+					split_batches_nid_list.append(tensor_group) 
+					
+				
+				
+				time_batch_gen_end = time.time()
+				print('batches output list generation spend ', time_batch_gen_end-time_batch_gen_start)
+				length = len(self.output_nids)
+				self.weights_list = [len(batch_nids)/length  for batch_nids in split_batches_nid_list]
+				print('self.weights_list ', self.weights_list)
+				
+				self.local_batched_seeds_list = split_batches_nid_list
+				return
 						
 			elif '25_group_' in self.selection_method:
 				print('__ ')
