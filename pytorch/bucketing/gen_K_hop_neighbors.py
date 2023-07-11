@@ -3,6 +3,7 @@ import dgl
 import sys
 sys.path.insert(0,'..')
 sys.path.insert(0,'../utils/')
+sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/utils/')
 import numpy
 import time
 import pickle
@@ -27,10 +28,12 @@ from typing import Union, Collection
 from my_utils import torch_is_in_1d
 
 # import sys
-sys.path.insert(0, './pybind_mp')
+sys.path.insert(0, './pybind')
+sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/bucketing/pybind')
 import remove_values
 
 sys.path.insert(0, './pybind_remove_duplicates')
+sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/bucketing/pybind_remove_duplicates')
 import remove_duplicates
 
 
@@ -124,9 +127,15 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 		# and src nodes includes dst nodes, src nodes equals dst nodes.
 		if torch.is_tensor(output_nid): output_nid = output_nid.tolist()
 		print('step start', step)
-		
+		print('output_nid' , len(output_nid))
+		print('output_nid' , output_nid[:10])
 		local_output_nid = list(map(dict_nid_2_local.get, output_nid))
+		print('local output_nid' , local_output_nid[:10])
+		print('current_layer_block ', current_layer_block)
+		print(type(local_output_nid))
+		local_output_nid = torch.tensor(local_output_nid, dtype=torch.long)
 		local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
+		# print('local_in_edges_tensor ', local_in_edges_tensor)
 		mini_batch_src_local= list(local_in_edges_tensor)[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
 		# temp_list = mini_batch_src_local.tolist()
 		# print('before (mini_batch_src_local) ', temp_list)
@@ -235,7 +244,7 @@ def	generate_K_hop_neighbors(full_block_dataloader, args, batched_output_nid_lis
 		temp = combine_list(batched_output_nid_list )
 		print('the ratio of the output nids to be processed: ', len(temp)/len(dst_full))
 		weights_list = cal_weights_list(batched_output_nid_list, len(dst_full))
-		print('weights list of these nids: ', weights_list)
+		print('K_Hop_neighbor: weights list of these split output nids: ', weights_list)
 
 		for layer_id, layer_block in enumerate(reversed(full_blocks)):
 			
@@ -269,6 +278,8 @@ if __name__=='__main__':
 	
 
 	my_list = [1, 2, 2, 3, 3, 4, 4, 5, 5]
+	new_list_1 = remove_values.remove_values(my_list, [2,3])
+	print(new_list_1)
 	new_list = remove_duplicates.remove_duplicates(my_list)
 
 	print(new_list)  # Outputs: [1, 2, 3, 4, 5]

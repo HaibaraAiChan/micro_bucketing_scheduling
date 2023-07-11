@@ -164,9 +164,9 @@ def split_all_arxiv(weights, values, capacity):
             max_values, packs = backpack_split(weights, values, capacity)
             
             res_tmp = np.array(weights)[packs[0]]
-            if len(packs[0]) > 4 or  (len(packs[0]) > 3 and max(res_tmp) > min(res_tmp)* 2.5) :
+            # if len(packs[0]) > 4 or  (len(packs[0]) > 3 and max(res_tmp) > min(res_tmp)* 2.5) :
             # if len(packs[0]) > 3 or  (len(packs[0]) > 2 and max(res_tmp) > min(res_tmp)* 1.5) :
-            # if len(packs[0]) > 2 and  max(res_tmp) > min(res_tmp)*1.5 :
+            if len(packs[0]) > 7 and  max(res_tmp) > min(res_tmp)*1.5 :
                 aa = min(packs[0]) # remove this aa from current group
                 packs[0].remove(aa)
                 res_tmp = np.array(weights)[packs[0]]
@@ -204,7 +204,7 @@ def grouping_fanout_arxiv(adjust, weights, capacity):
 	print('capacity ', capacity)
 
 
-	GROUPS_weight, GROUPS_bucket_idx = split_all(weights, values, capacity)
+	GROUPS_weight, GROUPS_bucket_idx = split_all_arxiv(weights, values, capacity)
 
 	return GROUPS_weight, GROUPS_bucket_idx
 
