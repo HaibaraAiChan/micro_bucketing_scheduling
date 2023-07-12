@@ -184,6 +184,7 @@ def run(args, device, data):
 
 	dur = []
 	pure_train_time_list=[]
+	num_input_list =[]
 	for run in range(args.num_runs):
 		model.reset_parameters()
 		# optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
@@ -198,7 +199,7 @@ def run(args, device, data):
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'./../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				file_name=r'./../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)
@@ -216,9 +217,9 @@ def run(args, device, data):
 			
 			
 			pseudo_mini_loss = torch.tensor([], dtype=torch.long)
-
+			num_input_nids=0
 			for step, (input_nodes, seeds, blocks) in enumerate(block_dataloader):
-
+				num_input_nids	+= len(input_nodes)
 				batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 				
 				blocks = [block.int().to(device) for block in blocks]#------------*
@@ -240,6 +241,7 @@ def run(args, device, data):
 			pure_train_time += (t4-t3)
 			pure_train_time_list.append(pure_train_time)
 			print('pure train time ',pure_train_time)
+			num_input_list.append(num_input_nids)
 			if args.GPUmem:
 					see_memory_usage("-----------------------------------------after optimizer zero grad")
 			print('----------------------------------------------------------pseudo_mini_loss sum ' + str(loss_sum.tolist()))
@@ -248,6 +250,8 @@ def run(args, device, data):
 				dur.append(time.time() - t0)
 	print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))
 	print('pure train time/epoch {}'.format(np.mean(pure_train_time_list[4:])))
+	print('')
+	print('num_input_list ', num_input_list)
 				
 			
 	
@@ -276,7 +280,7 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='random')
 	# argparser.add_argument('--selection-method', type=str, default='metis')
 	argparser.add_argument('--selection-method', type=str, default='REG')
-	argparser.add_argument('--num-batch', type=int, default=2)
+	argparser.add_argument('--num-batch', type=int, default=5)
 	argparser.add_argument('--batch-size', type=int, default=0)
 
 	argparser.add_argument('--re-partition-method', type=str, default='REG')
@@ -287,7 +291,8 @@ def main():
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=10)
 
-	argparser.add_argument('--num-hidden', type=int, default=512)
+	# argparser.add_argument('--num-hidden', type=int, default=512)
+	argparser.add_argument('--num-hidden', type=int, default=1024)
 
 	argparser.add_argument('--num-layers', type=int, default=2)
 	argparser.add_argument('--fan-out', type=str, default='10,25')

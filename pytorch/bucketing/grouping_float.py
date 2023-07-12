@@ -1,6 +1,6 @@
 import numpy as np
 import itertools
-
+from math import ceil
 def backpack_split(weights, values, capacity):
     n = len(weights)
     
@@ -142,7 +142,18 @@ def grouping_fanout_1(adjust, weights, capacity):
 
 	return GROUPS_weight, GROUPS_bucket_idx
 
-def split_all_arxiv(weights, values, capacity):
+def split_list(input_list, K):
+    avg = len(input_list) / float(K)
+    out = []
+    last = 0.0
+
+    while last < len(input_list):
+        out.append(input_list[int(last):int(last + avg)])
+        last += avg
+    return out
+
+
+def split_all_arxiv(weights, values, capacity, fanout, K):
     
     # weights.sort(reverse=True)
     sorted_indices, sorted_values, my_dict, sorted_dict = sort_with_original_index(weights)
@@ -155,21 +166,31 @@ def split_all_arxiv(weights, values, capacity):
     GROUPS_bucket_idx =[]
     while len(weights)>=1:
         if sum(weights)< capacity:
-
             original_index = get_index_by_value(sorted_dict, weights)
-            GROUPS_weight.append(weights)
-            GROUPS_bucket_idx.append(original_index)
+            if K == 1:
+                GROUPS_weight.append(weights)
+                GROUPS_bucket_idx.append(original_index)
+            else:
+                # print('split_list(weights, K) ', split_list(weights, K))
+                GROUPS_weight += split_list(weights, K)
+                GROUPS_bucket_idx += split_list(original_index,K)
             break
         else:    # sum(weights)>= capacity
+            # if 1.25 * np.mean(res_tmp) < max(res_tmp) and np.mean(res_tmp) < 1.25 * min(res_tmp):
+            
             max_values, packs = backpack_split(weights, values, capacity)
             
             res_tmp = np.array(weights)[packs[0]]
+            print('res_tmp ', res_tmp)
+            
             # if len(packs[0]) > 4 or  (len(packs[0]) > 3 and max(res_tmp) > min(res_tmp)* 2.5) :
             # if len(packs[0]) > 3 or  (len(packs[0]) > 2 and max(res_tmp) > min(res_tmp)* 1.5) :
-            if len(packs[0]) > 7 and  max(res_tmp) > min(res_tmp)*1.5 :
+            if len(packs[0]) > int(fanout/K)+1 and  max(res_tmp) > min(res_tmp)*1.5 :
                 aa = min(packs[0]) # remove this aa from current group
                 packs[0].remove(aa)
                 res_tmp = np.array(weights)[packs[0]]
+            
+                
             GROUPS_weight.append(list(res_tmp))
             
 
@@ -195,7 +216,7 @@ def split_all_arxiv(weights, values, capacity):
     return GROUPS_weight, GROUPS_bucket_idx
 
 
-def grouping_fanout_arxiv(adjust, weights, capacity):
+def grouping_fanout_arxiv(adjust, weights, capacity, fanout, K):
 	print('the grouping_fanout_arxiv called successfully')
 	weights = [int(item * adjust) for item in weights]
 
@@ -204,7 +225,7 @@ def grouping_fanout_arxiv(adjust, weights, capacity):
 	print('capacity ', capacity)
 
 
-	GROUPS_weight, GROUPS_bucket_idx = split_all_arxiv(weights, values, capacity)
+	GROUPS_weight, GROUPS_bucket_idx = split_all_arxiv(weights, values, capacity, fanout, K)
 
 	return GROUPS_weight, GROUPS_bucket_idx
 

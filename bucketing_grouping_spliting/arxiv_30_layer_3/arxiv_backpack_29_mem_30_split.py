@@ -297,12 +297,12 @@ def main():
 	# argparser.add_argument('--aggre', type=str, default='mean')
 	argparser.add_argument('--aggre', type=str, default='lstm')
 	# argparser.add_argument('--selection-method', type=str, default='arxiv_backpack_bucketing')
-	argparser.add_argument('--selection-method', type=str, default='arxiv_25_backpack_bucketing')
+	argparser.add_argument('--selection-method', type=str, default='arxiv_10_backpack_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='range_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
-	argparser.add_argument('--num-batch', type=int, default=4)
+	argparser.add_argument('--num-batch', type=int, default=6)
 	argparser.add_argument('--mem-constraint', type=float, default=18)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
@@ -310,20 +310,10 @@ def main():
 
 	argparser.add_argument('--num-hidden', type=int, default=1024)
 
-	# argparser.add_argument('--num-layers', type=int, default=1)
-	# argparser.add_argument('--fan-out', type=str, default='10')
-
-	argparser.add_argument('--num-layers', type=int, default=2)
-	argparser.add_argument('--fan-out', type=str, default='10,25')
-	# argparser.add_argument('--num-layers', type=int, default=3)
-	# argparser.add_argument('--fan-out', type=str, default='10,25,30')
+	argparser.add_argument('--num-layers', type=int, default=3)
+	argparser.add_argument('--fan-out', type=str, default='10,25,30')
 
 
-
-	# argparser.add_argument('--num-layers', type=int, default=1)
-	# argparser.add_argument('--fan-out', type=str, default='4')
-	# argparser.add_argument('--num-layers', type=int, default=2)
-	# argparser.add_argument('--fan-out', type=str, default='2,4')
 
 
 	argparser.add_argument('--log-indent', type=float, default=0)
