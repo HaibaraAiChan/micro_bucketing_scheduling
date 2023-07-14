@@ -67,6 +67,18 @@ def my_sort_1d(val):  # add new function here, to replace torch.sort()
 		idx = torch.tensor(list(sorted_res.keys())).to(val.device) ######
 		return sorted_val, idx
 
+def split_list(input_list, k):
+    avg = len(input_list) // k
+    remainder = len(input_list) % k
+    return [input_list[i * avg + min(i, remainder):(i + 1) * avg + min(i + 1, remainder)] for i in range(k)]
+
+
+
+
+
+
+
+
 class Bucket_Partitioner:  # ----------------------*** split the output layer block ***---------------------
 	def __init__(self, layer_block, args, full_batch_dataloader):
 		# self.balanced_init_ratio=args.balanced_init_ratio
@@ -312,12 +324,18 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					time_split_start = time.time()
 					fanout_dst_nids = bkt_dst_nodes_list[-1]
 					fanout = len(bkt_dst_nodes_list)
+
+					
 					if self.args.num_batch >= 1:
 						fanout_batch_size = ceil(len(fanout_dst_nids)/(self.K))
 					indices = torch.arange(0,len(fanout_dst_nids)).long()
 					map_output_list = fanout_dst_nids.view(-1)[indices].view(fanout_dst_nids.size())
-
-					split_batches_nid_list = [map_output_list[i:i + fanout_batch_size] for i in range(0, len(map_output_list), fanout_batch_size)]
+					
+					print('fanout_dst_nids  size ', len(fanout_dst_nids) )
+					print('map_output_list size ', len(map_output_list) )
+					split_batches_nid_list = split_list(map_output_list, self.K)
+					print(split_batches_nid_list)
+					# split_batches_nid_list = [map_output_list[i:i + fanout_batch_size] for i in range(0, len(map_output_list), fanout_batch_size)]
 					
 					# ct = time.time()
 					# src_list, weights_list, time_collection = generate_K_hop_neighbors(self.full_batch_dataloader, self.args, split_batches_nid_list)
@@ -338,7 +356,8 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 						capacity_imp = self.memory_constraint-10
 					elif '30_backpack_' in self.selection_method:
 						estimated_mem = [11.09133707869788, 7.949351660231331, 4.247930594170108, 3.767815723282392, 3.521911913357682, 3.3171698192934964, 3.1136675746243436, 2.9493490757618086, 2.783152518733855, 2.690315310282632, 2.4780320925231085, 2.4736405822131586, 2.424331795810457, 2.3423791134065306, 2.2508307132173453, 2.0888736283425056, 2.1393341709313427, 2.0144231711761864, 2.028492122175591, 1.8952586057017728, 1.9272310948984677, 1.7648288977543771, 1.8025470147872276, 1.7435488087790354, 1.624197941655698, 1.6781451757272114, 1.585553364875989, 1.5579015641599088, 1.508019266507371]
-						capacity_imp = self.memory_constraint-6
+						capacity_imp = self.memory_constraint-4
+						
 					
 					
 					time_backpack_start = time.time()
@@ -347,6 +366,8 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_arxiv(adjust, estimated_mem, capacity_imp, fanout, self.K)
 					print("G_BUCKET_ID_list" , G_BUCKET_ID_list)
 					print("Groups_mem_list ", Groups_mem_list)
+					if len(G_BUCKET_ID_list)> self.K:
+						print('------------errror-----------------')
 					
 					print("G_BUCKET_ID_list length" , len(G_BUCKET_ID_list))
 					g_bucket_nids_list=self.get_nids_by_degree_bucket_ID(G_BUCKET_ID_list, bkt_dst_nodes_list)
@@ -356,12 +377,14 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					
 					
 					time_batch_gen_start = time.time()
+					print(len(g_bucket_nids_list))
+					print(len(split_batches_nid_list))
 					for j in range(len(g_bucket_nids_list)):
 						tensor_group = torch.tensor(g_bucket_nids_list[j], dtype=torch.long)
 						current_group_mem = get_sum(G_BUCKET_ID_list[j], estimated_mem)
 						print("current group_mem ", current_group_mem)
 						
-						split_batches_nid_list[j] = torch.cat((split_batches_nid_list[j],tensor_group)) 
+						split_batches_nid_list[j] = torch.cat((split_batches_nid_list[j], tensor_group)) 
 						
 					
 					time_batch_gen_end = time.time()

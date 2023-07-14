@@ -297,7 +297,7 @@ def main():
 	# argparser.add_argument('--aggre', type=str, default='mean')
 	argparser.add_argument('--aggre', type=str, default='lstm')
 	# argparser.add_argument('--selection-method', type=str, default='arxiv_backpack_bucketing')
-	argparser.add_argument('--selection-method', type=str, default='arxiv_10_backpack_bucketing')
+	argparser.add_argument('--selection-method', type=str, default='arxiv_30_backpack_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='range_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
@@ -308,7 +308,7 @@ def main():
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=10)
 
-	argparser.add_argument('--num-hidden', type=int, default=1024)
+	argparser.add_argument('--num-hidden', type=int, default=256)
 
 	argparser.add_argument('--num-layers', type=int, default=3)
 	argparser.add_argument('--fan-out', type=str, default='10,25,30')

@@ -133,7 +133,9 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 		# and src nodes includes dst nodes, src nodes equals dst nodes.
 		if torch.is_tensor(output_nid): output_nid = output_nid.tolist()
 		local_output_nid = list(map(dict_nid_2_local.get, output_nid))
-		# print('local_output_nid ', local_output_nid)
+		print('local_output_nid ', len(local_output_nid))
+		print('type local_output_nid ', type(local_output_nid[0]))
+		print('type local_output_nid ', local_output_nid[0])
 		# local_output_nid_tmp = torch.tensor(local_output_nid)
 		# ind_tmp = torch.nonzero(local_output_nid_tmp > 90941 )
 		# if len(ind_tmp)>1:

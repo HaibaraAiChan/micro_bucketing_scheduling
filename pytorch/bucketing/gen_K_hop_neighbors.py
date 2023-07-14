@@ -120,21 +120,29 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 	src_nid_list = induced_src.tolist()
 	
 	dict_nid_2_local = dict(zip(src_nid_list, range(len(src_nid_list)))) # speedup 
-	
+	print(len(batched_nodes_list))
+	print(type(batched_nodes_list[0][0]))
 	for step, output_nid in enumerate(batched_nodes_list):
-		if step>=1: break
+		if step > 0: break
+		
 		# in current layer subgraph, only has src and dst nodes,
 		# and src nodes includes dst nodes, src nodes equals dst nodes.
 		if torch.is_tensor(output_nid): output_nid = output_nid.tolist()
+		print("type(output_nid) ", type(output_nid))
+		print("type(output_nid[0]) ", type(output_nid[0]))
+		local_output_nid = list(map(dict_nid_2_local.get, output_nid))
 		print('step start', step)
 		print('output_nid' , len(output_nid))
 		print('output_nid' , output_nid[:10])
-		local_output_nid = list(map(dict_nid_2_local.get, output_nid))
+		
 		print('local output_nid' , local_output_nid[:10])
 		print('current_layer_block ', current_layer_block)
 		print(type(local_output_nid))
-		local_output_nid = torch.tensor(local_output_nid, dtype=torch.long)
+		# local_output_nid = [item for item in local_output_nid if item is not None]
+		# print('local_output_nid ', local_output_nid)
+		# local_output_nid = torch.tensor(local_output_nid, dtype=torch.long)
 		local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
+		# local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
 		# print('local_in_edges_tensor ', local_in_edges_tensor)
 		mini_batch_src_local= list(local_in_edges_tensor)[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
 		# temp_list = mini_batch_src_local.tolist()
