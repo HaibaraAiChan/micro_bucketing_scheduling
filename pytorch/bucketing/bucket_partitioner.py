@@ -334,7 +334,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					print('fanout_dst_nids  size ', len(fanout_dst_nids) )
 					print('map_output_list size ', len(map_output_list) )
 					split_batches_nid_list = split_list(map_output_list, self.K)
-					print(split_batches_nid_list)
+					# print(split_batches_nid_list)
 					# split_batches_nid_list = [map_output_list[i:i + fanout_batch_size] for i in range(0, len(map_output_list), fanout_batch_size)]
 					
 					# ct = time.time()
@@ -353,11 +353,17 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					adjust =1000
 					if '25_backpack_' in self.selection_method:
 						estimated_mem = [3.6379471541090243, 3.519859292701475, 1.3139044948856264, 1.168023258447647, 1.1110345689631933, 1.0174509148766198, 0.939528083329737, 0.871675177344254, 0.8272551951869841, 0.7875044051387211, 0.7164326450037946, 0.7157693082792709, 0.6781556913286547, 0.6342095800024695, 0.623858655895532, 0.5609127309921086, 0.5670484961134443, 0.5411179518397851, 0.5307433498923407, 0.5061348172368614, 0.5054305008764547, 0.4282287766997373, 0.4350062972128945, 0.43397694928305497]
-						capacity_imp = self.memory_constraint-10
+						# capacity_imp = self.memory_constraint-12 # nb 4 capcity = 6 
+						# capacity_imp = self.memory_constraint-11.97 # nb 5 capcity = 6.03 
+						capacity_imp = self.memory_constraint-11.97 # nb 6 capcity = 6.03
+						# capacity_imp = self.memory_constraint-10
 					elif '30_backpack_' in self.selection_method:
 						estimated_mem = [11.09133707869788, 7.949351660231331, 4.247930594170108, 3.767815723282392, 3.521911913357682, 3.3171698192934964, 3.1136675746243436, 2.9493490757618086, 2.783152518733855, 2.690315310282632, 2.4780320925231085, 2.4736405822131586, 2.424331795810457, 2.3423791134065306, 2.2508307132173453, 2.0888736283425056, 2.1393341709313427, 2.0144231711761864, 2.028492122175591, 1.8952586057017728, 1.9272310948984677, 1.7648288977543771, 1.8025470147872276, 1.7435488087790354, 1.624197941655698, 1.6781451757272114, 1.585553364875989, 1.5579015641599088, 1.508019266507371]
-						capacity_imp = self.memory_constraint-4
-						
+						# capacity_imp = self.memory_constraint - 7.2  # nb 8 capcity = 10.8 OOM
+						# capacity_imp = self.memory_constraint - 8.5 # nb 9 capcity = 9.5
+						# capacity_imp = self.memory_constraint-9.5 # nb 10 capcity = 8.5
+						capacity_imp = self.memory_constraint-10 # nb 11 capcity = 8
+						# capacity_imp = self.memory_constraint-11 # nb 12 capcity = 7
 					
 					
 					time_backpack_start = time.time()

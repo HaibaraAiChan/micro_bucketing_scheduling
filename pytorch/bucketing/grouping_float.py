@@ -167,13 +167,15 @@ def split_all_arxiv(weights, values, capacity, fanout, K):
     while len(weights)>=1:
         if sum(weights)< capacity:
             original_index = get_index_by_value(sorted_dict, weights)
-            if K == 1:
-                GROUPS_weight.append(weights)
-                GROUPS_bucket_idx.append(original_index)
-            else:
-                # print('split_list(weights, K) ', split_list(weights, K))
-                GROUPS_weight += split_list(weights, K)
-                GROUPS_bucket_idx += split_list(original_index,K)
+            GROUPS_weight.append(weights)
+            GROUPS_bucket_idx.append(original_index)
+            # if K == 1:
+                # GROUPS_weight.append(weights)
+                # GROUPS_bucket_idx.append(original_index)
+            # else:
+            #     # print('split_list(weights, K) ', split_list(weights, K))
+            #     GROUPS_weight += split_list(weights, K)
+            #     GROUPS_bucket_idx += split_list(original_index,K)
             break
         else:    # sum(weights)>= capacity
             # if 1.25 * np.mean(res_tmp) < max(res_tmp) and np.mean(res_tmp) < 1.25 * min(res_tmp):
@@ -215,40 +217,59 @@ def split_all_arxiv(weights, values, capacity, fanout, K):
             
     return GROUPS_weight, GROUPS_bucket_idx
 
+
 def ffd_bin_packing(weights, capacity):
+    # Combine weights with their indices
+    weights = list(enumerate(weights))
+    
     # Sort weights in decreasing order
-    weights.sort(reverse=True)
+    weights.sort(key=lambda x: x[1], reverse=True)
     
     # Initialize bins and bin_sums
     bins = []
     bin_sums = []
     
-    for weight in weights:
+    for index, weight in weights:
         # Try to fit weight into existing bins
         for i, bin_sum in enumerate(bin_sums):
             if bin_sum + weight <= capacity:
-                bins[i].append(weight)
+                bins[i].append((index, weight))
                 bin_sums[i] += weight
                 break
         else:
             # If weight can't fit into any existing bin, create a new bin
-            bins.append([weight])
+            bins.append([(index, weight)])
             bin_sums.append(weight)
             
     return bins
 
-
-
 def grouping_fanout_arxiv(adjust, weights, capacity, fanout, K):
 	print('the grouping_fanout_arxiv called successfully')
 	weights = [int(item * adjust) for item in weights]
-
-	values =  weights 
+	values = weights
 	capacity = int(capacity * adjust)
 	print('capacity ', capacity)
 
-	# GROUPS_weight, GROUPS_bucket_idx = split_all_arxiv(weights, values, capacity, fanout, K)
-	GROUPS_weight, GROUPS_bucket_idx = ffd_bin_packing(weights,  capacity) #####
+	print(' ')
+	GROUPS_weight, GROUPS_bucket_idx = split_all_arxiv(weights, values, capacity, fanout, K) #####
+	
+	return GROUPS_weight, GROUPS_bucket_idx
+
+
+def grouping_fanout_arxiv_new(adjust, weights, capacity):
+	print('the grouping_fanout_arxiv called successfully')
+	weights = [int(item * adjust) for item in weights]
+
+	capacity = int(capacity * adjust)
+	print('capacity ', capacity)
+
+	print(' ')
+	bins = ffd_bin_packing(weights, capacity) #####
+	GROUPS_weight =[]
+	GROUPS_bucket_idx =[]
+	for i, bin in enumerate(bins):
+		GROUPS_weight.append(sum(weight for index, weight in bin))
+		GROUPS_bucket_idx.append([ index for index, weight in bin])
 	return GROUPS_weight, GROUPS_bucket_idx
 
 
@@ -285,9 +306,9 @@ def grouping_fanout_arxiv(adjust, weights, capacity, fanout, K):
     
 #     print(sum(total))
     
-if __name__=='__main__':
-	# main()
-	adjust = 1000
+# if __name__=='__main__':
+	
+# 	adjust = 1000
 	# weights = [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881, 0.6416539241286929, 0.6823511784373357, 0.666389745486164, 0.7496792492248849, 0.7371837931190246, 0.7577242599083827, 0.7889046908693763, 0.8683255342292655, 0.9311795745279405, 0.8477295250909833, 0.9436967117287708, 0.9945587138174034, 1.0309573992937635, 1.0749793136129961, 1.0747561831684673, 1.1274098691910925,1.2304586825034851, 1.1488268197006972, 1.3300050600793791, 1.2305013597063668, 1.339544299635952, 1.363191539881995, 1.501307503974184, 1.4590092047286807, 1.473764838436366]
 	# weights = [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
 	# print(len(weights))
@@ -309,17 +330,16 @@ if __name__=='__main__':
             
 	# 	print(sum(total))
 	# 	print(len(total))
+if __name__=='__main__':
+
+	adjust = 1000
 	estimated_mem = [11.09133707869788, 7.949351660231331, 4.247930594170108, 3.767815723282392, 3.521911913357682, 3.3171698192934964, 3.1136675746243436, 2.9493490757618086, 2.783152518733855, 2.690315310282632, 2.4780320925231085, 2.4736405822131586, 2.424331795810457, 2.3423791134065306, 2.2508307132173453, 2.0888736283425056, 2.1393341709313427, 2.0144231711761864, 2.028492122175591, 1.8952586057017728, 1.9272310948984677, 1.7648288977543771, 1.8025470147872276, 1.7435488087790354, 1.624197941655698, 1.6781451757272114, 1.585553364875989, 1.5579015641599088, 1.508019266507371]
-	capacity_imp = 14
-	fanout = 30
-	K = 6
-	G_WEIGHTS, G_BUCKET_ID = grouping_fanout_arxiv(adjust, estimated_mem, capacity_imp, fanout, K)
+	capacity_imp = 15
+	# fanout = 30
+	# K = 5
+	G_WEIGHTS, G_BUCKET_ID = grouping_fanout_arxiv(adjust, estimated_mem, capacity_imp)
 	print(G_BUCKET_ID)
+	print(G_WEIGHTS)
 
 
-	# flattened_list = list(itertools.chain(*G_BUCKET_ID))
-	# print(flattened_list)
-
-	# print(set(oo)-set(flattened_list))
-# [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881, 0.6416539241286929, 0.6823511784373357, 0.666389745486164, 0.7496792492248849, 0.7371837931190246, 0.7577242599083827, 0.7889046908693763, 0.8683255342292655, 0.9311795745279405, 0.8477295250909833, 0.9436967117287708, 0.9945587138174034, 1.0309573992937635, 1.0749793136129961, 1.0747561831684673, 1.1274098691910925, 1.2304586825034851, 1.1488268197006972, 1.3300050600793791, 1.2305013597063668, 1.339544299635952, 1.363191539881995, 1.501307503974184, 1.4590092047286807, 1.473764838436366]
-# [0.03173831570355189, 0.05356346886621881, 0.04711123806907531, 0.07226774258244979, 0.09551787968431964, 0.1325150206414136, 0.16567610820741147, 0.18105303097399883, 0.2113949286027087, 0.2532854815945029, 0.28107834893923545, 0.2823118815649026, 0.33190986587898375, 0.3619426326234686, 0.3814523874739127, 0.3890698973198667, 0.40976734184772345, 0.4268743659042759, 0.4544031402175385, 0.44849912694596744, 0.49506335349881553, 0.5441759409753638, 0.5855775860088747, 0.5946814550216808]
+	
