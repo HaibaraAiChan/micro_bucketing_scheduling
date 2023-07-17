@@ -208,32 +208,40 @@ def print_mem(list_mem):
         deg += 1
     print()
     
-def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):	
-	
+def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio):	
+	need_redundant_ratio = True
 	estimated_mem_list = []
 	for deg, data in enumerate(data_dict):
+		if len(data) ==1:
+			need_redundant_ratio= False
 		estimated_mem = 0
-		for i in range (len(data)):
+		for i in range (len(data)): # number of layers
+			
 			sum_b = 0
-			for idx, (key, val) in enumerate(data[i].items()):
-				print('idx (key, val) '+str(idx) +' '+str(key)+' '+str(val))
+			for idx, (key, val) in enumerate(data[i].items()): # (degree, num of nid)
+				# print('idx (key, val)'+str(idx) +' '+str(key)+' '+str(val))
 				sum_b = sum_b + key*val
-				if idx ==0: # the input layer, in_feat 100(products) or 128(arxiv)
+				if idx ==0: # the input layer, in_feat 100(products) or 128(arxiv). 602(reddit)
 					estimated_mem  +=  sum_b*in_feat*18*4/1024/1024/1024
-					if deg == fanout-1: print(estimated_mem)
+					if deg == 24: print(estimated_mem)
 				if idx >=1: # the output layer
 					estimated_mem  +=  sum_b*hidden_size*18*4/1024/1024/1024	
-					if deg == fanout-1: print(estimated_mem)
+					if deg == 24: print(estimated_mem)
 		estimated_mem_list.append(estimated_mem)
 	print('estimated_mem_list[-1]')
 	print(estimated_mem_list[-1])
 
 	modified_estimated_mem_list = []
-	for deg in range(len(redundant_ratio)):
-		modified_estimated_mem_list.append(estimated_mem_list[deg]*redundant_ratio[deg]) 
-		# redundant_ratio[i] is a variable depends on graph characteristic
-		print(' MM estimated memory/GB degree '+str(deg)+': '+str(estimated_mem_list[deg]) + " * " +str(redundant_ratio[deg]) ) 
-	
+	if need_redundant_ratio == True:
+		for deg in range(len(redundant_ratio)):
+			modified_estimated_mem_list.append(estimated_mem_list[deg]*redundant_ratio[deg]) 
+			# redundant_ratio[i] is a variable depends on graph characteristic
+			print(' MM estimated memory/GB degree '+str(deg)+': '+str(estimated_mem_list[deg]) + " * " +str(redundant_ratio[deg]) ) 
+	else:
+		modified_estimated_mem_list = estimated_mem_list
+		for deg in range(len(estimated_mem_list)):
+			print(' MM estimated memory/GB degree '+str(deg)+': '+str(estimated_mem_list[deg])  ) 
+			
 	print()
 	# print(modified_estimated_mem_list)
 
@@ -322,12 +330,11 @@ def run(args, device, data):
     
 				print('data_dict')
 				print(data_dict)
+				time_est_start = time.time()
+				modified_res, res = estimate_mem(data_dict, in_feats, args.num_hidden, redundant_ratio)
+				time_est_end = time.time()
 				fanout_list = [int(fanout) for fanout in args.fan_out.split(',')]
 				fanout = fanout_list[-1]
-				time_est_start = time.time()
-				modified_res, res = estimate_mem(data_dict, in_feats, args.num_hidden, redundant_ratio, fanout)
-				time_est_end = time.time()
-				
 				print('modified_mem [1, fanout-1]: ' )
 				print(modified_res[:fanout-1])
 				print(sum(modified_res[:fanout-1]))
@@ -387,12 +394,12 @@ def main():
 	argparser.add_argument('--GPUmem', type=bool, default=True)
 	argparser.add_argument('--load-full-batch', type=bool, default=True)
 	# argparser.add_argument('--root', type=str, default='../my_full_graph/')
-	argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
+	# argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-mag')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-products')
 	# argparser.add_argument('--dataset', type=str, default='cora')
 	# argparser.add_argument('--dataset', type=str, default='karate')
-	# argparser.add_argument('--dataset', type=str, default='reddit')
+	argparser.add_argument('--dataset', type=str, default='reddit')
 	# argparser.add_argument('--aggre', type=str, default='mean')
 	argparser.add_argument('--aggre', type=str, default='lstm')
 
@@ -401,23 +408,23 @@ def main():
 	argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='__bucketing')
-	argparser.add_argument('--num-batch', type=int, default=30)
+	argparser.add_argument('--num-batch', type=int, default=10)
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
-
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
 
+	argparser.add_argument('--num-hidden', type=int, default=602)
 
-	argparser.add_argument('--num-hidden', type=int, default=256)
+	argparser.add_argument('--num-layers', type=int, default=1)
+	argparser.add_argument('--fan-out', type=str, default='10')
 
-	argparser.add_argument('--num-layers', type=int, default=3)
-	argparser.add_argument('--fan-out', type=str, default='10,25,30')
 
-	argparser.add_argument('--log-indent', type=float, default=0)
+
+	argparser.add_argument('--log-indent', type=float, default=3)
 #--------------------------------------------------------------------------------------
 
-	argparser.add_argument('--lr', type=float, default=1e-3)
+	argparser.add_argument('--lr', type=float, default=1e-4)
 	argparser.add_argument('--dropout', type=float, default=0.5)
 	argparser.add_argument("--weight-decay", type=float, default=5e-4,
 						help="Weight for L2 loss")

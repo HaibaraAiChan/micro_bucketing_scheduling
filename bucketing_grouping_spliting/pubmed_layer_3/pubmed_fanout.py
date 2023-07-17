@@ -41,7 +41,7 @@ from utils import Logger
 import os 
 import numpy
 import pdb
-
+import networkx as nx
 
 
 def set_seed(args):
@@ -208,36 +208,45 @@ def print_mem(list_mem):
         deg += 1
     print()
     
-def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):	
+def estimate_mem(data_dict_list, in_feat, hidden_size, redundant_ratio, fanout):	
 	
-	estimated_mem_list = []
-	for deg, data in enumerate(data_dict):
+	estimated_mem_dict = {}
+	real_degree = -1
+	for bucket_id, data in enumerate(data_dict_list): # each batch degrees are stored in a dict
 		estimated_mem = 0
-		for i in range (len(data)):
+		# print('bucket_id ', bucket_id)
+		for i in range (len(data)): # length = number of layers
 			sum_b = 0
-			for idx, (key, val) in enumerate(data[i].items()):
-				print('idx (key, val) '+str(idx) +' '+str(key)+' '+str(val))
+			key = -1
+			for idx, (key, val) in enumerate(data[i].items()): # (degree, number of nids)
+				# print(' (key, val) '+str(key)+' '+str(val))
 				sum_b = sum_b + key*val
-				if idx ==0: # the input layer, in_feat 100(products) or 128(arxiv)
+				if idx ==0: # the input layer, in_feat 100(products) or 128(arxiv), 1433(cora), 602(reddit), 500(pubmed)
 					estimated_mem  +=  sum_b*in_feat*18*4/1024/1024/1024
-					if deg == fanout-1: print(estimated_mem)
-				if idx >=1: # the output layer
-					estimated_mem  +=  sum_b*hidden_size*18*4/1024/1024/1024	
-					if deg == fanout-1: print(estimated_mem)
-		estimated_mem_list.append(estimated_mem)
-	print('estimated_mem_list[-1]')
-	print(estimated_mem_list[-1])
+					# if bucket_id == fanout-1: print(estimated_mem)
+				if idx >=1: # the hidden & output layer
+					estimated_mem  +=  sum_b*hidden_size*18*4/1024/1024/1024
+			if i == len(data)-1:
+				# print('i ', i)
+				real_degree = key
+				print('degree ', real_degree)
+					
+		estimated_mem_dict[real_degree] = estimated_mem
+	print('estimated_mem_dict')
+	print(estimated_mem_dict)
 
 	modified_estimated_mem_list = []
-	for deg in range(len(redundant_ratio)):
-		modified_estimated_mem_list.append(estimated_mem_list[deg]*redundant_ratio[deg]) 
+	idx =0
+	for key, val in estimated_mem_dict.items():
+	# for deg in range(len(redundant_ratio)):
+		modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]) 
 		# redundant_ratio[i] is a variable depends on graph characteristic
-		print(' MM estimated memory/GB degree '+str(deg)+': '+str(estimated_mem_list[deg]) + " * " +str(redundant_ratio[deg]) ) 
-	
+		print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx]) ) 
+		idx += 1
 	print()
 	# print(modified_estimated_mem_list)
 
-	return modified_estimated_mem_list, estimated_mem_list
+	return modified_estimated_mem_list, estimated_mem_dict
 
 
 #### Entry point
@@ -293,15 +302,40 @@ def run(args, device, data):
 					full_batch_dataloader.append(item)
 			
 			if args.num_batch > 1:
+
+				# g_nx = g.to_networkx()
+				# average_in_degree, average_out_degree,average_degree=0,0,0
+				# # If the graph is directed
+				# if g.is_multigraph:
+				# 	average_in_degree = sum(dict(g_nx.in_degree()).values()) / len(g_nx)
+				# 	average_out_degree = sum(dict(g_nx.out_degree()).values()) / len(g_nx)
+				# else: # If the graph is undirected
+				# 	average_degree = sum(dict(g_nx.degree()).values()) / len(g_nx)
+				# 	degrees = list(dict(g_nx.degree()).values())
+				# 	# print(degrees)
+				# 	degrees = list(set(degrees))
+				# 	print(degrees)
+				# 	degrees.sort()
+				# 	print(degrees)
+				# 	# [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 132, 134, 136, 138, 144, 146, 148, 150, 154, 160, 166, 176, 242, 250, 260, 262, 308, 342]
+
+				# # print('Average in-degree: ', average_in_degree)
+				# # print('Average out-degree: ', average_out_degree)
+				# # Or for undirected graph
+				# print('Average degree: ', average_degree)
+				# # after sampling, we only have degree [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60]
+				# return
 				time0 = time.time()
 				b_block_dataloader, weights_list, time_collection = generate_dataloader_bucket_block(g, full_batch_dataloader, args)
 				time1 = time.time()
 				data_dict = []
 				print('redundancy ratio #input/#seeds/degree')
 				redundant_ratio = []
+				degrees = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 18, 22, 29, 30]
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
-					print(len(input_nodes)/len(seeds)/(step+1))
-					redundant_ratio.append(len(input_nodes)/len(seeds)/(step+1))
+					# degree = blocks[-1].in_degrees(seeds)
+					print(len(input_nodes)/len(seeds)/degrees[step])
+					redundant_ratio.append(len(input_nodes)/len(seeds)/degrees[step])
     
 				time_dict_start = time.time()
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
@@ -324,14 +358,16 @@ def run(args, device, data):
 				print(data_dict)
 				fanout_list = [int(fanout) for fanout in args.fan_out.split(',')]
 				fanout = fanout_list[-1]
+				# redundant_ratio = [1]*args.num_batch
 				time_est_start = time.time()
 				modified_res, res = estimate_mem(data_dict, in_feats, args.num_hidden, redundant_ratio, fanout)
 				time_est_end = time.time()
 				
-				print('modified_mem [1, fanout-1]: ' )
-				print(modified_res[:fanout-1])
-				print(sum(modified_res[:fanout-1]))
-				print('mem size of fanout degree bucket by formula (GB): ', res[fanout-1])
+				print('the total length of degree buckets ', len(modified_res))
+				print("modified_res ", modified_res)
+				print(sum(modified_res))
+				print('mem size of fanout degree bucket by formula (GB): ', res)
+				pritn(sum(res.values()))
 				print()
 				print('the modified memory estimation spend (sec)', time.time()-time1)
 				print('the time of number of fanout blocks generation (sec)', time1-time0)
@@ -387,11 +423,11 @@ def main():
 	argparser.add_argument('--GPUmem', type=bool, default=True)
 	argparser.add_argument('--load-full-batch', type=bool, default=True)
 	# argparser.add_argument('--root', type=str, default='../my_full_graph/')
-	argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
+	# argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-mag')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-products')
 	# argparser.add_argument('--dataset', type=str, default='cora')
-	# argparser.add_argument('--dataset', type=str, default='karate')
+	argparser.add_argument('--dataset', type=str, default='pubmed')
 	# argparser.add_argument('--dataset', type=str, default='reddit')
 	# argparser.add_argument('--aggre', type=str, default='mean')
 	argparser.add_argument('--aggre', type=str, default='lstm')
@@ -408,8 +444,8 @@ def main():
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
 
+	argparser.add_argument('--num-hidden', type=int, default=4096)
 
-	argparser.add_argument('--num-hidden', type=int, default=256)
 
 	argparser.add_argument('--num-layers', type=int, default=3)
 	argparser.add_argument('--fan-out', type=str, default='10,25,30')
@@ -417,7 +453,7 @@ def main():
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------
 
-	argparser.add_argument('--lr', type=float, default=1e-3)
+	argparser.add_argument('--lr', type=float, default=1e-5)
 	argparser.add_argument('--dropout', type=float, default=0.5)
 	argparser.add_argument("--weight-decay", type=float, default=5e-4,
 						help="Weight for L2 loss")

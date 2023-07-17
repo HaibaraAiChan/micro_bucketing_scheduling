@@ -115,12 +115,7 @@ def load_block_subtensor(nfeat, labels, blocks, device,args):
 	# if args.GPUmem:
 	# 	see_memory_usage("----------------------------------------after batch input features to device")
 	batch_labels = labels[blocks[-1].dstdata[dgl.NID]].to(device)
-	# print('input global nids ', blocks[0].srcdata[dgl.NID])
-	# print('input features: ', batch_inputs)
-	# print('seeds global nids ', blocks[-1].dstdata[dgl.NID])
-	# print('seeds labels : ',batch_labels)
-	# if args.GPUmem:
-	# 	see_memory_usage("----------------------------------------after  batch labels to device")
+	
 	return batch_inputs, batch_labels
 
 def get_compute_num_nids(blocks):
@@ -208,7 +203,7 @@ def print_mem(list_mem):
         deg += 1
     print()
     
-def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):	
+def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio):	
 	
 	estimated_mem_list = []
 	for deg, data in enumerate(data_dict):
@@ -216,17 +211,12 @@ def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):
 		for i in range (len(data)):
 			sum_b = 0
 			for idx, (key, val) in enumerate(data[i].items()):
-				print('idx (key, val) '+str(idx) +' '+str(key)+' '+str(val))
 				sum_b = sum_b + key*val
-				if idx ==0: # the input layer, in_feat 100(products) or 128(arxiv)
+				if idx ==0: # the input layer, in_feat 100
 					estimated_mem  +=  sum_b*in_feat*18*4/1024/1024/1024
-					if deg == fanout-1: print(estimated_mem)
-				if idx >=1: # the output layer
+				if idx ==1: # the output layer
 					estimated_mem  +=  sum_b*hidden_size*18*4/1024/1024/1024	
-					if deg == fanout-1: print(estimated_mem)
 		estimated_mem_list.append(estimated_mem)
-	print('estimated_mem_list[-1]')
-	print(estimated_mem_list[-1])
 
 	modified_estimated_mem_list = []
 	for deg in range(len(redundant_ratio)):
@@ -293,58 +283,31 @@ def run(args, device, data):
 					full_batch_dataloader.append(item)
 			
 			if args.num_batch > 1:
-				time0 = time.time()
+				
 				b_block_dataloader, weights_list, time_collection = generate_dataloader_bucket_block(g, full_batch_dataloader, args)
-				time1 = time.time()
-				data_dict = []
-				print('redundancy ratio #input/#seeds/degree')
-				redundant_ratio = []
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
-					print(len(input_nodes)/len(seeds)/(step+1))
-					redundant_ratio.append(len(input_nodes)/len(seeds)/(step+1))
-    
-				time_dict_start = time.time()
-				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
-					layer = 0
-					dict_list =[]
-					for b in blocks:
-						print('layer ', layer)
-						graph_in = dict(Counter(b.in_degrees().tolist()))
-						graph_in = dict(sorted(graph_in.items()))
-
-						print(graph_in)
-						dict_list.append(graph_in)
-
-						layer = layer +1
-					print()
-					data_dict.append(dict_list)
-				time_dict_end = time.time()
-    
-				print('data_dict')
-				print(data_dict)
-				fanout_list = [int(fanout) for fanout in args.fan_out.split(',')]
-				fanout = fanout_list[-1]
-				time_est_start = time.time()
-				modified_res, res = estimate_mem(data_dict, in_feats, args.num_hidden, redundant_ratio, fanout)
-				time_est_end = time.time()
-				
-				print('modified_mem [1, fanout-1]: ' )
-				print(modified_res[:fanout-1])
-				print(sum(modified_res[:fanout-1]))
-				print('mem size of fanout degree bucket by formula (GB): ', res[fanout-1])
-				print()
-				print('the modified memory estimation spend (sec)', time.time()-time1)
-				print('the time of number of fanout blocks generation (sec)', time1-time0)
-
-				print('the time dict collection (sec)', time_dict_end - time_dict_start)
-				print('the time estimate mem (sec)', time_est_end - time_est_start)
-				
-				
-				
+					print('bucket ', step +1 )
+					if step < 24: continue
+					print('the number of input_nodes ', len(input_nodes))
+					print('the number of output nodes ', len(seeds))
+					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
+					blocks = [block.int().to(device) for block in blocks]#------------*
 					
+					see_memory_usage("----------------------------------------before batch_pred = model(blocks, batch_inputs)")
 					
-
-
+					batch_pred = model(blocks, batch_inputs)#------------*
+					see_memory_usage("----------------------------------------after batch_pred = model(blocks, batch_inputs)")
+					pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
+					
+					see_memory_usage("----------------------------------------after loss function")
+					pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
+					pseudo_mini_loss.backward()#------------*
+					loss_sum += pseudo_mini_loss#------------*
+					
+				optimizer.step()
+				optimizer.zero_grad()
+				see_memory_usage("----------------------------------------after optimization")
+    
 
 			elif args.num_batch == 1:
 				# print('orignal labels: ', labels)
@@ -401,18 +364,26 @@ def main():
 	argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='__bucketing')
-	argparser.add_argument('--num-batch', type=int, default=30)
+	argparser.add_argument('--num-batch', type=int, default=25)
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
-
+	# argparser.add_argument('--num-batch', type=int, default=100)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
 
+	# argparser.add_argument('--num-hidden', type=int, default=128)
+	argparser.add_argument('--num-hidden', type=int, default=512)
 
-	argparser.add_argument('--num-hidden', type=int, default=256)
+	# argparser.add_argument('--num-layers', type=int, default=1)
+	# argparser.add_argument('--fan-out', type=str, default='10')
 
-	argparser.add_argument('--num-layers', type=int, default=3)
-	argparser.add_argument('--fan-out', type=str, default='10,25,30')
+	argparser.add_argument('--num-layers', type=int, default=2)
+	argparser.add_argument('--fan-out', type=str, default='10,25')
+	# argparser.add_argument('--fan-out', type=str, default='10,100')
+	# argparser.add_argument('--fan-out', type=str, default='10,25')
+	# argparser.add_argument('--num-layers', type=int, default=3)
+	# argparser.add_argument('--fan-out', type=str, default='10,25,30')
+
 
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------

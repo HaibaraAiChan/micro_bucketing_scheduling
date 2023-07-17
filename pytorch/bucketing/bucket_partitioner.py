@@ -193,24 +193,15 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 			tensor_lengths = [t.numel() for t in bkt_dst_nodes_list]
 			print('')
 			if 'fanout' in self.selection_method :
-				if 'cora' in self.dataset:
-					print(len(bkt_dst_nodes_list))
-					batches_nid_list = [t for t in bkt_dst_nodes_list]
-					print(len(batches_nid_list))
-					length = len(self.output_nids)
-					self.weights_list = [len(batch_nids)/length  for batch_nids in batches_nid_list]
-					self.local_batched_seeds_list = batches_nid_list
-					print(self.weights_list)
-					return
-				else:
-					print(len(bkt_dst_nodes_list))
-					batches_nid_list = [t for t in bkt_dst_nodes_list]
-					print(len(batches_nid_list))
-					length = len(self.output_nids)
-					self.weights_list = [len(batch_nids)/length  for batch_nids in batches_nid_list]
-					self.local_batched_seeds_list = batches_nid_list
-					print(self.weights_list)
-					return
+				
+				print(len(bkt_dst_nodes_list))
+				batches_nid_list = [t for t in bkt_dst_nodes_list]
+				print(len(batches_nid_list))
+				length = len(self.output_nids)
+				self.weights_list = [len(batch_nids)/length  for batch_nids in batches_nid_list]
+				self.local_batched_seeds_list = batches_nid_list
+				print(self.weights_list)
+				return
 
 			if '50_backpack_' in self.selection_method:
 				fanout_dst_nids = bkt_dst_nodes_list[-1]
@@ -330,12 +321,15 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				# split_batches_nid_list = g_bucket_nids_list #################
 				self.local_batched_seeds_list = split_batches_nid_list
 				return
-			if 'cora_' in self.selection_method:
+			if 'cora_' in self.selection_method or 'pubmed_' in self.selection_method:
 				if '30_backpack_' in self.selection_method: 
 					print('memory_constraint: ', self.memory_constraint)
 					
 					adjust =1000
-					est_mem_dict ={1: 0.4396008476614952, 2: 1.374441683292389, 3: 1.5948124453425407, 4: 2.2839434891939163, 5: 1.8786997273564339, 6: 1.5771530494093895, 7: 0.6665662229061127, 8: 0.4780137687921524, 9: 0.8689616918563843, 10: 0.6201625987887383, 11: 0.16984806954860687, 12: 0.40121957659721375, 19: 0.27158090472221375, 21: 0.42578747123479843, 30: 1.1442232578992844}
+					if 'cora_' in self.selection_method :
+						est_mem_dict ={1: 0.4396008476614952, 2: 1.374441683292389, 3: 1.5948124453425407, 4: 2.2839434891939163, 5: 1.8786997273564339, 6: 1.5771530494093895, 7: 0.6665662229061127, 8: 0.4780137687921524, 9: 0.8689616918563843, 10: 0.6201625987887383, 11: 0.16984806954860687, 12: 0.40121957659721375, 19: 0.27158090472221375, 21: 0.42578747123479843, 30: 1.1442232578992844}
+					elif 'pubmed_' in self.selection_method:
+						est_mem_dict ={1: 2.2797432839870453, 2: 0.9267187714576721, 3: 1.3459078073501587, 4: 0.9429364800453186, 5: 0.6352187097072601, 6: 1.315835952758789, 7: 0.07466062903404236, 8: 1.1979998052120209, 9: 0.36177903413772583, 10: 0.15526315569877625, 11: 0.35477203130722046, 17: 1.8221600353717804, 18: 1.1670382618904114, 22: 1.2326273918151855, 29: 0.24611574411392212, 30: 1.5610657632350922}
 					print('sum(estimated_mem)')
 					print(sum(est_mem_dict.values()))
 					print(len(est_mem_dict))
@@ -375,8 +369,93 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					
 					self.local_batched_seeds_list = split_batches_nid_list
 					return
+			if 'reddit_' in self.selection_method :
+				if '_backpack_' in self.selection_method: 
+					time_split_start = time.time()
+					fanout_dst_nids = bkt_dst_nodes_list[-1]
+					fanout = len(bkt_dst_nodes_list)
+					
+					if self.args.num_batch >= 1:
+						fanout_batch_size = ceil(len(fanout_dst_nids)/(self.K))
+					indices = torch.arange(0,len(fanout_dst_nids)).long()
+					map_output_list = fanout_dst_nids.view(-1)[indices].view(fanout_dst_nids.size())
+					
+					print('fanout_dst_nids  size ', len(fanout_dst_nids) )
+					print('map_output_list size ', len(map_output_list) )
+					split_batches_nid_list = split_list(map_output_list, self.K)
+					print(split_batches_nid_list)
+					split_batches_nid_list = [map_output_list[i:i + fanout_batch_size] for i in range(0, len(map_output_list), fanout_batch_size)]
+					
+					# ct = time.time()
+					# src_list, weights_list, time_collection = generate_K_hop_neighbors(self.full_batch_dataloader, self.args, split_batches_nid_list)
+					# print('generate_K_hop_neighbors time ', time.time()-ct)
+					# redundant_ratio = []
+					# for (i, input_nodes) in enumerate(src_list):
+					# 	print(len(input_nodes)/len(split_batches_nid_list[i])/fanout/0.226)
+					# 	redundant_ratio.append(len(input_nodes)/len(split_batches_nid_list[i])/fanout/0.226)
+					# print('the split redundant ratio ', )
+					# print(redundant_ratio)
+					# print(len(redundant_ratio))
+					# time_split_end = time.time()
+					# print('split fanout degree bucket spend /sec: ', time_split_end - time_split_start)
+    
+					adjust =1000
+					if '10_backpack_' in self.selection_method:
+						estimated_mem = [0.05615083873271942, 0.09857681393623352, 0.1275201290845871, 0.15920841693878174, 0.18568933010101318, 0.21192803978919983, 0.23001256585121155, 0.25802743434906006, 0.2524971216917038]
+						if self.num_batch == 3:
+							capacity_imp = self.memory_constraint-17.45
+						elif self.num_batch == 4:
+							capacity_imp = self.memory_constraint-17.58
+						elif self.num_batch == 5:
+							capacity_imp = self.memory_constraint-17.65
+					# elif '25_backpack_' in self.selection_method:
+					# 	estimated_mem = [3.6379471541090243, 3.519859292701475, 1.3139044948856264, 1.168023258447647, 1.1110345689631933, 1.0174509148766198, 0.939528083329737, 0.871675177344254, 0.8272551951869841, 0.7875044051387211, 0.7164326450037946, 0.7157693082792709, 0.6781556913286547, 0.6342095800024695, 0.623858655895532, 0.5609127309921086, 0.5670484961134443, 0.5411179518397851, 0.5307433498923407, 0.5061348172368614, 0.5054305008764547, 0.4282287766997373, 0.4350062972128945, 0.43397694928305497]
+					# 	capacity_imp = self.memory_constraint-11.97 # nb 6 capcity = 6.03
+						
+					# elif '30_backpack_' in self.selection_method:
+					# 	estimated_mem = [11.09133707869788, 7.949351660231331, 4.247930594170108, 3.767815723282392, 3.521911913357682, 3.3171698192934964, 3.1136675746243436, 2.9493490757618086, 2.783152518733855, 2.690315310282632, 2.4780320925231085, 2.4736405822131586, 2.424331795810457, 2.3423791134065306, 2.2508307132173453, 2.0888736283425056, 2.1393341709313427, 2.0144231711761864, 2.028492122175591, 1.8952586057017728, 1.9272310948984677, 1.7648288977543771, 1.8025470147872276, 1.7435488087790354, 1.624197941655698, 1.6781451757272114, 1.585553364875989, 1.5579015641599088, 1.508019266507371]
+					# 	capacity_imp = self.memory_constraint-10 # nb 11 capcity = 8
+
+					
+					time_backpack_start = time.time()
+					
+					print('self.K ', self.K)
+					Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_arxiv(adjust, estimated_mem, capacity_imp, fanout, self.K)
+					print("G_BUCKET_ID_list" , G_BUCKET_ID_list)
+					print("Groups_mem_list ", Groups_mem_list)
+					if len(G_BUCKET_ID_list)> self.K:
+						print('------------errror-----------------')
+					
+					print("G_BUCKET_ID_list length" , len(G_BUCKET_ID_list))
+					g_bucket_nids_list=self.get_nids_by_degree_bucket_ID(G_BUCKET_ID_list, bkt_dst_nodes_list)
+					
+					time_backpack_end = time.time()
+					print('backpack scheduling spend ', time_backpack_end-time_backpack_start)
+					
+					
+					time_batch_gen_start = time.time()
+					print(len(g_bucket_nids_list))
+					print(len(split_batches_nid_list))
+					for j in range(len(g_bucket_nids_list)):
+						tensor_group = torch.tensor(g_bucket_nids_list[j], dtype=torch.long)
+						current_group_mem = get_sum(G_BUCKET_ID_list[j], estimated_mem)
+						print("current group_mem ", current_group_mem)
+						
+						split_batches_nid_list[j] = torch.cat((split_batches_nid_list[j], tensor_group)) 
+						
+					
+					time_batch_gen_end = time.time()
+					print('batches output list generation spend ', time_batch_gen_end-time_batch_gen_start)
+					length = len(self.output_nids)
+					self.weights_list = [len(batch_nids)/length  for batch_nids in split_batches_nid_list]
+					print('self.weights_list ', self.weights_list)
+					
+					self.local_batched_seeds_list = split_batches_nid_list
+
+					return
+				
 			if 'arxiv_' in self.selection_method :
-				if '10_backpack_' in self.selection_method: 
+				if '_backpack_' in self.selection_method: 
 					time_split_start = time.time()
 					fanout_dst_nids = bkt_dst_nodes_list[-1]
 					fanout = len(bkt_dst_nodes_list)

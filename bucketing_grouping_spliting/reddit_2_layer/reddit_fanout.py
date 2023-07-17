@@ -208,7 +208,7 @@ def print_mem(list_mem):
         deg += 1
     print()
     
-def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):	
+def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio):	
 	
 	estimated_mem_list = []
 	for deg, data in enumerate(data_dict):
@@ -216,14 +216,14 @@ def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):
 		for i in range (len(data)):
 			sum_b = 0
 			for idx, (key, val) in enumerate(data[i].items()):
-				print('idx (key, val) '+str(idx) +' '+str(key)+' '+str(val))
+				print('idx (key, val)'+str(idx) +' '+str(key)+' '+str(val))
 				sum_b = sum_b + key*val
 				if idx ==0: # the input layer, in_feat 100(products) or 128(arxiv)
 					estimated_mem  +=  sum_b*in_feat*18*4/1024/1024/1024
-					if deg == fanout-1: print(estimated_mem)
-				if idx >=1: # the output layer
+					if deg == 24: print(estimated_mem)
+				if idx ==1: # the output layer
 					estimated_mem  +=  sum_b*hidden_size*18*4/1024/1024/1024	
-					if deg == fanout-1: print(estimated_mem)
+					if deg == 24: print(estimated_mem)
 		estimated_mem_list.append(estimated_mem)
 	print('estimated_mem_list[-1]')
 	print(estimated_mem_list[-1])
@@ -322,12 +322,11 @@ def run(args, device, data):
     
 				print('data_dict')
 				print(data_dict)
-				fanout_list = [int(fanout) for fanout in args.fan_out.split(',')]
-				fanout = fanout_list[-1]
 				time_est_start = time.time()
-				modified_res, res = estimate_mem(data_dict, in_feats, args.num_hidden, redundant_ratio, fanout)
+				modified_res, res = estimate_mem(data_dict, in_feats, args.num_hidden, redundant_ratio)
 				time_est_end = time.time()
-				
+				fanout_list = [int(fanout) for fanout in args.fan_out.split(',')]
+				fanout = fanout_list[1]
 				print('modified_mem [1, fanout-1]: ' )
 				print(modified_res[:fanout-1])
 				print(sum(modified_res[:fanout-1]))
@@ -401,18 +400,26 @@ def main():
 	argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='__bucketing')
-	argparser.add_argument('--num-batch', type=int, default=30)
+	argparser.add_argument('--num-batch', type=int, default=25)
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
-
+	# argparser.add_argument('--num-batch', type=int, default=100)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
 
+	# argparser.add_argument('--num-hidden', type=int, default=128)
+	argparser.add_argument('--num-hidden', type=int, default=512)
 
-	argparser.add_argument('--num-hidden', type=int, default=256)
+	# argparser.add_argument('--num-layers', type=int, default=1)
+	# argparser.add_argument('--fan-out', type=str, default='10')
 
-	argparser.add_argument('--num-layers', type=int, default=3)
-	argparser.add_argument('--fan-out', type=str, default='10,25,30')
+	argparser.add_argument('--num-layers', type=int, default=2)
+	argparser.add_argument('--fan-out', type=str, default='10,25')
+	# argparser.add_argument('--fan-out', type=str, default='10,100')
+	# argparser.add_argument('--fan-out', type=str, default='10,25')
+	# argparser.add_argument('--num-layers', type=int, default=3)
+	# argparser.add_argument('--fan-out', type=str, default='10,25,30')
+
 
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------
