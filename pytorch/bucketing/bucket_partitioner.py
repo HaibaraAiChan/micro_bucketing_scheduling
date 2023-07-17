@@ -26,7 +26,7 @@ import pdb
 
 
 from gen_K_hop_neighbors import generate_K_hop_neighbors
-from grouping_float import grouping_fanout_1, grouping_fanout_arxiv
+from grouping_float import grouping_fanout_1, grouping_fanout_arxiv, grouping_cora
 
 def print_(list_):
     for ll in list_:
@@ -36,10 +36,10 @@ def print_(list_):
 
 def get_sum(list_idx, mem):
     res=0
-    # print(mem)
+    print(mem)
     print(list_idx)
     for idx in list_idx:
-        # print(idx)
+        print(idx)
         temp = mem[idx] 
         res += temp
     return res
@@ -193,14 +193,25 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 			tensor_lengths = [t.numel() for t in bkt_dst_nodes_list]
 			print('')
 			if 'fanout' in self.selection_method :
-				print(len(bkt_dst_nodes_list))
-				batches_nid_list = [t for t in bkt_dst_nodes_list]
-				print(len(batches_nid_list))
-				length = len(self.output_nids)
-				self.weights_list = [len(batch_nids)/length  for batch_nids in batches_nid_list]
-				self.local_batched_seeds_list = batches_nid_list
-				print(self.weights_list)
-				return
+				if 'cora' in self.dataset:
+					print(len(bkt_dst_nodes_list))
+					batches_nid_list = [t for t in bkt_dst_nodes_list]
+					print(len(batches_nid_list))
+					length = len(self.output_nids)
+					self.weights_list = [len(batch_nids)/length  for batch_nids in batches_nid_list]
+					self.local_batched_seeds_list = batches_nid_list
+					print(self.weights_list)
+					return
+				else:
+					print(len(bkt_dst_nodes_list))
+					batches_nid_list = [t for t in bkt_dst_nodes_list]
+					print(len(batches_nid_list))
+					length = len(self.output_nids)
+					self.weights_list = [len(batch_nids)/length  for batch_nids in batches_nid_list]
+					self.local_batched_seeds_list = batches_nid_list
+					print(self.weights_list)
+					return
+
 			if '50_backpack_' in self.selection_method:
 				fanout_dst_nids = bkt_dst_nodes_list[-1]
 				fanout = len(bkt_dst_nodes_list)
@@ -319,8 +330,53 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				# split_batches_nid_list = g_bucket_nids_list #################
 				self.local_batched_seeds_list = split_batches_nid_list
 				return
+			if 'cora_' in self.selection_method:
+				if '30_backpack_' in self.selection_method: 
+					print('memory_constraint: ', self.memory_constraint)
+					
+					adjust =1000
+					est_mem_dict ={1: 0.4396008476614952, 2: 1.374441683292389, 3: 1.5948124453425407, 4: 2.2839434891939163, 5: 1.8786997273564339, 6: 1.5771530494093895, 7: 0.6665662229061127, 8: 0.4780137687921524, 9: 0.8689616918563843, 10: 0.6201625987887383, 11: 0.16984806954860687, 12: 0.40121957659721375, 19: 0.27158090472221375, 21: 0.42578747123479843, 30: 1.1442232578992844}
+					print('sum(estimated_mem)')
+					print(sum(est_mem_dict.values()))
+					print(len(est_mem_dict))
+					
+					time_backpack_start = time.time()
+					capacity_imp = self.memory_constraint
+					if max(est_mem_dict.values()) > capacity_imp:
+						print('max degree bucket (1-fanout) >capacity')
+						print('we can reschedule split K-->K+1 ')
+						self.K = self.K + 1
+					print('self.K ', self.K)
+					Groups_mem_list, G_BUCKET_ID_list = grouping_cora(adjust, est_mem_dict, capacity_imp, 30, self.K)
+					print("G_BUCKET_ID_list" , G_BUCKET_ID_list)
+					print("Groups_mem_list ", Groups_mem_list)
+					
+					print("G_BUCKET_ID_list length" , len(G_BUCKET_ID_list))
+					g_bucket_nids_list=self.get_nids_by_degree_bucket_ID(G_BUCKET_ID_list, bkt_dst_nodes_list)
+					
+					time_backpack_end = time.time()
+					print('backpack scheduling spend ', time_backpack_end-time_backpack_start)
+					split_batches_nid_list =[]
+					
+					time_batch_gen_start = time.time()
+					for j in range(len(g_bucket_nids_list)):
+						tensor_group = torch.tensor(g_bucket_nids_list[j], dtype=torch.long)
+						current_group_mem = get_sum(G_BUCKET_ID_list[j], list(est_mem_dict.values()))
+						print("current group_mem ", current_group_mem)
+						
+						split_batches_nid_list.append(tensor_group) 
+						
+					
+					time_batch_gen_end = time.time()
+					print('batches output list generation spend ', time_batch_gen_end-time_batch_gen_start)
+					length = len(self.output_nids)
+					self.weights_list = [len(batch_nids)/length  for batch_nids in split_batches_nid_list]
+					print('self.weights_list ', self.weights_list)
+					
+					self.local_batched_seeds_list = split_batches_nid_list
+					return
 			if 'arxiv_' in self.selection_method :
-				if '_backpack_' in self.selection_method: 
+				if '10_backpack_' in self.selection_method: 
 					time_split_start = time.time()
 					fanout_dst_nids = bkt_dst_nodes_list[-1]
 					fanout = len(bkt_dst_nodes_list)
