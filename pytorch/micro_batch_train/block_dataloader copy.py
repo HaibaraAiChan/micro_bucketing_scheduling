@@ -26,9 +26,6 @@ from multiprocessing import Process, Queue
 from collections import Counter, OrderedDict
 import copy
 
-sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/bucketing/pybind_remove_duplicates')
-import remove_duplicates
-
 class OrderedCounter(Counter, OrderedDict):
 	'Counter that remembers the order elements are first encountered'
 
@@ -81,8 +78,8 @@ def generate_one_block(raw_graph, global_srcnid, global_dstnid, global_eids):
 	'''
 	_graph = dgl.edge_subgraph(raw_graph, global_eids, store_ids=True)
 	edge_dst_list = _graph.edges(order='eid')[1].tolist()
-	# dst_local_nid_list=list(OrderedCounter(edge_dst_list).keys())
-	dst_local_nid_list = remove_duplicates.remove_duplicates(edge_dst_list)
+	dst_local_nid_list=list(OrderedCounter(edge_dst_list).keys())
+	
 	new_block = dgl.to_block(_graph, dst_nodes=torch.tensor(dst_local_nid_list, dtype=torch.long))
 	new_block.srcdata[dgl.NID] = global_srcnid
 	new_block.dstdata[dgl.NID] = global_dstnid
@@ -125,73 +122,8 @@ def log_result(src, output, eid):
 	print(len(eid))
 	print("Succesfully get callback! With result: ")
 
+
 def check_connections_block(batched_nodes_list, current_layer_block):
-
-	print('check_connections_block*********************************')
-
-	induced_src = current_layer_block.srcdata[dgl.NID]
-	eids_global = current_layer_block.edata['_ID']
-
-	src_nid_list = induced_src.tolist()
-
-	print('')
-	timess = time.time()
-	global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
-	output_nid_list = find_indices.find_indices(src_nid_list, global_batched_nids_list)
-	
-	print('the find indices time spent ', time.time()-timess)
-	
-		# in current layer subgraph, only has src and dst nodes,
-		# and src nodes includes dst nodes, src nodes equals dst nodes.
-	print()
-	
-	# parallel-------------------------------------------------end
-	time1= time.time()
-	# dgl graph.in_edges() sequential
-	local_in_edges_tensor_list=[]
-	for step, local_output_nid in enumerate(output_nid_list):
-		local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
-		local_in_edges_res = [id.tolist() for id in local_in_edges_tensor]
-		local_in_edges_tensor_list.append(local_in_edges_res)
-	time2=time.time()
-	print('in edges time spent ', time2-time1)
-
-	time31=time.time()
-	
-	eids_list = []
-	src_long_list = []
-	# induced_src = 
-	for local_in_edges_tensor, global_output_nid in (zip(local_in_edges_tensor_list, global_batched_nids_list)):
-		mini_batch_src_local= local_in_edges_tensor[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
-		mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local))
-		mini_batch_src_global= induced_src[mini_batch_src_local].tolist() # map local src nid to global.
-		# mini_batch_dst_local= local_in_edges_tensor[1]
-		# if len(set(mini_batch_dst_local)) != len(set(global_output_nid)):
-		# 	print('local dst length vs global dst length are not match')
-		eid_local_list = local_in_edges_tensor[2] # local (𝑈,𝑉,𝐸𝐼𝐷); 
-		global_eid_tensor = eids_global[eid_local_list] # map local eid to global.
-		eids_list.append(global_eid_tensor)
-		src_long_list.append(mini_batch_src_global)
-	time32 = time.time()
-	print('local to global src and eids time spent ', time32-time31)
-	
-	time33 = time.time()
-	tails_list = gen_tails.gen_tails(src_long_list, global_batched_nids_list)
-	time34 = time.time()
-	print('time gen tails ', time34-time33)
-	res =[]
-	for global_output_nid, r_,eid  in zip(global_batched_nids_list,tails_list,eids_list):
-		src_nid = torch.tensor(global_output_nid + r_, dtype=torch.long)
-		output_nid = torch.tensor(global_output_nid, dtype=torch.long)
-
-		res.append((src_nid, output_nid, eid))
-	# parallel-------------------------------------------------end
-	print("res  length", len(res))
-	return res
-
-
-
-def check_connections_block_bak(batched_nodes_list, current_layer_block):
 	str_=''
 	res=[]
 	# print('check_connections_block*********************************')
@@ -309,6 +241,54 @@ def generate_blocks_for_one_layer_block(raw_graph, layer_block, batches_nid_list
 
 
 
+
+
+# def generate_blocks_for_one_layer_block_bak(raw_graph, layer_block, batches_nid_list):
+# 	# see_memory_usage("------------------------------- before        generate_blocks_for_one_layer_block ")
+	
+# 	# layer_eid = layer_block.edata[dgl.NID].tolist() # we have changed it to global eid
+# 	# print(sorted(layer_eid))
+	
+# 	blocks = []
+# 	check_connection_time = []
+# 	block_generation_time = []
+
+# 	t1= time.time()
+# 	batches_temp_res_list = check_connections_block(batches_nid_list, layer_block)
+# 	t2 = time.time()
+# 	check_connection_time.append(t2-t1) #------------------------------------------
+# 	print('----------------------check connections block total spend -----------------------------', t2-t1)
+	
+# 	src_list=[]
+# 	dst_list=[]
+
+# 	# see_memory_usage("------------------------------- before     for loop    batches_temp_res_list ")
+# 	for step, (srcnid, dstnid, current_block_global_eid) in enumerate(batches_temp_res_list):
+	
+# 		t_ = time.time()
+
+# 		cur_block = generate_one_block(raw_graph, srcnid, dstnid , current_block_global_eid) # block -------
+
+# 		t__=time.time()
+# 		block_generation_time.append(t__-t_)  #------------------------------------------
+# 		print('generate one block spend: ', t__-t_)
+# 		#----------------------------------------------------
+# 		# induced_src = cur_block.srcdata[dgl.NID]
+	
+# 		# e_src_local, e_dst_local = cur_block.edges(order='eid')
+# 		# e_src, e_dst = induced_src[e_src_local], induced_src[e_dst_local]
+# 		# e_src = e_src.detach().numpy().astype(int)
+# 		# e_dst = e_dst.detach().numpy().astype(int)
+
+# 		#----------------------------------------------------
+# 		blocks.append(cur_block)
+# 		src_list.append(srcnid)
+# 		dst_list.append(dstnid)
+
+# 	connection_time = sum(check_connection_time)
+# 	block_gen_time = sum(block_generation_time)
+
+# 	return blocks, src_list, dst_list, (connection_time, block_gen_time)
 
 
 

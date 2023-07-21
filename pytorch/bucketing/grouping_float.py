@@ -430,7 +430,8 @@ if __name__=='__main__':
 	# capacity_imp = 0.761  # self.K = 11, 10
 	# capacity_imp = 0.764  # self.K = 11
 	# capacity_imp = 0.767  # self.K = 11
-	capacity_imp = 0.777  # self.K = 11
+	# capacity_imp = 0.777  # self.K = 13
+	capacity_imp = 0.72  # self.K = 14
 	Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_products(adjust, estimated_mem, capacity = capacity_imp)
 	print()
 	print(len(G_BUCKET_ID_list))

@@ -290,7 +290,8 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					# capacity_imp = max(estimated_mem) + 0.01
 					# capacity_imp = 0.59523
 					time_backpack_start = time.time()
-					capacity_imp = 0.777  # self.K = 13
+					capacity_imp = 0.720  # self.K = 14
+					# capacity_imp = 0.777  # self.K = 13
 					# capacity_imp = 0.8  # self.K = 12
 					# capacity_imp = 0.761  # self.K = 11
 					if max(estimated_mem) > capacity_imp:

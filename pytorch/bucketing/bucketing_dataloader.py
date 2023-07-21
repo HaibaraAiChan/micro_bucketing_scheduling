@@ -144,7 +144,7 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 	
 	eids_list = []
 	src_long_list = []
-	# induced_src = 
+	
 	for local_in_edges_tensor, global_output_nid in (zip(local_in_edges_tensor_list, global_batched_nids_list)):
 		mini_batch_src_local= local_in_edges_tensor[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
 		mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local))
