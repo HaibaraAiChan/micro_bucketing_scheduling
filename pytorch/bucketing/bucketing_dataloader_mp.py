@@ -182,7 +182,6 @@ def check_connections_block_mp(batched_nodes_list, current_layer_block):
 	eids_global = current_layer_block.edata['_ID'].tolist()
 
 	src_nid_list = induced_src.tolist()
-
 	print('')
 	timess = time.time()
 	# global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
@@ -201,7 +200,6 @@ def check_connections_block_mp(batched_nodes_list, current_layer_block):
 	# src_nid_list  [1049, 432, 741, 554, ... 1683, 1857, 1183, ... 1676]
 	# dst_nid_list  [1049, 432, 741, 554, ... 1683]
 	print()
-	
 	
 	# parallel-------------------------------------------------end
 	time1= time.time()

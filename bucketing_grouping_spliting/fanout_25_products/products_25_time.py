@@ -6,7 +6,7 @@ sys.path.insert(0,'../../pytorch/bucketing/')
 sys.path.insert(0,'../../pytorch/models/')
 sys.path.insert(0,'../../memory_logging')
 from runtime_nvidia_smi import start_memory_logging, stop_memory_logging
-from bucketing_dataloader_mp import generate_dataloader_bucket_block
+from bucketing_dataloader import generate_dataloader_bucket_block
 
 import dgl
 from dgl.data.utils import save_graphs
@@ -315,7 +315,7 @@ def main():
 	# argparser.add_argument('--fan-out', type=str, default='2,4')
 
 
-	argparser.add_argument('--log-indent', type=float, default=0)
+	argparser.add_argument('--log-indent', type=float, default=3)
 #--------------------------------------------------------------------------------------
 
 
