@@ -29,6 +29,11 @@ import copy
 sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/bucketing/pybind_remove_duplicates')
 import remove_duplicates
 
+sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/bucketing/global_2_local')
+import find_indices
+sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/bucketing/gen_tails')
+import gen_tails
+
 class OrderedCounter(Counter, OrderedDict):
 	'Counter that remembers the order elements are first encountered'
 
@@ -136,7 +141,7 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 
 	print('')
 	timess = time.time()
-	global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
+	global_batched_nids_list = [nid for nid in batched_nodes_list]
 	output_nid_list = find_indices.find_indices(src_nid_list, global_batched_nids_list)
 	
 	print('the find indices time spent ', time.time()-timess)
