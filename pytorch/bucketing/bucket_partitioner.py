@@ -26,23 +26,29 @@ import pdb
 
 
 from gen_K_hop_neighbors import generate_K_hop_neighbors
-from grouping_float import grouping_fanout_1, grouping_fanout_arxiv, grouping_cora
+from grouping_float import grouping_fanout_products, grouping_fanout_arxiv, grouping_cora
 
 def print_(list_):
     for ll in list_:
         print('length ', len(ll))
         print(ll )
         print()
-
+        
 def get_sum(list_idx, mem):
-    res=0
-    print(mem)
-    print(list_idx)
-    for idx in list_idx:
-        print(idx)
-        temp = mem[idx] 
-        res += temp
-    return res
+    # Extract the values from mem using a list comprehension
+    values = [mem[idx] for idx in list_idx]
+    # Compute the sum using the built-in function
+    return sum(values)
+
+# def get_sum(list_idx, mem):
+#     res=0
+#     # print(mem)
+#     print(list_idx)
+#     for idx in list_idx:
+#         # print(idx)
+#         temp = mem[idx] 
+#         res += temp
+#     return res
 
 def asnumpy(input):
 	return input.cpu().detach().numpy()
@@ -148,9 +154,9 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 	def get_in_degree_bucketing(self):
 		
 		degs = self.layer_block.in_degrees()
-		print('src global nid ', self.layer_block.srcdata['_ID'])
-		print('dst global nid ', self.layer_block.dstdata['_ID'])
-		print('corresponding in degs', degs)
+		# print('src global nid ', self.layer_block.srcdata['_ID'])
+		# print('dst global nid ', self.layer_block.dstdata['_ID'])
+		# print('corresponding in degs', degs)
 		nodes = self.layer_block.dstnodes() # local dst nid (e.g. in full batch layer block)
 		
 		# degree bucketing
@@ -162,7 +168,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				continue
 			bkt_nodes.append(node_bkt) # local nid idx
 			print('len(bkt) ', len(node_bkt))
-			print('bkt ', node_bkt)
+			# print('bkt ', node_bkt)
 
 		return bkt_nodes  # local nid idx
 	
@@ -190,10 +196,11 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 	
 	def gen_batches_seeds_list(self, bkt_dst_nodes_list):
 		print('---||--'*20)
+		length = len(self.output_nids)
 		if "bucketing" in self.selection_method :
 			total_len = len(bkt_dst_nodes_list)
 			tensor_lengths = [t.numel() for t in bkt_dst_nodes_list]
-			print('bkt_dst_nodes_list ', bkt_dst_nodes_list)
+			# print('bkt_dst_nodes_list ', bkt_dst_nodes_list)
 			if 'fanout' in self.selection_method :
 				
 				print(len(bkt_dst_nodes_list))
@@ -204,7 +211,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				self.local_batched_seeds_list = batches_nid_list
 				print(self.weights_list)
 				return
-			if '50_backpack_' in self.selection_method:
+			elif '50_backpack_' in self.selection_method:
 				fanout_dst_nids = bkt_dst_nodes_list[-1]
 				fanout = len(bkt_dst_nodes_list)
 				if self.args.num_batch >= 1:
@@ -230,99 +237,99 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				batches_nid_list =  batches_nid_list + G_BUCKET_ID_list
 				self.weights_list = weights_list
 				self.local_batched_seeds_list = batches_nid_list
-			if '25_backpack_' in self.selection_method and 'products' in self.selection_method :
-				# print_(bkt_dst_nodes_list)
-				# print()
-				time_split_start = time.time()
-				fanout_dst_nids = bkt_dst_nodes_list[-1]
-				fanout = len(bkt_dst_nodes_list)
-				while(True):
-					if self.args.num_batch >= 1:
-						fanout_batch_size = ceil(len(fanout_dst_nids)/(self.K))
-					indices = torch.arange(0,len(fanout_dst_nids)).long()
-					map_output_list = fanout_dst_nids.view(-1)[indices].view(fanout_dst_nids.size())
-					# print('map_output_list')
-					# print(map_output_list)
-					split_batches_nid_list = [map_output_list[i:i + fanout_batch_size] for i in range(0, len(map_output_list), fanout_batch_size)]
-					# print('split_batches_nid_list')
-					# print(split_batches_nid_list)
-					ct = time.time()
-					src_list, weights_list, time_collection = generate_K_hop_neighbors(self.full_batch_dataloader, self.args, split_batches_nid_list)
-					print('generate_K_hop_neighbors time ', time.time()-ct)
-					redundant_ratio = []
-					for (i, input_nodes) in enumerate(src_list):
-						print(len(input_nodes)/len(split_batches_nid_list[i])/fanout/0.411)
-						redundant_ratio.append(len(input_nodes)/len(split_batches_nid_list[i])/fanout/0.411)
-					print('the split redundant ratio ', )
-					print(redundant_ratio)
-					print(len(redundant_ratio))
-					if self.memory_constraint <= max(redundant_ratio)*30.85/self.K:
-						self.K = self.K + 1
-					else:
+			elif 'products' in self.selection_method :
+				if "25_backpack_" in self.selection_method :
+					# print_(bkt_dst_nodes_list)
+					# print()
+					time_split_start = time.time()
+					fanout_dst_nids = bkt_dst_nodes_list[-1]
+					fanout = len(bkt_dst_nodes_list)
+					print('type of fanout_dst_nids ', type(fanout_dst_nids))
+					local_split_batches_nid_list = list(torch.chunk(fanout_dst_nids, self.K))
 						
-						break
 				
-				capacity_est = self.memory_constraint-max(redundant_ratio)*30.85/self.K
-				print('average memory estimation for each split fanout bucket batch', mean(redundant_ratio)*30.85/self.K)
-				print('capacity est: ', capacity_est)
-				time_split_end = time.time()
-				print('split fanout degree bucket spend /sec: ', time_split_end - time_split_start)
-				adjust =1000
-				# estimated_mem = Estimate_MEM(bkt_dst_nodes_list)
-				# estimated_mem = [0.03173831570355189, 0.05356346886621881, 0.04711123806907531, 0.07226774258244979, 0.09551787968431964, 0.1325150206414136, 0.16567610820741147, 0.18105303097399883, 0.2113949286027087, 0.2532854815945029, 0.28107834893923545, 0.2823118815649026, 0.33190986587898375, 0.3619426326234686, 0.3814523874739127, 0.3890698973198667, 0.40976734184772345, 0.4268743659042759, 0.4544031402175385, 0.44849912694596744, 0.49506335349881553, 0.5441759409753638, 0.5855775860088747, 0.5946814550216808]
-				estimated_mem = [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
-	
-				print('sum(estimated_mem)')
-				print(sum(estimated_mem))
-				print(len(estimated_mem))
-				# capacity_imp = min(max(estimated_mem), capacity_est)
-				# capacity_imp = max(estimated_mem) + 0.01
-				capacity_imp = 0.59523
-				time_backpack_start = time.time()
-				capacity_imp = 0.8
-				if max(estimated_mem) > capacity_imp:
-					print('max degree bucket (1-fanout-1) >capacity')
-					print('we can reschedule split K-->K+1 ')
-					self.K = self.K + 1
+					# while(True):
+					# 	if self.args.num_batch >= 1:
+					# 		fanout_batch_size = ceil(len(fanout_dst_nids)/(self.K))
+					# 	indices = torch.arange(0,len(fanout_dst_nids)).long()
+					# 	map_output_list = fanout_dst_nids.view(-1)[indices].view(fanout_dst_nids.size())
+					# 	# print('map_output_list')
+					# 	# print(map_output_list)
+					# 	split_batches_nid_list = [map_output_list[i:i + fanout_batch_size] for i in range(0, len(map_output_list), fanout_batch_size)]
+						# print('split_batches_nid_list')
+						# print(split_batches_nid_list)
+						# ct = time.time()
+						# src_list, weights_list, time_collection = generate_K_hop_neighbors(self.full_batch_dataloader, self.args, split_batches_nid_list)
+						# print('generate_K_hop_neighbors time ', time.time()-ct)
+						# redundant_ratio = []
+						# for (i, input_nodes) in enumerate(src_list):
+						# 	print(len(input_nodes)/len(split_batches_nid_list[i])/fanout/0.411)
+						# 	redundant_ratio.append(len(input_nodes)/len(split_batches_nid_list[i])/fanout/0.411)
+						# print('the split redundant ratio ', )
+						# print(redundant_ratio)
+						# print(len(redundant_ratio))
+						# if self.memory_constraint <= max(redundant_ratio)*30.85/self.K:
+						# 	self.K = self.K + 1
+						# else:
+						# 	break
+				
+					# capacity_est = self.memory_constraint-max(redundant_ratio)*30.85/self.K
+					# print('average memory estimation for each split fanout bucket batch', mean(redundant_ratio)*30.85/self.K)
+					# print('capacity est: ', capacity_est)
+					# time_split_end = time.time()
+					# print('split fanout degree bucket spend /sec: ', time_split_end - time_split_start)
+					adjust =1000
+					# estimated_mem = Estimate_MEM(bkt_dst_nodes_list)
+					# estimated_mem = [0.03173831570355189, 0.05356346886621881, 0.04711123806907531, 0.07226774258244979, 0.09551787968431964, 0.1325150206414136, 0.16567610820741147, 0.18105303097399883, 0.2113949286027087, 0.2532854815945029, 0.28107834893923545, 0.2823118815649026, 0.33190986587898375, 0.3619426326234686, 0.3814523874739127, 0.3890698973198667, 0.40976734184772345, 0.4268743659042759, 0.4544031402175385, 0.44849912694596744, 0.49506335349881553, 0.5441759409753638, 0.5855775860088747, 0.5946814550216808]
+					estimated_mem = [0.031600323026579925, 0.053446445057834434, 0.04691033726707499, 0.07212925883696267, 0.0954132446010461, 0.13250813817436047, 0.16562827234049787, 0.18126462923828512, 0.21130672298992675, 0.25300076929852366, 0.2809490893635299, 0.28129312471449885, 0.33190986587898375, 0.36230173630435075, 0.3834405979819673, 0.38852240658495635, 0.4104866247767621, 0.427057239492208, 0.45594087203866557, 0.4482479429953582, 0.494359802184077, 0.5455698065359045, 0.5838345744003708, 0.5952225418284881]
+		
+					print('sum(estimated_mem)')
+					print(sum(estimated_mem))
+					print(len(estimated_mem))
+					# capacity_imp = min(max(estimated_mem), capacity_est)
+					# capacity_imp = max(estimated_mem) + 0.01
+					# capacity_imp = 0.59523
+					time_backpack_start = time.time()
+					capacity_imp = 0.8  # self.K = 12
+					# capacity_imp = 0.761  # self.K = 11
+					if max(estimated_mem) > capacity_imp:
+						print('max degree bucket (1-fanout-1) >capacity')
+						print('we can reschedule split K-->K+1 ')
+						self.K = self.K + 1
 
-				Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_1(adjust, estimated_mem, capacity = capacity_imp)
-				print("G_BUCKET_ID_list" , G_BUCKET_ID_list)
-				# G_BUCKET_ID_list = [[0]]
-				print(G_BUCKET_ID_list)
-				# return
-				print("G_BUCKET_ID_list length" , len(G_BUCKET_ID_list))
-				g_bucket_nids_list=self.get_nids_by_degree_bucket_ID(G_BUCKET_ID_list, bkt_dst_nodes_list)
-				# print(g_bucket_nids_list)
-				# return 
-				time_backpack_end = time.time()
-				print('backpack scheduling spend ', time_backpack_end-time_backpack_start)
-
-				print('split_batches_nid_list ', len(split_batches_nid_list))
-				time_batch_gen_start = time.time()
-				if len(split_batches_nid_list)>=len(g_bucket_nids_list):
-					print('estimated_mem ', estimated_mem)
+					Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_products(adjust, estimated_mem, capacity = capacity_imp)
+					print("G_BUCKET_ID_list" , G_BUCKET_ID_list)
+					
+					print(G_BUCKET_ID_list)
+					# return
+					print("G_BUCKET_ID_list length" , len(G_BUCKET_ID_list))
+					g_bucket_nids_list=self.get_nids_by_degree_bucket_ID(G_BUCKET_ID_list, bkt_dst_nodes_list)
+					
+					time_backpack_end = time.time()
+					print('backpack scheduling spend ', time_backpack_end-time_backpack_start)
+					
+					
+					time_batch_gen_start = time.time()
+					print('len(g_bucket_nids_list) ',len(g_bucket_nids_list))
+					print('len(local_split_batches_nid_list) ',len(local_split_batches_nid_list))
 					for j in range(len(g_bucket_nids_list)):
-						tensor_group = torch.tensor(g_bucket_nids_list[j], dtype=torch.long)
+						
 						current_group_mem = get_sum(G_BUCKET_ID_list[j], estimated_mem)
 						print("current group_mem ", current_group_mem)
 						
-						split_batches_nid_list[j] = torch.cat((split_batches_nid_list[j],tensor_group))
-						print('the new estimated memory cost(GB) for batch '+ str(j)+ " "+str(current_group_mem+ mean(redundant_ratio)*30.85/self.K))
+						local_split_batches_nid_list[j] = torch.cat((local_split_batches_nid_list[j], g_bucket_nids_list[j])) 
+						
+					
+					time_batch_gen_end = time.time()
+					print('batches output list generation spend ', time_batch_gen_end-time_batch_gen_start)
+					length = len(self.output_nids)
+					self.weights_list = [len(batch_nids)/length  for batch_nids in local_split_batches_nid_list]
+					print('self.weights_list ', self.weights_list)
+					
+					self.local_batched_seeds_list = local_split_batches_nid_list
 
-				else:
-					print("length of split fanout is smaller than len of group bucket_nids_list")
-					print('-*_error_'*20)
-					print()
 					return
-				print('the length of split_batches_nid_list ', len(split_batches_nid_list))
-				# return
-				time_batch_gen_end = time.time()
-				print('batches output list generation spend ', time_batch_gen_end-time_batch_gen_start)
-				self.weights_list = [len(batch_nids)/length  for batch_nids in split_batches_nid_list]
-				# split_batches_nid_list = g_bucket_nids_list #################
-				self.local_batched_seeds_list = split_batches_nid_list
-				return
-			if 'cora_' in self.selection_method or 'pubmed_' in self.selection_method:
+			elif 'cora_' in self.selection_method or 'pubmed_' in self.selection_method:
 				if '30_backpack_' in self.selection_method: 
 					print('memory_constraint: ', self.memory_constraint)
 					
@@ -370,7 +377,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					
 					self.local_batched_seeds_list = split_batches_nid_list
 					return
-			if 'reddit_' in self.selection_method :
+			elif 'reddit_' in self.selection_method :
 				if '_backpack_' in self.selection_method: 
 					time_split_start = time.time()
 					fanout_dst_nids = bkt_dst_nodes_list[-1]
@@ -454,7 +461,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 
 					return
 				
-			if 'arxiv_' in self.selection_method :
+			elif 'arxiv_' in self.selection_method :
 				if '_backpack_' in self.selection_method: 
 					time_split_start = time.time()
 					fanout = len(bkt_dst_nodes_list)

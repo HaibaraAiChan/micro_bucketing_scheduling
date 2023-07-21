@@ -134,13 +134,13 @@ def check_connections_block(local_batched_nodes_list, current_layer_block):
 		
 		local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
 	
-		print('local_in_edges_tensor ', local_in_edges_tensor)
+		# print('local_in_edges_tensor ', local_in_edges_tensor)
 		mini_batch_src_local= list(local_in_edges_tensor)[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
 		
 		time11=time.time()
 		mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local.tolist())) 
 		time22=time.time()
-		print("remove duplicated spend dict ", time22-time11)
+		# print("remove duplicated spend dict ", time22-time11)
 		
 		
 		mini_batch_src_global= induced_src[mini_batch_src_local].tolist() # map local src nid to global.

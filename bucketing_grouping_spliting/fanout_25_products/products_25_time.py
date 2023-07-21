@@ -1,19 +1,19 @@
 import sys
 sys.path.insert(0,'..')
-sys.path.insert(0,'../../')
-sys.path.insert(0,'../../pytorch/utils')
-sys.path.insert(0,'../../pytorch/bucketing')
-sys.path.insert(0,'../../pytorch/models')
+sys.path.insert(0,'..')
+sys.path.insert(0,'../../pytorch/utils/')
+sys.path.insert(0,'../../pytorch/bucketing/')
+sys.path.insert(0,'../../pytorch/models/')
 sys.path.insert(0,'../../memory_logging')
 from runtime_nvidia_smi import start_memory_logging, stop_memory_logging
-from bucketing_dataloader import generate_dataloader_bucket_block
+from bucketing_dataloader_mp import generate_dataloader_bucket_block
 
 import dgl
 from dgl.data.utils import save_graphs
 import numpy as np
 from statistics import mean
 import torch
-
+import gc
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
@@ -24,7 +24,7 @@ import os
 import dgl.nn.pytorch as dglnn
 import time
 import argparse
-
+import tqdm
 
 import random
 from graphsage_model_wo_mem import GraphSAGE
@@ -33,7 +33,7 @@ from load_graph import load_reddit, inductive_split, load_ogb, load_cora, load_k
 
 from load_graph import load_ogbn_dataset
 from memory_usage import see_memory_usage, nvidia_smi_usage
-
+import tracemalloc
 from cpu_mem_usage import get_memory
 from statistics import mean
 
@@ -43,7 +43,8 @@ from my_utils import parse_results
 import pickle
 from utils import Logger
 import os 
-
+import numpy
+import pdb
 
 
 
@@ -173,8 +174,6 @@ def run(args, device, data):
 	# if args.GPUmem:
 	# 	see_memory_usage("----------------------------------------after model to device")
 	logger = Logger(args.num_runs, args)
-	num_input_list=[]
-	pure_train_time_list =[]
 	dur = []
 	for run in range(args.num_runs):
 		model.reset_parameters()
@@ -194,50 +193,39 @@ def run(args, device, data):
 					full_batch_dataloader.append(item)
 			
 			if args.num_batch > 1:
-				print("generate_dataloader_bucket_block=======")
 				time_s = time.time()
 				b_block_dataloader, weights_list, time_collection = generate_dataloader_bucket_block(g, full_batch_dataloader, args)
 				connection_time, block_gen_time, _ = time_collection
-				pure_train_time = 0
+				pure_train_time = []
 				time_start = time.time()
-				num_input =0
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
-					print('step ', step )
-					num_input += len(input_nodes)
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 					blocks = [block.int().to(device) for block in blocks]#------------*
 					time11= time.time()
-					see_memory_usage("----------------------------------------before batch_pred = model(blocks, batch_inputs)")
-					
 					batch_pred = model(blocks, batch_inputs)#------------*
-					see_memory_usage("----------------------------------------after batch_pred = model(blocks, batch_inputs)")
 					pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
-					
+					print('step ', step )
 					see_memory_usage("----------------------------------------after loss function")
 					pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
 					pseudo_mini_loss.backward()#------------*
-					time12= time.time()
-					pure_train_time += (time12-time11)
 					loss_sum += pseudo_mini_loss#------------*
-					
+					time12= time.time()
+					pure_train_time.append(time12-time11)
 					
 				time13= time.time()
 				optimizer.step()
 				optimizer.zero_grad()
-				time_end = time.time()
-    
-				num_input_list.append(num_input)
+				
 				see_memory_usage("----------------------------------------after optimizer")
 
-				pure_train_time += (time_end-time13)
-				pure_train_time_list.append(pure_train_time)
+				time_end = time.time()
+				pure_train_time.append(time_end-time13)
 				print('----------------------------------------------------------pseudo_mini_loss sum ' + str(loss_sum.tolist()))
-				print('pure train time : ', pure_train_time )
+				print('pure train time : ', sum(pure_train_time) )
 				print('train time : ', time_end-time_start )
 				print('end to end time : ', time_end-time_s )
 				print('connection check time: ', connection_time)
 				print('block generation time ', block_gen_time)
-    
 
 			elif args.num_batch == 1:
 				# print('orignal labels: ', labels)
@@ -247,6 +235,11 @@ def run(args, device, data):
 					print('full batch dst global ', len(seeds))
 					# print('full batch eid global ', blocks[-1].edata['_ID'])
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
+					# print('batch_labels ')
+					# print(batch_labels)
+					# print('blocks')
+					# print(blocks[0].edata['_ID'])
+					# print(blocks[-1].edata['_ID'])
 					see_memory_usage("----------------------------------------after load_block_subtensor")
 					blocks = [block.int().to(device) for block in blocks]
 					see_memory_usage("----------------------------------------after block to device")
@@ -270,11 +263,7 @@ def run(args, device, data):
 			full_epoch=time.time() - t0
 			print('end to end time ', full_epoch)
 			dur.append(full_epoch)
-		print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))	
-		print('pure train time per /epoch ', pure_train_time_list)
-		print('pure train time average ', np.mean(pure_train_time_list[3:]))
-		print('input num list ', num_input_list)
-
+		print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))			
 
 def main():
 	# get_memory("-----------------------------------------main_start***************************")
@@ -288,27 +277,27 @@ def main():
 	argparser.add_argument('--GPUmem', type=bool, default=True)
 	argparser.add_argument('--load-full-batch', type=bool, default=True)
 	# argparser.add_argument('--root', type=str, default='../my_full_graph/')
-	argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
+	# argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-mag')
-	# argparser.add_argument('--dataset', type=str, default='ogbn-products')
+	argparser.add_argument('--dataset', type=str, default='ogbn-products')
 	# argparser.add_argument('--dataset', type=str, default='cora')
 	# argparser.add_argument('--dataset', type=str, default='karate')
 	# argparser.add_argument('--dataset', type=str, default='reddit')
 	# argparser.add_argument('--aggre', type=str, default='mean')
 	argparser.add_argument('--aggre', type=str, default='lstm')
-	# argparser.add_argument('--selection-method', type=str, default='arxiv_backpack_bucketing')
-	argparser.add_argument('--selection-method', type=str, default='arxiv_25_backpack_bucketing')
+	argparser.add_argument('--selection-method', type=str, default='25_backpack_products_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='range_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
-	argparser.add_argument('--num-batch', type=int, default=5)
-	argparser.add_argument('--mem-constraint', type=float, default=18)
+	argparser.add_argument('--num-batch', type=int, default=12)
+	argparser.add_argument('--mem-constraint', type=float, default=18.1)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=1)
-	# argparser.add_argument('--num-hidden', type=int, default=1)
-	argparser.add_argument('--num-hidden', type=int, default=1024)
+	argparser.add_argument('--num-epochs', type=int, default=10)
+
+	argparser.add_argument('--num-hidden', type=int, default=128)
+	# argparser.add_argument('--num-hidden', type=int, default=512)
 
 	# argparser.add_argument('--num-layers', type=int, default=1)
 	# argparser.add_argument('--fan-out', type=str, default='10')
@@ -329,7 +318,8 @@ def main():
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------
 
-	argparser.add_argument('--lr', type=float, default=1e-3)
+
+	argparser.add_argument('--lr', type=float, default=1e-2)
 	argparser.add_argument('--dropout', type=float, default=0.5)
 	argparser.add_argument("--weight-decay", type=float, default=5e-4,
 						help="Weight for L2 loss")

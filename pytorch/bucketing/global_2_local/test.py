@@ -3,7 +3,7 @@ import find_indices
 nested_list = [[2, 5], [10, 20, 30]]
 tensor = list(range(100))
 
-indices = mymodule.find_indices(tensor, nested_list)
+indices = find_indices.find_indices(tensor, nested_list)
 
 print(indices)  
 
