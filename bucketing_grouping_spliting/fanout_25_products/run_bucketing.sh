@@ -76,8 +76,8 @@ python products_25_time.py \
     --fan-out 10,25 \
     --num-hidden 128 \
     --num-runs 1 \
-    --num-epoch 10 \
+    --num-epoch 20 \
     --aggre lstm \
     --log-indent 3 \
     --lr 1e-2 \
-> ${save_path}/nb_12_bucketing_pybind11_test_bak.log
+> ${save_path}/nb_12_bucketing_pybind11_20_epochs.log
