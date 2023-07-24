@@ -57,10 +57,12 @@ def set_seed(args):
 
 
 def save_full_batch(args, epoch,item):
+    # /home/cc/Betty_baseline/pytorch/micro_batch_train
+    # /home/cc/dataset/fan_out_10
 	newpath = r'../../../dataset/fan_out_'+args.fan_out+'/'
 	if not os.path.exists(newpath):
 		os.makedirs(newpath)
-	file_name=r'./../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+	file_name=r'../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 	# cwd = os.getcwd() 
 	with open(file_name, 'wb') as handle:
 		pickle.dump(item, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -233,7 +235,7 @@ def run(args, device, data):
 				see_memory_usage("----------------------------------------before full batch dataloader ")
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'../../../DATA/re/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				file_name=r'../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)

@@ -6,7 +6,7 @@ sys.path.insert(0,'../../pytorch/bucketing')
 sys.path.insert(0,'../../pytorch/models')
 sys.path.insert(0,'../../memory_logging')
 from runtime_nvidia_smi import start_memory_logging, stop_memory_logging
-from bucketing_dataloader_mp import generate_dataloader_bucket_block
+from bucketing_dataloader import generate_dataloader_bucket_block
 
 import dgl
 from dgl.data.utils import save_graphs
@@ -188,7 +188,7 @@ def run(args, device, data):
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'/home/cc/Betty_baseline/dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				file_name=r'../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)

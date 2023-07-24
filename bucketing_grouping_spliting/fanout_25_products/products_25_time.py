@@ -187,7 +187,9 @@ def run(args, device, data):
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'/home/cc/Betty_baseline/dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				# /home/cc/dataset/fan_out_10,25/
+				# /home/cc/Betty_baseline/bucketing_grouping_spliting/fanout_25_products/
+				file_name=r'../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)
