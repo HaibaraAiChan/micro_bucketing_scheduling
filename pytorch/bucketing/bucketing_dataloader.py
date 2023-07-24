@@ -1,5 +1,6 @@
 import torch
 import dgl
+import numpy as np
 import sys
 sys.path.insert(0,'..')
 sys.path.insert(0,'../utils/')
@@ -112,78 +113,174 @@ def unique_tensor(tensor):
 	unique_elements_tensor = tensor[unique_indices]
 	return unique_elements_tensor
 
-def check_connections_block_bak2(batched_nodes_list, current_layer_block):
-	print('check_connections_block*********************************')
+# def check_connections_block(batched_nodes_list, current_layer_block):
+# 	print('check_connections_block*********************************')
 
-	induced_src = current_layer_block.srcdata[dgl.NID]
-	induced_dst = current_layer_block.dstdata[dgl.NID]
-	eids_global = current_layer_block.edata['_ID']
+# 	induced_src = current_layer_block.srcdata[dgl.NID]
+# 	induced_dst = current_layer_block.dstdata[dgl.NID]
+# 	eids_global = current_layer_block.edata['_ID']
 
-	src_nid_list = induced_src.tolist()
-	print('')
-	# global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
-	timess = time.time()
-	global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
-	output_nid_list = find_indices.find_indices(src_nid_list, global_batched_nids_list)
+# 	src_nid_list = induced_src.tolist()
+# 	print('')
+# 	# global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
+# 	timess = time.time()
+# 	global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
+# 	output_nid_list = find_indices.find_indices(src_nid_list, global_batched_nids_list)
 
-	print('the find indices time spent ', time.time()-timess)
+# 	print('the find indices time spent ', time.time()-timess)
 
-	print()
+# 	print()
 	
 
-	time1= time.time()
-	local_in_edges_tensor_list=[]
-	for step, local_output_nid in enumerate(output_nid_list):
-		local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
-		local_in_edges_res = [id.tolist() for id in local_in_edges_tensor]
-		local_in_edges_tensor_list.append(local_in_edges_res)
-	time2=time.time()
-	print('in edges time spent ', time2-time1)
+# 	time1= time.time()
+# 	local_in_edges_tensor_list=[]
+# 	for step, local_output_nid in enumerate(output_nid_list):
+# 		local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
+# 		local_in_edges_res = [id.tolist() for id in local_in_edges_tensor]
+# 		local_in_edges_tensor_list.append(local_in_edges_res)
+# 	time2=time.time()
+# 	print('in edges time spent ', time2-time1)
 
-	# time31=time.time()
+# 	# time31=time.time()
 	
-	# induced_src_dict = dict(zip(range(len(src_nid_list)), src_nid_list))
-	# eids_global_dict = dict(zip(range(len(eids_global)), eids_global.tolist()))
-	# time310 =time.time()
-	# print('src_gen start--=-=-=-=-=')
-	# eids_list, src_long_list = src_gen.src_gen(local_in_edges_tensor_list, global_batched_nids_list, induced_src_dict, eids_global_dict)
-	# print('src_gen end--=-=-=-=-=')
-	# time311 =time.time()
-	# eids_list = list({k: eids_list[k] for k in sorted(eids_list)}.values())
-	# src_long_list = list({k: src_long_list[k] for k in sorted(src_long_list)}.values())
-	# time32 = time.time()
-	# print('local to global src and eids time spent ', time32-time31)
-	# print('prepare time ', time310-time31)
-	# print('src gen time ', time311-time310)
-	# print('post sort  time ', time32-time311)	
+# 	# induced_src_dict = dict(zip(range(len(src_nid_list)), src_nid_list))
+# 	# eids_global_dict = dict(zip(range(len(eids_global)), eids_global.tolist()))
+# 	# time310 =time.time()
+# 	# print('src_gen start--=-=-=-=-=')
+# 	# eids_list, src_long_list = src_gen.src_gen(local_in_edges_tensor_list, global_batched_nids_list, induced_src_dict, eids_global_dict)
+# 	# print('src_gen end--=-=-=-=-=')
+# 	# time311 =time.time()
+# 	# eids_list = list({k: eids_list[k] for k in sorted(eids_list)}.values())
+# 	# src_long_list = list({k: src_long_list[k] for k in sorted(src_long_list)}.values())
+# 	# time32 = time.time()
+# 	# print('local to global src and eids time spent ', time32-time31)
+# 	# print('prepare time ', time310-time31)
+# 	# print('src gen time ', time311-time310)
+# 	# print('post sort  time ', time32-time311)	
 	
-	# time33 = time.time()
-	# tails_list = gen_tails.gen_tails(src_long_list, global_batched_nids_list)
-	# time34 = time.time()
-	# print('time gen  tails ', time34-time33)
+# 	# time33 = time.time()
+# 	# tails_list = gen_tails.gen_tails(src_long_list, global_batched_nids_list)
+# 	# time34 = time.time()
+# 	# print('time gen  tails ', time34-time33)
 
-	time33 = time.time()
-	eids_dict_list, tails_list= gen_src_tails.gen_src_tails(local_in_edges_tensor_list, global_batched_nids_list, induced_src.tolist(), eids_global.tolist())
-	time34 = time.time()
-	print('time gen src  tails ', time34-time33)
+# 	time33 = time.time()
+# 	local_in_edges_tensor_list= np.array(local_in_edges_tensor_list, dtype=object)
+# 	global_batched_nids_list = np.array(global_batched_nids_list, dtype=object)
+# 	induced_src_list = np.array(induced_src.tolist())
+# 	eids_global_list = np.array(eids_global.tolist())
+# 	eids_dict_list, tail_list= gen_src_tails.gen_src_tails(local_in_edges_tensor_list, global_batched_nids_list, induced_src_list, eids_global_list)
+# 	time34 = time.time()
+# 	print('time gen src  tails ', time34-time33)
+# 	eids_dict_list = list({k: eids_dict_list[k] for k in sorted(eids_dict_list)}.values())
+# 	tail_list = list({k: tail_list[k] for k in sorted(tail_list)}.values())
+# 	# print('global_batched_nids_list ', global_batched_nids_list)
+# 	# print('tail_list ', tail_list)
 
-	print('global_batched_nids_list ', global_batched_nids_list)
-	print('tails_list ', tails_list)
+# 	# print('eids_dict_list',eids_dict_list)
 
-	print('eids_dict_list',eids_dict_list)
+# 	res =[]
+# 	for global_output_nid, r_,eid  in zip(global_batched_nids_list,tail_list,eids_dict_list):
+# 		src_nid = torch.tensor(global_output_nid + r_, dtype=torch.long)
+# 		output_nid = torch.tensor(global_output_nid, dtype=torch.long)
 
-	res =[]
-	for global_output_nid, r_,eid  in zip(global_batched_nids_list,tails_list,eids_dict_list):
-		src_nid = torch.tensor(global_output_nid + r_, dtype=torch.long)
-		output_nid = torch.tensor(global_output_nid, dtype=torch.long)
+# 		res.append((src_nid, output_nid, eid))
+# 	# parallel-------------------------------------------------end
+# 	print("res  length", len(res))
+# 	return res
 
-		res.append((src_nid, output_nid, eid))
-	# parallel-------------------------------------------------end
-	print("res  length", len(res))
-	return res
+# def check_connections_block(batched_nodes_list, current_layer_block):
+	
+# 	print('check_connections_block*********************************')
 
+# 	induced_src = current_layer_block.srcdata[dgl.NID]
+# 	induced_dst = current_layer_block.dstdata[dgl.NID]
+# 	eids_global = current_layer_block.edata['_ID']
+
+# 	src_nid_list = induced_src.tolist()
+# 	print('')
+# 	# global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
+# 	timess = time.time()
+# 	global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
+# 	output_nid_list = find_indices.find_indices(src_nid_list, global_batched_nids_list)
+# 	# dict_nid_2_local = dict(zip(src_nid_list, range(len(src_nid_list)))) # speedup 
+# 	# output_nid_list =[]
+# 	# for step, output_nid in enumerate(batched_nodes_list):
+# 	# 	# in current layer subgraph, only has src and dst nodes,
+# 	# 	# and src nodes includes dst nodes, src nodes equals dst nodes.
+# 	# 	if torch.is_tensor(output_nid): output_nid = output_nid.tolist()
+# 	# 	local_output_nid = list(map(dict_nid_2_local.get, output_nid))
+# 	# 	output_nid_list.append(local_output_nid)
+# 	print('the find indices time spent ', time.time()-timess)
+
+# 	# the order of srcdata in current block is not increased as the original graph. For example,
+# 	# src_nid_list  [1049, 432, 741, 554, ... 1683, 1857, 1183, ... 1676]
+# 	# dst_nid_list  [1049, 432, 741, 554, ... 1683]
+# 	print()
+	
+# 	# parallel-------------------------------------------------end
+# 	time1= time.time()
+# 	# dgl graph.in_edges() sequential
+# 	local_in_edges_tensor_list=[]
+# 	for step, local_output_nid in enumerate(output_nid_list):
+# 		local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
+# 		local_in_edges_res = [id.tolist() for id in local_in_edges_tensor]
+# 		local_in_edges_tensor_list.append(local_in_edges_res)
+# 	time2=time.time()
+# 	print('in edges time spent ', time2-time1)
+
+# 	time31=time.time()
+	
+# 	# eids_list = {}
+# 	# src_long_list = {}
+	
+# 	# for i, local_in_edges_tensor, global_output_nid in enumerate(zip(local_in_edges_tensor_list, global_batched_nids_list)):
+# 	# 	mini_batch_src_local= local_in_edges_tensor[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
+# 	# 	mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local))
+# 	# 	mini_batch_src_global= induced_src[mini_batch_src_local].tolist() # map local src nid to global.
+# 	# 	# mini_batch_dst_local= local_in_edges_tensor[1]
+# 	# 	# if len(set(mini_batch_dst_local)) != len(set(global_output_nid)):
+# 	# 	# 	print('local dst length vs global dst length are not match')
+# 	# 	eid_local_list = local_in_edges_tensor[2] # local (𝑈,𝑉,𝐸𝐼𝐷); 
+# 	# 	global_eid_tensor = eids_global[eid_local_list] # map local eid to global.
+# 	# 	eids_list[i] = global_eid_tensor
+# 	# 	src_long_list[i] = mini_batch_src_global
+# 	# induced_src_dict = dict(zip(range(len(src_nid_list)), src_nid_list))
+# 	# eids_global_dict = dict(zip(range(len(eids_global)), eids_global.tolist()))
+# 	# time310 =time.time()
+# 	# print('src_gen start--=-=-=-=-=')
+# 	# eids_list, src_long_list = src_gen.src_gen(local_in_edges_tensor_list, global_batched_nids_list, induced_src_dict, eids_global_dict)
+# 	# print('src_gen end--=-=-=-=-=')
+# 	# time311 =time.time()
+
+# 	time310 =time.time()
+# 	print('src_gen start--=-=-=-=-=')
+# 	eids_list, src_long_list = src_gen.src_gen(local_in_edges_tensor_list, global_batched_nids_list, induced_src.tolist(), eids_global.tolist())
+# 	print('src_gen end--=-=-=-=-=')
+# 	time311 =time.time()
+# 	eids_list = list({k: eids_list[k] for k in sorted(eids_list)}.values())
+# 	src_long_list = list({k: src_long_list[k] for k in sorted(src_long_list)}.values())
+# 	time32 = time.time()
+# 	print('local to global src and eids time spent ', time32-time31)
+# 	# print('prepare time ', time310-time31)
+# 	print('src gen time ', time311-time310)
+# 	print('post sort  time ', time32-time311)	
+# 	# original_dict = {'b': 1, 'a': 2, 'c': 3}
+	
+
+# 	time33 = time.time()
+# 	tails_list = gen_tails.gen_tails(src_long_list, global_batched_nids_list)
+# 	time34 = time.time()
+# 	print('time gen tails ', time34-time33)
+# 	res =[]
+# 	for global_output_nid, r_,eid  in zip(global_batched_nids_list,tails_list,eids_list):
+# 		src_nid = torch.tensor(global_output_nid + r_, dtype=torch.long)
+# 		output_nid = torch.tensor(global_output_nid, dtype=torch.long)
+
+# 		res.append((src_nid, output_nid, eid))
+# 	# parallel-------------------------------------------------end
+# 	print("res  length", len(res))
+# 	return res
 def check_connections_block(batched_nodes_list, current_layer_block):
-	
 	print('check_connections_block*********************************')
 
 	induced_src = current_layer_block.srcdata[dgl.NID]

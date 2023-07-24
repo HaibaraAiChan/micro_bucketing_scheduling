@@ -80,4 +80,4 @@ python products_25_time.py \
     --aggre lstm \
     --log-indent 3 \
     --lr 1e-2 \
-> ${save_path}/nb_12_bucketing_pybind11_new_openmp_new_gen_src.log
+> ${save_path}/nb_12_bucketing_pybind11_test_bak.log
