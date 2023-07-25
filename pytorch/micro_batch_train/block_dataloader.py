@@ -86,8 +86,8 @@ def generate_one_block(raw_graph, global_srcnid, global_dstnid, global_eids):
 	'''
 	_graph = dgl.edge_subgraph(raw_graph, global_eids, store_ids=True)
 	edge_dst_list = _graph.edges(order='eid')[1].tolist()
-	# dst_local_nid_list=list(OrderedCounter(edge_dst_list).keys())
-	dst_local_nid_list = remove_duplicates.remove_duplicates(edge_dst_list)
+	dst_local_nid_list=list(OrderedCounter(edge_dst_list).keys())
+	# dst_local_nid_list = remove_duplicates.remove_duplicates(edge_dst_list) # speedup version
 	new_block = dgl.to_block(_graph, dst_nodes=torch.tensor(dst_local_nid_list, dtype=torch.long))
 	new_block.srcdata[dgl.NID] = global_srcnid
 	new_block.dstdata[dgl.NID] = global_dstnid
@@ -130,7 +130,7 @@ def log_result(src, output, eid):
 	print(len(eid))
 	print("Succesfully get callback! With result: ")
 
-def check_connections_block(batched_nodes_list, current_layer_block):
+def check_connections_block_mp(batched_nodes_list, current_layer_block):
 
 	print('check_connections_block*********************************')
 
@@ -196,7 +196,7 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 
 
 
-def check_connections_block_bak(batched_nodes_list, current_layer_block):
+def check_connections_block(batched_nodes_list, current_layer_block):
 	str_=''
 	res=[]
 	# print('check_connections_block*********************************')
