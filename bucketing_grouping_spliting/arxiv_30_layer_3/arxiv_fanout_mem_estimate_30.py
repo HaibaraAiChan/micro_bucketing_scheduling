@@ -211,32 +211,31 @@ def print_mem(list_mem):
 def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):	
 	
 	estimated_mem_list = []
-	for deg, data in enumerate(data_dict):
-		estimated_mem = 0
-		for i in range (len(data)):
-			sum_b = 0
-			for idx, (key, val) in enumerate(data[i].items()):
-				print('idx (key, val) '+str(idx) +' '+str(key)+' '+str(val))
-				sum_b = sum_b + key*val
-				if idx ==0: # the input layer, in_feat 100(products) or 128(arxiv)
-					estimated_mem  +=  sum_b*in_feat*18*4/1024/1024/1024
-					if deg == fanout-1: print(estimated_mem)
-				if idx >=1: # the output layer
-					estimated_mem  +=  sum_b*hidden_size*18*4/1024/1024/1024	
-					if deg == fanout-1: print(estimated_mem)
-		estimated_mem_list.append(estimated_mem)
-	print('estimated_mem_list[-1]')
-	print(estimated_mem_list[-1])
+	for batch_id, data in enumerate(data_dict):
+		
+		batch_est_mem = 0
+		for index, layer in enumerate(data):
+			for key, value in layer.items():
+				if index == 0:  # For first layer
+					batch_est_mem += key * value * in_feat * 18 * 4 / 1024 / 1024 / 1024
+				else:  # For second and third layer
+					batch_est_mem += key * value * hidden_size * 18 *4 / 1024 / 1024 / 1024
 
+		estimated_mem_list.append(batch_est_mem)
+	print('estimated_mem_list')
+	print(estimated_mem_list)
+	print()
 	modified_estimated_mem_list = []
 	for deg in range(len(redundant_ratio)):
-		modified_estimated_mem_list.append(estimated_mem_list[deg]*redundant_ratio[deg]) 
+		modified_estimated_mem_list.append(estimated_mem_list[deg]*redundant_ratio[deg]*0.226) 
 		# redundant_ratio[i] is a variable depends on graph characteristic
-		print(' MM estimated memory/GB degree '+str(deg)+': '+str(estimated_mem_list[deg]) + " * " +str(redundant_ratio[deg]) ) 
+		print(' MM estimated memory/GB degree '+str(deg)+': '+str(estimated_mem_list[deg]) + " * " +str(redundant_ratio[deg]) +" *"+str(0.226) ) 
 	
 	print()
-	# print(modified_estimated_mem_list)
-
+	print('modified_estimated_mem_list ')
+	print(modified_estimated_mem_list)
+	print()
+	
 	return modified_estimated_mem_list, estimated_mem_list
 
 
@@ -287,7 +286,7 @@ def run(args, device, data):
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'/home/cc/Betty_baseline/dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				file_name=r'../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)
@@ -300,11 +299,28 @@ def run(args, device, data):
 				print('redundancy ratio #input/#seeds/degree')
 				redundant_ratio = []
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
-					print(len(input_nodes)/len(seeds)/(step+1))
-					redundant_ratio.append(len(input_nodes)/len(seeds)/(step+1))
+					print(len(input_nodes)/len(seeds)/(step+1)/25)
+					redundant_ratio.append(len(input_nodes)/len(seeds)/25/(step+1))
     
 				time_dict_start = time.time()
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
+					# if step >=2:
+					# 	break
+					# batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
+
+					# see_memory_usage("----------------------------------------after load_block_subtensor")
+					# blocks = [block.int().to(device) for block in blocks]
+					# see_memory_usage("----------------------------------------after block to device")
+
+					# batch_pred = model(blocks, batch_inputs)
+					# see_memory_usage("----------------------------------------after model")
+
+					# loss = loss_fcn(batch_pred, batch_labels)
+					# print('full batch train ------ loss ' + str(loss.item()) )
+					# see_memory_usage("----------------------------------------after loss")
+
+					# loss.backward()
+					# see_memory_usage("----------------------------------------after loss backwards")
 					layer = 0
 					dict_list =[]
 					for b in blocks:
@@ -353,6 +369,14 @@ def run(args, device, data):
 					print('full batch src global ', len(input_nodes))
 					print('full batch dst global ', len(seeds))
 					# print('full batch eid global ', blocks[-1].edata['_ID'])
+					# degrees = blocks[-1].in_degrees()
+					# mask = degrees <= 2
+
+					# # 3. Subgraph the DGLGraph by excluding nodes which have degree > 2
+					# new_g = blocks[-1].subgraph(mask)
+					# original_indices = new_g.ndata[dgl.NID]
+					# seeds = input_nodes[original_indices]
+
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 
 					see_memory_usage("----------------------------------------after load_block_subtensor")
@@ -408,8 +432,8 @@ def main():
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
 
-
-	argparser.add_argument('--num-hidden', type=int, default=256)
+	argparser.add_argument('--num-hidden', type=int, default=128)
+	# argparser.add_argument('--num-hidden', type=int, default=256)
 
 	argparser.add_argument('--num-layers', type=int, default=3)
 	argparser.add_argument('--fan-out', type=str, default='10,25,30')
