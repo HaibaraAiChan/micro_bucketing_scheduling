@@ -1,0 +1,1070 @@
+main start at this time 1690414945.5964086
+-----------------------------------------before load data 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+#nodes: 2449029
+#edges: 123718024
+#classes: 47
+success----------------------------------------
+196571
+39255
+2164782
+# Nodes: 2400608
+# Edges: 123718024
+# Train: 196571
+# Val: 39255
+# Test: 2164782
+# Classes: 47
+
+----------------------------------------start of run function 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+generate_dataloader_bucket_block=======
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  186421
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+the grouping_fanout_1 called successfully
+capacity  440
+sorted_dict  {18: 74, 17: 72, 14: 67, 13: 65, 15: 65, 16: 63, 12: 53, 10: 46, 11: 46, 9: 42, 8: 34, 6: 30, 7: 27, 5: 22, 4: 14, 3: 12, 2: 7, 1: 2, 0: 1}
+
+weights after sort [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+
+remove bucket_id:  [1, 2, 3, 5, 6, 7]
+original bucket_id :,  [17, 14, 13, 16, 12, 10]
+remove weights:  [72 67 65 63 53 46], 		------------sum 366
+
+before remove weights,  [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+after remove pre pack weights,  [74, 65, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+G_BUCKET_ID_list [[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+[[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.06380558013916016
+len(g_bucket_nids_list)  2
+len(local_split_batches_nid_list)  2
+current group_mem  0.36885738372802734
+current group_mem  0.38248971104621887
+batches output list generation spend  0.00040602684020996094
+self.weights_list  [0.4933484593353038, 0.5072721815527214]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.023084640502929688
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.06445956230163574
+len local_batched_seeds_list  2
+partition total batch output list spend :  0.5654642581939697
+self.buckets_partition() spend  sec:  0.08756256103515625
+layer  0
+ the number of batches:  2
+check_connections_block*********************************
+
+the find indices time spent  0.4761989116668701
+
+in edges time spent  0.7591726779937744
+local to global src and eids time spent  1.7024552822113037
+time gen tails  0.2726318836212158
+res  length 2
+block collection to dataloader spend  7.867813110351562e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.759765625 GB
+    Memory Allocated: 0.32395362854003906  GigaBytes
+Max Memory Allocated: 0.32395362854003906  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 14.333984375 GB
+    Memory Allocated: 11.26442813873291  GigaBytes
+Max Memory Allocated: 12.642743587493896  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 14.333984375 GB
+    Memory Allocated: 11.28140926361084  GigaBytes
+Max Memory Allocated: 12.642743587493896  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 14.341796875 GB
+    Memory Allocated: 0.3420591354370117  GigaBytes
+Max Memory Allocated: 12.642743587493896  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.281356811523438  GigaBytes
+Max Memory Allocated: 12.675069332122803  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.298816680908203  GigaBytes
+Max Memory Allocated: 12.675069332122803  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.35790014266967773  GigaBytes
+Max Memory Allocated: 12.675069332122803  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 4.795180320739746
+pure train time :  0.75309157371521
+train time :  1.6738972663879395
+end to end time :  8.686892986297607
+connection check time:  3.6614949703216553
+block generation time  2.679339647293091
+generate_dataloader_bucket_block=======
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  186421
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+the grouping_fanout_1 called successfully
+capacity  440
+sorted_dict  {18: 74, 17: 72, 14: 67, 13: 65, 15: 65, 16: 63, 12: 53, 10: 46, 11: 46, 9: 42, 8: 34, 6: 30, 7: 27, 5: 22, 4: 14, 3: 12, 2: 7, 1: 2, 0: 1}
+
+weights after sort [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+
+remove bucket_id:  [1, 2, 3, 5, 6, 7]
+original bucket_id :,  [17, 14, 13, 16, 12, 10]
+remove weights:  [72 67 65 63 53 46], 		------------sum 366
+
+before remove weights,  [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+after remove pre pack weights,  [74, 65, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+G_BUCKET_ID_list [[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+[[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.06941604614257812
+len(g_bucket_nids_list)  2
+len(local_split_batches_nid_list)  2
+current group_mem  0.36885738372802734
+current group_mem  0.38248971104621887
+batches output list generation spend  0.00023436546325683594
+self.weights_list  [0.4933484593353038, 0.5072721815527214]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0248262882232666
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.06978774070739746
+len local_batched_seeds_list  2
+partition total batch output list spend :  0.5975453853607178
+self.buckets_partition() spend  sec:  0.0946342945098877
+layer  0
+ the number of batches:  2
+check_connections_block*********************************
+
+the find indices time spent  0.4836571216583252
+
+in edges time spent  0.7520542144775391
+local to global src and eids time spent  1.7346916198730469
+time gen tails  0.2901909351348877
+res  length 2
+block collection to dataloader spend  1.049041748046875e-05
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3424263000488281  GigaBytes
+Max Memory Allocated: 12.675069332122803  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.266082763671875  GigaBytes
+Max Memory Allocated: 12.675069332122803  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.28354263305664  GigaBytes
+Max Memory Allocated: 12.675069332122803  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.34281301498413086  GigaBytes
+Max Memory Allocated: 12.675069332122803  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.282110691070557  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.299570560455322  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.35797882080078125  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 4.16782808303833
+pure train time :  0.35843706130981445
+train time :  0.6785645484924316
+end to end time :  8.152568578720093
+connection check time:  3.7299373149871826
+block generation time  3.0307583808898926
+generate_dataloader_bucket_block=======
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  186421
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+the grouping_fanout_1 called successfully
+capacity  440
+sorted_dict  {18: 74, 17: 72, 14: 67, 13: 65, 15: 65, 16: 63, 12: 53, 10: 46, 11: 46, 9: 42, 8: 34, 6: 30, 7: 27, 5: 22, 4: 14, 3: 12, 2: 7, 1: 2, 0: 1}
+
+weights after sort [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+
+remove bucket_id:  [1, 2, 3, 5, 6, 7]
+original bucket_id :,  [17, 14, 13, 16, 12, 10]
+remove weights:  [72 67 65 63 53 46], 		------------sum 366
+
+before remove weights,  [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+after remove pre pack weights,  [74, 65, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+G_BUCKET_ID_list [[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+[[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.0600588321685791
+len(g_bucket_nids_list)  2
+len(local_split_batches_nid_list)  2
+current group_mem  0.36885738372802734
+current group_mem  0.38248971104621887
+batches output list generation spend  0.0004119873046875
+self.weights_list  [0.4933484593353038, 0.5072721815527214]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.021973848342895508
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0606076717376709
+len local_batched_seeds_list  2
+partition total batch output list spend :  0.5676250457763672
+self.buckets_partition() spend  sec:  0.08260607719421387
+layer  0
+ the number of batches:  2
+check_connections_block*********************************
+
+the find indices time spent  0.4974522590637207
+
+in edges time spent  0.7875018119812012
+local to global src and eids time spent  1.764270544052124
+time gen tails  0.28348851203918457
+res  length 2
+block collection to dataloader spend  1.049041748046875e-05
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3424263000488281  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.266082763671875  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.28354263305664  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.34262847900390625  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.281926155090332  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.299386024475098  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.35779428482055664  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 3.445566177368164
+pure train time :  0.3352372646331787
+train time :  0.6860690116882324
+end to end time :  7.795453786849976
+connection check time:  3.804835319519043
+block generation time  2.6170084476470947
+generate_dataloader_bucket_block=======
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  186421
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+the grouping_fanout_1 called successfully
+capacity  440
+sorted_dict  {18: 74, 17: 72, 14: 67, 13: 65, 15: 65, 16: 63, 12: 53, 10: 46, 11: 46, 9: 42, 8: 34, 6: 30, 7: 27, 5: 22, 4: 14, 3: 12, 2: 7, 1: 2, 0: 1}
+
+weights after sort [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+
+remove bucket_id:  [1, 2, 3, 5, 6, 7]
+original bucket_id :,  [17, 14, 13, 16, 12, 10]
+remove weights:  [72 67 65 63 53 46], 		------------sum 366
+
+before remove weights,  [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+after remove pre pack weights,  [74, 65, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+G_BUCKET_ID_list [[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+[[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.07896161079406738
+len(g_bucket_nids_list)  2
+len(local_split_batches_nid_list)  2
+current group_mem  0.36885738372802734
+current group_mem  0.38248971104621887
+batches output list generation spend  0.0003006458282470703
+self.weights_list  [0.4933484593353038, 0.5072721815527214]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.020285367965698242
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.07940316200256348
+len local_batched_seeds_list  2
+partition total batch output list spend :  0.5862505435943604
+self.buckets_partition() spend  sec:  0.09971451759338379
+layer  0
+ the number of batches:  2
+check_connections_block*********************************
+
+the find indices time spent  0.4713881015777588
+
+in edges time spent  0.6979515552520752
+local to global src and eids time spent  1.640782117843628
+time gen tails  0.2840144634246826
+res  length 2
+block collection to dataloader spend  8.106231689453125e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3412461280822754  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.265079498291016  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.282539367675781  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3430595397949219  GigaBytes
+Max Memory Allocated: 12.675823211669922  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.282357215881348  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.299817085266113  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.35822534561157227  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 2.5563182830810547
+pure train time :  0.3359487056732178
+train time :  0.6101522445678711
+end to end time :  7.223725080490112
+connection check time:  3.5793116092681885
+block generation time  2.3459415435791016
+generate_dataloader_bucket_block=======
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  186421
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+the grouping_fanout_1 called successfully
+capacity  440
+sorted_dict  {18: 74, 17: 72, 14: 67, 13: 65, 15: 65, 16: 63, 12: 53, 10: 46, 11: 46, 9: 42, 8: 34, 6: 30, 7: 27, 5: 22, 4: 14, 3: 12, 2: 7, 1: 2, 0: 1}
+
+weights after sort [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+
+remove bucket_id:  [1, 2, 3, 5, 6, 7]
+original bucket_id :,  [17, 14, 13, 16, 12, 10]
+remove weights:  [72 67 65 63 53 46], 		------------sum 366
+
+before remove weights,  [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+after remove pre pack weights,  [74, 65, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+G_BUCKET_ID_list [[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+[[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.07823514938354492
+len(g_bucket_nids_list)  2
+len(local_split_batches_nid_list)  2
+current group_mem  0.36885738372802734
+current group_mem  0.38248971104621887
+batches output list generation spend  0.0004105567932128906
+self.weights_list  [0.4933484593353038, 0.5072721815527214]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.020820140838623047
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.07876992225646973
+len local_batched_seeds_list  2
+partition total batch output list spend :  0.5914230346679688
+self.buckets_partition() spend  sec:  0.09961152076721191
+layer  0
+ the number of batches:  2
+check_connections_block*********************************
+
+the find indices time spent  0.4718599319458008
+
+in edges time spent  0.7607829570770264
+local to global src and eids time spent  1.6710004806518555
+time gen tails  0.28070759773254395
+res  length 2
+block collection to dataloader spend  1.0013580322265625e-05
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3424263000488281  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.266082763671875  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.28354263305664  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3422231674194336  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.28152084350586  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.298980712890625  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.357388973236084  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.993474006652832
+pure train time :  0.33844566345214844
+train time :  0.6511900424957275
+end to end time :  7.406904935836792
+connection check time:  3.6465673446655273
+block generation time  2.3981049060821533
+generate_dataloader_bucket_block=======
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  186421
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+the grouping_fanout_1 called successfully
+capacity  440
+sorted_dict  {18: 74, 17: 72, 14: 67, 13: 65, 15: 65, 16: 63, 12: 53, 10: 46, 11: 46, 9: 42, 8: 34, 6: 30, 7: 27, 5: 22, 4: 14, 3: 12, 2: 7, 1: 2, 0: 1}
+
+weights after sort [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+
+remove bucket_id:  [1, 2, 3, 5, 6, 7]
+original bucket_id :,  [17, 14, 13, 16, 12, 10]
+remove weights:  [72 67 65 63 53 46], 		------------sum 366
+
+before remove weights,  [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+after remove pre pack weights,  [74, 65, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+G_BUCKET_ID_list [[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+[[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.08151745796203613
+len(g_bucket_nids_list)  2
+len(local_split_batches_nid_list)  2
+current group_mem  0.36885738372802734
+current group_mem  0.38248971104621887
+batches output list generation spend  0.0003020763397216797
+self.weights_list  [0.4933484593353038, 0.5072721815527214]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.020876169204711914
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.08192849159240723
+len local_batched_seeds_list  2
+partition total batch output list spend :  0.5868184566497803
+self.buckets_partition() spend  sec:  0.1028289794921875
+layer  0
+ the number of batches:  2
+check_connections_block*********************************
+
+the find indices time spent  0.471818208694458
+
+in edges time spent  0.7021887302398682
+local to global src and eids time spent  1.6216320991516113
+time gen tails  0.2931821346282959
+res  length 2
+block collection to dataloader spend  8.106231689453125e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3424263000488281  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.266082763671875  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.28354263305664  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.34264039993286133  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.281938076019287  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.299397945404053  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3578062057495117  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.8712315559387207
+pure train time :  0.32988810539245605
+train time :  0.6123676300048828
+end to end time :  7.063384532928467
+connection check time:  3.572437047958374
+block generation time  2.1903369426727295
+generate_dataloader_bucket_block=======
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  186421
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+the grouping_fanout_1 called successfully
+capacity  440
+sorted_dict  {18: 74, 17: 72, 14: 67, 13: 65, 15: 65, 16: 63, 12: 53, 10: 46, 11: 46, 9: 42, 8: 34, 6: 30, 7: 27, 5: 22, 4: 14, 3: 12, 2: 7, 1: 2, 0: 1}
+
+weights after sort [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+
+remove bucket_id:  [1, 2, 3, 5, 6, 7]
+original bucket_id :,  [17, 14, 13, 16, 12, 10]
+remove weights:  [72 67 65 63 53 46], 		------------sum 366
+
+before remove weights,  [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+after remove pre pack weights,  [74, 65, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+G_BUCKET_ID_list [[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+[[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.226090669631958
+len(g_bucket_nids_list)  2
+len(local_split_batches_nid_list)  2
+current group_mem  0.36885738372802734
+current group_mem  0.38248971104621887
+batches output list generation spend  0.0006222724914550781
+self.weights_list  [0.4933484593353038, 0.5072721815527214]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.020282745361328125
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.22685861587524414
+len local_batched_seeds_list  2
+partition total batch output list spend :  0.7356681823730469
+self.buckets_partition() spend  sec:  0.24716615676879883
+layer  0
+ the number of batches:  2
+check_connections_block*********************************
+
+the find indices time spent  0.4562828540802002
+
+in edges time spent  0.7530152797698975
+local to global src and eids time spent  1.6640510559082031
+time gen tails  0.28850531578063965
+res  length 2
+block collection to dataloader spend  1.1682510375976562e-05
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3410806655883789  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.265079498291016  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.282539367675781  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.342801570892334  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.28209924697876  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.299559116363525  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3579673767089844  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.4508965015411377
+pure train time :  0.33725476264953613
+train time :  0.6791665554046631
+end to end time :  7.745331525802612
+connection check time:  3.667529821395874
+block generation time  2.5411019325256348
+generate_dataloader_bucket_block=======
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  186421
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+the grouping_fanout_1 called successfully
+capacity  440
+sorted_dict  {18: 74, 17: 72, 14: 67, 13: 65, 15: 65, 16: 63, 12: 53, 10: 46, 11: 46, 9: 42, 8: 34, 6: 30, 7: 27, 5: 22, 4: 14, 3: 12, 2: 7, 1: 2, 0: 1}
+
+weights after sort [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+
+remove bucket_id:  [1, 2, 3, 5, 6, 7]
+original bucket_id :,  [17, 14, 13, 16, 12, 10]
+remove weights:  [72 67 65 63 53 46], 		------------sum 366
+
+before remove weights,  [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+after remove pre pack weights,  [74, 65, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+G_BUCKET_ID_list [[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+[[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.0771794319152832
+len(g_bucket_nids_list)  2
+len(local_split_batches_nid_list)  2
+current group_mem  0.36885738372802734
+current group_mem  0.38248971104621887
+batches output list generation spend  0.00037407875061035156
+self.weights_list  [0.4933484593353038, 0.5072721815527214]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.019906997680664062
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.07768917083740234
+len local_batched_seeds_list  2
+partition total batch output list spend :  0.578667402267456
+self.buckets_partition() spend  sec:  0.09762120246887207
+layer  0
+ the number of batches:  2
+check_connections_block*********************************
+
+the find indices time spent  0.4793257713317871
+
+in edges time spent  0.6641495227813721
+local to global src and eids time spent  1.5751004219055176
+time gen tails  0.2361607551574707
+res  length 2
+block collection to dataloader spend  7.3909759521484375e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3424263000488281  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.266082763671875  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.28354263305664  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.34265804290771484  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.28195571899414  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.299415588378906  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.35782384872436523  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.4708211421966553
+pure train time :  0.33460569381713867
+train time :  0.602820634841919
+end to end time :  6.739217519760132
+connection check time:  3.406867504119873
+block generation time  2.048985719680786
+generate_dataloader_bucket_block=======
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  186421
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+the grouping_fanout_1 called successfully
+capacity  440
+sorted_dict  {18: 74, 17: 72, 14: 67, 13: 65, 15: 65, 16: 63, 12: 53, 10: 46, 11: 46, 9: 42, 8: 34, 6: 30, 7: 27, 5: 22, 4: 14, 3: 12, 2: 7, 1: 2, 0: 1}
+
+weights after sort [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+
+remove bucket_id:  [1, 2, 3, 5, 6, 7]
+original bucket_id :,  [17, 14, 13, 16, 12, 10]
+remove weights:  [72 67 65 63 53 46], 		------------sum 366
+
+before remove weights,  [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+after remove pre pack weights,  [74, 65, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+G_BUCKET_ID_list [[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+[[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.0630192756652832
+len(g_bucket_nids_list)  2
+len(local_split_batches_nid_list)  2
+current group_mem  0.36885738372802734
+current group_mem  0.38248971104621887
+batches output list generation spend  0.00033545494079589844
+self.weights_list  [0.4933484593353038, 0.5072721815527214]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.02240300178527832
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.06347894668579102
+len local_batched_seeds_list  2
+partition total batch output list spend :  0.4081237316131592
+self.buckets_partition() spend  sec:  0.08589982986450195
+layer  0
+ the number of batches:  2
+check_connections_block*********************************
+
+the find indices time spent  0.38567161560058594
+
+in edges time spent  0.3720247745513916
+local to global src and eids time spent  1.5608265399932861
+time gen tails  0.2793278694152832
+res  length 2
+block collection to dataloader spend  8.106231689453125e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3424263000488281  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.266082763671875  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.28354263305664  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.34245967864990234  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.281757354736328  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.299217224121094  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.35762548446655273  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.1979999542236328
+pure train time :  0.3354916572570801
+train time :  0.5967183113098145
+end to end time :  6.211292505264282
+connection check time:  3.029954433441162
+block generation time  2.0790646076202393
+generate_dataloader_bucket_block=======
+len(bkt)  173
+len(bkt)  221
+len(bkt)  374
+len(bkt)  456
+len(bkt)  445
+len(bkt)  550
+len(bkt)  655
+len(bkt)  512
+len(bkt)  576
+len(bkt)  640
+len(bkt)  624
+len(bkt)  583
+len(bkt)  615
+len(bkt)  695
+len(bkt)  673
+len(bkt)  614
+len(bkt)  556
+len(bkt)  604
+len(bkt)  584
+len(bkt)  186421
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+the grouping_fanout_1 called successfully
+capacity  440
+sorted_dict  {18: 74, 17: 72, 14: 67, 13: 65, 15: 65, 16: 63, 12: 53, 10: 46, 11: 46, 9: 42, 8: 34, 6: 30, 7: 27, 5: 22, 4: 14, 3: 12, 2: 7, 1: 2, 0: 1}
+
+weights after sort [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+
+remove bucket_id:  [1, 2, 3, 5, 6, 7]
+original bucket_id :,  [17, 14, 13, 16, 12, 10]
+remove weights:  [72 67 65 63 53 46], 		------------sum 366
+
+before remove weights,  [74, 72, 67, 65, 65, 63, 53, 46, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+after remove pre pack weights,  [74, 65, 46, 42, 34, 30, 27, 22, 14, 12, 7, 2, 1]
+G_BUCKET_ID_list [[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+[[17, 14, 13, 16, 12, 10], [18, 13, 10, 9, 8, 6, 7, 5, 4, 3, 2, 1, 0]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.07829022407531738
+len(g_bucket_nids_list)  2
+len(local_split_batches_nid_list)  2
+current group_mem  0.36885738372802734
+current group_mem  0.38248971104621887
+batches output list generation spend  0.0006730556488037109
+self.weights_list  [0.4933484593353038, 0.5072721815527214]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.03564882278442383
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.07908320426940918
+len local_batched_seeds_list  2
+partition total batch output list spend :  0.6014730930328369
+self.buckets_partition() spend  sec:  0.11475443840026855
+layer  0
+ the number of batches:  2
+check_connections_block*********************************
+
+the find indices time spent  0.4721968173980713
+
+in edges time spent  0.72525954246521
+local to global src and eids time spent  1.6763525009155273
+time gen tails  0.2785508632659912
+res  length 2
+block collection to dataloader spend  8.58306884765625e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3424263000488281  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.266082763671875  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.28354263305664  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3427295684814453  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.282027244567871  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 11.299487113952637  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 15.099609375 GB
+    Memory Allocated: 0.3578953742980957  GigaBytes
+Max Memory Allocated: 12.676069736480713  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.1837656497955322
+pure train time :  0.3328866958618164
+train time :  0.6073672771453857
+end to end time :  7.527885437011719
+connection check time:  3.6077921390533447
+block generation time  2.6111860275268555
+end to end time  7.663199424743652
+Total (block generation + training)time/epoch 7.663199424743652
+pure train time per /epoch  [0.75309157371521, 0.35843706130981445, 0.3352372646331787, 0.3359487056732178, 0.33844566345214844, 0.32988810539245605, 0.33725476264953613, 0.33460569381713867, 0.3354916572570801, 0.3328866958618164]
+pure train time average  0.3349316120147705
+input num list  [1656705, 1656789, 1656264, 1656470, 1655961, 1656887, 1655333, 1656338, 1655872, 1656618]

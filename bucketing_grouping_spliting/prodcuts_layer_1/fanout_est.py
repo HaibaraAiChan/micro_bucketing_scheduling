@@ -224,22 +224,20 @@ def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):
 		estimated_mem_dict[batch_id] = batch_est_mem
 	print('estimated_mem_dict')
 	print(estimated_mem_dict)
-	print()
+	# print()
 	modified_estimated_mem_list = []
-	for idx,(key, val) in enumerate(estimated_mem_dict.items()):
-		# modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]) 
-		# # redundant_ratio[i] is a variable depends on graph characteristic
-		# print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx])  ) 
-		modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]*0.226) 
-		print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx]) +"*"+str(0.226) ) 
+	# for idx,(key, val) in enumerate(estimated_mem_dict.items()):
+	# 	modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]) 
+	# 	# redundant_ratio[i] is a variable depends on graph characteristic
+	# 	print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx])  ) 
+	# 	# print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx]) +" /"+str(0.226) ) 
 	
-	print()
-	print('modified_estimated_mem_list ')
-	print(modified_estimated_mem_list)
-	print()
+	# print()
+	# print('modified_estimated_mem_list ')
+	# print(modified_estimated_mem_list)
+	# print()
 	
 	return modified_estimated_mem_list, list(estimated_mem_dict.values())
-
 
 
 #### Entry point
@@ -307,6 +305,23 @@ def run(args, device, data):
     
 				time_dict_start = time.time()
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
+					# if step >=2:
+					# 	break
+					# batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
+
+					# see_memory_usage("----------------------------------------after load_block_subtensor")
+					# blocks = [block.int().to(device) for block in blocks]
+					# see_memory_usage("----------------------------------------after block to device")
+
+					# batch_pred = model(blocks, batch_inputs)
+					# see_memory_usage("----------------------------------------after model")
+
+					# loss = loss_fcn(batch_pred, batch_labels)
+					# print('full batch train ------ loss ' + str(loss.item()) )
+					# see_memory_usage("----------------------------------------after loss")
+
+					# loss.backward()
+					# see_memory_usage("----------------------------------------after loss backwards")
 					layer = 0
 					dict_list =[]
 					for b in blocks:
@@ -329,11 +344,10 @@ def run(args, device, data):
 				time_est_start = time.time()
 				modified_res, res = estimate_mem(data_dict, in_feats, args.num_hidden, redundant_ratio, fanout)
 				time_est_end = time.time()
-				fanout_list = [int(fanout) for fanout in args.fan_out.split(',')]
-				fanout = fanout_list[1]
-				print('modified_mem [1, fanout-1]: ' )
-				print(modified_res[:fanout-1])
-				print(sum(modified_res[:fanout-1]))
+				
+				print('res mem [1, fanout-1]: ' )
+				
+				print(sum(res[:fanout-1]))
 				print('mem size of fanout degree bucket by formula (GB): ', res[fanout-1])
 				print()
 				print('the modified memory estimation spend (sec)', time.time()-time1)
@@ -356,6 +370,14 @@ def run(args, device, data):
 					print('full batch src global ', len(input_nodes))
 					print('full batch dst global ', len(seeds))
 					# print('full batch eid global ', blocks[-1].edata['_ID'])
+					# degrees = blocks[-1].in_degrees()
+					# mask = degrees <= 2
+
+					# # 3. Subgraph the DGLGraph by excluding nodes which have degree > 2
+					# new_g = blocks[-1].subgraph(mask)
+					# original_indices = new_g.ndata[dgl.NID]
+					# seeds = input_nodes[original_indices]
+
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 
 					see_memory_usage("----------------------------------------after load_block_subtensor")
@@ -390,9 +412,9 @@ def main():
 	argparser.add_argument('--GPUmem', type=bool, default=True)
 	argparser.add_argument('--load-full-batch', type=bool, default=True)
 	# argparser.add_argument('--root', type=str, default='../my_full_graph/')
-	argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
+	# argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-mag')
-	# argparser.add_argument('--dataset', type=str, default='ogbn-products')
+	argparser.add_argument('--dataset', type=str, default='ogbn-products')
 	# argparser.add_argument('--dataset', type=str, default='cora')
 	# argparser.add_argument('--dataset', type=str, default='karate')
 	# argparser.add_argument('--dataset', type=str, default='reddit')
@@ -404,31 +426,23 @@ def main():
 	argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='__bucketing')
-	argparser.add_argument('--num-batch', type=int, default=25)
+	argparser.add_argument('--num-batch', type=int, default=20)
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
-	# argparser.add_argument('--num-batch', type=int, default=100)
+
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
 
-	# argparser.add_argument('--num-hidden', type=int, default=128)
-	argparser.add_argument('--num-hidden', type=int, default=512)
-
-	# argparser.add_argument('--num-layers', type=int, default=1)
-	# argparser.add_argument('--fan-out', type=str, default='10')
-
-	argparser.add_argument('--num-layers', type=int, default=2)
-	argparser.add_argument('--fan-out', type=str, default='10,25')
-	# argparser.add_argument('--fan-out', type=str, default='10,100')
-	# argparser.add_argument('--fan-out', type=str, default='10,25')
-	# argparser.add_argument('--num-layers', type=int, default=3)
-	# argparser.add_argument('--fan-out', type=str, default='10,25,30')
+	argparser.add_argument('--num-hidden', type=int, default=256)
 
 
-	argparser.add_argument('--log-indent', type=float, default=3)
+	argparser.add_argument('--num-layers', type=int, default=1)
+	argparser.add_argument('--fan-out', type=str, default='20')
+
+	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------
 
-	argparser.add_argument('--lr', type=float, default=1e-3)
+	argparser.add_argument('--lr', type=float, default=1e-2)
 	argparser.add_argument('--dropout', type=float, default=0.5)
 	argparser.add_argument("--weight-decay", type=float, default=5e-4,
 						help="Weight for L2 loss")
