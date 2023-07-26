@@ -210,7 +210,7 @@ def print_mem(list_mem):
     
 def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):	
 	
-	estimated_mem_list = []
+	estimated_mem_dict = {}
 	for batch_id, data in enumerate(data_dict):
 		
 		batch_est_mem = 0
@@ -221,22 +221,23 @@ def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):
 				else:  # For second and third layer
 					batch_est_mem += key * value * hidden_size * 18 *4 / 1024 / 1024 / 1024
 
-		estimated_mem_list.append(batch_est_mem)
-	print('estimated_mem_list')
-	print(estimated_mem_list)
+		estimated_mem_dict[batch_id] = batch_est_mem
+	print('estimated_mem_dict')
+	print(estimated_mem_dict)
 	print()
 	modified_estimated_mem_list = []
-	for deg in range(len(redundant_ratio)):
-		modified_estimated_mem_list.append(estimated_mem_list[deg]*redundant_ratio[deg]*0.226) 
+	for idx,(key, val) in enumerate(estimated_mem_dict.items()):
+		modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]) 
 		# redundant_ratio[i] is a variable depends on graph characteristic
-		print(' MM estimated memory/GB degree '+str(deg)+': '+str(estimated_mem_list[deg]) + " * " +str(redundant_ratio[deg]) +" *"+str(0.226) ) 
+		print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx])  ) 
+		# print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx]) +" /"+str(0.226) ) 
 	
 	print()
 	print('modified_estimated_mem_list ')
 	print(modified_estimated_mem_list)
 	print()
 	
-	return modified_estimated_mem_list, estimated_mem_list
+	return modified_estimated_mem_list, list(estimated_mem_dict.values())
 
 
 #### Entry point
@@ -299,8 +300,8 @@ def run(args, device, data):
 				print('redundancy ratio #input/#seeds/degree')
 				redundant_ratio = []
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
-					print(len(input_nodes)/len(seeds)/(step+1)/30)
-					redundant_ratio.append(len(input_nodes)/len(seeds)/30/(step+1))
+					print(len(input_nodes)/len(seeds)/(step+1)/15)
+					redundant_ratio.append(len(input_nodes)/len(seeds)/15/(step+1))
     
 				time_dict_start = time.time()
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
@@ -425,7 +426,7 @@ def main():
 	argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='__bucketing')
-	argparser.add_argument('--num-batch', type=int, default=30)
+	argparser.add_argument('--num-batch', type=int, default=40)
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
 
 
@@ -433,10 +434,10 @@ def main():
 	argparser.add_argument('--num-epochs', type=int, default=1)
 
 	argparser.add_argument('--num-hidden', type=int, default=128)
-	# argparser.add_argument('--num-hidden', type=int, default=256)
 
-	argparser.add_argument('--num-layers', type=int, default=3)
-	argparser.add_argument('--fan-out', type=str, default='10,25,30')
+
+	argparser.add_argument('--num-layers', type=int, default=4)
+	argparser.add_argument('--fan-out', type=str, default='10,25,30,40')
 
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------

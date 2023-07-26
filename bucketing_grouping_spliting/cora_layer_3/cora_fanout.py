@@ -208,46 +208,35 @@ def print_mem(list_mem):
         deg += 1
     print()
     
-def estimate_mem(data_dict_list, in_feat, hidden_size, redundant_ratio, fanout):	
+def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):	
 	
 	estimated_mem_dict = {}
-	real_degree = -1
-	for bucket_id, data in enumerate(data_dict_list): # each batch degrees are stored in a dict
-		estimated_mem = 0
-		# print('bucket_id ', bucket_id)
-		for i in range (len(data)): # length = number of layers
-			sum_b = 0
-			key = -1
-			for idx, (key, val) in enumerate(data[i].items()): # (degree, number of nids)
-				# print(' (key, val) '+str(key)+' '+str(val))
-				sum_b = sum_b + key*val
-				if idx ==0: # the input layer, in_feat 100(products) or 128(arxiv), 1433(cora)
-					estimated_mem  +=  sum_b*in_feat*18*4/1024/1024/1024
-					# if bucket_id == fanout-1: print(estimated_mem)
-				if idx >=1: # the hidden & output layer
-					estimated_mem  +=  sum_b*hidden_size*18*4/1024/1024/1024
-			if i == len(data)-1:
-				# print('i ', i)
-				real_degree = key
-				print('degree ', real_degree)
-					
-		estimated_mem_dict[real_degree] = estimated_mem
+	for batch_id, data in enumerate(data_dict):
+		
+		batch_est_mem = 0
+		for index, layer in enumerate(data):
+			for key, value in layer.items():
+				if index == 0:  # For first layer
+					batch_est_mem += key * value * in_feat * 18 * 4 / 1024 / 1024 / 1024
+				else:  # For second and third layer
+					batch_est_mem += key * value * hidden_size * 18 *4 / 1024 / 1024 / 1024
+
+		estimated_mem_dict[batch_id] = batch_est_mem
 	print('estimated_mem_dict')
 	print(estimated_mem_dict)
-
-	modified_estimated_mem_list = []
-	idx =0
-	for key, val in estimated_mem_dict.items():
-	# for deg in range(len(redundant_ratio)):
-		modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]) 
-		# redundant_ratio[i] is a variable depends on graph characteristic
-		print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx]) ) 
-		idx += 1
 	print()
-	# print(modified_estimated_mem_list)
-
-	return modified_estimated_mem_list, estimated_mem_dict
-
+	modified_estimated_mem_list = []
+	for idx,(key, val) in enumerate(estimated_mem_dict.items()):
+		modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]*0.226) 
+		# redundant_ratio[i] is a variable depends on graph characteristic
+		print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx]) +" *"+str(0.226) ) 
+	
+	print()
+	print('modified_estimated_mem_list ')
+	print(modified_estimated_mem_list)
+	print()
+	
+	return modified_estimated_mem_list, list(estimated_mem_dict.values())
 
 #### Entry point
 def run(args, device, data):
