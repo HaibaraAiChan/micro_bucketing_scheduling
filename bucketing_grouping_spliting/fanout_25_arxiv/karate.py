@@ -302,7 +302,7 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
-	argparser.add_argument('--num-batch', type=int, default=2)
+	argparser.add_argument('--num-batch', type=int, default=1)
 	argparser.add_argument('--mem-constraint', type=float, default=18)
 
 	argparser.add_argument('--num-runs', type=int, default=1)

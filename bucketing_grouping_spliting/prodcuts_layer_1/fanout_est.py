@@ -426,7 +426,7 @@ def main():
 	argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='__bucketing')
-	argparser.add_argument('--num-batch', type=int, default=20)
+	argparser.add_argument('--num-batch', type=int, default=800)
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
 
 
@@ -437,7 +437,7 @@ def main():
 
 
 	argparser.add_argument('--num-layers', type=int, default=1)
-	argparser.add_argument('--fan-out', type=str, default='20')
+	argparser.add_argument('--fan-out', type=str, default='800')
 
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------

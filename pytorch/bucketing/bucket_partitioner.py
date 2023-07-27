@@ -28,6 +28,22 @@ import pdb
 from gen_K_hop_neighbors import generate_K_hop_neighbors
 from grouping_float import grouping_fanout_products, grouping_fanout_arxiv, grouping_cora
 
+def read_est_mem(filename):
+	# Open the file in read mode
+
+	with open(filename, 'r') as file:
+		# Load the dictionary from the file
+		data_str = file.read()
+        # Evaluate the string as a python dictionary
+		dict_data = eval(data_str)
+
+
+	# Convert the dictionary values to a list
+	list_data = list(dict_data.values())
+	# Now list_data contains the dictionary values
+	return list_data
+
+
 def print_(list_):
     for ll in list_:
         print('length ', len(ll))
@@ -305,7 +321,13 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 						#   res mem [1, fanout-1]: 0.7528625428676605 GB
 						#	mem size of fanout degree bucket by formula (GB):  25.001004338264465
 						capacity_imp = 0.44
-					
+					if "800_backpack_" in self.selection_method : # 1-layer
+						ff = '/home/cc/Betty_baseline/pytorch/bucketing/fanout_est_mem/fanout_800_est_mem.txt'
+						estimated_mem = read_est_mem(ff)[:-1]
+						#   res mem [1, fanout-1]: 195.9 GB
+						#	mem size of fanout degree bucket by formula (GB):  18.56 GB
+						capacity_imp = 15.9
+
 					time_backpack_start = time.time()
 					Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_products(adjust, estimated_mem, capacity = capacity_imp)
 					print("G_BUCKET_ID_list" , G_BUCKET_ID_list)
