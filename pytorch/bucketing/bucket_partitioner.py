@@ -320,13 +320,18 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 							print('max degree bucket (1-fanout-1) >capacity')
 							print('we can reschedule split K-->K+1 ')
 							self.K = self.K + 1
-
-					if "20_backpack_" in self.selection_method : # 1-layer
+					elif "10_backpack_" in self.selection_method : 
+						if self.hidden == 256 : # 1-layer
+							estimated_mem = [0.00116005539894104, 0.002963840961456299, 0.007523596286773682, 0.012230873107910156, 0.014919787645339966, 0.02212822437286377, 0.030744820833206177, 0.0274658203125, 0.03476142883300781]
+						#   res mem [1, fanout-1]: 0.1538984477519989 GB
+						#	mem size of fanout degree bucket by formula (GB):  12.915439903736115
+						capacity_imp = 0.1
+					elif "20_backpack_" in self.selection_method : # 1-layer
 						estimated_mem = [0.00116005539894104, 0.002963840961456299, 0.007523596286773682, 0.012230873107910156, 0.014919787645339966, 0.02212822437286377, 0.030744820833206177, 0.0274658203125, 0.03476142883300781, 0.04291534423828125, 0.04602670669555664, 0.04691183567047119, 0.053610652685165405, 0.06524473428726196, 0.06769225001335144, 0.06587505340576172, 0.06338059902191162, 0.07290244102478027, 0.07440447807312012]
 						#   res mem [1, fanout-1]: 0.7528625428676605 GB
 						#	mem size of fanout degree bucket by formula (GB):  25.001004338264465
 						capacity_imp = 0.44
-					if "800_backpack_" in self.selection_method : # 1-layer
+					elif "800_backpack_" in self.selection_method : # 1-layer
 						ff = '/home/cc/Betty_baseline/pytorch/bucketing/fanout_est_mem/fanout_800_est_mem.txt'
 						estimated_mem = read_est_mem(ff)[:-1]
 						#   res mem [1, fanout-1]: 195.9 GB
