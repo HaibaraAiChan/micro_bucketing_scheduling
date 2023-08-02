@@ -208,44 +208,54 @@ def print_mem(list_mem):
         deg += 1
     print()
     
-def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio):	
-	need_redundant_ratio = True
-	estimated_mem_list = []
-	for deg, data in enumerate(data_dict):
-		if len(data) ==1:
-			need_redundant_ratio= False
-		estimated_mem = 0
-		for i in range (len(data)): # number of layers
-			
-			sum_b = 0
-			for idx, (key, val) in enumerate(data[i].items()): # (degree, num of nid)
-				# print('idx (key, val)'+str(idx) +' '+str(key)+' '+str(val))
-				sum_b = sum_b + key*val
-				if idx ==0: # the input layer, in_feat 100(products) or 128(arxiv). 602(reddit)
-					estimated_mem  +=  sum_b*in_feat*18*4/1024/1024/1024
-					if deg == 24: print(estimated_mem)
-				if idx >=1: # the output layer
-					estimated_mem  +=  sum_b*hidden_size*18*4/1024/1024/1024	
-					if deg == 24: print(estimated_mem)
-		estimated_mem_list.append(estimated_mem)
-	print('estimated_mem_list[-1]')
-	print(estimated_mem_list[-1])
+    
+def estimate_mem_1_layer(data_dict, in_feat):
+	estimated_mem_dict = {}
+	for batch_id, data in enumerate(data_dict):
+		
+		batch_est_mem = 0
+		for index, layer in enumerate(data):
+			for key, value in layer.items():
+				
+				batch_est_mem += key * value * in_feat * 18 * 4 / 1024 / 1024 / 1024
+		estimated_mem_dict[batch_id] = batch_est_mem
+	return list(estimated_mem_dict.values())
+    
+def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, cluster_coeff):	
+	
+	estimated_mem_dict = {}
+	for batch_id, data in enumerate(data_dict):
+		
+		batch_est_mem = 0
+		for index, layer in enumerate(data):
+			for key, value in layer.items():
+				if index == 0:  # For first layer
+					batch_est_mem += key * value * in_feat * 18 * 4 / 1024 / 1024 / 1024
+				else:  # For second and third layer
+					batch_est_mem += key * value * hidden_size * 18 *4 / 1024 / 1024 / 1024
 
-	modified_estimated_mem_list = []
-	if need_redundant_ratio == True:
-		for deg in range(len(redundant_ratio)):
-			modified_estimated_mem_list.append(estimated_mem_list[deg]*redundant_ratio[deg]) 
-			# redundant_ratio[i] is a variable depends on graph characteristic
-			print(' MM estimated memory/GB degree '+str(deg)+': '+str(estimated_mem_list[deg]) + " * " +str(redundant_ratio[deg]) ) 
-	else:
-		modified_estimated_mem_list = estimated_mem_list
-		for deg in range(len(estimated_mem_list)):
-			print(' MM estimated memory/GB degree '+str(deg)+': '+str(estimated_mem_list[deg])  ) 
-			
+		estimated_mem_dict[batch_id] = batch_est_mem
+	print('estimated_mem_dict')
+	print(estimated_mem_dict)
 	print()
-	# print(modified_estimated_mem_list)
+	modified_estimated_mem_list = []
+	for idx,(key, val) in enumerate(estimated_mem_dict.items()):
+		modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]) 
+		# # redundant_ratio[i] is a variable depends on graph characteristic
+		print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx])  ) 
+		# modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]*cluster_coeff) 
+		# print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx]) +"*"+str(cluster_coeff) ) 
+	
+	print()
+	print('modified_estimated_mem_list[:-1] ')
+	print(modified_estimated_mem_list[:-1])
+	print("sum of above ", sum(modified_estimated_mem_list[:-1]))
+	print('modified_estimated_mem_list[-1] ')
+	print(modified_estimated_mem_list[-1])
+	print()
+	
+	return modified_estimated_mem_list, list(estimated_mem_dict.values())
 
-	return modified_estimated_mem_list, estimated_mem_list
 
 
 #### Entry point
@@ -295,7 +305,7 @@ def run(args, device, data):
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'/home/cc/Betty_baseline/dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				file_name=r'../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)
@@ -330,21 +340,31 @@ def run(args, device, data):
     
 				print('data_dict')
 				print(data_dict)
-				time_est_start = time.time()
-				modified_res, res = estimate_mem(data_dict, in_feats, args.num_hidden, redundant_ratio)
-				time_est_end = time.time()
 				fanout_list = [int(fanout) for fanout in args.fan_out.split(',')]
 				fanout = fanout_list[-1]
-				print('modified_mem [1, fanout-1]: ' )
-				print(modified_res[:fanout-1])
-				print(sum(modified_res[:fanout-1]))
+				
+				if args.num_layers == 1:
+					res = estimate_mem_1_layer(data_dict, in_feats)
+					print('estimated_mem [1, fanout-1]: ' )
+					print(res[:-1])
+					print(sum(res[:-1]))
+				else:
+					time_est_start = time.time()
+					modified_res, res = estimate_mem(data_dict, in_feats, args.num_hidden, redundant_ratio, args.cluster_coeff)
+					time_est_end = time.time()
+					print('modified_mem [1, fanout-1]: ' )
+					print(modified_res[:fanout-1])
+					print(sum(modified_res[:fanout-1]))
+					print('the time estimate mem (sec)', time_est_end - time_est_start)
+				
+				
 				print('mem size of fanout degree bucket by formula (GB): ', res[fanout-1])
 				print()
 				print('the modified memory estimation spend (sec)', time.time()-time1)
 				print('the time of number of fanout blocks generation (sec)', time1-time0)
 
 				print('the time dict collection (sec)', time_dict_end - time_dict_start)
-				print('the time estimate mem (sec)', time_est_end - time_est_start)
+				
 				
 				
 				
@@ -410,6 +430,7 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='__bucketing')
 	argparser.add_argument('--num-batch', type=int, default=10)
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
+	argparser.add_argument('--cluster-coeff', type=float, default=0.5793)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)

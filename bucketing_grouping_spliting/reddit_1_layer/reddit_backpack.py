@@ -188,7 +188,7 @@ def run(args, device, data):
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'/home/cc/Betty_baseline/dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				file_name=r'../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)
@@ -304,7 +304,7 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	argparser.add_argument('--num-batch', type=int, default=4)
 	argparser.add_argument('--mem-constraint', type=float, default=18)
-
+	argparser.add_argument('--cluster-coeff', type=float, default=0.5793)
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=10)
 

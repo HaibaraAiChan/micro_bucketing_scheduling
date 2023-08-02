@@ -338,9 +338,22 @@ def split_cora(weights, values, capacity, fanout, K):
             
     return GROUPS_weight, GROUPS_bucket_idx
 
+def grouping_pre(adjust, weights, capacity, fanout, K):
+	print('the grouping_fanout_cora called successfully')
+    # weights is a list
+	
+	weights = [int(item * adjust) for item in weights]
+	values = weights
+	capacity = int(capacity * adjust)
+	print('capacity ', capacity)
+
+	print(' ')
+	GROUPS_weight, GROUPS_bucket_idx = split_cora(weights, values, capacity, fanout, K) #####
+	
+	return GROUPS_weight, GROUPS_bucket_idx
 
 def grouping_cora(adjust, weights, capacity, fanout, K):
-	print('the grouping_fanout_arxiv called successfully')
+	print('the grouping_fanout_cora called successfully')
     # weights is a dict
 	degrees = weights.keys()
 	weights = weights.values()

@@ -79,18 +79,18 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 	src_nid_list = induced_src.tolist()
 
 	print('')
-	# global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
-	timess = time.time()
 	global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
-	output_nid_list = find_indices.find_indices(src_nid_list, global_batched_nids_list)
-	# dict_nid_2_local = dict(zip(src_nid_list, range(len(src_nid_list)))) # speedup
-	# output_nid_list =[]
-	# for step, output_nid in enumerate(batched_nodes_list):
-	# 	# in current layer subgraph, only has src and dst nodes,
-	# 	# and src nodes includes dst nodes, src nodes equals dst nodes.
-	# 	if torch.is_tensor(output_nid): output_nid = output_nid.tolist()
-	# 	local_output_nid = list(map(dict_nid_2_local.get, output_nid))
-	# 	output_nid_list.append(local_output_nid)
+	timess = time.time()
+	# global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
+	# output_nid_list = find_indices.find_indices(src_nid_list, global_batched_nids_list)
+	dict_nid_2_local = dict(zip(src_nid_list, range(len(src_nid_list)))) # speedup
+	output_nid_list =[]
+	for step, output_nid in enumerate(batched_nodes_list):
+		# in current layer subgraph, only has src and dst nodes,
+		# and src nodes includes dst nodes, src nodes equals dst nodes.
+		if torch.is_tensor(output_nid): output_nid = output_nid.tolist()
+		local_output_nid = list(map(dict_nid_2_local.get, output_nid))
+		output_nid_list.append(local_output_nid)
 	
 	print('the find indices time spent ', time.time()-timess)
 	
