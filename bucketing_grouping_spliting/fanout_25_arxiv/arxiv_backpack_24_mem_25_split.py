@@ -98,6 +98,29 @@ def evaluate(model, g, nfeats, labels, train_nid, val_nid, test_nid, device, arg
 	test_acc=compute_acc(pred[test_nid], labels[test_nid].to(pred.device))
 	return (train_acc, val_acc, test_acc)
 
+def evaluate_test(model, g, nfeats, labels,  test_nid, device, args):
+	"""
+	Evaluate the model on the validation set specified by ``val_nid``.
+	g : The entire graph.
+	inputs : The features of all the nodes.
+	labels : The labels of all the nodes.
+	val_nid : the node Ids for validation.
+	device : The GPU device to evaluate on.
+	"""
+	# train_nid = train_nid.to(device)
+	# val_nid=val_nid.to(device)
+	# test_nid=test_nid.to(device)
+	nfeats=nfeats.to(device)
+	g=g.to(device)
+	# print('device ', device)
+	model.eval()
+	with torch.no_grad():
+		pred = model.inference(g, nfeats,  args, device)
+	model.train()
+	
+	
+	test_acc=compute_acc(pred[test_nid], labels[test_nid].to(pred.device))
+	return  test_acc
 
 def load_subtensor(nfeat, labels, seeds, input_nodes, device):
 	"""
@@ -192,7 +215,16 @@ def run(args, device, data):
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)
-			
+    
+			if epoch == 100:
+				new_lr = 5e-4  # Set the desired learning rate for the specific epoch
+				for param_group in optimizer.param_groups:
+					param_group['lr'] = new_lr
+			if epoch == 200:
+				new_lr = 2e-4  # Set the desired learning rate for the specific epoch
+				for param_group in optimizer.param_groups:
+					param_group['lr'] = new_lr
+
 			if args.num_batch > 1:
 				print("generate_dataloader_bucket_block=======")
 				time_s = time.time()
@@ -237,6 +269,13 @@ def run(args, device, data):
 				print('end to end time : ', time_end-time_s )
 				print('connection check time: ', connection_time)
 				print('block generation time ', block_gen_time)
+				if args.eval:
+					if epoch % args.eval_every==0:
+						args.batch_size = len(train_nid)//args.num_batch +1
+						# print('eval batch size ', args.batch_size)
+						test_acc = evaluate_test(model, g, nfeats, labels, test_nid, device, args)
+						print("Run {:02d} | Epoch {:05d} | Loss {:.4f} | Test {:.4f}".format(run, epoch, loss_sum.item(),test_acc))
+							
     
 
 			elif args.num_batch == 1:
@@ -270,10 +309,21 @@ def run(args, device, data):
 			full_epoch=time.time() - t0
 			print('end to end time ', full_epoch)
 			dur.append(full_epoch)
+		if args.eval:
+			if epoch % args.eval_every==0:
+				args.batch_size = len(train_nid)//args.num_batch +1
+				print('eval batch size ', args.batch_size)
+			
+				# train_acc, val_acc, test_acc = evaluate(model, g, nfeats, labels, train_nid, val_nid, test_nid, device, args)
+				# print("Run {:02d} | Epoch {:05d} | Loss {:.4f} | Train {:.4f} | Val {:.4f} | Test {:.4f}".format(run, epoch, loss_sum.item(), train_acc, val_acc, test_acc))
+
+				test_acc = evaluate_test(model, g, nfeats, labels, test_nid, device, args)
+				print("Run {:02d} | Epoch {:05d} | Loss {:.4f} | Test {:.4f}".format(run, epoch, loss_sum.item(),test_acc))
+					
 		print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))	
 		print('pure train time per /epoch ', pure_train_time_list)
-		print('pure train time average ', np.mean(pure_train_time_list[3:]))
-		print('input num list ', num_input_list)
+		print('pure train time average ', np.mean(pure_train_time_list[4:]))
+		print('input num  average ', sum(num_input_list)/len(num_input_list))
 
 
 def main():
@@ -302,43 +352,33 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
-	argparser.add_argument('--num-batch', type=int, default=5)
+	argparser.add_argument('--num-batch', type=int, default=2)
 	argparser.add_argument('--mem-constraint', type=float, default=18)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
-	# argparser.add_argument('--num-hidden', type=int, default=1)
-	argparser.add_argument('--num-hidden', type=int, default=1024)
 
-	# argparser.add_argument('--num-layers', type=int, default=1)
-	# argparser.add_argument('--fan-out', type=str, default='10')
+	argparser.add_argument('--num-hidden', type=int, default=256)
+
 
 	argparser.add_argument('--num-layers', type=int, default=2)
 	argparser.add_argument('--fan-out', type=str, default='10,25')
-	# argparser.add_argument('--num-layers', type=int, default=3)
-	# argparser.add_argument('--fan-out', type=str, default='10,25,30')
 
 
-
-	# argparser.add_argument('--num-layers', type=int, default=1)
-	# argparser.add_argument('--fan-out', type=str, default='4')
-	# argparser.add_argument('--num-layers', type=int, default=2)
-	# argparser.add_argument('--fan-out', type=str, default='2,4')
-
-
-	argparser.add_argument('--log-indent', type=float, default=0)
+	argparser.add_argument('--log-indent', type=float, default=3)
 #--------------------------------------------------------------------------------------
 
 	argparser.add_argument('--lr', type=float, default=1e-3)
 	argparser.add_argument('--dropout', type=float, default=0.5)
 	argparser.add_argument("--weight-decay", type=float, default=5e-4,
 						help="Weight for L2 loss")
-	argparser.add_argument("--eval", action='store_true', 
+	# argparser.add_argument("--eval", action='store_true', 
+	# 					help='If not set, we will only do the training part.')
+	argparser.add_argument("--eval",type=bool, default=True,
 						help='If not set, we will only do the training part.')
-
 	argparser.add_argument('--num-workers', type=int, default=4,
 		help="Number of sampling processes. Use 0 for no extra process.")
-	
+	argparser.add_argument('--eval-every', type=int, default=10)
 
 	args = argparser.parse_args()
 	if args.setseed:
