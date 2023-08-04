@@ -544,6 +544,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 							# sum of above 12.471999108382306(GB),  degree 25 mem estimated =  9.851929664611816 GB
 							capacity_imp = 6.24 # nb 2 
 							capacity_imp = 3.12 # nb 4 
+							capacity_imp = 1.58 # nb 8 
 
 
 							# capacity_imp = self.memory_constraint-10

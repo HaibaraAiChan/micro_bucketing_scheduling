@@ -66,9 +66,9 @@
 #     > ${save_path}/nb_${nb}_h_1024_bk_2.2.log
 
 save_path=./bucketing_log/256
-nb=4
+nb=8
 hidden=256
-n_epoch=190
+n_epoch=191
 echo "---start backpack_24_mem_25_split.py ${nb} batches "
 python arxiv_backpack_24_mem_25_split.py \
     --dataset ogbn-arxiv \
