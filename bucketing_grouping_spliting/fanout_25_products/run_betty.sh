@@ -3,7 +3,8 @@ save_path=./betty_log/
 hidden=128
 md=range
 save_path=./betty_log/${md}
-for nb in 16 24 32
+# for nb in 16 24 32 17 18 19 20 21 22
+for nb in  17 18 19 20 21 22 23 24
 do
     echo "---start Betty_products_e2e.py hidden ${hidden},  nb ${nb} batches"
     python Betty_products_e2e.py  \
