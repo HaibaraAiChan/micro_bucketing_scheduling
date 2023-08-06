@@ -6,32 +6,32 @@ File=gen_data.py
 # data=cora
 # data=pubmed
 # data=reddit
-# num_epoch=10
+num_epoch=20
 # fan_out=10
-# data=ogbn-arxiv
+data=ogbn-arxiv
 
 # mkdir ~/Betty_baseline/dataset/fan_out_10
 # python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
 
 
-
-# fan_out=10,25
+# 
+fan_out=10,25
 # mkdir ~/Betty_baseline/dataset/fan_out_10,25
-# python $File --fan-out=$fan_out --num-layers=2 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
+python $File --fan-out=$fan_out --num-layers=2 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
 # #--------------------------------------------------------------------------------------------------------
-data=ogbn-products
-num_epoch=10
+# data=ogbn-products
+# num_epoch=10
 # fan_out=10
 # python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
-fan_out=15
-mkdir ~/Betty_baseline/dataset/fan_out_15
-python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
-fan_out=20
-mkdir ~/Betty_baseline/dataset/fan_out_20
-python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
-fan_out=800
-mkdir ~/Betty_baseline/dataset/fan_out_800
-python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
+# fan_out=15
+# mkdir ~/Betty_baseline/dataset/fan_out_15
+# python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
+# fan_out=20
+# mkdir ~/Betty_baseline/dataset/fan_out_20
+# python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
+# fan_out=800
+# mkdir ~/Betty_baseline/dataset/fan_out_800
+# python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
 
 
 # fan_out=10,25

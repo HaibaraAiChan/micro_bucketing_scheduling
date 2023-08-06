@@ -1,12 +1,14 @@
 #!/bin/bash
-save_path=./betty_log
+save_path=./betty_log/
 hidden=128
-for nb in 10 11 12 13 14 15 16 32
+md=range
+save_path=./betty_log/${md}
+for nb in 16 24 32
 do
     echo "---start Betty_products_e2e.py hidden ${hidden},  nb ${nb} batches"
     python Betty_products_e2e.py  \
         --dataset ogbn-products \
-        --selection-method REG \
+        --selection-method $md \
         --num-batch ${nb} \
         --num-layers 2 \
         --fan-out 10,25 \
@@ -16,5 +18,5 @@ do
         --aggre lstm \
         --log-indent 3 \
         --lr 1e-3 \
-        > ${save_path}/nb_${nb}_e2e_${hidden}.log
+        > ${save_path}/${md}_nb_${nb}_e2e_${hidden}.log
 done

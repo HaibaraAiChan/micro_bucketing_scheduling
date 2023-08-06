@@ -48,23 +48,48 @@
 #     --lr 1e-3 \
 #     > ${save_path}/nb_${nb}_e2e_${hidden}.log
 #!/bin/bash
+# save_path=./betty_log
+# hidden=1024
+# # for nb in 9 10 11 12 16
+# for nb in 32
+# do
+#     echo "---start Betty_arxiv_e2e.py hidden ${hidden},  nb ${nb} batches"
+#     python Betty_arxiv_e2e.py  \
+#         --dataset ogbn-arxiv \
+#         --selection-method REG \
+#         --num-batch ${nb} \
+#         --num-layers 2 \
+#         --fan-out 10,25 \
+#         --num-hidden ${hidden} \
+#         --num-runs 1 \
+#         --num-epoch 10 \
+#         --aggre lstm \
+#         --log-indent 3 \
+#         --lr 1e-3 \
+#         > ${save_path}/nb_${nb}_e2e_${hidden}.log
+# done
+#!/bin/bash
 save_path=./betty_log
-hidden=1024
+hidden=1
+n_layer=2
+fanout=10,25
+save_path=./betty_log/2-layer
+md=REG
 # for nb in 9 10 11 12 16
-for nb in 32
+for nb in 5
 do
     echo "---start Betty_arxiv_e2e.py hidden ${hidden},  nb ${nb} batches"
     python Betty_arxiv_e2e.py  \
         --dataset ogbn-arxiv \
-        --selection-method REG \
-        --num-batch ${nb} \
-        --num-layers 2 \
-        --fan-out 10,25 \
-        --num-hidden ${hidden} \
+        --selection-method $md \
+        --num-batch $nb \
+        --num-layers $n_layer \
+        --fan-out $fanout \
+        --num-hidden $hidden \
         --num-runs 1 \
-        --num-epoch 10 \
+        --num-epoch 5 \
         --aggre lstm \
         --log-indent 3 \
         --lr 1e-3 \
-        > ${save_path}/nb_${nb}_e2e_${hidden}.log
+        > ${save_path}/${md}_nb_${nb}_e2e_${hidden}_fanout_${fanout}.log
 done

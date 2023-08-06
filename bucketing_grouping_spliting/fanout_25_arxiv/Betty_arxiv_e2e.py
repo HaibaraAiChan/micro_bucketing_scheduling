@@ -191,7 +191,7 @@ def run(args, device, data):
 		
 		optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 		for epoch in range(args.num_epochs):
-			pure_train_time=0
+			
 			model.train()
 			if epoch >= args.log_indent:
 				t0 = time.time()
@@ -218,6 +218,7 @@ def run(args, device, data):
 			
 			pseudo_mini_loss = torch.tensor([], dtype=torch.long)
 			num_input_nids=0
+			pure_train_time=0
 			for step, (input_nodes, seeds, blocks) in enumerate(block_dataloader):
 				num_input_nids	+= len(input_nodes)
 				batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
@@ -240,7 +241,9 @@ def run(args, device, data):
 			t4=time.time()
 			pure_train_time += (t4-t3)
 			pure_train_time_list.append(pure_train_time)
+			print('epoch, ', epoch)
 			print('pure train time ',pure_train_time)
+			pure_train_time =0
 			num_input_list.append(num_input_nids)
 			if args.GPUmem:
 					see_memory_usage("-----------------------------------------after optimizer zero grad")
@@ -249,7 +252,7 @@ def run(args, device, data):
 			if epoch >= args.log_indent:
 				dur.append(time.time() - t0)
 	print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))
-	print('pure train time/epoch {}'.format(np.mean(pure_train_time_list[4:])))
+	print('pure train time/epoch {}'.format(np.mean(pure_train_time_list[5:])))
 	print('')
 	print('num_input_list ', num_input_list)
 				

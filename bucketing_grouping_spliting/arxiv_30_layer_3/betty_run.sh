@@ -1,19 +1,25 @@
 #!/bin/bash
-
-# mkdir ./log1
-save_path=./betty_log/128
-mkdir $save_path
-echo '---start Betty_arxiv_e2e_30.py   1 batches '
-python Betty_arxiv_e2e_30.py  \
-    --dataset ogbn-arxiv \
-    --selection-method REG \
-    --num-batch 1 \
-    --num-layers 3 \
-    --fan-out 10,25,30 \
-    --num-hidden 128 \
-    --num-runs 1 \
-    --num-epoch 10 \
-    --aggre lstm \
-    --log-indent 3 \
-    --lr 1e-3 \
-    > ${save_path}/nb_1_e2e_128.log
+save_path=./betty_log
+hidden=1
+n_layer=3
+fanout=10,25,30
+save_path=./betty_log/3-layer
+md=REG
+# for nb in 9 10 11 12 16
+for nb in 4
+do
+    echo "---start Betty_arxiv_e2e.py hidden ${hidden},  nb ${nb} batches"
+    python Betty_arxiv_e2e.py  \
+        --dataset ogbn-arxiv \
+        --selection-method $md \
+        --num-batch $nb \
+        --num-layers $n_layer \
+        --fan-out $fanout \
+        --num-hidden $hidden \
+        --num-runs 1 \
+        --num-epoch 5 \
+        --aggre lstm \
+        --log-indent 3 \
+        --lr 1e-3 \
+        > ${save_path}/${md}_nb_${nb}_e2e_${hidden}_fanout_${fanout}.log
+done

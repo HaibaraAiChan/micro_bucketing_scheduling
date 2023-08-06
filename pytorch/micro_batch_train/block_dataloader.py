@@ -290,6 +290,7 @@ def generate_blocks_for_one_layer_block(raw_graph, layer_block, batches_nid_list
 
 	t1= time.time()
 	batches_temp_res_list = check_connections_block(batches_nid_list, layer_block)
+	# batches_temp_res_list = check_connections_block_mp(batches_nid_list, layer_block)
 	t2 = time.time()
 	check_connection_time.append(t2-t1)
 

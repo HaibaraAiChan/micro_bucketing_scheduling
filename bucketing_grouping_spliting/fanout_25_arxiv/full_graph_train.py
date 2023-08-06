@@ -171,6 +171,10 @@ def main():
             if epoch >= 3:
                 dur.append(time.time() - t0)
                 print('Training time/epoch {}'.format(np.mean(dur)))
+            if epoch == 80:
+                new_lr = 1e-3  # Set the desired learning rate for the specific epoch
+                for param_group in optimizer.param_groups:
+                    param_group['lr'] = new_lr
             # if not args.eval:
             #     continue
             print('epoch ', epoch)

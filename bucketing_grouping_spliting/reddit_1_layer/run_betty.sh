@@ -1,48 +1,29 @@
 #!/bin/bash
 
 # mkdir ./log1
-save_path=./betty_log
-# mkdir $save_path
-nb=6
-echo "---start Betty_reddit_e2e.py ${nb} batches "
-python Betty_reddit_e2e.py \
-    --dataset reddit \
-    --selection-method REG \
-    --num-batch $nb \
-    --num-layers 1 \
-    --fan-out 10 \
-    --num-hidden 128 \
-    --num-runs 1 \
-    --num-epoch 10 \
-    --aggre lstm \
-    --log-indent 3 \
-    --lr 1e-4 \
-    > ${save_path}/nb_${nb}_h_128.log
-# echo '---start Betty_reddit_e2e.py 4 batches '
-# python Betty_reddit_e2e.py \
-#     --dataset reddit \
-#     --selection-method REG \
-#     --num-batch 4 \
-#     --num-layers 1 \
-#     --fan-out 10 \
-#     --num-hidden 128 \
-#     --num-runs 1 \
-#     --num-epoch 10 \
-#     --aggre lstm \
-#     --log-indent 3 \
-#     --lr 1e-4 \
-#     > ${save_path}/nb_4_h_128.log
-# echo '---start Betty_reddit_e2e.py 5 batches '
-# python Betty_reddit_e2e.py \
-#     --dataset reddit \
-#     --selection-method REG \
-#     --num-batch 5 \
-#     --num-layers 1 \
-#     --fan-out 10 \
-#     --num-hidden 128 \
-#     --num-runs 1 \
-#     --num-epoch 10 \
-#     --aggre lstm \
-#     --log-indent 3 \
-#     --lr 1e-4 \
-#     > ${save_path}/nb_5_h_128.log
+
+mkdir $save_path
+hidden=602
+md=metis
+n_layer=1
+fanout=10
+save_path=./betty_log/
+data=reddit
+for nb in 3 4 5 6 7 
+do
+    echo "---start ${md}  ${data}  ${nb} batches "
+    python Betty_reddit_e2e.py \
+        --dataset $data \
+        --selection-method $md \
+        --num-batch $nb \
+        --num-layers $n_layer \
+        --fan-out $fanout\
+        --num-hidden $hidden \
+        --num-runs 1 \
+        --num-epoch 5 \
+        --aggre lstm \
+        --log-indent 3 \
+        --lr 1e-3 \
+        > ${save_path}/${md}_nb_${nb}_hidden_${hidden}_fanout_${fanout}.log
+done
+
