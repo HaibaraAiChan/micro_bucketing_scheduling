@@ -65,7 +65,7 @@ save_path=./bucketing_log
 #     --log-indent 3 \
 #     --lr 1e-2 \
 #     > ${save_path}/nb_13_bucketing_pybind11.log
-
+nb=16
 echo '---start products_25_time.py REG  12 batches '
 python products_25_time.py \
     --dataset ogbn-products \

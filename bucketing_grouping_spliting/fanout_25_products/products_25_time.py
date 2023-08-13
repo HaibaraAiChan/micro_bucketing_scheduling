@@ -233,6 +233,7 @@ def run(args, device, data):
 				# print('orignal labels: ', labels)
 				for step, (input_nodes, seeds, blocks) in enumerate(full_batch_dataloader):
 					# print()
+
 					print('full batch src global ', len(input_nodes))
 					print('full batch dst global ', len(seeds))
 					# print('full batch eid global ', blocks[-1].edata['_ID'])

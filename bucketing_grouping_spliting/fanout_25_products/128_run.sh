@@ -1,10 +1,12 @@
 #!/bin/bash
 save_path=./bucketing_log/128
 hidden=128
+np=1
 # for nb in  15 16 17 18 19 20 32
-for nb in  18 19 20 24 32 
+# for nb in  18 19 20 24 32 
+for nb in  24
 do
-    echo "---start products_25_time.py REG  nb  ${nb}  batches "
+    echo "---start products_25_time.py   nb  ${nb}  batches "
     python products_25_time.py \
         --dataset ogbn-products \
         --selection-method 25_backpack_products_bucketing \
@@ -14,11 +16,11 @@ do
         --fan-out 10,25 \
         --num-hidden $hidden \
         --num-runs 1 \
-        --num-epoch 10 \
+        --num-epoch $np \
         --aggre lstm \
         --log-indent 3 \
         --lr 1e-2 \
-        > ${save_path}/nb_${nb}_bucketing_${hidden}.log
+        > ${save_path}/nb_${nb}_bucketing_${hidden}_new.log
 done
 # echo '---start products_25_time.py REG  15 batches '
 # python products_25_time.py \
