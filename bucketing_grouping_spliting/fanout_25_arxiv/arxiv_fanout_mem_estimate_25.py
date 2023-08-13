@@ -224,14 +224,17 @@ def estimate_mem(data_dict, in_feat, hidden_size, redundant_ratio, fanout):
 		estimated_mem_dict[batch_id] = batch_est_mem
 	print('estimated_mem_dict')
 	print(estimated_mem_dict)
+	print(list(estimated_mem_dict.values())[:-1])
 	print()
 	modified_estimated_mem_list = []
 	for idx,(key, val) in enumerate(estimated_mem_dict.items()):
 		# modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]) 
 		# # redundant_ratio[i] is a variable depends on graph characteristic
 		# print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx])  ) 
-		modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]*0.226/2) 
-		print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx]) +"*"+str(0.226/2) ) 
+		# modified_estimated_mem_list.append(estimated_mem_dict[key]*redundant_ratio[idx]*0.226/2) 
+		# print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * " +str(redundant_ratio[idx]) +"*"+str(0.226/2) ) 
+		modified_estimated_mem_list.append(estimated_mem_dict[key]*min(redundant_ratio[idx]*0.226,1)) 
+		print(' MM estimated memory/GB degree '+str(key)+': '+str(estimated_mem_dict[key]) + " * min( " +str(redundant_ratio[idx]) +"*"+str(0.226)+',1') 
 	
 	print()
 	print('modified_estimated_mem_list ')
@@ -404,19 +407,19 @@ def main():
 	argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='__bucketing')
-
-	argparser.add_argument('--num-batch', type=int, default=30)
-	argparser.add_argument('--num-layers', type=int, default=3)
-	argparser.add_argument('--fan-out', type=str, default='10,25,30')
+	# argparser.add_argument('--num-batch', type=int, default=30)
+	argparser.add_argument('--num-batch', type=int, default=25)
+	# argparser.add_argument('--num-layers', type=int, default=3)
+	# argparser.add_argument('--fan-out', type=str, default='10,25,30')
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
-	argparser.add_argument('--num-hidden', type=int, default=64)
+	argparser.add_argument('--num-hidden', type=int, default=256)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
 
 
-	# argparser.add_argument('--num-layers', type=int, default=2)
-	# argparser.add_argument('--fan-out', type=str, default='10,25')
+	argparser.add_argument('--num-layers', type=int, default=2)
+	argparser.add_argument('--fan-out', type=str, default='10,25')
 
 	# argparser.add_argument('--num-layers', type=int, default=3)
 	# argparser.add_argument('--fan-out', type=str, default='10,25,30')

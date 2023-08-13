@@ -1,0 +1,89 @@
+main start at this time 1691641877.525268
+-----------------------------------------before load data 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+  NumNodes: 2708
+  NumEdges: 10556
+  NumFeats: 1433
+  NumClasses: 7
+  NumTrainingSamples: 140
+  NumValidationSamples: 500
+  NumTestSamples: 1000
+Done loading data from cached files.
+success----------------------------------------
+140
+500
+2068
+# Nodes: 2708
+# Edges: 10556
+# Train: 140
+# Val: 500
+# Test: 2068
+# Classes: 7
+
+----------------------------------------start of run function 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+generate_dataloader_bucket_block=======
+len(bkt)  20
+len(bkt)  25
+len(bkt)  26
+len(bkt)  22
+len(bkt)  15
+len(bkt)  11
+len(bkt)  4
+len(bkt)  3
+len(bkt)  4
+len(bkt)  3
+len(bkt)  1
+len(bkt)  2
+len(bkt)  1
+len(bkt)  1
+len(bkt)  2
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+memory_constraint:  3.75
+sum(estimated_mem)
+0.36848267912864685
+15
+the grouping_fanout_cora called successfully
+capacity  3750
+ 
+sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+
+weights after sort [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
+G_BUCKET_ID_list [[3, 4, 2, 5, 1, 14, 8, 9, 6, 7, 11, 13, 12, 0, 10]]
+Groups_mem_list  [[54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]]
+G_BUCKET_ID_list length 1
+backpack scheduling spend  0.0008482933044433594
+current group_mem  0.36848267912864685
+batches output list generation spend  0.0007581710815429688
+self.weights_list  [1.0]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0012695789337158203
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.00168609619140625
+len local_batched_seeds_list  1
+partition total batch output list spend :  0.0035758018493652344
+self.buckets_partition() spend  sec:  0.0029735565185546875
+layer  0
+ the number of batches:  1
+check_connections_block*********************************
+
+the find indices time spent  0.0001399517059326172
+
+in edges time spent  0.00039386749267578125
+local to global src and eids time spent  0.00034236907958984375
+time gen tails  0.00012111663818359375
+res  length 1
+layer  1
+num of batch  1
+check_connections_block*********************************
+
+the find indices time spent  0.0003418922424316406
+
+in edges time spent  0.0010364055633544922
+local to global src and eids time spent  0.001135110855102539
+time gen tails  0.00029087066650390625
+res  length 1

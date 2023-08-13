@@ -1,0 +1,294 @@
+main start at this time 1691638625.9099529
+-----------------------------------------before load data 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+ogbn-arxiv
+# Nodes: 169343
+# Edges: 2315598
+# Train: 90941
+# Val: 29799
+# Test: 48603
+# Classes: 40
+
+----------------------------------------start of run function 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+generate_dataloader_bucket_block=======
+len(bkt)  13428
+len(bkt)  11706
+len(bkt)  9277
+len(bkt)  7320
+len(bkt)  6222
+len(bkt)  4868
+len(bkt)  4045
+len(bkt)  3472
+len(bkt)  2976
+len(bkt)  2599
+len(bkt)  2203
+len(bkt)  1937
+len(bkt)  1656
+len(bkt)  1434
+len(bkt)  1289
+len(bkt)  1111
+len(bkt)  1030
+len(bkt)  948
+len(bkt)  836
+len(bkt)  807
+len(bkt)  717
+len(bkt)  556
+len(bkt)  519
+len(bkt)  525
+len(bkt)  9460
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+self.K  8
+the grouping_fanout_arxiv called successfully
+capacity  3200
+ 
+sorted_dict  {4: 1237, 5: 1233, 6: 1219, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 1: 1092, 12: 1061, 13: 1035, 14: 1013, 16: 960, 15: 955, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+
+weights after sort [1237, 1233, 1219, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1092, 1061, 1035, 1013, 960, 955, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1184 1061  955]
+
+remove bucket_id:  [5, 11, 15]
+original bucket_id :,  [8, 12, 15]
+remove weights:  [1184 1061  955], 		------------sum 3200
+
+before remove weights,  [1237, 1233, 1219, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1092, 1061, 1035, 1013, 960, 955, 928, 928, 916, 900, 868, 800, 795, 787]
+after remove pre pack weights,  [1237, 1233, 1219, 1211, 1206, 1176, 1174, 1121, 1116, 1092, 1035, 1013, 960, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1237 1035  928]
+
+remove bucket_id:  [0, 10, 13]
+original bucket_id :,  [4, 13, 0]
+remove weights:  [1237 1035  928], 		------------sum 3200
+
+before remove weights,  [1237, 1233, 1219, 1211, 1206, 1176, 1174, 1121, 1116, 1092, 1035, 1013, 960, 928, 928, 916, 900, 868, 800, 795, 787]
+after remove pre pack weights,  [1233, 1219, 1211, 1206, 1176, 1174, 1121, 1116, 1092, 1013, 960, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1211 1121  868]
+
+remove bucket_id:  [2, 6, 14]
+original bucket_id :,  [7, 11, 20]
+remove weights:  [1211 1121  868], 		------------sum 3200
+
+before remove weights,  [1233, 1219, 1211, 1206, 1176, 1174, 1121, 1116, 1092, 1013, 960, 928, 916, 900, 868, 800, 795, 787]
+after remove pre pack weights,  [1233, 1219, 1206, 1176, 1174, 1116, 1092, 1013, 960, 928, 916, 900, 800, 795, 787]
+res_tmp  [1206 1092  900]
+
+remove bucket_id:  [2, 6, 11]
+original bucket_id :,  [3, 1, 19]
+remove weights:  [1206 1092  900], 		------------sum 3198
+
+before remove weights,  [1233, 1219, 1206, 1176, 1174, 1116, 1092, 1013, 960, 928, 916, 900, 800, 795, 787]
+after remove pre pack weights,  [1233, 1219, 1176, 1174, 1116, 1013, 960, 928, 916, 800, 795, 787]
+res_tmp  [1233 1176  787]
+
+remove bucket_id:  [0, 2, 11]
+original bucket_id :,  [5, 9, 21]
+remove weights:  [1233 1176  787], 		------------sum 3196
+
+before remove weights,  [1233, 1219, 1176, 1174, 1116, 1013, 960, 928, 916, 800, 795, 787]
+after remove pre pack weights,  [1219, 1174, 1116, 1013, 960, 928, 916, 800, 795]
+res_tmp  [1219 1174  800]
+
+remove bucket_id:  [0, 1, 7]
+original bucket_id :,  [6, 2, 22]
+remove weights:  [1219 1174  800], 		------------sum 3193
+
+before remove weights,  [1219, 1174, 1116, 1013, 960, 928, 916, 800, 795]
+after remove pre pack weights,  [1116, 1013, 960, 928, 916, 795]
+res_tmp  [1116 1013  960]
+
+remove bucket_id:  [0, 1, 2]
+original bucket_id :,  [10, 14, 16]
+remove weights:  [1116 1013  960], 		------------sum 3089
+
+before remove weights,  [1116, 1013, 960, 928, 916, 795]
+after remove pre pack weights,  [928, 916, 795]
+G_BUCKET_ID_list [[8, 12, 15], [4, 13, 0], [7, 11, 20], [3, 1, 19], [5, 9, 21], [6, 2, 22], [10, 14, 16], [0, 18, 23]]
+Groups_mem_list  [[1184, 1061, 955], [1237, 1035, 928], [1211, 1121, 868], [1206, 1092, 900], [1233, 1176, 787], [1219, 1174, 800], [1116, 1013, 960], [928, 916, 795]]
+G_BUCKET_ID_list length 8
+len(g_bucket_nids_list)  8
+len(local_split_batches_nid_list)  8
+current group_mem  3.200679145912788
+current group_mem  3.2021101019875213
+current group_mem  3.2023432433527543
+current group_mem  3.1994728796569154
+current group_mem  3.196613250310635
+current group_mem  3.195210073034035
+current group_mem  3.0900978889356083
+current group_mem  2.6409468083385548
+batches output list generation spend  0.0006959438323974609
+self.weights_list  [0.013008434039652083, 0.013008434039652083, 0.013008434039652083, 0.013008434039652083, 0.013008434039652083, 0.013008434039652083, 0.013008434039652083, 0.01296444947823314]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.01409912109375
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.6830542087554932
+len local_batched_seeds_list  8
+partition total batch output list spend :  0.9564733505249023
+self.buckets_partition() spend  sec:  0.697180986404419
+layer  0
+ the number of batches:  8
+check_connections_block*********************************
+
+the find indices time spent  0.024713993072509766
+
+in edges time spent  0.04442000389099121
+local to global src and eids time spent  0.10372281074523926
+time gen tails  0.02560114860534668
+res  length 8
+layer  1
+num of batch  8
+check_connections_block*********************************
+
+the find indices time spent  0.0705561637878418
+
+in edges time spent  0.3517491817474365
+local to global src and eids time spent  0.5789563655853271
+time gen tails  0.0986475944519043
+res  length 8
+block collection to dataloader spend  1.239776611328125e-05
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.46875 GB
+    Memory Allocated: 0.03618144989013672  GigaBytes
+Max Memory Allocated: 0.03618144989013672  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.673828125 GB
+    Memory Allocated: 2.0414066314697266  GigaBytes
+Max Memory Allocated: 2.0974960327148438  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 3.673828125 GB
+    Memory Allocated: 2.041584014892578  GigaBytes
+Max Memory Allocated: 2.0974960327148438  GigaBytes
+
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.681640625 GB
+    Memory Allocated: 0.03960418701171875  GigaBytes
+Max Memory Allocated: 2.0974960327148438  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.765625 GB
+    Memory Allocated: 2.035849094390869  GigaBytes
+Max Memory Allocated: 2.0974960327148438  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 3.765625 GB
+    Memory Allocated: 2.0360260009765625  GigaBytes
+Max Memory Allocated: 2.0974960327148438  GigaBytes
+
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.765625 GB
+    Memory Allocated: 0.04072427749633789  GigaBytes
+Max Memory Allocated: 2.0974960327148438  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.771484375 GB
+    Memory Allocated: 2.0433058738708496  GigaBytes
+Max Memory Allocated: 2.099979877471924  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 3.771484375 GB
+    Memory Allocated: 2.043482780456543  GigaBytes
+Max Memory Allocated: 2.099979877471924  GigaBytes
+
+step  3
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.771484375 GB
+    Memory Allocated: 0.041945457458496094  GigaBytes
+Max Memory Allocated: 2.099979877471924  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.87109375 GB
+    Memory Allocated: 2.049776554107666  GigaBytes
+Max Memory Allocated: 2.1060423851013184  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 3.87109375 GB
+    Memory Allocated: 2.0499534606933594  GigaBytes
+Max Memory Allocated: 2.1060423851013184  GigaBytes
+
+step  4
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.87109375 GB
+    Memory Allocated: 0.04267454147338867  GigaBytes
+Max Memory Allocated: 2.1060423851013184  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.87109375 GB
+    Memory Allocated: 2.088892936706543  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 3.87109375 GB
+    Memory Allocated: 2.0890698432922363  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+step  5
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.87109375 GB
+    Memory Allocated: 0.04296684265136719  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.873046875 GB
+    Memory Allocated: 2.0455198287963867  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 3.873046875 GB
+    Memory Allocated: 2.04569673538208  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+step  6
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.873046875 GB
+    Memory Allocated: 0.04374217987060547  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.873046875 GB
+    Memory Allocated: 2.0388216972351074  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 3.873046875 GB
+    Memory Allocated: 2.038998603820801  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+step  7
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.873046875 GB
+    Memory Allocated: 0.044600486755371094  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 3.875 GB
+    Memory Allocated: 2.0501227378845215  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 3.875 GB
+    Memory Allocated: 2.0502991676330566  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+----------------------------------------after optimizer
+ Nvidia-smi: 3.875 GB
+    Memory Allocated: 0.052286624908447266  GigaBytes
+Max Memory Allocated: 2.1451587677001953  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 0.40541133284568787
+pure train time :  0.9216248989105225
+train time :  1.6182870864868164
+end to end time :  4.8901448249816895
+connection check time:  1.5084388256072998
+block generation time  0.7882204055786133
+Total (block generation + training)time/epoch nan
+pure train time per /epoch  [0.9216248989105225]
+pure train time average  nan
+input num  average  533722.0

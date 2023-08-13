@@ -1,22 +1,24 @@
+import os
 
+def read_files_in_folder(folder_path):
+    # Get a list of all files in the folder
+    file_list = os.listdir(folder_path)
 
-name = './nb_7_h_1024_bk_6.2.log'
-name = './nb_8_h_1024_bk_5.6.log'
-name = './nb_9_h_1024_bk_5.1.log'
-name = './nb_10_h_1024_bk_4.9.log'
-name = './nb_11_h_1024_bk_4.3.log'
-name = './nb_12_h_1024_bk_3.7.log'
-name = './nb_16_h_1024_bk_3.3.log'
-# name = './nb_32_h_1024_bk_2.2.log'
-with open(name, 'r') as f:
-    lines = f.readlines()
-
-end_time=[]
-for line in lines:
-    if line.startswith("end to end time :"):
-        number = float(line.split(":")[1].strip())
-        # print(number)
-        end_time.append(number)
-
-print('average end to end time ')
-print(sum(end_time[3:])/len(end_time[3:]))
+    for file_name in file_list:
+        file_path = os.path.join(folder_path, file_name)
+        # print('file------ ', file_name)
+        end_time=[]
+        if os.path.isfile(file_path):  # Ensure it is a file, not a subfolder
+            with open(file_path, 'r') as file:
+                
+                lines = file.readlines()
+                for line in lines:
+                    if line.startswith("end to end time :"):
+                        number = float(line.split(":")[1].strip())
+                        # print(number)
+                        end_time.append(number)
+                if len(end_time)>3:
+                    print('avg end to end time ')
+                    print( ' ---------------- '+file_name + '  '+str(sum(end_time[3:])/len(end_time[3:])))
+        print()
+read_files_in_folder('./')
