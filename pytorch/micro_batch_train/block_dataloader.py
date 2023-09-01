@@ -310,7 +310,9 @@ def generate_blocks_for_one_layer_block(raw_graph, layer_block, batches_nid_list
 
 	connection_time = sum(check_connection_time)
 	block_gen_time = sum(block_generation_time)
-
+	print()
+	print('block_gen_time in "generate_blocks_for_one_layer_block" ', block_gen_time)
+	print()
 	return blocks, src_list, dst_list, (connection_time, block_gen_time)
 
 
@@ -330,16 +332,21 @@ def gen_batched_output_list(dst_nids, args ):
 	batches_nid_list=[]
 	weights_list=[]
 	if partition_method=='range':
+		print('range parition ')
+		time11 = time.time()
 		indices = [i for i in range(len(dst_nids))]
 		map_output_list = list(numpy.array(dst_nids)[indices])
 		batches_nid_list = [map_output_list[i:i + batch_size] for i in range(0, len(map_output_list), batch_size)]
 		length = len(dst_nids)
+		print('range partition time ', time.time()-time11)
 		weights_list = [len(batch_nids)/length  for batch_nids in batches_nid_list]
 	if partition_method=='random':
+		time112 = time.time()
 		indices = torch.randperm(len(dst_nids))
 		map_output_list = list(numpy.array(dst_nids)[indices])
 		batches_nid_list = [map_output_list[i:i + batch_size] for i in range(0, len(map_output_list), batch_size)]
 		length = len(dst_nids)
+		print('random partition time ', time.time()-time112)
 		weights_list = [len(batch_nids)/length  for batch_nids in batches_nid_list]
 
 	return batches_nid_list, weights_list

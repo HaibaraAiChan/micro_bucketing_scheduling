@@ -4,13 +4,15 @@
 
 mkdir $save_path
 hidden=1024
-md=random
+# md=random
+# md=range
+md=metis
 n_layer=2
 fanout=10,25
 save_path=./betty_log/2-layer/${md}
 for nb in 5 6 7 8 9 10 11 12 16 32
 do
-    echo "---start random   ${nb} batches "
+    echo "---start ${md}   ${nb} batches "
     python Metis.py \
         --dataset ogbn-arxiv \
         --selection-method $md \

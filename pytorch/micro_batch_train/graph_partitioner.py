@@ -88,6 +88,7 @@ class Graph_Partitioner:  # ----------------------*** split the output layer blo
 		# 	print('balanced_init for graph_partition spend: ', time.time()-t)
 		if 'metis' in self.selection_method:
 			o_graph = self.args.o_graph
+			timess=time.time()
 			partition = dgl.metis_partition(g=o_graph,k=self.args.num_batch)
 			# print('---------------pure dgl.metis_partition spent ', time.time()-t8 )
 			res=[]
@@ -95,6 +96,7 @@ class Graph_Partitioner:  # ----------------------*** split the output layer blo
 				nids = partition[pid].ndata[dgl.NID].tolist()
 				res.append(sorted(nids))
 				print(len(nids))
+			print('metis partition time ', time.time()-timess)
 			if set(sum(res,[]))!=set(self.local_output_nids):
 				print('--------pure    check:     the difference of graph partition res and self.local_output_nids')
 			batches_nid_list = res
