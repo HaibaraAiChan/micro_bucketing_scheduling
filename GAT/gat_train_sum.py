@@ -1,8 +1,8 @@
 import argparse
 
 import dgl
-import dgl.nn as dglnn
-
+# import dgl.nn as dglnn
+from gatconv import GATConv
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -16,20 +16,22 @@ class GAT(nn.Module):
         self.gat_layers = nn.ModuleList()
         # two-layer GAT
         self.gat_layers.append(
-            dglnn.GATConv(
+            GATConv(
                 in_size,
                 hid_size,
                 heads[0],
+                'sum',
                 feat_drop=0.6,
                 attn_drop=0.6,
                 activation=F.elu,
             )
         )
         self.gat_layers.append(
-            dglnn.GATConv(
+            GATConv(
                 hid_size * heads[0],
                 out_size,
                 heads[1],
+                'sum',
                 feat_drop=0.6,
                 attn_drop=0.6,
                 activation=None,
