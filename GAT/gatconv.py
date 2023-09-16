@@ -8,7 +8,12 @@ from dgl import DGLError
 from dgl.utils import expand_as_pair
 from dgl.nn.functional import edge_softmax
 from dgl.nn.pytorch.utils import Identity
-
+from collections import Counter
+import sys
+sys.path.insert(0,'../pytorch/utils/')
+sys.path.insert(0,'../pytorch/micro_batch_train/')
+sys.path.insert(0,'../pytorch/models/')
+from memory_usage import see_memory_usage, nvidia_smi_usage
 
 # pylint: enable=W0235
 class GATConv(nn.Module):
@@ -151,12 +156,13 @@ class GATConv(nn.Module):
         self._num_heads = num_heads
         self._in_src_feats, self._in_dst_feats = expand_as_pair(in_feats)
         self._out_feats = out_feats
+        self.hidden = out_feats
         self._aggre_type = aggregator_type
         self._allow_zero_in_degree = allow_zero_in_degree
         valid_aggre_types = {"sum", "lstm"}
         if aggregator_type == "lstm":
             self.lstm = nn.LSTM(
-                self._in_src_feats, self._in_src_feats, batch_first=True
+                self.hidden*self.hidden, self.hidden*self.hidden, batch_first=True
             )
         if isinstance(in_feats, tuple):
             self.fc_src = nn.Linear(
@@ -252,22 +258,26 @@ class GATConv(nn.Module):
         is slow, we could accelerate this with degree padding in the future.
         """
         m = nodes.mailbox["m"]  # (B, L, D)
-        print('m.size')
-        print(m.size())
+        print('mailbox .size', m.size())
+        print()
+        last_two_dim_size = m.size(-2) * m.size(-1)
+        m = m.view(m.shape[0], m.shape[1],last_two_dim_size)
         batch_size = m.shape[0]
         print('batch size ', m.shape[0])
         h = (
-            m.new_zeros((1, batch_size, self._in_src_feats)),
-            m.new_zeros((1, batch_size, self._in_src_feats)),
+            m.new_zeros((1, batch_size, last_two_dim_size)),
+            m.new_zeros((1, batch_size, last_two_dim_size)),
         )
-        print('m.size')
-        print(m.size())
-        print('h.size ')
+        print()
+        print('m.size', m.size())
+        print('h.size ', h[0].size())
         # from utils import get_nested_tuple_dimensions
         # dimensions = get_nested_tuple_dimensions(h)
         # print("Dimensions:", dimensions)
+        # rst = new_zeros((1, batch_size, self._in_src_feats)
         
         _, (rst, _) = self.lstm(m, h)
+        print('------rst shape ', rst.size())
         return {"neigh": rst.squeeze(0)}
 
     def forward(self, graph, feat, edge_weight=None, get_attention=False):
@@ -376,20 +386,29 @@ class GATConv(nn.Module):
         e = self.leaky_relu(graph.edata.pop("e"))
         # compute softmax
         graph.edata["a"] = self.attn_drop(edge_softmax(graph, e))
+        # print('------graph.edata a', graph.edata["a"])
+        print('------graph.edata a size', graph.edata["a"].size())
         if edge_weight is not None:
             graph.edata["a"] = graph.edata["a"] * edge_weight.tile(
                 1, self._num_heads, 1
             ).transpose(0, 2)
+        msg_func = fn.u_mul_e("ft", "a", "m")
+        print('msg_func ', msg_func)
         # message passing
-        print(' graph.edata["a"].size()',graph.edata["a"].size())
+        
         if self._aggre_type == "sum":
-            graph.update_all(fn.u_mul_e("ft", "a", "m"), fn.sum("m", "ft"))
-        # print('graph ')
-        # print(graph)
+            graph.update_all(msg_func, fn.sum("m", "ft"))
+        
         if self._aggre_type == "lstm":
-            
-            
-            graph.update_all(fn.u_mul_e("ft", "a", "m"), self._lstm_reducer)
+            graph_in = Counter(graph.in_degrees().tolist())
+            print('graph-in degree')
+            graph_in= dict(sorted(graph_in.items()))
+            print(graph_in)
+            graph.update_all(msg_func, self._lstm_reducer)
+            graph.dstdata["ft"] = graph.dstdata['neigh']
+            print('graph.dstdata["ft"] ', graph.dstdata["ft"].size())
+            graph.dstdata["ft"].shape[0]
+            graph.dstdata["ft"]= graph.dstdata["ft"].view(graph.dstdata["ft"].shape[0],self.hidden,self.hidden)
         rst = graph.dstdata["ft"]
         print('rst.size()', rst.size())
         # residual

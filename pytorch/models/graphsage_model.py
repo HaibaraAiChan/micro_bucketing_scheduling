@@ -63,7 +63,7 @@ class SAGEConv(nn.Module):
 		"""
 		# print(nodes)
 		m = nodes.mailbox['m'] # (B, L, D)
-		print('m.shape '+str(m.shape))
+		print('--------------------------m.shape '+str(m.shape))
 		see_memory_usage("----------------------------------------1")
 		batch_size = m.shape[0]
 		see_memory_usage("----------------------------------------2")

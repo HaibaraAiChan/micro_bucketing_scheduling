@@ -20,6 +20,7 @@ from load_graph import load_reddit, inductive_split, load_cora, load_karate, pre
 from block_dataloader import generate_dataloader_block
 
 import pickle
+from memory_usage import see_memory_usage, nvidia_smi_usage
 
 
 def set_seed(args):
@@ -230,7 +231,7 @@ def run(args, device, data):
 	# if args.GPUmem:
 		# see_memory_usage("----------------------------------------before model to device ")
 
-	model = GAT(in_feats, args.num_hidden, n_classes, heads=[8, 1]).to(device)
+	model = GAT(in_feats,args.aggre, args.num_hidden, n_classes, heads=[8, 1]).to(device)
 	# model = GraphSAGE(
 	# 				in_feats,
 	# 				args.num_hidden,
@@ -285,6 +286,7 @@ def run(args, device, data):
 				print(torch.sum(blocks[0].dstdata['train_mask']).item())
 				print(torch.sum(blocks[1].dstdata['train_mask']).item())
 				print('num_output_nids of first layer' , len(blocks[0].dstdata['_ID']))
+
 				print('num_output_nids of second layer' , len(blocks[1].dstdata['_ID']))
 				print('num_output_nids' , len(seeds))
 				blocks = [block.int().to(device) for block in blocks]#------------*
@@ -341,7 +343,7 @@ def main():
 	# argparser.add_argument('--dataset', type=str, default='karate')
 	# argparser.add_argument('--dataset', type=str, default='reddit')
 	argparser.add_argument('--aggre', type=str, default='lstm')
-	# argparser.add_argument('--aggre', type=str, default='mean')
+	# argparser.add_argument('--aggre', type=str, default='sum')
 
 	argparser.add_argument('--selection-method', type=str, default='REG')
 	argparser.add_argument('--num-batch', type=int, default=1)

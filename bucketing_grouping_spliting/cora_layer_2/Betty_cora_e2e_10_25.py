@@ -23,7 +23,8 @@ import argparse
 import tqdm
 
 import random
-from graphsage_model_wo_mem import GraphSAGE
+from graphsage_model import GraphSAGE
+# from graphsage_model_wo_mem import GraphSAGE
 import dgl.function as fn
 from load_graph import load_reddit, inductive_split, load_cora, load_karate, prepare_data, load_pubmed
 
@@ -199,7 +200,7 @@ def run(args, device, data):
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'./../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				file_name=r'../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)
@@ -282,7 +283,7 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='random')
 	# argparser.add_argument('--selection-method', type=str, default='metis')
 	argparser.add_argument('--selection-method', type=str, default='REG')
-	argparser.add_argument('--num-batch', type=int, default=3)
+	argparser.add_argument('--num-batch', type=int, default=1)
 	argparser.add_argument('--batch-size', type=int, default=0)
 
 	argparser.add_argument('--re-partition-method', type=str, default='REG')
@@ -291,12 +292,12 @@ def main():
 
 	# argparser.add_argument('--balanced_init_ratio', type=float, default=0.2)
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=10)
+	argparser.add_argument('--num-epochs', type=int, default=1)
 
-	argparser.add_argument('--num-hidden', type=int, default=1433)
+	argparser.add_argument('--num-hidden', type=int, default=8)
 
-	argparser.add_argument('--num-layers', type=int, default=1)
-	argparser.add_argument('--fan-out', type=str, default='10')
+	argparser.add_argument('--num-layers', type=int, default=2)
+	argparser.add_argument('--fan-out', type=str, default='10,25')
 	
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------
