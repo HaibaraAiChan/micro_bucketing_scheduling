@@ -1,0 +1,811 @@
+main start at this time 1695361705.7845883
+  NumNodes: 2708
+  NumEdges: 10556
+  NumFeats: 1433
+  NumClasses: 7
+  NumTrainingSamples: 140
+  NumValidationSamples: 500
+  NumTestSamples: 1000
+Done loading data from cached files.
+success----------------------------------------
+140
+500
+2068
+# Nodes: 2708
+# Edges: 10556
+# Train: 140
+# Val: 500
+# Test: 2068
+# Classes: 7
+
+in feats:  1433
+loading full batch data spends  0.0030541419982910156
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   3.409385681152344e-05
+step  0
+num_input_nids 1347
+140
+140
+num_output_nids of first layer 635
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1347, num_dst_nodes=635, num_edges=2951)
+else: feat size  torch.Size([1347, 1433])
+el size torch.Size([1347, 8, 1])
+er szie torch.Size([635, 8, 1])
+graph.srcdata[ft]  torch.Size([1347, 8, 8])
+------graph.edata a size torch.Size([2951, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e1026fac8>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([1347, 8, 8])
+y  torch.Size([2951, 8, 1])
+x--- torch.Size([1347, 8, 8])
+y--- torch.Size([2951, 8, 1])
+rst.size() torch.Size([635, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([635, 8, 8])
+h.size()  torch.Size([635, 8, 8])
+after flatten h.size()  torch.Size([635, 64])
+layer  1
+layer name  GATConv2(
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=635, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([635, 64])
+el size torch.Size([635, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([635, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e10258048>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([635, 1, 7])
+y  torch.Size([620, 1, 1])
+x--- torch.Size([635, 1, 7])
+y--- torch.Size([620, 1, 1])
+rst.size() torch.Size([140, 1, 7])
+h.size() after h = layer(block, h)  torch.Size([140, 1, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.541015625 GB
+    Memory Allocated: 0.015767574310302734  GigaBytes
+Max Memory Allocated: 0.01658153533935547  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.541015625 GB
+    Memory Allocated: 0.015772342681884766  GigaBytes
+Max Memory Allocated: 0.01658153533935547  GigaBytes
+
+pure train time  0.43172168731689453
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.55078125 GB
+    Memory Allocated: 0.008677959442138672  GigaBytes
+Max Memory Allocated: 0.01658153533935547  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9523162841796875
+loading full batch data spends  0.006022214889526367
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   8.130073547363281e-05
+step  0
+num_input_nids 1355
+140
+140
+num_output_nids of first layer 630
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1355, num_dst_nodes=630, num_edges=2934)
+else: feat size  torch.Size([1355, 1433])
+el size torch.Size([1355, 8, 1])
+er szie torch.Size([630, 8, 1])
+graph.srcdata[ft]  torch.Size([1355, 8, 8])
+------graph.edata a size torch.Size([2934, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e1026f208>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([1355, 8, 8])
+y  torch.Size([2934, 8, 1])
+x--- torch.Size([1355, 8, 8])
+y--- torch.Size([2934, 8, 1])
+rst.size() torch.Size([630, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([630, 8, 8])
+h.size()  torch.Size([630, 8, 8])
+after flatten h.size()  torch.Size([630, 64])
+layer  1
+layer name  GATConv2(
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=630, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([630, 64])
+el size torch.Size([630, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([630, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e102589e8>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([630, 1, 7])
+y  torch.Size([620, 1, 1])
+x--- torch.Size([630, 1, 7])
+y--- torch.Size([620, 1, 1])
+rst.size() torch.Size([140, 1, 7])
+h.size() after h = layer(block, h)  torch.Size([140, 1, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016887187957763672  GigaBytes
+Max Memory Allocated: 0.017812728881835938  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016891956329345703  GigaBytes
+Max Memory Allocated: 0.017812728881835938  GigaBytes
+
+pure train time  0.017747163772583008
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.008717536926269531  GigaBytes
+Max Memory Allocated: 0.017812728881835938  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.942649006843567
+loading full batch data spends  0.002721548080444336
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   3.814697265625e-05
+step  0
+num_input_nids 1355
+140
+140
+num_output_nids of first layer 629
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1355, num_dst_nodes=629, num_edges=2923)
+else: feat size  torch.Size([1355, 1433])
+el size torch.Size([1355, 8, 1])
+er szie torch.Size([629, 8, 1])
+graph.srcdata[ft]  torch.Size([1355, 8, 8])
+------graph.edata a size torch.Size([2923, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e102589b0>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([1355, 8, 8])
+y  torch.Size([2923, 8, 1])
+x--- torch.Size([1355, 8, 8])
+y--- torch.Size([2923, 8, 1])
+rst.size() torch.Size([629, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([629, 8, 8])
+h.size()  torch.Size([629, 8, 8])
+after flatten h.size()  torch.Size([629, 64])
+layer  1
+layer name  GATConv2(
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=629, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([629, 64])
+el size torch.Size([629, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([629, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e10258a90>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([629, 1, 7])
+y  torch.Size([620, 1, 1])
+x--- torch.Size([629, 1, 7])
+y--- torch.Size([620, 1, 1])
+rst.size() torch.Size([140, 1, 7])
+h.size() after h = layer(block, h)  torch.Size([140, 1, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016885757446289062  GigaBytes
+Max Memory Allocated: 0.017812728881835938  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016890525817871094  GigaBytes
+Max Memory Allocated: 0.017812728881835938  GigaBytes
+
+pure train time  0.011419534683227539
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.008717536926269531  GigaBytes
+Max Memory Allocated: 0.017812728881835938  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.932868480682373
+loading full batch data spends  0.0018799304962158203
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   2.7179718017578125e-05
+step  0
+num_input_nids 1351
+140
+140
+num_output_nids of first layer 631
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1351, num_dst_nodes=631, num_edges=2940)
+else: feat size  torch.Size([1351, 1433])
+el size torch.Size([1351, 8, 1])
+er szie torch.Size([631, 8, 1])
+graph.srcdata[ft]  torch.Size([1351, 8, 8])
+------graph.edata a size torch.Size([2940, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e1026f6a0>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([1351, 8, 8])
+y  torch.Size([2940, 8, 1])
+x--- torch.Size([1351, 8, 8])
+y--- torch.Size([2940, 8, 1])
+rst.size() torch.Size([631, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([631, 8, 8])
+h.size()  torch.Size([631, 8, 8])
+after flatten h.size()  torch.Size([631, 64])
+layer  1
+layer name  GATConv2(
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=631, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([631, 64])
+el size torch.Size([631, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([631, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1df82854a8>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([631, 1, 7])
+y  torch.Size([620, 1, 1])
+x--- torch.Size([631, 1, 7])
+y--- torch.Size([620, 1, 1])
+rst.size() torch.Size([140, 1, 7])
+h.size() after h = layer(block, h)  torch.Size([140, 1, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.01686573028564453  GigaBytes
+Max Memory Allocated: 0.017812728881835938  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016870498657226562  GigaBytes
+Max Memory Allocated: 0.017812728881835938  GigaBytes
+
+pure train time  0.010976076126098633
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.00869607925415039  GigaBytes
+Max Memory Allocated: 0.017812728881835938  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9283949136734009
+loading full batch data spends  0.0018038749694824219
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   3.123283386230469e-05
+step  0
+num_input_nids 1367
+140
+140
+num_output_nids of first layer 632
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1367, num_dst_nodes=632, num_edges=2937)
+else: feat size  torch.Size([1367, 1433])
+el size torch.Size([1367, 8, 1])
+er szie torch.Size([632, 8, 1])
+graph.srcdata[ft]  torch.Size([1367, 8, 8])
+------graph.edata a size torch.Size([2937, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e1026f358>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([1367, 8, 8])
+y  torch.Size([2937, 8, 1])
+x--- torch.Size([1367, 8, 8])
+y--- torch.Size([2937, 8, 1])
+rst.size() torch.Size([632, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([632, 8, 8])
+h.size()  torch.Size([632, 8, 8])
+after flatten h.size()  torch.Size([632, 64])
+layer  1
+layer name  GATConv2(
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=632, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([632, 64])
+el size torch.Size([632, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([632, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1df82950f0>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([632, 1, 7])
+y  torch.Size([620, 1, 1])
+x--- torch.Size([632, 1, 7])
+y--- torch.Size([620, 1, 1])
+rst.size() torch.Size([140, 1, 7])
+h.size() after h = layer(block, h)  torch.Size([140, 1, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.017018795013427734  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.017023563385009766  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+pure train time  0.011216402053833008
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.00878143310546875  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.923305630683899
+loading full batch data spends  0.0018301010131835938
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   2.9325485229492188e-05
+step  0
+num_input_nids 1353
+140
+140
+num_output_nids of first layer 630
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1353, num_dst_nodes=630, num_edges=2917)
+else: feat size  torch.Size([1353, 1433])
+el size torch.Size([1353, 8, 1])
+er szie torch.Size([630, 8, 1])
+graph.srcdata[ft]  torch.Size([1353, 8, 8])
+------graph.edata a size torch.Size([2917, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1df8285a58>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([1353, 8, 8])
+y  torch.Size([2917, 8, 1])
+x--- torch.Size([1353, 8, 8])
+y--- torch.Size([2917, 8, 1])
+rst.size() torch.Size([630, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([630, 8, 8])
+h.size()  torch.Size([630, 8, 8])
+after flatten h.size()  torch.Size([630, 64])
+layer  1
+layer name  GATConv2(
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=630, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([630, 64])
+el size torch.Size([630, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([630, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1df8285710>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([630, 1, 7])
+y  torch.Size([620, 1, 1])
+x--- torch.Size([630, 1, 7])
+y--- torch.Size([620, 1, 1])
+rst.size() torch.Size([140, 1, 7])
+h.size() after h = layer(block, h)  torch.Size([140, 1, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.01693868637084961  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.01694345474243164  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+pure train time  0.010786056518554688
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.008707046508789062  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9094898700714111
+loading full batch data spends  0.001810312271118164
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   2.9325485229492188e-05
+step  0
+num_input_nids 1359
+140
+140
+num_output_nids of first layer 635
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1359, num_dst_nodes=635, num_edges=2950)
+else: feat size  torch.Size([1359, 1433])
+el size torch.Size([1359, 8, 1])
+er szie torch.Size([635, 8, 1])
+graph.srcdata[ft]  torch.Size([1359, 8, 8])
+------graph.edata a size torch.Size([2950, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1df8295710>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([1359, 8, 8])
+y  torch.Size([2950, 8, 1])
+x--- torch.Size([1359, 8, 8])
+y--- torch.Size([2950, 8, 1])
+rst.size() torch.Size([635, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([635, 8, 8])
+h.size()  torch.Size([635, 8, 8])
+after flatten h.size()  torch.Size([635, 64])
+layer  1
+layer name  GATConv2(
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=635, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([635, 64])
+el size torch.Size([635, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([635, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1df8295b00>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([635, 1, 7])
+y  torch.Size([620, 1, 1])
+x--- torch.Size([635, 1, 7])
+y--- torch.Size([620, 1, 1])
+rst.size() torch.Size([140, 1, 7])
+h.size() after h = layer(block, h)  torch.Size([140, 1, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016980648040771484  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016985416412353516  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+pure train time  0.011988639831542969
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.008784294128417969  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9009252786636353
+loading full batch data spends  0.0018184185028076172
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   2.7179718017578125e-05
+step  0
+num_input_nids 1356
+140
+140
+num_output_nids of first layer 630
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1356, num_dst_nodes=630, num_edges=2922)
+else: feat size  torch.Size([1356, 1433])
+el size torch.Size([1356, 8, 1])
+er szie torch.Size([630, 8, 1])
+graph.srcdata[ft]  torch.Size([1356, 8, 8])
+------graph.edata a size torch.Size([2922, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e10258550>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([1356, 8, 8])
+y  torch.Size([2922, 8, 1])
+x--- torch.Size([1356, 8, 8])
+y--- torch.Size([2922, 8, 1])
+rst.size() torch.Size([630, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([630, 8, 8])
+h.size()  torch.Size([630, 8, 8])
+after flatten h.size()  torch.Size([630, 64])
+layer  1
+layer name  GATConv2(
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=630, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([630, 64])
+el size torch.Size([630, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([630, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e10209470>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([630, 1, 7])
+y  torch.Size([620, 1, 1])
+x--- torch.Size([630, 1, 7])
+y--- torch.Size([620, 1, 1])
+rst.size() torch.Size([140, 1, 7])
+h.size() after h = layer(block, h)  torch.Size([140, 1, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016954898834228516  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016959667205810547  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+pure train time  0.011435508728027344
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.008722782135009766  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.8971015214920044
+loading full batch data spends  0.0018148422241210938
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   2.6464462280273438e-05
+step  0
+num_input_nids 1364
+140
+140
+num_output_nids of first layer 633
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1364, num_dst_nodes=633, num_edges=2951)
+else: feat size  torch.Size([1364, 1433])
+el size torch.Size([1364, 8, 1])
+er szie torch.Size([633, 8, 1])
+graph.srcdata[ft]  torch.Size([1364, 8, 8])
+------graph.edata a size torch.Size([2951, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1df8295ef0>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([1364, 8, 8])
+y  torch.Size([2951, 8, 1])
+x--- torch.Size([1364, 8, 8])
+y--- torch.Size([2951, 8, 1])
+rst.size() torch.Size([633, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([633, 8, 8])
+h.size()  torch.Size([633, 8, 8])
+after flatten h.size()  torch.Size([633, 64])
+layer  1
+layer name  GATConv2(
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=633, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([633, 64])
+el size torch.Size([633, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([633, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e1026f9b0>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([633, 1, 7])
+y  torch.Size([620, 1, 1])
+x--- torch.Size([633, 1, 7])
+y--- torch.Size([620, 1, 1])
+rst.size() torch.Size([140, 1, 7])
+h.size() after h = layer(block, h)  torch.Size([140, 1, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.01700735092163086  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.01701211929321289  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+pure train time  0.01083993911743164
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.008784294128417969  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.8840994834899902
+loading full batch data spends  0.0017828941345214844
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   2.6702880859375e-05
+step  0
+num_input_nids 1350
+140
+140
+num_output_nids of first layer 629
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1350, num_dst_nodes=629, num_edges=2917)
+else: feat size  torch.Size([1350, 1433])
+el size torch.Size([1350, 8, 1])
+er szie torch.Size([629, 8, 1])
+graph.srcdata[ft]  torch.Size([1350, 8, 8])
+------graph.edata a size torch.Size([2917, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e10258a58>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([1350, 8, 8])
+y  torch.Size([2917, 8, 1])
+x--- torch.Size([1350, 8, 8])
+y--- torch.Size([2917, 8, 1])
+rst.size() torch.Size([629, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([629, 8, 8])
+h.size()  torch.Size([629, 8, 8])
+after flatten h.size()  torch.Size([629, 64])
+layer  1
+layer name  GATConv2(
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=629, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([629, 64])
+el size torch.Size([629, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([629, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f1e10209e10>
+------------------------------------------message function  u_mul_e
+------------------------------------------reduce function  sum
+op,  <function _gen_spmm_func.<locals>.func at 0x7f1e3eca57b8>
+x  torch.Size([629, 1, 7])
+y  torch.Size([620, 1, 1])
+x--- torch.Size([629, 1, 7])
+y--- torch.Size([620, 1, 1])
+rst.size() torch.Size([140, 1, 7])
+h.size() after h = layer(block, h)  torch.Size([140, 1, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016921520233154297  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.016926288604736328  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+pure train time  0.010859251022338867
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.5703125 GB
+    Memory Allocated: 0.008690834045410156  GigaBytes
+Max Memory Allocated: 0.01795339584350586  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.873289942741394

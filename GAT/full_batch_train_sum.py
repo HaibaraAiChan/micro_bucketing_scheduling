@@ -39,96 +39,7 @@ def set_seed(args):
 
 
 
-# def evaluate(g, features, labels, mask, model):
-#     model.eval()
-#     with torch.no_grad():
-#         logits = model(g, features)
-#         logits = logits[mask]
-#         labels = labels[mask]
-#         _, indices = torch.max(logits, dim=1)
-#         correct = torch.sum(indices == labels)
-#         return correct.item() * 1.0 / len(labels)
 
-
-# def train(g, features, labels, masks, model):
-#     # define train/val samples, loss function and optimizer
-#     train_mask = masks[0]
-#     val_mask = masks[1]
-#     loss_fcn = nn.CrossEntropyLoss()
-#     optimizer = torch.optim.Adam(model.parameters(), lr=5e-3, weight_decay=5e-4)
-
-#     # training loop
-#     for epoch in range(200):
-#         model.train()
-#         logits = model(g, features)
-#         loss = loss_fcn(logits[train_mask], labels[train_mask])
-#         optimizer.zero_grad()
-#         loss.backward()
-#         optimizer.step()
-#         acc = evaluate(g, features, labels, val_mask, model)
-#         print(
-#             "Epoch {:05d} | Loss {:.4f} | Accuracy {:.4f} ".format(
-#                 epoch, loss.item(), acc
-#             )
-#         )
-
-
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument(
-#         "--dataset",
-#         type=str,
-#         default="cora",
-#         help="Dataset name ('cora', 'citeseer', 'pubmed').",
-#     )
-#     parser.add_argument(
-#         "--dt",
-#         type=str,
-#         default="float",
-#         help="data type(float, bfloat16)",
-#     )
-#     args = parser.parse_args()
-#     print(f"Training with DGL built-in GATConv module.")
-
-#     # load and preprocess dataset
-#     transform = (
-#         AddSelfLoop()
-#     )  # by default, it will first remove self-loops to prevent duplication
-#     if args.dataset == "cora":
-#         data = CoraGraphDataset(transform=transform)
-#     elif args.dataset == "citeseer":
-#         data = CiteseerGraphDataset(transform=transform)
-#     elif args.dataset == "pubmed":
-#         data = PubmedGraphDataset(transform=transform)
-#     else:
-#         raise ValueError("Unknown dataset: {}".format(args.dataset))
-#     g = data[0]
-#     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-#     g = g.int().to(device)
-#     features = g.ndata["feat"]
-#     labels = g.ndata["label"]
-#     masks = g.ndata["train_mask"], g.ndata["val_mask"], g.ndata["test_mask"]
-
-#     # create GAT model
-#     in_size = features.shape[1]
-#     out_size = data.num_classes
-#     model = GAT(in_size, 8, out_size, heads=[8, 1]).to(device)
-
-#     # convert model and graph to bfloat16 if needed
-#     if args.dt == "bfloat16":
-#         g = dgl.to_bfloat16(g)
-#         features = features.to(dtype=torch.bfloat16)
-#         model = model.to(dtype=torch.bfloat16)
-
-#     # model training
-#     print("Training...")
-#     train(g, features, labels, masks, model)
-
-#     # test the model
-#     print("Testing...")
-#     acc = evaluate(g, features, labels, masks[2], model)
-#     print("Test accuracy {:.4f}".format(acc))
-	
 def compute_acc(pred, labels):
 	"""
 	Compute the accuracy of prediction given the labels.
@@ -232,15 +143,7 @@ def run(args, device, data):
 		# see_memory_usage("----------------------------------------before model to device ")
 
 	model = GAT(in_feats,args.aggre, args.num_hidden, n_classes, heads=[8, 1]).to(device)
-	# model = GraphSAGE(
-	# 				in_feats,
-	# 				args.num_hidden,
-	# 				n_classes,
-	# 				args.aggre,
-	# 				args.num_layers,
-	# 				F.relu,
-	# 				args.dropout).to(device)
-					
+
 	loss_fcn = nn.CrossEntropyLoss()
 
 	dur = []
@@ -295,17 +198,10 @@ def run(args, device, data):
 				see_memory_usage("----------------------------------------after batch_pred = model(blocks, batch_inputs)")
 				
 				print('batch_pred ', batch_pred.size())
-				
+    
 				print('batch_labels', batch_labels.size())
-				
-				# min_value = torch.min(batch_pred)
-				# max_value = torch.max(batch_pred)
-				# normalized_batch_pred = 7 * (batch_pred - min_value) / (max_value - min_value)
-				# print()
-				# int_normalized_batch_pred=normalized_batch_pred.int()
-				# print('int_normalized_batch_pred ', int_normalized_batch_pred)
-				# print('batch_labels', batch_labels.int())
-				# print()
+				print('batch_pred ', batch_pred)
+				print('batch_labels', batch_labels)
 				pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
 				see_memory_usage("----------------------------------------after loss function")
 				pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
@@ -354,8 +250,8 @@ def main():
 	argparser.add_argument('--dataset', type=str, default='cora')
 	# argparser.add_argument('--dataset', type=str, default='karate')
 	# argparser.add_argument('--dataset', type=str, default='reddit')
-	argparser.add_argument('--aggre', type=str, default='lstm')
-	# argparser.add_argument('--aggre', type=str, default='sum')
+	# argparser.add_argument('--aggre', type=str, default='lstm')
+	argparser.add_argument('--aggre', type=str, default='sum')
 
 	argparser.add_argument('--selection-method', type=str, default='REG')
 	argparser.add_argument('--num-batch', type=int, default=1)
@@ -367,7 +263,7 @@ def main():
 
 	# argparser.add_argument('--balanced_init_ratio', type=float, default=0.2)
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=10)
+	argparser.add_argument('--num-epochs', type=int, default=200)
 
 	argparser.add_argument('--num-hidden', type=int, default=8)
 
