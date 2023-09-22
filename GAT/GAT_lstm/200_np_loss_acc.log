@@ -1,0 +1,155 @@
+main start at this time 1695367255.5416486
+  NumNodes: 2708
+  NumEdges: 10556
+  NumFeats: 1433
+  NumClasses: 7
+  NumTrainingSamples: 140
+  NumValidationSamples: 500
+  NumTestSamples: 1000
+Done loading data from cached files.
+success----------------------------------------
+140
+500
+2068
+# Nodes: 2708
+# Edges: 10556
+# Train: 140
+# Val: 500
+# Test: 2068
+# Classes: 7
+
+in feats:  1433
+loading full batch data spends  0.0027549266815185547
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   2.8848648071289062e-05
+step  0
+else: feat size  torch.Size([1342, 1433])
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 46, 2: 97, 3: 105, 4: 109, 5: 83, 6: 58, 7: 34, 8: 23, 9: 8, 10: 67}
+nbatch  <dgl.udf.NodeBatch object at 0x7f1000171240>
+func(nbatch).neighbor  torch.Size([46, 64])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f1000171278>
+func(nbatch).neighbor  torch.Size([97, 64])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f10001716d8>
+func(nbatch).neighbor  torch.Size([105, 64])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f1000171940>
+func(nbatch).neighbor  torch.Size([109, 64])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f1000171ba8>
+func(nbatch).neighbor  torch.Size([83, 64])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f1000171e10>
+func(nbatch).neighbor  torch.Size([58, 64])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db80b8>
+func(nbatch).neighbor  torch.Size([34, 64])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db8320>
+func(nbatch).neighbor  torch.Size([23, 64])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db8588>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db87f0>
+func(nbatch).neighbor  torch.Size([67, 64])
+------------------------------------------------------
+==========================================================
+else: feat size  torch.Size([630, 64])
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db3048>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db3080>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db34e0>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db3748>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db39b0>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db3c18>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db3e80>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db0128>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db0390>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db05f8>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db0860>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db0ac8>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db0d30>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db0f98>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+nbatch  <dgl.udf.NodeBatch object at 0x7f0fd5db2240>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.552734375 GB
+    Memory Allocated: 0.02727031707763672  GigaBytes
+Max Memory Allocated: 0.027710914611816406  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.552734375 GB
+    Memory Allocated: 0.02727508544921875  GigaBytes
+Max Memory Allocated: 0.027710914611816406  GigaBytes
+
+pure train time  0.49220728874206543
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.5625 GB
+    Memory Allocated: 0.009155750274658203  GigaBytes
+Max Memory Allocated: 0.027710914611816406  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9514586925506592

@@ -13,13 +13,14 @@ import time
 import random
 import numpy as np
 import sys
-sys.path.insert(0,'../pytorch/utils/')
-sys.path.insert(0,'../pytorch/micro_batch_train/')
-sys.path.insert(0,'../pytorch/models/')
+sys.path.insert(0,'../../pytorch/utils/')
+sys.path.insert(0,'../../pytorch/micro_batch_train/')
+sys.path.insert(0,'../../pytorch/models/')
 from load_graph import load_reddit, inductive_split, load_cora, load_karate, prepare_data, load_pubmed
 from block_dataloader import generate_dataloader_block
 
 import pickle
+sys.path.insert(0,'../../pytorch/utils/')
 from memory_usage import see_memory_usage, nvidia_smi_usage
 
 
@@ -259,7 +260,7 @@ def run(args, device, data):
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'./../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				file_name=r'./../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)
@@ -282,13 +283,13 @@ def run(args, device, data):
 				print('step ', step)
 				num_input_nids	+= len(input_nodes)
 				batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
-				print('num_input_nids' , num_input_nids)
-				print(torch.sum(blocks[0].dstdata['train_mask']).item())
-				print(torch.sum(blocks[1].dstdata['train_mask']).item())
-				print('num_output_nids of first layer' , len(blocks[0].dstdata['_ID']))
+				# print('num_input_nids' , num_input_nids)
+				# print(torch.sum(blocks[0].dstdata['train_mask']).item())
+				# print(torch.sum(blocks[1].dstdata['train_mask']).item())
+				# print('num_output_nids of first layer' , len(blocks[0].dstdata['_ID']))
 
-				print('num_output_nids of second layer' , len(blocks[1].dstdata['_ID']))
-				print('num_output_nids' , len(seeds))
+				# print('num_output_nids of second layer' , len(blocks[1].dstdata['_ID']))
+				# print('num_output_nids' , len(seeds))
 				blocks = [block.int().to(device) for block in blocks]#------------*
 				t1= time.time()
 				batch_pred = model(blocks, batch_inputs)#------------*
@@ -328,10 +329,15 @@ def run(args, device, data):
 			
 			if epoch >= args.log_indent:
 				dur.append(time.time() - t0)
+			train_acc, val_acc, test_acc = evaluate(model, g, nfeats, labels, train_nid, val_nid, test_nid, device, args)
+	
+			print("Run {:02d} | Epoch {:05d} | Loss {:.4f} | Train {:.4f} | Val {:.4f} | Test {:.4f}".format(run, epoch, loss_sum.item(), train_acc, val_acc, test_acc))
+			
 	print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))
 	print('pure train time/epoch {}'.format(np.mean(pure_train_time_list[4:])))
 	print('')
 	print('num_input_list ', num_input_list)
+		# evaluate(model, g, nfeats, labels, train_nid, val_nid, test_nid, device, args)
 				
 			
 	
@@ -367,7 +373,7 @@ def main():
 
 	# argparser.add_argument('--balanced_init_ratio', type=float, default=0.2)
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=10)
+	argparser.add_argument('--num-epochs', type=int, default=200)
 
 	argparser.add_argument('--num-hidden', type=int, default=8)
 
