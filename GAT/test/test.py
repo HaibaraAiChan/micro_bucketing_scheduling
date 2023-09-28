@@ -66,7 +66,7 @@ def train(g, features, labels, masks, model):
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-3, weight_decay=5e-4)
 
     # training loop
-    for epoch in range(2):
+    for epoch in range(200):
         model.train()
         logits = model(g, features)
         print('logits[train_mask] ', logits[train_mask].size())

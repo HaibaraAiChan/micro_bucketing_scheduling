@@ -329,9 +329,9 @@ def run(args, device, data):
 			
 			if epoch >= args.log_indent:
 				dur.append(time.time() - t0)
-			train_acc, val_acc, test_acc = evaluate(model, g, nfeats, labels, train_nid, val_nid, test_nid, device, args)
+			# train_acc, val_acc, test_acc = evaluate(model, g, nfeats, labels, train_nid, val_nid, test_nid, device, args)
 	
-			print("Run {:02d} | Epoch {:05d} | Loss {:.4f} | Train {:.4f} | Val {:.4f} | Test {:.4f}".format(run, epoch, loss_sum.item(), train_acc, val_acc, test_acc))
+			# print("Run {:02d} | Epoch {:05d} | Loss {:.4f} | Train {:.4f} | Val {:.4f} | Test {:.4f}".format(run, epoch, loss_sum.item(), train_acc, val_acc, test_acc))
 			
 	print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))
 	print('pure train time/epoch {}'.format(np.mean(pure_train_time_list[4:])))
@@ -383,8 +383,8 @@ def main():
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------
 	
-
-	argparser.add_argument('--lr', type=float, default=5e-3)
+	argparser.add_argument('--lr', type=float, default=125e-4)
+	# argparser.add_argument('--lr', type=float, default=5e-3)
 	argparser.add_argument('--dropout', type=float, default=0.5)
 	argparser.add_argument("--weight-decay", type=float, default=5e-4,
 						help="Weight for L2 loss")
