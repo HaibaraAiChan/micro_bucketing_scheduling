@@ -176,15 +176,8 @@ def load_block_subtensor(nfeat, labels, blocks, device,args):
 	"""
 	Extracts features and labels for a subset of nodes
 	"""
-
-	# if args.GPUmem:
-		# see_memory_usage("----------------------------------------before batch input features to device")
 	batch_inputs = nfeat[blocks[0].srcdata[dgl.NID]].to(device)
-	# if args.GPUmem:
-		# see_memory_usage("----------------------------------------after batch input features to device")
 	batch_labels = labels[blocks[-1].dstdata[dgl.NID]].to(device)
-	# if args.GPUmem:
-		# see_memory_usage("----------------------------------------after  batch labels to device")
 	return batch_inputs, batch_labels
 
 def get_compute_num_nids(blocks):
@@ -194,17 +187,14 @@ def get_compute_num_nids(blocks):
 	return res
 
 	
-def get_FL_output_num_nids(blocks):
-	
-	output_fl =len(blocks[0].dstdata['_ID'])
-	return output_fl
+# def get_FL_output_num_nids(blocks):
+# 	output_fl =len(blocks[0].dstdata['_ID'])
+# 	return output_fl
 
 
     
 def run(args, device, data):
-    # if args.GPUmem:
-		# see_memory_usage("----------------------------------------start of run function ")
-	# Unpack data
+    # Unpack data
 	g, nfeats, labels, n_classes, train_nid, val_nid, test_nid = data
 	in_feats = len(nfeats[0])
 	print('in feats: ', in_feats)
@@ -229,19 +219,13 @@ def run(args, device, data):
 		shuffle=True,
 		drop_last=False,
 		num_workers=args.num_workers)
+	if args.num_batch == 1:
+		args.batch_size = full_batch_size
 	# if args.GPUmem:
 		# see_memory_usage("----------------------------------------before model to device ")
 
 	model = GAT(in_feats,args.aggre, args.num_hidden, n_classes, heads=[8, 1]).to(device)
-	# model = GraphSAGE(
-	# 				in_feats,
-	# 				args.num_hidden,
-	# 				n_classes,
-	# 				args.aggre,
-	# 				args.num_layers,
-	# 				F.relu,
-	# 				args.dropout).to(device)
-					
+
 	loss_fcn = nn.CrossEntropyLoss()
 
 	dur = []
@@ -298,15 +282,7 @@ def run(args, device, data):
 				print('batch_pred ', batch_pred.size())
 				
 				print('batch_labels', batch_labels.size())
-				
-				# min_value = torch.min(batch_pred)
-				# max_value = torch.max(batch_pred)
-				# normalized_batch_pred = 7 * (batch_pred - min_value) / (max_value - min_value)
-				# print()
-				# int_normalized_batch_pred=normalized_batch_pred.int()
-				# print('int_normalized_batch_pred ', int_normalized_batch_pred)
-				# print('batch_labels', batch_labels.int())
-				# print()
+
 				pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
 				see_memory_usage("----------------------------------------after loss function")
 				pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
@@ -329,9 +305,9 @@ def run(args, device, data):
 			
 			if epoch >= args.log_indent:
 				dur.append(time.time() - t0)
-			# train_acc, val_acc, test_acc = evaluate(model, g, nfeats, labels, train_nid, val_nid, test_nid, device, args)
+			train_acc, val_acc, test_acc = evaluate(model, g, nfeats, labels, train_nid, val_nid, test_nid, device, args)
 	
-			# print("Run {:02d} | Epoch {:05d} | Loss {:.4f} | Train {:.4f} | Val {:.4f} | Test {:.4f}".format(run, epoch, loss_sum.item(), train_acc, val_acc, test_acc))
+			print("Run {:02d} | Epoch {:05d} | Loss {:.4f} | Train {:.4f} | Val {:.4f} | Test {:.4f}".format(run, epoch, loss_sum.item(), train_acc, val_acc, test_acc))
 			
 	print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))
 	print('pure train time/epoch {}'.format(np.mean(pure_train_time_list[4:])))
@@ -373,7 +349,7 @@ def main():
 
 	# argparser.add_argument('--balanced_init_ratio', type=float, default=0.2)
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=200)
+	argparser.add_argument('--num-epochs', type=int, default=1)
 
 	argparser.add_argument('--num-hidden', type=int, default=8)
 
