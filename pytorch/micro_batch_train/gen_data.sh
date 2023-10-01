@@ -3,12 +3,12 @@
 File=gen_data.py
 
 # data=ogbn-products
-data=cora
+# data=cora
 # data=pubmed
 # data=reddit
-num_epoch=200
+num_epoch=400
 # fan_out=10
-# data=ogbn-arxiv
+data=ogbn-arxiv
 
 # mkdir ~/dataset/fan_out_10
 # python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data

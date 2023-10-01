@@ -91,7 +91,8 @@ class GAT(nn.Module):
             sampler,
             device=device,
             # batch_size=24,
-            batch_size=args.batch_size,
+            batch_size=int(g.num_nodes()),
+            # batch_size=args.batch_size,
             shuffle=True,
             drop_last=False,
             num_workers=args.num_workers)
@@ -99,27 +100,26 @@ class GAT(nn.Module):
         
         for input_nodes, output_nodes, blocks in tqdm.tqdm(dataloader):
             for i in range(len(blocks)):
-                print("layer ", i )
-                if i == 0:  # last layer
-                    block = blocks[i]
-                    block = block.int().to(device)
+                # print("layer ", i )
+                block = blocks[i]
+                block = block.int().to(device)
+                if i == 0:  # first layer
                     h = x[input_nodes].to(device)
-                    print('shape of h = x[input_nodes].to(device) ', h.size())
+                    # print('shape of h = x[input_nodes].to(device) ', h.size())
                 
                     h = self.layers[0](block, h)
-                    print('shape of h =layer(block, h) ', h.size())
+                    # print('shape of h =layer(block, h) ', h.size())
                     h = h.flatten(1)
                     print('h.size()', h.size() )
                 else: # i == 1:  # last layer
-                    block = blocks[i]
-                    block = block.int().to(device)
+                    
                     h = self.layers[1](block, h)
                     h = h.view(h.shape[0]*h.shape[1], h.shape[2])
-                    print('shape of h.view(h.shape[0]*h.shape[1], h.shape[2]) ', h.size())
+                    # print('shape of h.view(h.shape[0]*h.shape[1], h.shape[2]) ', h.size())
                     y[output_nodes] = h.cpu()
-                    print('shape of y[output_nodes] ', y[output_nodes].size())
+                    # print('shape of y[output_nodes] ', y[output_nodes].size())
             # x = y    
         x = y
         
-        print()
+        # print()
         return y

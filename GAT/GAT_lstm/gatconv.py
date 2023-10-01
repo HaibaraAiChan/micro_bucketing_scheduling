@@ -164,7 +164,7 @@ class GATConv(nn.Module):
         valid_aggre_types = {"sum", "lstm"}
         if aggregator_type == "lstm":
             self.lstm = nn.LSTM(
-                self.hidden * num_heads, self.hidden * num_heads, batch_first=True
+                 num_heads * self.hidden,  num_heads * self.hidden , batch_first=True
             )
         if isinstance(in_feats, tuple):
             self.fc_src = nn.Linear(
@@ -331,7 +331,7 @@ class GATConv(nn.Module):
             )
 
         if isinstance(feat, tuple):
-                print('feat size ', feat.size())
+                # print('feat size ', feat.size())
                 src_prefix_shape = feat[0].shape[:-1]
                 dst_prefix_shape = feat[1].shape[:-1]
                 h_src = self.feat_drop(feat[0])
@@ -351,28 +351,28 @@ class GATConv(nn.Module):
                         *dst_prefix_shape, self._num_heads, self._out_feats
                     )
         else:
-            print('first layer else: feat size ', feat.size())
+            # print('first layer else: feat size ', feat.size())
             
             src_prefix_shape = dst_prefix_shape = feat.shape[:-1]
             h_src = h_dst = self.feat_drop(feat)
-            print('src_prefix_shape ', src_prefix_shape)
-            print('h_src = h_dst = self.feat_drop(feat) ', h_src.size())
-            print('self._num_heads', self._num_heads)
-            print('self._out_feats', self._out_feats)
+            # print('src_prefix_shape ', src_prefix_shape)
+            # print('h_src = h_dst = self.feat_drop(feat) ', h_src.size())
+            # print('self._num_heads', self._num_heads)
+            # print('self._out_feats', self._out_feats)
             feat_src = feat_dst = self.fc(h_src).view(
                 *src_prefix_shape, self._num_heads, self._out_feats
             )
-            print('feat_src = feat_dst = self.fc(h_src).view ', feat_src.size())
+            # print('feat_src = feat_dst = self.fc(h_src).view ', feat_src.size())
             if graph.is_block:
-                print('***** graph.is_block ')
+                # print('***** graph.is_block ')
                 feat_dst = feat_src[: graph.number_of_dst_nodes()]
                 h_dst = h_dst[: graph.number_of_dst_nodes()]
                 dst_prefix_shape = (
                     graph.number_of_dst_nodes(),
                 ) + dst_prefix_shape[1:]
-                print('feat_dst ', feat_dst.size())
-                print('h_dst ', h_dst.size())
-                print('dst_prefix_shape ', dst_prefix_shape)
+                # print('feat_dst ', feat_dst.size())
+                # print('h_dst ', h_dst.size())
+                # print('dst_prefix_shape ', dst_prefix_shape)
         # NOTE: GAT paper uses "first concatenation then linear projection"
         # to compute attention scores, while ours is "first projection then
         # addition", the two approaches are mathematically equivalent:
@@ -385,8 +385,8 @@ class GATConv(nn.Module):
         # which further speeds up computation and saves memory footprint.
         el = (feat_src * self.attn_l).sum(dim=-1).unsqueeze(-1)
         er = (feat_dst * self.attn_r).sum(dim=-1).unsqueeze(-1)
-        print("el size", el.size())
-        print("er szie", er.size())
+        # print("el size", el.size())
+        # print("er szie", er.size())
         graph.srcdata.update({"ft": feat_src, "el": el})
         # print("graph.srcdata[ft] ", graph.srcdata["ft"].size())
         graph.dstdata.update({"er": er})
@@ -418,7 +418,7 @@ class GATConv(nn.Module):
             graph.dstdata["ft"] = graph.dstdata['neigh']
             # print('graph.dstdata["ft"] ', graph.dstdata["ft"].size())
             graph.dstdata["ft"].shape[0]
-            graph.dstdata["ft"]= graph.dstdata["ft"].view(graph.dstdata["ft"].shape[0],self.hidden,self._num_heads)
+            graph.dstdata["ft"]= graph.dstdata["ft"].view(graph.dstdata["ft"].shape[0],self._num_heads, self.hidden)
         rst = graph.dstdata["ft"]
         # print('rst.size()', rst.size())
         # residual
@@ -430,6 +430,8 @@ class GATConv(nn.Module):
             rst = rst + resval
         # bias
         if self.has_explicit_bias:
+            # print('self.has_explicit_bias --------')
+            # print('self._out_feats ', self._out_feats)
             rst = rst + self.bias.view(
                 *((1,) * len(dst_prefix_shape)),
                 self._num_heads,
@@ -591,7 +593,7 @@ class GATConv2(nn.Module):
         valid_aggre_types = {"sum", "lstm"}
         if aggregator_type == "lstm":
             self.lstm = nn.LSTM(
-                self.hidden, self.hidden* num_heads, batch_first=True
+                self.hidden, num_heads* out_feats, batch_first=True
             )
         if isinstance(in_feats, tuple):
             self.fc_src = nn.Linear(
@@ -774,15 +776,15 @@ class GATConv2(nn.Module):
                         *dst_prefix_shape, self._num_heads, self._out_feats
                     )
         else:
-            print('--else: feat size ', feat.size())
+            # print('--else: feat size ', feat.size())
             src_prefix_shape = dst_prefix_shape = feat.shape[:-1]
-            print('src_prefix_shape ', src_prefix_shape)
+            # print('src_prefix_shape ', src_prefix_shape)
             h_src = h_dst = self.feat_drop(feat)
-            print('h_src = h_dst = self.feat_drop(feat) ', h_src.size())
+            # print('h_src = h_dst = self.feat_drop(feat) ', h_src.size())
             feat_src = feat_dst = self.fc(h_src).view(
                 *src_prefix_shape, self._num_heads, self._out_feats
             )
-            print('feat_src = feat_dst ', feat_src.size())
+            # print('feat_src = feat_dst ', feat_src.size())
             if graph.is_block:
                 feat_dst = feat_src[: graph.number_of_dst_nodes()]
                 h_dst = h_dst[: graph.number_of_dst_nodes()]
@@ -835,6 +837,8 @@ class GATConv2(nn.Module):
             
             if self._num_heads == 1:
                 graph.dstdata["ft"]= graph.dstdata["ft"].view(graph.dstdata["ft"].shape[0],self.hidden)
+            else:# self._num_heads == 1:
+                graph.dstdata["ft"]= graph.dstdata["ft"].view(graph.dstdata["ft"].shape[0],self._num_heads, self.hidden)
         rst = graph.dstdata["ft"]
         # print("rst = graph.dstdata[ft] ", rst.size())
         # residual
@@ -859,6 +863,6 @@ class GATConv2(nn.Module):
             print('get_attention return rst, graph.edata')
             return rst, graph.edata["a"]
         else:
-            print('return rst ')
-            print(rst.size())
+            # print('return rst ')
+            # print(rst.size())
             return rst

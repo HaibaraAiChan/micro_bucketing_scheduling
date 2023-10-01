@@ -22,7 +22,7 @@ from block_dataloader import generate_dataloader_block
 import pickle
 sys.path.insert(0,'../../pytorch/utils/')
 from memory_usage import see_memory_usage, nvidia_smi_usage
-
+from torch.optim.lr_scheduler import StepLR
 
 def set_seed(args):
 	random.seed(args.seed)
@@ -200,8 +200,8 @@ def run(args, device, data):
 	print('in feats: ', in_feats)
 	nvidia_smi_list=[]
 
-	if args.selection_method =='metis':
-		args.o_graph = dgl.node_subgraph(g, train_nid)
+	# if args.selection_method =='metis':
+	# 	args.o_graph = dgl.node_subgraph(g, train_nid)
 
 
 	sampler = dgl.dataloading.MultiLayerNeighborSampler(
@@ -224,7 +224,7 @@ def run(args, device, data):
 	# if args.GPUmem:
 		# see_memory_usage("----------------------------------------before model to device ")
 
-	model = GAT(in_feats,args.aggre, args.num_hidden, n_classes, heads=[8, 1]).to(device)
+	model = GAT(in_feats,args.aggre, args.num_hidden, n_classes, heads=[4, 1]).to(device)
 
 	loss_fcn = nn.CrossEntropyLoss()
 
@@ -234,8 +234,19 @@ def run(args, device, data):
 	for run in range(args.num_runs):
 		model.reset_parameters()
 		optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
+		step_size = 50  # Adjust this as needed
+		gamma = 0.5     # Adjust this as needed
+		scheduler = StepLR(optimizer, step_size=step_size, gamma=gamma)
 
 		for epoch in range(args.num_epochs):
+			# scheduler.step()
+			if epoch > 60:
+				scheduler.step()
+			if epoch >=250:
+				optimizer = torch.optim.Adam(model.parameters(), lr=0.0015, weight_decay=args.weight_decay)
+			current_lr = optimizer.param_groups[0]['lr']
+			print(f"Epoch {epoch + 1}, Learning Rate: {current_lr}")
+
 			pure_train_time=0
 			model.train()
 			if epoch >= args.log_indent:
@@ -267,24 +278,18 @@ def run(args, device, data):
 				print('step ', step)
 				num_input_nids	+= len(input_nodes)
 				batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
-				# print('num_input_nids' , num_input_nids)
-				# print(torch.sum(blocks[0].dstdata['train_mask']).item())
-				# print(torch.sum(blocks[1].dstdata['train_mask']).item())
-				# print('num_output_nids of first layer' , len(blocks[0].dstdata['_ID']))
-
-				# print('num_output_nids of second layer' , len(blocks[1].dstdata['_ID']))
-				# print('num_output_nids' , len(seeds))
+				
 				blocks = [block.int().to(device) for block in blocks]#------------*
 				t1= time.time()
 				batch_pred = model(blocks, batch_inputs)#------------*
-				see_memory_usage("----------------------------------------after batch_pred = model(blocks, batch_inputs)")
+				# see_memory_usage("----------------------------------------after batch_pred = model(blocks, batch_inputs)")
 				
-				print('batch_pred ', batch_pred.size())
+				# print('batch_pred ', batch_pred.size())
 				
-				print('batch_labels', batch_labels.size())
+				# print('batch_labels', batch_labels.size())
 
 				pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
-				see_memory_usage("----------------------------------------after loss function")
+				# see_memory_usage("----------------------------------------after loss function")
 				pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
 				pseudo_mini_loss.backward()#------------*
 				t2 = time.time()
@@ -299,8 +304,8 @@ def run(args, device, data):
 			pure_train_time_list.append(pure_train_time)
 			print('pure train time ',pure_train_time)
 			num_input_list.append(num_input_nids)
-			if args.GPUmem:
-					see_memory_usage("-----------------------------------------after optimizer zero grad")
+			# if args.GPUmem:
+					# see_memory_usage("-----------------------------------------after optimizer zero grad")
 			print('----------------------------------------------------------pseudo_mini_loss sum ' + str(loss_sum.tolist()))
 			
 			if epoch >= args.log_indent:
@@ -339,17 +344,17 @@ def main():
 	argparser.add_argument('--aggre', type=str, default='lstm')
 	# argparser.add_argument('--aggre', type=str, default='sum')
 
-	argparser.add_argument('--selection-method', type=str, default='REG')
+	# argparser.add_argument('--selection-method', type=str, default='REG')
 	argparser.add_argument('--num-batch', type=int, default=1)
 	argparser.add_argument('--batch-size', type=int, default=0)
 
-	argparser.add_argument('--re-partition-method', type=str, default='REG')
-	# argparser.add_argument('--re-partition-method', type=str, default='random')
-	argparser.add_argument('--num-re-partition', type=int, default=0)
+	# argparser.add_argument('--re-partition-method', type=str, default='REG')
+	# # argparser.add_argument('--re-partition-method', type=str, default='random')
+	# argparser.add_argument('--num-re-partition', type=int, default=0)
 
 	# argparser.add_argument('--balanced_init_ratio', type=float, default=0.2)
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=1)
+	argparser.add_argument('--num-epochs', type=int, default=400)
 
 	argparser.add_argument('--num-hidden', type=int, default=8)
 
@@ -358,9 +363,8 @@ def main():
 	
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------
-	
-	argparser.add_argument('--lr', type=float, default=125e-4)
-	# argparser.add_argument('--lr', type=float, default=5e-3)
+
+	argparser.add_argument('--lr', type=float, default=1e-2)
 	argparser.add_argument('--dropout', type=float, default=0.5)
 	argparser.add_argument("--weight-decay", type=float, default=5e-4,
 						help="Weight for L2 loss")
