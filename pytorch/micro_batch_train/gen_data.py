@@ -379,9 +379,10 @@ def main():
 	
 	# argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-mag')
-	argparser.add_argument('--dataset', type=str, default='ogbn-products')
+	# argparser.add_argument('--dataset', type=str, default='ogbn-products')
 	# argparser.add_argument('--aggre', type=str, default='lstm')
 	# argparser.add_argument('--dataset', type=str, default='cora')
+	argparser.add_argument('--dataset', type=str, default='pubmed')
 	# argparser.add_argument('--dataset', type=str, default='karate')
 	# argparser.add_argument('--dataset', type=str, default='reddit')
 	argparser.add_argument('--aggre', type=str, default='mean')

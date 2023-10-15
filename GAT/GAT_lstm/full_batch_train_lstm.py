@@ -17,6 +17,7 @@ sys.path.insert(0,'../../pytorch/utils/')
 sys.path.insert(0,'../../pytorch/micro_batch_train/')
 sys.path.insert(0,'../../pytorch/models/')
 from load_graph import load_reddit, inductive_split, load_cora, load_karate, prepare_data, load_pubmed
+from load_graph import load_ogbn_dataset
 from block_dataloader import generate_dataloader_block
 
 import pickle
@@ -335,10 +336,10 @@ def main():
 	argparser.add_argument('--GPUmem', type=bool, default=True)
 	argparser.add_argument('--load-full-batch', type=bool, default=True)
 	# argparser.add_argument('--root', type=str, default='../my_full_graph/')
-	# argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
+	argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-mag')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-products')
-	argparser.add_argument('--dataset', type=str, default='cora')
+	# argparser.add_argument('--dataset', type=str, default='cora')
 	# argparser.add_argument('--dataset', type=str, default='karate')
 	# argparser.add_argument('--dataset', type=str, default='reddit')
 	argparser.add_argument('--aggre', type=str, default='lstm')
@@ -354,18 +355,18 @@ def main():
 
 	# argparser.add_argument('--balanced_init_ratio', type=float, default=0.2)
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=400)
+	argparser.add_argument('--num-epochs', type=int, default=20)
 
-	argparser.add_argument('--num-hidden', type=int, default=8)
+	argparser.add_argument('--num-hidden', type=int, default=4)
 
 	argparser.add_argument('--num-layers', type=int, default=2)
 	argparser.add_argument('--fan-out', type=str, default='10,25')
 	
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------
-
-	argparser.add_argument('--lr', type=float, default=1e-2)
-	argparser.add_argument('--dropout', type=float, default=0.5)
+	argparser.add_argument('--lr', type=float, default=5e-3)
+	# argparser.add_argument('--lr', type=float, default=1e-2)
+	argparser.add_argument('--dropout', type=float, default=0.7)
 	argparser.add_argument("--weight-decay", type=float, default=5e-4,
 						help="Weight for L2 loss")
 	argparser.add_argument("--eval", action='store_true', 

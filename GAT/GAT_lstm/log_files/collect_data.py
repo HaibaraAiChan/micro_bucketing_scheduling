@@ -31,6 +31,7 @@ def read_files_in_folder(folder_path):
         file_path = os.path.join(folder_path, file_name)
         print('file------ ', file_name)
         loss=[]
+        train_acc = []
         test_acc = []
         if os.path.isfile(file_path) :  # Ensure it is a file, not a subfolder
             with open(file_path, 'r') as file:
@@ -38,15 +39,20 @@ def read_files_in_folder(folder_path):
                 for line in lines:
                     if line.startswith("Run"):
                         t_loss = float(line.split(" ")[7].strip())
+                        t_acc = float(line.split(" ")[10].strip())
                         acc = float(line.split(" ")[16].strip())
+                        train_acc.append(t_acc)
                         test_acc.append(acc)
                         loss.append(t_loss)
         print('loss ' , loss)
         draw(loss, 'loss')
         print()
+        print('train_acc ', train_acc)
+        draw(train_acc, 'train_acc')
         print('test_acc ', test_acc)
         draw(test_acc, 'test_acc')
         print()
+        print('max train acc ',max(train_acc))
         
 
 
