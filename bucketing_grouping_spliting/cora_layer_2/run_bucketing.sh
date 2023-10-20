@@ -35,9 +35,25 @@ save_path=./bucket_log/256
 #     --lr 1e-5 \
 #     > ${save_path}/nb_4_bucketing_h_2048.log
 # echo '---start cora_backpack.py 4 batches '
+nb=2
+hidden=256
+python cora_buckey.py \
+    --dataset cora \
+    --selection-method cora_25_backpack_bucketing \
+    --num-batch $nb \
+    --mem-constraint 0.19\
+    --num-layers 2 \
+    --fan-out 10,25 \
+    --num-hidden $hidden \
+    --num-runs 1 \
+    --num-epoch 1 \
+    --aggre lstm \
+    --log-indent 3 \
+    --lr 1e-3 \
+    > ${save_path}/nb_${nb}_bucketing_h_${hidden}___.log
 nb=4
 hidden=256
-python cora_backpack.py \
+python cora_buckey.py \
     --dataset cora \
     --selection-method cora_25_backpack_bucketing \
     --num-batch $nb \
@@ -49,5 +65,5 @@ python cora_backpack.py \
     --num-epoch 1 \
     --aggre lstm \
     --log-indent 3 \
-    --lr 1e-5 \
+    --lr 1e-3 \
     > ${save_path}/nb_${nb}_bucketing_h_${hidden}___.log

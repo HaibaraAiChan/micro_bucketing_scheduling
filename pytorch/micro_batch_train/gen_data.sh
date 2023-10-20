@@ -3,21 +3,21 @@
 File=gen_data.py
 
 # data=ogbn-products
-# data=cora
-data=pubmed
+data=cora
+# data=pubmed
 # data=reddit
-num_epoch=400
-# fan_out=10
+num_epoch=10
+fan_out=10
 # data=ogbn-arxiv
 
 # mkdir ~/dataset/fan_out_10
-# python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
+python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
 
 
 # 
-fan_out=10,25
+# fan_out=10,25
 # mkdir ~/dataset/fan_out_10,25
-python $File --fan-out=$fan_out --num-layers=2 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
+# python $File --fan-out=$fan_out --num-layers=2 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
 # #--------------------------------------------------------------------------------------------------------
 # data=ogbn-products
 # num_epoch=10

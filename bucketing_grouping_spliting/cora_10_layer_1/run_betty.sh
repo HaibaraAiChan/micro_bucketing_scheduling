@@ -3,7 +3,20 @@
 # mkdir ./log1
 save_path=./betty_log
 # mkdir $save_path
-
+echo '---start Betty_cora_e2e_10.py 1 batches '
+python Betty_cora_e2e_10.py \
+    --dataset cora \
+    --selection-method REG \
+    --num-batch 1 \
+    --num-layers 1 \
+    --fan-out 10 \
+    --num-hidden 1433 \
+    --num-runs 1 \
+    --num-epoch 1 \
+    --aggre lstm \
+    --log-indent 3 \
+    --lr 1e-3 \
+    > ${save_path}/train_loss_nb_1.log
 echo '---start Betty_cora_e2e_10.py 2 batches '
 python Betty_cora_e2e_10.py \
     --dataset cora \
@@ -17,7 +30,7 @@ python Betty_cora_e2e_10.py \
     --aggre lstm \
     --log-indent 3 \
     --lr 1e-3 \
-    > ${save_path}/nb_2.log
+    > ${save_path}/train_loss_nb_2.log
 # echo '---start backpack_29_mem_30_split.py 6 batches '
 # python arxiv_backpack_29_mem_30_split.py \
 #     --dataset ogbn-arxiv \

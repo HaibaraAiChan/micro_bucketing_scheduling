@@ -294,7 +294,7 @@ def main():
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
 
-	argparser.add_argument('--num-hidden', type=int, default=8)
+	argparser.add_argument('--num-hidden', type=int, default=256)
 
 	argparser.add_argument('--num-layers', type=int, default=2)
 	argparser.add_argument('--fan-out', type=str, default='10,25')

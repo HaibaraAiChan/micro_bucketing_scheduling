@@ -323,7 +323,7 @@ def run(args, device, data):
 		print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))	
 		print('pure train time per /epoch ', pure_train_time_list)
 		print('pure train time average ', np.mean(pure_train_time_list[4:]))
-		print('input num  average ', sum(num_input_list)/len(num_input_list))
+		# print('input num  average ', sum(num_input_list)/len(num_input_list))
 
 
 def main():
@@ -352,11 +352,11 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
-	argparser.add_argument('--num-batch', type=int, default=2)
+	argparser.add_argument('--num-batch', type=int, default=16)
 	argparser.add_argument('--mem-constraint', type=float, default=18)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=1)
+	argparser.add_argument('--num-epochs', type=int, default=4)
 
 	argparser.add_argument('--num-hidden', type=int, default=256)
 
@@ -365,7 +365,7 @@ def main():
 	argparser.add_argument('--fan-out', type=str, default='10,25')
 
 
-	argparser.add_argument('--log-indent', type=float, default=3)
+	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------
 
 	argparser.add_argument('--lr', type=float, default=1e-3)
