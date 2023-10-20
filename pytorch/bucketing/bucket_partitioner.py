@@ -529,7 +529,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					return
 				
 			elif 'arxiv_' in self.selection_method :
-				if '_backpack_' in self.selection_method: 
+				if '_backpack_' in self.selection_method and '10' not in self.selection_method: 
 					time_split_start = time.time()
 					fanout = len(bkt_dst_nodes_list)
 					fanout_dst_nids = bkt_dst_nodes_list[-1]
@@ -630,7 +630,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					print("Groups_mem_list ", Groups_mem_list)
 					if len(G_BUCKET_ID_list)> self.K:
 						print('------------errror-----------------')
-					# G_BUCKET_ID_list = [[i] for i in range(len(estimated_mem)) ] ##############
+					
 					print("G_BUCKET_ID_list length" , len(G_BUCKET_ID_list))
 					
 					g_bucket_nids_list=self.get_nids_by_degree_bucket_ID(G_BUCKET_ID_list, bkt_dst_nodes_list)
@@ -723,55 +723,55 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					self.local_batched_seeds_list = split_batches_nid_list
 
 					return
-				else: #'25_backpack_' not in self.selection_method:
-					print('memory_constraint: ', self.memory_constraint)
+				# else: #'25_backpack_' not in self.selection_method:
+				# 	print('memory_constraint: ', self.memory_constraint)
 					
-					adjust =1000
-					if self.hidden == 1024:
-						estimated_mem = [3.6379471541090243, 3.519859292701475, 1.3139044948856264, 1.168023258447647, 1.1110345689631933, 1.0174509148766198, 0.939528083329737, 0.871675177344254, 0.8272551951869841, 0.7875044051387211, 0.7164326450037946, 0.7157693082792709, 0.6781556913286547, 0.6342095800024695, 0.623858655895532, 0.5609127309921086, 0.5670484961134443, 0.5411179518397851, 0.5307433498923407, 0.5061348172368614, 0.5054305008764547, 0.4282287766997373, 0.4350062972128945, 0.43397694928305497, 13.2]
-						capacity_imp = self.memory_constraint
-					if self.hidden == 256:
-						estimated_mem = [0.9289283752441406, 1.0921419664986132, 1.174592981690282, 1.2067483835407944, 1.2375349585000666, 1.2332499812783622, 1.219712377230607, 1.2118137788993009, 1.184205675680791, 1.17600772351804, 1.1165122126748235, 1.1218068344161014, 1.0613692097616039, 1.0356467682433141, 1.0133642192630459, 0.9551042604703931, 0.9602214569977391, 0.928765299108964, 0.91671499803582, 0.9005825296175082, 0.8687226300373521, 0.7873555455142333, 0.8009047141131459, 0.7953034350585939]
-						capacity_imp = max(estimated_mem)
-					print('sum(estimated_mem)')
-					print(sum(estimated_mem))
-					print(len(estimated_mem))
+				# 	adjust =1000
+				# 	if self.hidden == 1024:
+				# 		estimated_mem = [3.6379471541090243, 3.519859292701475, 1.3139044948856264, 1.168023258447647, 1.1110345689631933, 1.0174509148766198, 0.939528083329737, 0.871675177344254, 0.8272551951869841, 0.7875044051387211, 0.7164326450037946, 0.7157693082792709, 0.6781556913286547, 0.6342095800024695, 0.623858655895532, 0.5609127309921086, 0.5670484961134443, 0.5411179518397851, 0.5307433498923407, 0.5061348172368614, 0.5054305008764547, 0.4282287766997373, 0.4350062972128945, 0.43397694928305497, 13.2]
+				# 		capacity_imp = self.memory_constraint
+				# 	if self.hidden == 256:
+				# 		estimated_mem = [0.9289283752441406, 1.0921419664986132, 1.174592981690282, 1.2067483835407944, 1.2375349585000666, 1.2332499812783622, 1.219712377230607, 1.2118137788993009, 1.184205675680791, 1.17600772351804, 1.1165122126748235, 1.1218068344161014, 1.0613692097616039, 1.0356467682433141, 1.0133642192630459, 0.9551042604703931, 0.9602214569977391, 0.928765299108964, 0.91671499803582, 0.9005825296175082, 0.8687226300373521, 0.7873555455142333, 0.8009047141131459, 0.7953034350585939]
+				# 		capacity_imp = max(estimated_mem)
+				# 	print('sum(estimated_mem)')
+				# 	print(sum(estimated_mem))
+				# 	print(len(estimated_mem))
 					
-					time_backpack_start = time.time()
+				# 	time_backpack_start = time.time()
 					
-					if max(estimated_mem) > capacity_imp:
-						print('max degree bucket (1-fanout-1) >capacity')
-						print('we can reschedule split K-->K+1 ')
-						self.K = self.K + 1
-					print('self.K ', self.K)
-					Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_arxiv(adjust, estimated_mem, capacity = capacity_imp)
-					print("G_BUCKET_ID_list" , G_BUCKET_ID_list)
-					print("Groups_mem_list ", Groups_mem_list)
+				# 	if max(estimated_mem) > capacity_imp:
+				# 		print('max degree bucket (1-fanout-1) >capacity')
+				# 		print('we can reschedule split K-->K+1 ')
+				# 		self.K = self.K + 1
+				# 	print('self.K ', self.K)
+				# 	Groups_mem_list, G_BUCKET_ID_list = grouping_fanout_arxiv(adjust, estimated_mem, capacity = capacity_imp)
+				# 	print("G_BUCKET_ID_list" , G_BUCKET_ID_list)
+				# 	print("Groups_mem_list ", Groups_mem_list)
 					
-					print("G_BUCKET_ID_list length" , len(G_BUCKET_ID_list))
-					g_bucket_nids_list=self.get_nids_by_degree_bucket_ID(G_BUCKET_ID_list, bkt_dst_nodes_list)
+				# 	print("G_BUCKET_ID_list length" , len(G_BUCKET_ID_list))
+				# 	g_bucket_nids_list=self.get_nids_by_degree_bucket_ID(G_BUCKET_ID_list, bkt_dst_nodes_list)
 					
-					time_backpack_end = time.time()
-					print('backpack scheduling spend ', time_backpack_end-time_backpack_start)
-					split_batches_nid_list =[]
+				# 	time_backpack_end = time.time()
+				# 	print('backpack scheduling spend ', time_backpack_end-time_backpack_start)
+				# 	split_batches_nid_list =[]
 					
-					time_batch_gen_start = time.time()
-					for j in range(len(g_bucket_nids_list)):
-						tensor_group = torch.tensor(g_bucket_nids_list[j], dtype=torch.long)
-						current_group_mem = get_sum(G_BUCKET_ID_list[j], estimated_mem)
-						print("current group_mem ", current_group_mem)
+				# 	time_batch_gen_start = time.time()
+				# 	for j in range(len(g_bucket_nids_list)):
+				# 		tensor_group = torch.tensor(g_bucket_nids_list[j], dtype=torch.long)
+				# 		current_group_mem = get_sum(G_BUCKET_ID_list[j], estimated_mem)
+				# 		print("current group_mem ", current_group_mem)
 						
-						split_batches_nid_list.append(tensor_group) 
+				# 		split_batches_nid_list.append(tensor_group) 
 						
 					
-					time_batch_gen_end = time.time()
-					print('batches output list generation spend ', time_batch_gen_end-time_batch_gen_start)
-					length = len(self.output_nids)
-					self.weights_list = [len(batch_nids)/length  for batch_nids in split_batches_nid_list]
-					print('self.weights_list ', self.weights_list)
+				# 	time_batch_gen_end = time.time()
+				# 	print('batches output list generation spend ', time_batch_gen_end-time_batch_gen_start)
+				# 	length = len(self.output_nids)
+				# 	self.weights_list = [len(batch_nids)/length  for batch_nids in split_batches_nid_list]
+				# 	print('self.weights_list ', self.weights_list)
 					
-					self.local_batched_seeds_list = split_batches_nid_list
-					return
+				# 	self.local_batched_seeds_list = split_batches_nid_list
+				# 	return
 				
 						
 			elif '25_group_' in self.selection_method:

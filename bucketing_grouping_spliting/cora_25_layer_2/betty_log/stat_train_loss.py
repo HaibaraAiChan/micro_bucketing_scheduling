@@ -54,7 +54,7 @@ def read_files_in_folder(folder_path):
                 lines = file.readlines()
                 for line in lines:
                     if line.startswith("----------------------------------------------------------pseudo_mini_loss sum"):
-                        print(line.split(" "))
+                        # print(line.split(" "))
                         print(line.split(" ")[2].strip())
                         loss = float(line.split(" ")[2].strip())
                         

@@ -70,13 +70,13 @@
 # done
 #!/bin/bash
 save_path=./betty_log
-hidden=1
+hidden=256
 n_layer=2
 fanout=10,25
-save_path=./betty_log/2-layer
+save_path=./betty_log/256
 md=REG
 # for nb in 9 10 11 12 16
-for nb in 5
+for nb in 4
 do
     echo "---start Betty_arxiv_e2e.py hidden ${hidden},  nb ${nb} batches"
     python Betty_arxiv_e2e.py  \
@@ -91,5 +91,5 @@ do
         --aggre lstm \
         --log-indent 3 \
         --lr 1e-3 \
-        > ${save_path}/${md}_nb_${nb}_e2e_${hidden}_fanout_${fanout}.log
+        > ${save_path}/train_loss_${md}_nb_${nb}_e2e_${hidden}_fanout_${fanout}.log
 done

@@ -23,7 +23,8 @@ import argparse
 import tqdm
 
 import random
-from graphsage_model_wo_mem import GraphSAGE
+from graphsage_model import GraphSAGE
+# from graphsage_model_wo_mem import GraphSAGE
 import dgl.function as fn
 from load_graph import load_reddit, inductive_split, load_cora, load_karate, prepare_data, load_pubmed
 
@@ -219,15 +220,17 @@ def run(args, device, data):
 			pseudo_mini_loss = torch.tensor([], dtype=torch.long)
 			num_input_nids=0
 			for step, (input_nodes, seeds, blocks) in enumerate(block_dataloader):
+				print('step ', step)
 				num_input_nids	+= len(input_nodes)
 				batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 				
 				blocks = [block.int().to(device) for block in blocks]#------------*
 				t1= time.time()
 				batch_pred = model(blocks, batch_inputs)#------------*
-				
+				see_memory_usage("----------------------------------------after batch_pred = model(blocks, batch_inputs)")
+					
 				pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
-				
+				see_memory_usage("----------------------------------------after loss function")
 				pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
 				pseudo_mini_loss.backward()#------------*
 				t2 = time.time()
@@ -251,7 +254,7 @@ def run(args, device, data):
 	print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))
 	print('pure train time/epoch {}'.format(np.mean(pure_train_time_list[4:])))
 	print('')
-	print('mean number of num_input_list ', sum(num_input_list)/len(num_input_list))
+	print('num_input_list ', num_input_list)
 				
 			
 	
@@ -268,19 +271,19 @@ def main():
 	argparser.add_argument('--GPUmem', type=bool, default=True)
 	argparser.add_argument('--load-full-batch', type=bool, default=True)
 	# argparser.add_argument('--root', type=str, default='../my_full_graph/')
-	argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
+	# argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-mag')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-products')
-	# argparser.add_argument('--dataset', type=str, default='cora')
+	argparser.add_argument('--dataset', type=str, default='cora')
 	# argparser.add_argument('--dataset', type=str, default='karate')
 	# argparser.add_argument('--dataset', type=str, default='reddit')
 	argparser.add_argument('--aggre', type=str, default='lstm')
 	# argparser.add_argument('--aggre', type=str, default='mean')
-	# argparser.add_argument('--selection-method', type=str, default='range')
+	argparser.add_argument('--selection-method', type=str, default='range')
 	# argparser.add_argument('--selection-method', type=str, default='random')
 	# argparser.add_argument('--selection-method', type=str, default='metis')
-	argparser.add_argument('--selection-method', type=str, default='metis')
-	argparser.add_argument('--num-batch', type=int, default=4)
+	# argparser.add_argument('--selection-method', type=str, default='REG')
+	argparser.add_argument('--num-batch', type=int, default=2)
 	argparser.add_argument('--batch-size', type=int, default=0)
 
 	argparser.add_argument('--re-partition-method', type=str, default='REG')
@@ -289,10 +292,9 @@ def main():
 
 	# argparser.add_argument('--balanced_init_ratio', type=float, default=0.2)
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=10)
+	argparser.add_argument('--num-epochs', type=int, default=1)
 
-	# argparser.add_argument('--num-hidden', type=int, default=512)
-	argparser.add_argument('--num-hidden', type=int, default=1024)
+	argparser.add_argument('--num-hidden', type=int, default=256)
 
 	argparser.add_argument('--num-layers', type=int, default=2)
 	argparser.add_argument('--fan-out', type=str, default='10,25')
