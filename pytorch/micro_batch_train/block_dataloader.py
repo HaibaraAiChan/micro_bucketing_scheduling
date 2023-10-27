@@ -51,26 +51,24 @@ class OrderedCounter(Counter, OrderedDict):
 
 
 def get_global_graph_edges_ids_block(raw_graph, block):
-	
+
 	edges=block.edges(order='eid', form='all')
 	edge_src_local = edges[0]
 	edge_dst_local = edges[1]
 	# edge_eid_local = edges[2]
 	induced_src = block.srcdata[dgl.NID]
 	induced_dst = block.dstdata[dgl.NID]
-	induced_eid = block.edata[dgl.EID] 
-		
+	induced_eid = block.edata[dgl.EID]
+
 	raw_src, raw_dst=induced_src[edge_src_local], induced_dst[edge_dst_local]
 	# raw_src, raw_dst=induced_src[edge_src_local], induced_src[edge_dst_local]
-	
-	# in homo graph: raw_graph 
+
+	# in homo graph: raw_graph
 	global_graph_eids_raw = raw_graph.edge_ids(raw_src, raw_dst)
 	# https://docs.dgl.ai/generated/dgl.DGLGraph.edge_ids.html?highlight=graph%20edge_ids#dgl.DGLGraph.edge_ids
 	# https://docs.dgl.ai/en/0.4.x/generated/dgl.DGLGraph.edge_ids.html#dgl.DGLGraph.edge_ids
 
 	return global_graph_eids_raw, (raw_src, raw_dst)
-
-
 
 def generate_one_block(raw_graph, global_srcnid, global_dstnid, global_eids):
 	'''
@@ -169,6 +167,7 @@ def check_connections_block_mp(batched_nodes_list, current_layer_block):
 	for local_in_edges_tensor, global_output_nid in (zip(local_in_edges_tensor_list, global_batched_nids_list)):
 		mini_batch_src_local= local_in_edges_tensor[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
 		mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local))
+
 		mini_batch_src_global= induced_src[mini_batch_src_local].tolist() # map local src nid to global.
 		# mini_batch_dst_local= local_in_edges_tensor[1]
 		# if len(set(mini_batch_dst_local)) != len(set(global_output_nid)):
@@ -201,13 +200,7 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 	res=[]
 	# print('check_connections_block*********************************')
 
-	# adj_tensor = current_layer_block.adj_sparse('coo')
-	# print('adj tensor')
-	# print(adj_tensor)
-	# print()
-
 	induced_src = current_layer_block.srcdata[dgl.NID]
-	
 	eids_global = current_layer_block.edata['_ID']
 
 	t1=time.time()
@@ -283,7 +276,7 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 
 
 def generate_blocks_for_one_layer_block(raw_graph, layer_block, batches_nid_list):
-	
+
 	blocks = []
 	check_connection_time = []
 	block_generation_time = []
@@ -296,13 +289,13 @@ def generate_blocks_for_one_layer_block(raw_graph, layer_block, batches_nid_list
 
 	src_list=[]
 	dst_list=[]
-	
+
 
 	for step, (srcnid, dstnid, current_block_global_eid) in enumerate(batches_temp_res_list):
 		t_ = time.time()
 		cur_block = generate_one_block(raw_graph, srcnid, dstnid, current_block_global_eid) # block -------
 		t__=time.time()
-		block_generation_time.append(t__-t_) 
+		block_generation_time.append(t__-t_)
 
 		blocks.append(cur_block)
 		src_list.append(srcnid)

@@ -171,9 +171,9 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 	def get_in_degree_bucketing(self):
 		
 		degs = self.layer_block.in_degrees()
-		# print('src global nid ', self.layer_block.srcdata['_ID'])
-		# print('dst global nid ', self.layer_block.dstdata['_ID'])
-		# print('corresponding in degs', degs)
+		print('get_in_degree_bucketing src global nid ', self.layer_block.srcdata['_ID'])
+		print('get_in_degree_bucketing dst global nid ', self.layer_block.dstdata['_ID'])
+		print('get_in_degree_bucketing corresponding in degs', degs)
 		nodes = self.layer_block.dstnodes() # local dst nid (e.g. in full batch layer block)
 		
 		# degree bucketing
@@ -185,7 +185,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				continue
 			bkt_nodes.append(node_bkt) # local nid idx
 			print('len(bkt) ', len(node_bkt))
-			# print('bkt ', node_bkt)
+			print('local bkt nids ', node_bkt)
 
 		return bkt_nodes  # local nid idx
 	
@@ -983,7 +983,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				batches_nid_list = [map_output_list[i:i + fanout_batch_size] for i in range(0, len(map_output_list), fanout_batch_size)]
 			if 'rangebuckets' in self.selection_method:   
 				local_batches_nid_list = list(torch.chunk(fanout_dst_nids, self.K))
-				print('**** batches_nid_list ', local_batches_nid_list)
+				print('partitioner **** batches_nid_list ', local_batches_nid_list)
 				ct = time.time()
 				src_list, weights_list, time_collection = generate_K_hop_neighbors(self.full_batch_dataloader, self.args, local_batches_nid_list)
 				print('generate_K_hop_neighbors time ', time.time()-ct)

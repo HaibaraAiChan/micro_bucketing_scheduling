@@ -188,13 +188,13 @@ def run(args, device, data):
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'/home/cc/Betty_baseline/dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				file_name=r'../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)
 			
 			if args.num_batch > 1:
-				print("generate_dataloader_bucket_block=======")
+				print("main fucntion generate_dataloader_bucket_block=======")
 				time_s = time.time()
 				b_block_dataloader, weights_list, time_collection = generate_dataloader_bucket_block(g, full_batch_dataloader, args)
 				connection_time, block_gen_time, _ = time_collection
@@ -231,6 +231,7 @@ def run(args, device, data):
 
 				pure_train_time += (time_end-time13)
 				pure_train_time_list.append(pure_train_time)
+				print("epoch ", epoch)
 				print('----------------------------------------------------------pseudo_mini_loss sum ' + str(loss_sum.tolist()))
 				print('pure train time : ', pure_train_time )
 				print('train time : ', time_end-time_start )
@@ -255,7 +256,10 @@ def run(args, device, data):
 					see_memory_usage("----------------------------------------after model")
 
 					loss = loss_fcn(batch_pred, batch_labels)
-					print('full batch train ------ loss ' + str(loss.item()) )
+					print('epoch ' , epoch )
+					print('----------------------------------------------------------pseudo_mini_loss sum ' + str(loss.item()))
+				
+					# print('full batch train ------ loss ' + str(loss.item()) )
 					see_memory_usage("----------------------------------------after loss")
 
 					loss.backward()
@@ -270,10 +274,10 @@ def run(args, device, data):
 			full_epoch=time.time() - t0
 			print('end to end time ', full_epoch)
 			dur.append(full_epoch)
-		print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))	
-		print('pure train time per /epoch ', pure_train_time_list)
-		print('pure train time average ', np.mean(pure_train_time_list[3:]))
-		print('input num list ', num_input_list)
+		# print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))	
+		# print('pure train time per /epoch ', pure_train_time_list)
+		# print('pure train time average ', np.mean(pure_train_time_list[3:]))
+		# print('input num list ', num_input_list)
 
 
 def main():
@@ -302,13 +306,13 @@ def main():
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
-	argparser.add_argument('--num-batch', type=int, default=1)
+	argparser.add_argument('--num-batch', type=int, default=2)
 	argparser.add_argument('--mem-constraint', type=float, default=18)
 
 	argparser.add_argument('--num-runs', type=int, default=1)
-	argparser.add_argument('--num-epochs', type=int, default=1)
-	argparser.add_argument('--num-hidden', type=int, default=1)
-	# argparser.add_argument('--num-hidden', type=int, default=1024)
+	argparser.add_argument('--num-epochs', type=int, default=5)
+	# argparser.add_argument('--num-hidden', type=int, default=1)
+	argparser.add_argument('--num-hidden', type=int, default=1024)
 
 	# argparser.add_argument('--num-layers', type=int, default=1)
 	# argparser.add_argument('--fan-out', type=str, default='10')

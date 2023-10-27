@@ -35,6 +35,7 @@ import remove_values
 import pdb
 sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/bucketing/pybind_remove_duplicates')
 import remove_duplicates
+
 sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/bucketing/global_2_local')
 import find_indices
 sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/bucketing/gen_tails')
@@ -44,6 +45,14 @@ import src_gen
 sys.path.insert(0,'/home/cc/Betty_baseline/pytorch/bucketing/gen_src_tail')
 import gen_src_tails
 
+class OrderedCounter(Counter, OrderedDict):
+	'Counter that remembers the order elements are first encountered'
+
+	def __repr__(self):
+		return '%s(%r)' % (self.__class__.__name__, OrderedDict(self))
+
+	def __reduce__(self):
+		return self.__class__, (OrderedDict(self),)
 
 
 
@@ -66,6 +75,30 @@ def get_global_graph_edges_ids_block(raw_graph, block):
 	# https://docs.dgl.ai/en/0.4.x/generated/dgl.DGLGraph.edge_ids.html#dgl.DGLGraph.edge_ids
 
 	return global_graph_eids_raw, (raw_src, raw_dst)
+
+def generate_one_block(raw_graph, global_srcnid, global_dstnid, global_eids):
+	'''
+
+	Parameters
+	----------
+	G    global graph                     DGLGraph
+	eids  cur_batch_subgraph_global eid   tensor int64
+
+	Returns
+	-------
+
+	'''
+	_graph = dgl.edge_subgraph(raw_graph, global_eids, store_ids=True)
+	edge_dst_list = _graph.edges(order='eid')[1].tolist()
+	dst_local_nid_list=list(OrderedCounter(edge_dst_list).keys())
+	# dst_local_nid_list = remove_duplicates.remove_duplicates(edge_dst_list) # speedup version
+
+	new_block = dgl.to_block(_graph, dst_nodes=torch.tensor(dst_local_nid_list, dtype=torch.long))
+	new_block.srcdata[dgl.NID] = global_srcnid
+	new_block.dstdata[dgl.NID] = global_dstnid
+	new_block.edata['_ID']=_graph.edata['_ID']
+
+	return new_block
 
 
 
@@ -94,11 +127,11 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 	
 	print('the find indices time spent ', time.time()-timess)
 	
-		# in current layer subgraph, only has src and dst nodes,
-		# and src nodes includes dst nodes, src nodes equals dst nodes.
+	# in current layer subgraph, only has src and dst nodes,
+	# and src nodes includes dst nodes, src nodes equals dst nodes.
 	print()
 	
-	# parallel-------------------------------------------------end
+	
 	time1= time.time()
 	# dgl graph.in_edges() sequential
 	local_in_edges_tensor_list=[]
@@ -119,6 +152,8 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 		mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local))
 		# mini_batch_src_local = remove_duplicates.remove_duplicates(mini_batch_src_local)
 		mini_batch_src_global= induced_src[mini_batch_src_local].tolist() # map local src nid to global.
+
+
 
 		eid_local_list = local_in_edges_tensor[2] # local (𝑈,𝑉,𝐸𝐼𝐷); 
 		global_eid_tensor = eids_global[eid_local_list] # map local eid to global.
@@ -145,32 +180,7 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 
 
 
-def generate_one_block(raw_graph, global_srcnid, global_dstnid, global_eids):
-	'''
 
-	Parameters
-	----------
-	G    global graph                     DGLGraph
-	eids  cur_batch_subgraph_global eid   tensor int64
-
-	Returns
-	-------
-
-	'''
-	# raw_graph = raw_graph_.clone()
-	_graph = dgl.edge_subgraph(raw_graph, global_eids, store_ids=True)
-	edge_dst_list = _graph.edges(order='eid')[1].tolist()
-	# dst_local_nid_list=list(OrderedCounter(edge_dst_list).keys())
-	dst_local_nid_list = remove_duplicates.remove_duplicates(edge_dst_list)
-
-	new_block = dgl.to_block(_graph, dst_nodes=torch.tensor(dst_local_nid_list, dtype=torch.long))
-	new_block.srcdata[dgl.NID] = global_srcnid
-	new_block.dstdata[dgl.NID] = global_dstnid
-	new_block.edata['_ID']=_graph.edata['_ID']
-
-	return new_block
-	
-    
 
 def generate_blocks_for_one_layer_block(raw_graph, layer_block, batches_nid_list):
 
@@ -199,7 +209,9 @@ def generate_blocks_for_one_layer_block(raw_graph, layer_block, batches_nid_list
 
 	connection_time = sum(check_connection_time)
 	block_gen_time = sum(block_generation_time)
-
+	print()
+	print('block_gen_time in "generate_blocks_for_one_layer_block" ', block_gen_time)
+	print()
 	return blocks, src_list, dst_list, (connection_time, block_gen_time)
 
 
@@ -210,8 +222,6 @@ def gen_grouped_dst_list(prev_layer_blocks):
 		src_nids = block.srcdata['_ID']
 		post_dst.append(src_nids)
 	return post_dst # return next layer's dst nids(equals prev layer src nids)
-
-
 
 
 def generate_dataloader_block(raw_graph, full_block_dataloader, args):
@@ -313,7 +323,7 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 				
 				# block 0 : (src_0, dst_0); block 1 : (src_1, dst_1);.......
 				blocks, src_list, dst_list, time_1 = generate_blocks_for_one_layer_block(raw_graph, layer_block,  batched_output_nid_list)
-
+				
 				prev_layer_blocks=blocks
 				blocks_list.append(blocks)
 				final_dst_list=dst_list
