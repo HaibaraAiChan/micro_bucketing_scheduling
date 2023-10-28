@@ -1,0 +1,622 @@
+main start at this time 1698451350.9959214
+-----------------------------------------before load data 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+karate data
+{}
+{}
+Graph(num_nodes=7, num_edges=14,
+      ndata_schemes={'label': Scheme(shape=(), dtype=torch.int64), 'feat': Scheme(shape=(4,), dtype=torch.float32)}
+      edata_schemes={})
+#nodes: 7
+#edges: 14
+#classes: 2
+success----------------------------------------
+4
+2
+1
+# Nodes: 7
+# Edges: 14
+# Train: 4
+# Val: 2
+# Test: 1
+# Classes: 2
+
+----------------------------------------start of run function 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+main fucntion generate_dataloader_bucket_block=======
+get_in_degree_bucketing src global nid  tensor([2, 0, 1, 3, 5, 4])
+get_in_degree_bucketing dst global nid  tensor([2, 0, 1, 3])
+get_in_degree_bucketing corresponding in degs tensor([2, 1, 3, 3])
+len(bkt)  1
+local bkt nids  tensor([1])
+len(bkt)  1
+local bkt nids  tensor([0])
+len(bkt)  2
+local bkt nids  tensor([2, 3])
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+partitioner **** batches_nid_list  [tensor([2]), tensor([3])]
+partitioner g_bucket_nids_list  [tensor([1]), tensor([0])]
+partitioner local_batches_nid_list  [tensor([2]), tensor([3])]
+self.weights_list  [0.5, 0.5]
+partitioner final local_batches_nid_list  [tensor([2, 1]), tensor([3, 0])]
+partitioner final local_batches_nid_list  [tensor([2, 1]), tensor([3, 0])]
+self.weights_list  [0.25, 0.25, 0.5]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0018568038940429688
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0010800361633300781
+local_to_global: src global  tensor([2, 0, 1, 3, 5, 4])
+local_to_global: local nid  tensor([1])
+local_to_global: local nid after sort  tensor([1])
+local_to_global: local nid  tensor([0])
+local_to_global: local nid after sort  tensor([0])
+local_to_global: local nid  tensor([2, 3])
+local_to_global: local nid after sort  tensor([2, 3])
+local_to_global: local_batched_seeds_list  [tensor([1]), tensor([0]), tensor([2, 3])]
+local_to_global: global_batched_seeds_list  [tensor([0]), tensor([2]), tensor([1, 3])]
+partition total batch output list spend :  0.004555940628051758
+self.buckets_partition() spend  sec:  0.002950429916381836
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  3
+bucketing dataloader: global_batched_output_nid_list  [tensor([0]), tensor([2]), tensor([1, 3])]
+connection check : local_output_nid  [1]
+connection check : local_output_nid  [0]
+connection check : local_output_nid  [2, 3]
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.007158517837524414
+
+bucketing dataloader: global src_list  [tensor([0, 1]), tensor([2, 1, 3]), tensor([1, 3, 0, 2, 5, 4])]
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  3
+connection check : local_output_nid  [1, 2]
+connection check : local_output_nid  [0, 2, 3]
+connection check : local_output_nid  [2, 3, 1, 0, 4, 5]
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.0044710636138916016
+
+bucketing dataloader: src_list  [tensor([0, 1, 5]), tensor([2, 1, 3, 0, 5, 4]), tensor([1, 3, 0, 2, 5, 4])]
+block collection to dataloader spend  5.4836273193359375e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.462890625 GB
+    Memory Allocated: 0.03133106231689453  GigaBytes
+Max Memory Allocated: 0.03133106231689453  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.552734375 GB
+    Memory Allocated: 0.031436920166015625  GigaBytes
+Max Memory Allocated: 0.031450748443603516  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.552734375 GB
+    Memory Allocated: 0.031438350677490234  GigaBytes
+Max Memory Allocated: 0.031450748443603516  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.7861, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.25
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.591796875 GB
+    Memory Allocated: 0.06266450881958008  GigaBytes
+Max Memory Allocated: 0.0626826286315918  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.591796875 GB
+    Memory Allocated: 0.06283187866210938  GigaBytes
+Max Memory Allocated: 0.0628499984741211  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.591796875 GB
+    Memory Allocated: 0.06283283233642578  GigaBytes
+Max Memory Allocated: 0.0628499984741211  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(1.0535, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.25
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.654296875 GB
+    Memory Allocated: 0.0626683235168457  GigaBytes
+Max Memory Allocated: 0.12522077560424805  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.654296875 GB
+    Memory Allocated: 0.0631093978881836  GigaBytes
+Max Memory Allocated: 0.12522077560424805  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.654296875 GB
+    Memory Allocated: 0.0631103515625  GigaBytes
+Max Memory Allocated: 0.12522077560424805  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.5832, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
+----------------------------------------after optimizer
+ Nvidia-smi: 1.701171875 GB
+    Memory Allocated: 0.12532901763916016  GigaBytes
+Max Memory Allocated: 0.17220401763916016  GigaBytes
+
+epoch  0
+----------------------------------------------------------pseudo_mini_loss sum 0.7514984607696533
+pure train time :  0.5058462619781494
+train time :  1.0458128452301025
+end to end time :  1.0722541809082031
+connection check time:  0.008850812911987305
+block generation time  0.011629581451416016
+main fucntion generate_dataloader_bucket_block=======
+get_in_degree_bucketing src global nid  tensor([1, 3, 2, 0, 5, 4])
+get_in_degree_bucketing dst global nid  tensor([1, 3, 2, 0])
+get_in_degree_bucketing corresponding in degs tensor([3, 3, 2, 1])
+len(bkt)  1
+local bkt nids  tensor([3])
+len(bkt)  1
+local bkt nids  tensor([2])
+len(bkt)  2
+local bkt nids  tensor([0, 1])
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+partitioner **** batches_nid_list  [tensor([0]), tensor([1])]
+partitioner g_bucket_nids_list  [tensor([3]), tensor([2])]
+partitioner local_batches_nid_list  [tensor([0]), tensor([1])]
+self.weights_list  [0.5, 0.5]
+partitioner final local_batches_nid_list  [tensor([0, 3]), tensor([1, 2])]
+partitioner final local_batches_nid_list  [tensor([0, 3]), tensor([1, 2])]
+self.weights_list  [0.25, 0.25, 0.5]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0016298294067382812
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0013887882232666016
+local_to_global: src global  tensor([1, 3, 2, 0, 5, 4])
+local_to_global: local nid  tensor([1])
+local_to_global: local nid after sort  tensor([1])
+local_to_global: local nid  tensor([0])
+local_to_global: local nid after sort  tensor([0])
+local_to_global: local nid  tensor([2, 3])
+local_to_global: local nid after sort  tensor([2, 3])
+local_to_global: local_batched_seeds_list  [tensor([1]), tensor([0]), tensor([2, 3])]
+local_to_global: global_batched_seeds_list  [tensor([3]), tensor([1]), tensor([2, 0])]
+partition total batch output list spend :  0.005338907241821289
+self.buckets_partition() spend  sec:  0.003034830093383789
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  3
+bucketing dataloader: global_batched_output_nid_list  [tensor([3]), tensor([1]), tensor([2, 0])]
+connection check : local_output_nid  [1]
+connection check : local_output_nid  [0]
+connection check : local_output_nid  [2, 3]
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.006853342056274414
+
+bucketing dataloader: global src_list  [tensor([3, 1, 2, 4]), tensor([1, 0, 2, 5]), tensor([2, 0, 1, 3])]
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  3
+connection check : local_output_nid  [1, 0, 2, 5]
+connection check : local_output_nid  [0, 3, 2, 4]
+connection check : local_output_nid  [2, 3, 0, 1]
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.005140542984008789
+
+bucketing dataloader: src_list  [tensor([3, 1, 2, 4, 0, 5]), tensor([1, 0, 2, 5, 3]), tensor([2, 0, 1, 3, 5, 4])]
+block collection to dataloader spend  5.4836273193359375e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.701171875 GB
+    Memory Allocated: 0.1253204345703125  GigaBytes
+Max Memory Allocated: 0.17220401763916016  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.701171875 GB
+    Memory Allocated: 0.12555360794067383  GigaBytes
+Max Memory Allocated: 0.17220401763916016  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.701171875 GB
+    Memory Allocated: 0.1255507469177246  GigaBytes
+Max Memory Allocated: 0.17220401763916016  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.0899, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.25
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1253209114074707  GigaBytes
+Max Memory Allocated: 0.18797683715820312  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12555789947509766  GigaBytes
+Max Memory Allocated: 0.18797683715820312  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12555885314941406  GigaBytes
+Max Memory Allocated: 0.18797683715820312  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.0469, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.25
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12532472610473633  GigaBytes
+Max Memory Allocated: 0.18798494338989258  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12557744979858398  GigaBytes
+Max Memory Allocated: 0.18798494338989258  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1255784034729004  GigaBytes
+Max Memory Allocated: 0.18798494338989258  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(1.3597, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
+----------------------------------------after optimizer
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12532901763916016  GigaBytes
+Max Memory Allocated: 0.18799686431884766  GigaBytes
+
+epoch  1
+----------------------------------------------------------pseudo_mini_loss sum 0.7140305042266846
+pure train time :  0.06511878967285156
+train time :  0.06850361824035645
+end to end time :  0.09627676010131836
+connection check time:  0.006796360015869141
+block generation time  0.011993885040283203
+main fucntion generate_dataloader_bucket_block=======
+get_in_degree_bucketing src global nid  tensor([1, 2, 3, 0, 5, 4])
+get_in_degree_bucketing dst global nid  tensor([1, 2, 3, 0])
+get_in_degree_bucketing corresponding in degs tensor([3, 2, 3, 1])
+len(bkt)  1
+local bkt nids  tensor([3])
+len(bkt)  1
+local bkt nids  tensor([1])
+len(bkt)  2
+local bkt nids  tensor([0, 2])
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+partitioner **** batches_nid_list  [tensor([0]), tensor([2])]
+partitioner g_bucket_nids_list  [tensor([3]), tensor([1])]
+partitioner local_batches_nid_list  [tensor([0]), tensor([2])]
+self.weights_list  [0.5, 0.5]
+partitioner final local_batches_nid_list  [tensor([0, 3]), tensor([2, 1])]
+partitioner final local_batches_nid_list  [tensor([0, 3]), tensor([2, 1])]
+self.weights_list  [0.25, 0.25, 0.5]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.001468658447265625
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0012466907501220703
+local_to_global: src global  tensor([1, 2, 3, 0, 5, 4])
+local_to_global: local nid  tensor([1])
+local_to_global: local nid after sort  tensor([1])
+local_to_global: local nid  tensor([0])
+local_to_global: local nid after sort  tensor([0])
+local_to_global: local nid  tensor([2, 3])
+local_to_global: local nid after sort  tensor([2, 3])
+local_to_global: local_batched_seeds_list  [tensor([1]), tensor([0]), tensor([2, 3])]
+local_to_global: global_batched_seeds_list  [tensor([2]), tensor([1]), tensor([3, 0])]
+partition total batch output list spend :  0.004811286926269531
+self.buckets_partition() spend  sec:  0.0027315616607666016
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  3
+bucketing dataloader: global_batched_output_nid_list  [tensor([2]), tensor([1]), tensor([3, 0])]
+connection check : local_output_nid  [1]
+connection check : local_output_nid  [0]
+connection check : local_output_nid  [2, 3]
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.005666971206665039
+
+bucketing dataloader: global src_list  [tensor([2, 1, 3]), tensor([1, 0, 2, 5]), tensor([3, 0, 1, 2, 4])]
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  3
+connection check : local_output_nid  [1, 0, 2]
+connection check : local_output_nid  [0, 3, 1, 4]
+connection check : local_output_nid  [2, 3, 0, 1, 5]
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.005221128463745117
+
+bucketing dataloader: src_list  [tensor([2, 1, 3, 5, 0]), tensor([1, 0, 2, 5, 3]), tensor([3, 0, 1, 2, 4, 5])]
+block collection to dataloader spend  5.0067901611328125e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1253204345703125  GigaBytes
+Max Memory Allocated: 0.18799686431884766  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1254878044128418  GigaBytes
+Max Memory Allocated: 0.18799686431884766  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12548494338989258  GigaBytes
+Max Memory Allocated: 0.18799686431884766  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(1.5990, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.25
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1253209114074707  GigaBytes
+Max Memory Allocated: 0.18799686431884766  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12555789947509766  GigaBytes
+Max Memory Allocated: 0.18799686431884766  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12555885314941406  GigaBytes
+Max Memory Allocated: 0.18799686431884766  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.0872, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.25
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12532472610473633  GigaBytes
+Max Memory Allocated: 0.18799686431884766  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12564325332641602  GigaBytes
+Max Memory Allocated: 0.18799686431884766  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12564420700073242  GigaBytes
+Max Memory Allocated: 0.18799686431884766  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.8547, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
+----------------------------------------after optimizer
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12532901763916016  GigaBytes
+Max Memory Allocated: 0.18807029724121094  GigaBytes
+
+epoch  2
+----------------------------------------------------------pseudo_mini_loss sum 0.8488962650299072
+pure train time :  0.05628395080566406
+train time :  0.058904170989990234
+end to end time :  0.08430957794189453
+connection check time:  0.006349086761474609
+block generation time  0.010888099670410156
+main fucntion generate_dataloader_bucket_block=======
+get_in_degree_bucketing src global nid  tensor([0, 3, 2, 1, 4, 5])
+get_in_degree_bucketing dst global nid  tensor([0, 3, 2, 1])
+get_in_degree_bucketing corresponding in degs tensor([1, 3, 2, 3])
+len(bkt)  1
+local bkt nids  tensor([0])
+len(bkt)  1
+local bkt nids  tensor([2])
+len(bkt)  2
+local bkt nids  tensor([1, 3])
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+partitioner **** batches_nid_list  [tensor([1]), tensor([3])]
+partitioner g_bucket_nids_list  [tensor([0]), tensor([2])]
+partitioner local_batches_nid_list  [tensor([1]), tensor([3])]
+self.weights_list  [0.5, 0.5]
+partitioner final local_batches_nid_list  [tensor([1, 0]), tensor([3, 2])]
+partitioner final local_batches_nid_list  [tensor([1, 0]), tensor([3, 2])]
+self.weights_list  [0.25, 0.25, 0.5]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0018184185028076172
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0016129016876220703
+local_to_global: src global  tensor([0, 3, 2, 1, 4, 5])
+local_to_global: local nid  tensor([1])
+local_to_global: local nid after sort  tensor([1])
+local_to_global: local nid  tensor([0])
+local_to_global: local nid after sort  tensor([0])
+local_to_global: local nid  tensor([2, 3])
+local_to_global: local nid after sort  tensor([2, 3])
+local_to_global: local_batched_seeds_list  [tensor([1]), tensor([0]), tensor([2, 3])]
+local_to_global: global_batched_seeds_list  [tensor([3]), tensor([0]), tensor([2, 1])]
+partition total batch output list spend :  0.006039619445800781
+self.buckets_partition() spend  sec:  0.0034487247467041016
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  3
+bucketing dataloader: global_batched_output_nid_list  [tensor([3]), tensor([0]), tensor([2, 1])]
+connection check : local_output_nid  [1]
+connection check : local_output_nid  [0]
+connection check : local_output_nid  [2, 3]
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.007159709930419922
+
+bucketing dataloader: global src_list  [tensor([3, 1, 2, 4]), tensor([0, 1]), tensor([2, 1, 3, 0, 5])]
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  3
+connection check : local_output_nid  [1, 3, 2, 4]
+connection check : local_output_nid  [0, 3]
+connection check : local_output_nid  [2, 3, 1, 0, 5]
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.005010843276977539
+
+bucketing dataloader: src_list  [tensor([3, 1, 2, 4, 0]), tensor([0, 1, 2]), tensor([2, 1, 3, 0, 5])]
+block collection to dataloader spend  5.4836273193359375e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1253204345703125  GigaBytes
+Max Memory Allocated: 0.18807029724121094  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12555360794067383  GigaBytes
+Max Memory Allocated: 0.18807029724121094  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1255507469177246  GigaBytes
+Max Memory Allocated: 0.18807029724121094  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.1498, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.25
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1253209114074707  GigaBytes
+Max Memory Allocated: 0.18807029724121094  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1254262924194336  GigaBytes
+Max Memory Allocated: 0.18807029724121094  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12542724609375  GigaBytes
+Max Memory Allocated: 0.18807029724121094  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.7353, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.25
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12532472610473633  GigaBytes
+Max Memory Allocated: 0.18807029724121094  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1257004737854004  GigaBytes
+Max Memory Allocated: 0.18807029724121094  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1257014274597168  GigaBytes
+Max Memory Allocated: 0.18807029724121094  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.4864, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
+----------------------------------------after optimizer
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12532901763916016  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+epoch  3
+----------------------------------------------------------pseudo_mini_loss sum 0.4644378423690796
+pure train time :  0.0635225772857666
+train time :  0.06668949127197266
+end to end time :  0.09512639045715332
+connection check time:  0.006648540496826172
+block generation time  0.012170553207397461
+main fucntion generate_dataloader_bucket_block=======
+get_in_degree_bucketing src global nid  tensor([3, 0, 2, 1, 4, 5])
+get_in_degree_bucketing dst global nid  tensor([3, 0, 2, 1])
+get_in_degree_bucketing corresponding in degs tensor([3, 1, 2, 3])
+len(bkt)  1
+local bkt nids  tensor([1])
+len(bkt)  1
+local bkt nids  tensor([2])
+len(bkt)  2
+local bkt nids  tensor([0, 3])
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+partitioner **** batches_nid_list  [tensor([0]), tensor([3])]
+partitioner g_bucket_nids_list  [tensor([1]), tensor([2])]
+partitioner local_batches_nid_list  [tensor([0]), tensor([3])]
+self.weights_list  [0.5, 0.5]
+partitioner final local_batches_nid_list  [tensor([0, 1]), tensor([3, 2])]
+partitioner final local_batches_nid_list  [tensor([0, 1]), tensor([3, 2])]
+self.weights_list  [0.25, 0.25, 0.5]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.002004861831665039
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0013430118560791016
+local_to_global: src global  tensor([3, 0, 2, 1, 4, 5])
+local_to_global: local nid  tensor([1])
+local_to_global: local nid after sort  tensor([1])
+local_to_global: local nid  tensor([0])
+local_to_global: local nid after sort  tensor([0])
+local_to_global: local nid  tensor([2, 3])
+local_to_global: local nid after sort  tensor([2, 3])
+local_to_global: local_batched_seeds_list  [tensor([1]), tensor([0]), tensor([2, 3])]
+local_to_global: global_batched_seeds_list  [tensor([0]), tensor([3]), tensor([2, 1])]
+partition total batch output list spend :  0.005577802658081055
+self.buckets_partition() spend  sec:  0.0033626556396484375
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  3
+bucketing dataloader: global_batched_output_nid_list  [tensor([0]), tensor([3]), tensor([2, 1])]
+connection check : local_output_nid  [1]
+connection check : local_output_nid  [0]
+connection check : local_output_nid  [2, 3]
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.007187604904174805
+
+bucketing dataloader: global src_list  [tensor([0, 1]), tensor([3, 1, 2, 4]), tensor([2, 1, 3, 0, 5])]
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  3
+connection check : local_output_nid  [1, 3]
+connection check : local_output_nid  [0, 3, 2, 4]
+connection check : local_output_nid  [2, 3, 0, 1, 5]
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.00437164306640625
+
+bucketing dataloader: src_list  [tensor([0, 1, 2]), tensor([3, 1, 2, 4, 0]), tensor([2, 1, 3, 0, 5, 4])]
+block collection to dataloader spend  4.0531158447265625e-06
+step  0
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1253204345703125  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1254258155822754  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12542295455932617  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.5687, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.25
+step  1
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1253209114074707  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12555408477783203  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12555503845214844  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.8383, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.25
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12532472610473633  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1257004737854004  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.1257014274597168  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+unweigthed pseudo_mini_loss  tensor(0.6197, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
+----------------------------------------after optimizer
+ Nvidia-smi: 1.716796875 GB
+    Memory Allocated: 0.12532901763916016  GigaBytes
+Max Memory Allocated: 0.1881275177001953  GigaBytes
+
+epoch  4
+----------------------------------------------------------pseudo_mini_loss sum 0.6615995168685913
+pure train time :  0.045098304748535156
+train time :  0.04722452163696289
+end to end time :  0.07575869560241699
+connection check time:  0.007581472396850586
+block generation time  0.011559247970581055
+end to end time  0.08321833610534668

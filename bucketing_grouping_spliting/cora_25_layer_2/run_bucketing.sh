@@ -52,21 +52,21 @@ python cora_buckey.py \
     --log-indent 3 \
     --lr 1e-3 \
     > ${save_path}/train_loss_nb_${nb}_bucketing_h_${hidden}___.log
-# nb=2
-# python cora_buckey.py \
-#     --dataset cora \
-#     --selection-method cora_25_backpack_bucketing \
-#     --num-batch $nb \
-#     --mem-constraint 0.19\
-#     --num-layers 2 \
-#     --fan-out 10,25 \
-#     --num-hidden $hidden \
-#     --num-runs 1 \
-#     --num-epoch $np \
-#     --aggre lstm \
-#     --log-indent 3 \
-#     --lr 1e-3 \
-#     > ${save_path}/train_loss_nb_${nb}_bucketing_h_${hidden}___.log
+nb=2
+python cora_buckey.py \
+    --dataset cora \
+    --selection-method cora_25_backpack_bucketing \
+    --num-batch $nb \
+    --mem-constraint 0.19\
+    --num-layers 2 \
+    --fan-out 10,25 \
+    --num-hidden $hidden \
+    --num-runs 1 \
+    --num-epoch $np \
+    --aggre lstm \
+    --log-indent 3 \
+    --lr 1e-3 \
+    > ${save_path}/train_loss_nb_${nb}_bucketing_h_${hidden}___.log
 # nb=4
 # hidden=256
 # python cora_buckey.py \

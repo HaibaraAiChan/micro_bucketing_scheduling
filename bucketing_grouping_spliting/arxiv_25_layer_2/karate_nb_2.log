@@ -1,4 +1,4 @@
-main start at this time 1698364571.0466747
+main start at this time 1698450250.9863582
 -----------------------------------------before load data 
  Nvidia-smi: 0.166015625 GB
     Memory Allocated: 0.0  GigaBytes
@@ -41,73 +41,40 @@ len(bkt)  2
 local bkt nids  tensor([2, 3])
 ---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
 partitioner **** batches_nid_list  [tensor([2]), tensor([3])]
- the number of batches:  2
-the ratio of the output nids to be processed:  0.5
-K_Hop_neighbor: weights list of these split output nids:  [0.25, 0.25]
-generate K hop neighbors layer id (from bottom to top)),  0
-gen K hop neighbors check_connections_block*********************************
-len of local_batched_nodes_list  2
-
-step  0
-len(mini_batch_src_global)  3
-len(r_)  3
-remove values openmp spend  1.8596649169921875e-05
-one layer mini_batch_src_local collection stoped 
-generate_one_hop_neighbors global srcnid  tensor([1, 0, 2, 5])
-generate_one_hop_neighbors global dstnid  tensor([1])
-the bottom layer global src list  [tensor([1, 0, 2, 5])]
-the bottom layer global dst list  [tensor([1])]
-generate K hop neighbors layer id (from bottom to top)),  1
-layer  1
-gen k hop neighbor num of batch  1
-gen K hop neighbors check_connections_block*********************************
-len of local_batched_nodes_list  1
-
-step  0
-len(mini_batch_src_global)  4
-len(r_)  2
-remove values openmp spend  5.4836273193359375e-06
-one layer mini_batch_src_local collection stoped 
-generate_one_hop_neighbors global srcnid  tensor([0, 2, 1, 4, 3, 5])
-generate_one_hop_neighbors global dstnid  tensor([0, 2, 1, 4])
- the layer 1 global src list [tensor([0, 2, 1, 4, 3, 5])]
- the layer 1 global dst list [tensor([0, 2, 1, 4])]
-generate k hop neighbors  [tensor([0, 2, 1, 4, 3, 5])]
-generate_K_hop_neighbors time  0.0015072822570800781
-src_list  [tensor([0, 2, 1, 4, 3, 5])]
+partitioner g_bucket_nids_list  [tensor([1]), tensor([0])]
+partitioner local_batches_nid_list  [tensor([2]), tensor([3])]
 self.weights_list  [0.5, 0.5]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0016312599182128906
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.002162933349609375
-len local_batched_seeds_list  2
-partition total batch output list spend :  0.004302024841308594
-self.buckets_partition() spend  sec:  0.003808736801147461
-layer  0
- the number of batches:  2
-check_connections_block*********************************
+partitioner final local_batches_nid_list  [tensor([2, 1]), tensor([3, 0])]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.001493215560913086
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0006589889526367188
+local_to_global: src global  tensor([2, 0, 1, 3, 5, 4])
+local_to_global: local nid  tensor([2, 1])
+local_to_global: local nid after sort  tensor([1, 2])
+local_to_global: local nid  tensor([3, 0])
+local_to_global: local nid after sort  tensor([0, 3])
+local_to_global: local_batched_seeds_list  [tensor([2, 1]), tensor([3, 0])]
+local_to_global: global_batched_seeds_list  [tensor([0, 1]), tensor([2, 3])]
+partition total batch output list spend :  0.003019094467163086
+self.buckets_partition() spend  sec:  0.0021631717681884766
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  2
+bucketing dataloader: global_batched_output_nid_list  [tensor([0, 1]), tensor([2, 3])]
+connection check : local_output_nid  [1, 2]
+connection check : local_output_nid  [0, 3]
 
-the find indices time spent  2.2649765014648438e-05
+block_gen_time in "generate_blocks_for_one_layer_block"  0.00529789924621582
 
-in edges time spent  0.002853870391845703
-local to global src and eids time spent  8.7738037109375e-05
-time gen tails  4.172325134277344e-05
-res  length 2
+bucketing dataloader: global src_list  [tensor([0, 1, 2, 5]), tensor([2, 3, 1, 4])]
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  2
+connection check : local_output_nid  [1, 2, 0, 4]
+connection check : local_output_nid  [0, 3, 2, 5]
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.00916290283203125
+block_gen_time in "generate_blocks_for_one_layer_block"  0.003163576126098633
 
-layer  1
-num of batch  2
-check_connections_block*********************************
-
-the find indices time spent  1.2636184692382812e-05
-
-in edges time spent  0.004206657409667969
-local to global src and eids time spent  8.821487426757812e-05
-time gen tails  1.0013580322265625e-05
-res  length 2
-
-block_gen_time in "generate_blocks_for_one_layer_block"  0.003156900405883789
-
-block collection to dataloader spend  6.9141387939453125e-06
+bucketing dataloader: src_list  [tensor([0, 1, 2, 5, 3]), tensor([2, 3, 1, 4, 0, 5])]
+block collection to dataloader spend  7.62939453125e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.462890625 GB
@@ -124,6 +91,8 @@ Max Memory Allocated: 0.03167533874511719  GigaBytes
     Memory Allocated: 0.031642913818359375  GigaBytes
 Max Memory Allocated: 0.03167533874511719  GigaBytes
 
+unweigthed pseudo_mini_loss  tensor(0.6805, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
 step  1
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.623046875 GB
@@ -140,6 +109,8 @@ Max Memory Allocated: 0.09408807754516602  GigaBytes
     Memory Allocated: 0.06302881240844727  GigaBytes
 Max Memory Allocated: 0.09408807754516602  GigaBytes
 
+unweigthed pseudo_mini_loss  tensor(0.8040, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
 ----------------------------------------after optimizer
  Nvidia-smi: 1.701171875 GB
     Memory Allocated: 0.12532520294189453  GigaBytes
@@ -147,11 +118,11 @@ Max Memory Allocated: 0.17220020294189453  GigaBytes
 
 epoch  0
 ----------------------------------------------------------pseudo_mini_loss sum 0.7422652840614319
-pure train time :  0.45386743545532227
-train time :  0.9913070201873779
-end to end time :  1.0161397457122803
-connection check time:  0.007523298263549805
-block generation time  0.012319803237915039
+pure train time :  0.44470858573913574
+train time :  0.9943733215332031
+end to end time :  1.0157811641693115
+connection check time:  0.008767366409301758
+block generation time  0.008461475372314453
 main fucntion generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([1, 3, 2, 0, 5, 4])
 get_in_degree_bucketing dst global nid  tensor([1, 3, 2, 0])
@@ -164,73 +135,40 @@ len(bkt)  2
 local bkt nids  tensor([0, 1])
 ---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
 partitioner **** batches_nid_list  [tensor([0]), tensor([1])]
- the number of batches:  2
-the ratio of the output nids to be processed:  0.5
-K_Hop_neighbor: weights list of these split output nids:  [0.25, 0.25]
-generate K hop neighbors layer id (from bottom to top)),  0
-gen K hop neighbors check_connections_block*********************************
-len of local_batched_nodes_list  2
-
-step  0
-len(mini_batch_src_global)  3
-len(r_)  3
-remove values openmp spend  9.059906005859375e-06
-one layer mini_batch_src_local collection stoped 
-generate_one_hop_neighbors global srcnid  tensor([1, 0, 2, 5])
-generate_one_hop_neighbors global dstnid  tensor([1])
-the bottom layer global src list  [tensor([1, 0, 2, 5])]
-the bottom layer global dst list  [tensor([1])]
-generate K hop neighbors layer id (from bottom to top)),  1
-layer  1
-gen k hop neighbor num of batch  1
-gen K hop neighbors check_connections_block*********************************
-len of local_batched_nodes_list  1
-
-step  0
-len(mini_batch_src_global)  6
-len(r_)  2
-remove values openmp spend  7.867813110351562e-06
-one layer mini_batch_src_local collection stoped 
-generate_one_hop_neighbors global srcnid  tensor([3, 1, 2, 4, 0, 5])
-generate_one_hop_neighbors global dstnid  tensor([3, 1, 2, 4])
- the layer 1 global src list [tensor([3, 1, 2, 4, 0, 5])]
- the layer 1 global dst list [tensor([3, 1, 2, 4])]
-generate k hop neighbors  [tensor([3, 1, 2, 4, 0, 5])]
-generate_K_hop_neighbors time  0.001828908920288086
-src_list  [tensor([3, 1, 2, 4, 0, 5])]
+partitioner g_bucket_nids_list  [tensor([3]), tensor([2])]
+partitioner local_batches_nid_list  [tensor([0]), tensor([1])]
 self.weights_list  [0.5, 0.5]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0010371208190917969
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0022373199462890625
-len local_batched_seeds_list  2
-partition total batch output list spend :  0.0035657882690429688
-self.buckets_partition() spend  sec:  0.0032842159271240234
-layer  0
- the number of batches:  2
-check_connections_block*********************************
+partitioner final local_batches_nid_list  [tensor([0, 3]), tensor([1, 2])]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0016238689422607422
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0010945796966552734
+local_to_global: src global  tensor([1, 3, 2, 0, 5, 4])
+local_to_global: local nid  tensor([0, 3])
+local_to_global: local nid after sort  tensor([0, 3])
+local_to_global: local nid  tensor([1, 2])
+local_to_global: local nid after sort  tensor([1, 2])
+local_to_global: local_batched_seeds_list  [tensor([0, 3]), tensor([1, 2])]
+local_to_global: global_batched_seeds_list  [tensor([1, 0]), tensor([3, 2])]
+partition total batch output list spend :  0.004405498504638672
+self.buckets_partition() spend  sec:  0.002735614776611328
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  2
+bucketing dataloader: global_batched_output_nid_list  [tensor([1, 0]), tensor([3, 2])]
+connection check : local_output_nid  [0, 3]
+connection check : local_output_nid  [1, 2]
 
-the find indices time spent  1.621246337890625e-05
+block_gen_time in "generate_blocks_for_one_layer_block"  0.004666805267333984
 
-in edges time spent  0.0029168128967285156
-local to global src and eids time spent  0.00011014938354492188
-time gen tails  1.430511474609375e-05
-res  length 2
+bucketing dataloader: global src_list  [tensor([1, 0, 2, 5]), tensor([3, 2, 1, 4])]
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  2
+connection check : local_output_nid  [0, 3, 2, 4]
+connection check : local_output_nid  [1, 2, 0, 5]
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0038862228393554688
+block_gen_time in "generate_blocks_for_one_layer_block"  0.003957271575927734
 
-layer  1
-num of batch  2
-check_connections_block*********************************
-
-the find indices time spent  1.2874603271484375e-05
-
-in edges time spent  0.003431081771850586
-local to global src and eids time spent  9.250640869140625e-05
-time gen tails  1.3113021850585938e-05
-res  length 2
-
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0033833980560302734
-
-block collection to dataloader spend  4.291534423828125e-06
+bucketing dataloader: src_list  [tensor([1, 0, 2, 5, 3]), tensor([3, 2, 1, 4, 0, 5])]
+block collection to dataloader spend  4.5299530029296875e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.701171875 GB
@@ -247,6 +185,8 @@ Max Memory Allocated: 0.17220020294189453  GigaBytes
     Memory Allocated: 0.1256275177001953  GigaBytes
 Max Memory Allocated: 0.17220020294189453  GigaBytes
 
+unweigthed pseudo_mini_loss  tensor(0.5251, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
 step  1
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.716796875 GB
@@ -263,6 +203,8 @@ Max Memory Allocated: 0.18805742263793945  GigaBytes
     Memory Allocated: 0.1256852149963379  GigaBytes
 Max Memory Allocated: 0.18805742263793945  GigaBytes
 
+unweigthed pseudo_mini_loss  tensor(0.8016, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
 ----------------------------------------after optimizer
  Nvidia-smi: 1.716796875 GB
     Memory Allocated: 0.12532520294189453  GigaBytes
@@ -270,11 +212,11 @@ Max Memory Allocated: 0.18811511993408203  GigaBytes
 
 epoch  1
 ----------------------------------------------------------pseudo_mini_loss sum 0.6633391380310059
-pure train time :  0.04081439971923828
-train time :  0.042249441146850586
-end to end time :  0.06218838691711426
-connection check time:  0.006882190704345703
-block generation time  0.007269620895385742
+pure train time :  0.044089317321777344
+train time :  0.04567885398864746
+end to end time :  0.06912922859191895
+connection check time:  0.0070340633392333984
+block generation time  0.008624076843261719
 main fucntion generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([1, 2, 3, 0, 5, 4])
 get_in_degree_bucketing dst global nid  tensor([1, 2, 3, 0])
@@ -287,73 +229,40 @@ len(bkt)  2
 local bkt nids  tensor([0, 2])
 ---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
 partitioner **** batches_nid_list  [tensor([0]), tensor([2])]
- the number of batches:  2
-the ratio of the output nids to be processed:  0.5
-K_Hop_neighbor: weights list of these split output nids:  [0.25, 0.25]
-generate K hop neighbors layer id (from bottom to top)),  0
-gen K hop neighbors check_connections_block*********************************
-len of local_batched_nodes_list  2
-
-step  0
-len(mini_batch_src_global)  3
-len(r_)  3
-remove values openmp spend  1.0013580322265625e-05
-one layer mini_batch_src_local collection stoped 
-generate_one_hop_neighbors global srcnid  tensor([1, 0, 2, 5])
-generate_one_hop_neighbors global dstnid  tensor([1])
-the bottom layer global src list  [tensor([1, 0, 2, 5])]
-the bottom layer global dst list  [tensor([1])]
-generate K hop neighbors layer id (from bottom to top)),  1
-layer  1
-gen k hop neighbor num of batch  1
-gen K hop neighbors check_connections_block*********************************
-len of local_batched_nodes_list  1
-
-step  0
-len(mini_batch_src_global)  5
-len(r_)  2
-remove values openmp spend  1.0251998901367188e-05
-one layer mini_batch_src_local collection stoped 
-generate_one_hop_neighbors global srcnid  tensor([2, 1, 3, 4, 5, 0])
-generate_one_hop_neighbors global dstnid  tensor([2, 1, 3, 4])
- the layer 1 global src list [tensor([2, 1, 3, 4, 5, 0])]
- the layer 1 global dst list [tensor([2, 1, 3, 4])]
-generate k hop neighbors  [tensor([2, 1, 3, 4, 5, 0])]
-generate_K_hop_neighbors time  0.002622842788696289
-src_list  [tensor([2, 1, 3, 4, 5, 0])]
+partitioner g_bucket_nids_list  [tensor([3]), tensor([1])]
+partitioner local_batches_nid_list  [tensor([0]), tensor([2])]
 self.weights_list  [0.5, 0.5]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.001230478286743164
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0031676292419433594
-len local_batched_seeds_list  2
-partition total batch output list spend :  0.004868745803833008
-self.buckets_partition() spend  sec:  0.00441431999206543
-layer  0
- the number of batches:  2
-check_connections_block*********************************
+partitioner final local_batches_nid_list  [tensor([0, 3]), tensor([2, 1])]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0023958683013916016
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0011606216430664062
+local_to_global: src global  tensor([1, 2, 3, 0, 5, 4])
+local_to_global: local nid  tensor([0, 3])
+local_to_global: local nid after sort  tensor([0, 3])
+local_to_global: local nid  tensor([2, 1])
+local_to_global: local nid after sort  tensor([1, 2])
+local_to_global: local_batched_seeds_list  [tensor([0, 3]), tensor([2, 1])]
+local_to_global: global_batched_seeds_list  [tensor([1, 0]), tensor([2, 3])]
+partition total batch output list spend :  0.0052263736724853516
+self.buckets_partition() spend  sec:  0.0035729408264160156
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  2
+bucketing dataloader: global_batched_output_nid_list  [tensor([1, 0]), tensor([2, 3])]
+connection check : local_output_nid  [0, 3]
+connection check : local_output_nid  [1, 2]
 
-the find indices time spent  2.4080276489257812e-05
+block_gen_time in "generate_blocks_for_one_layer_block"  0.005089759826660156
 
-in edges time spent  0.0035750865936279297
-local to global src and eids time spent  0.0001819133758544922
-time gen tails  2.1219253540039062e-05
-res  length 2
+bucketing dataloader: global src_list  [tensor([1, 0, 2, 5]), tensor([2, 3, 1, 4])]
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  2
+connection check : local_output_nid  [0, 3, 1, 4]
+connection check : local_output_nid  [1, 2, 0, 5]
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.004331111907958984
+block_gen_time in "generate_blocks_for_one_layer_block"  0.004059314727783203
 
-layer  1
-num of batch  2
-check_connections_block*********************************
-
-the find indices time spent  1.6450881958007812e-05
-
-in edges time spent  0.003201007843017578
-local to global src and eids time spent  0.00011849403381347656
-time gen tails  1.52587890625e-05
-res  length 2
-
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0038290023803710938
-
-block collection to dataloader spend  4.291534423828125e-06
+bucketing dataloader: src_list  [tensor([1, 0, 2, 5, 3]), tensor([2, 3, 1, 4, 5, 0])]
+block collection to dataloader spend  5.7220458984375e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.716796875 GB
@@ -370,6 +279,8 @@ Max Memory Allocated: 0.18811511993408203  GigaBytes
     Memory Allocated: 0.1256275177001953  GigaBytes
 Max Memory Allocated: 0.18811511993408203  GigaBytes
 
+unweigthed pseudo_mini_loss  tensor(0.4817, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
 step  1
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.716796875 GB
@@ -386,6 +297,8 @@ Max Memory Allocated: 0.18811511993408203  GigaBytes
     Memory Allocated: 0.1256852149963379  GigaBytes
 Max Memory Allocated: 0.18811511993408203  GigaBytes
 
+unweigthed pseudo_mini_loss  tensor(0.8336, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
 ----------------------------------------after optimizer
  Nvidia-smi: 1.716796875 GB
     Memory Allocated: 0.12532520294189453  GigaBytes
@@ -393,11 +306,11 @@ Max Memory Allocated: 0.18811511993408203  GigaBytes
 
 epoch  2
 ----------------------------------------------------------pseudo_mini_loss sum 0.6576522588729858
-pure train time :  0.041082143783569336
-train time :  0.042568206787109375
-end to end time :  0.06587004661560059
-connection check time:  0.0074310302734375
-block generation time  0.008160114288330078
+pure train time :  0.04039502143859863
+train time :  0.04192996025085449
+end to end time :  0.06650614738464355
+connection check time:  0.006876468658447266
+block generation time  0.00914907455444336
 main fucntion generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([0, 3, 2, 1, 4, 5])
 get_in_degree_bucketing dst global nid  tensor([0, 3, 2, 1])
@@ -410,73 +323,40 @@ len(bkt)  2
 local bkt nids  tensor([1, 3])
 ---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
 partitioner **** batches_nid_list  [tensor([1]), tensor([3])]
- the number of batches:  2
-the ratio of the output nids to be processed:  0.5
-K_Hop_neighbor: weights list of these split output nids:  [0.25, 0.25]
-generate K hop neighbors layer id (from bottom to top)),  0
-gen K hop neighbors check_connections_block*********************************
-len of local_batched_nodes_list  2
-
-step  0
-len(mini_batch_src_global)  3
-len(r_)  3
-remove values openmp spend  9.059906005859375e-06
-one layer mini_batch_src_local collection stoped 
-generate_one_hop_neighbors global srcnid  tensor([3, 1, 2, 4])
-generate_one_hop_neighbors global dstnid  tensor([3])
-the bottom layer global src list  [tensor([3, 1, 2, 4])]
-the bottom layer global dst list  [tensor([3])]
-generate K hop neighbors layer id (from bottom to top)),  1
-layer  1
-gen k hop neighbor num of batch  1
-gen K hop neighbors check_connections_block*********************************
-len of local_batched_nodes_list  1
-
-step  0
-len(mini_batch_src_global)  4
-len(r_)  1
-remove values openmp spend  1.1682510375976562e-05
-one layer mini_batch_src_local collection stoped 
-generate_one_hop_neighbors global srcnid  tensor([1, 3, 2, 4, 0])
-generate_one_hop_neighbors global dstnid  tensor([1, 3, 2, 4])
- the layer 1 global src list [tensor([1, 3, 2, 4, 0])]
- the layer 1 global dst list [tensor([1, 3, 2, 4])]
-generate k hop neighbors  [tensor([1, 3, 2, 4, 0])]
-generate_K_hop_neighbors time  0.0031015872955322266
-src_list  [tensor([1, 3, 2, 4, 0])]
+partitioner g_bucket_nids_list  [tensor([0]), tensor([2])]
+partitioner local_batches_nid_list  [tensor([1]), tensor([3])]
 self.weights_list  [0.5, 0.5]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0017066001892089844
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.003742694854736328
-len local_batched_seeds_list  2
-partition total batch output list spend :  0.0057697296142578125
-self.buckets_partition() spend  sec:  0.005460500717163086
-layer  0
- the number of batches:  2
-check_connections_block*********************************
+partitioner final local_batches_nid_list  [tensor([1, 0]), tensor([3, 2])]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0011000633239746094
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0007522106170654297
+local_to_global: src global  tensor([0, 3, 2, 1, 4, 5])
+local_to_global: local nid  tensor([1, 0])
+local_to_global: local nid after sort  tensor([0, 1])
+local_to_global: local nid  tensor([3, 2])
+local_to_global: local nid after sort  tensor([2, 3])
+local_to_global: local_batched_seeds_list  [tensor([1, 0]), tensor([3, 2])]
+local_to_global: global_batched_seeds_list  [tensor([0, 3]), tensor([2, 1])]
+partition total batch output list spend :  0.0029973983764648438
+self.buckets_partition() spend  sec:  0.0018630027770996094
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  2
+bucketing dataloader: global_batched_output_nid_list  [tensor([0, 3]), tensor([2, 1])]
+connection check : local_output_nid  [0, 1]
+connection check : local_output_nid  [2, 3]
 
-the find indices time spent  1.621246337890625e-05
+block_gen_time in "generate_blocks_for_one_layer_block"  0.0031511783599853516
 
-in edges time spent  0.003023862838745117
-local to global src and eids time spent  0.00013065338134765625
-time gen tails  1.1920928955078125e-05
-res  length 2
+bucketing dataloader: global src_list  [tensor([0, 3, 1, 2, 4]), tensor([2, 1, 3, 0, 5])]
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  2
+connection check : local_output_nid  [0, 1, 3, 2, 4]
+connection check : local_output_nid  [2, 3, 1, 0, 5]
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.004232168197631836
+block_gen_time in "generate_blocks_for_one_layer_block"  0.0031239986419677734
 
-layer  1
-num of batch  2
-check_connections_block*********************************
-
-the find indices time spent  1.6927719116210938e-05
-
-in edges time spent  0.0034813880920410156
-local to global src and eids time spent  0.00011301040649414062
-time gen tails  8.821487426757812e-06
-res  length 2
-
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0032444000244140625
-
-block collection to dataloader spend  4.5299530029296875e-06
+bucketing dataloader: src_list  [tensor([0, 3, 1, 2, 4]), tensor([2, 1, 3, 0, 5])]
+block collection to dataloader spend  5.0067901611328125e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.716796875 GB
@@ -493,6 +373,8 @@ Max Memory Allocated: 0.18811511993408203  GigaBytes
     Memory Allocated: 0.12563610076904297  GigaBytes
 Max Memory Allocated: 0.18811511993408203  GigaBytes
 
+unweigthed pseudo_mini_loss  tensor(0.5190, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
 step  1
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.716796875 GB
@@ -509,6 +391,8 @@ Max Memory Allocated: 0.18811511993408203  GigaBytes
     Memory Allocated: 0.12569761276245117  GigaBytes
 Max Memory Allocated: 0.18811511993408203  GigaBytes
 
+unweigthed pseudo_mini_loss  tensor(0.5521, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
 ----------------------------------------after optimizer
  Nvidia-smi: 1.716796875 GB
     Memory Allocated: 0.12532520294189453  GigaBytes
@@ -516,11 +400,11 @@ Max Memory Allocated: 0.1881237030029297  GigaBytes
 
 epoch  3
 ----------------------------------------------------------pseudo_mini_loss sum 0.5355501174926758
-pure train time :  0.0415339469909668
-train time :  0.0429685115814209
-end to end time :  0.06566214561462402
-connection check time:  0.007025003433227539
-block generation time  0.0074765682220458984
+pure train time :  0.04390120506286621
+train time :  0.04540443420410156
+end to end time :  0.06307840347290039
+connection check time:  0.006067037582397461
+block generation time  0.006275177001953125
 main fucntion generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([3, 0, 2, 1, 4, 5])
 get_in_degree_bucketing dst global nid  tensor([3, 0, 2, 1])
@@ -533,73 +417,40 @@ len(bkt)  2
 local bkt nids  tensor([0, 3])
 ---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
 partitioner **** batches_nid_list  [tensor([0]), tensor([3])]
- the number of batches:  2
-the ratio of the output nids to be processed:  0.5
-K_Hop_neighbor: weights list of these split output nids:  [0.25, 0.25]
-generate K hop neighbors layer id (from bottom to top)),  0
-gen K hop neighbors check_connections_block*********************************
-len of local_batched_nodes_list  2
-
-step  0
-len(mini_batch_src_global)  3
-len(r_)  3
-remove values openmp spend  9.059906005859375e-06
-one layer mini_batch_src_local collection stoped 
-generate_one_hop_neighbors global srcnid  tensor([3, 1, 2, 4])
-generate_one_hop_neighbors global dstnid  tensor([3])
-the bottom layer global src list  [tensor([3, 1, 2, 4])]
-the bottom layer global dst list  [tensor([3])]
-generate K hop neighbors layer id (from bottom to top)),  1
-layer  1
-gen k hop neighbor num of batch  1
-gen K hop neighbors check_connections_block*********************************
-len of local_batched_nodes_list  1
-
-step  0
-len(mini_batch_src_global)  4
-len(r_)  1
-remove values openmp spend  9.059906005859375e-06
-one layer mini_batch_src_local collection stoped 
-generate_one_hop_neighbors global srcnid  tensor([1, 0, 2, 4, 3])
-generate_one_hop_neighbors global dstnid  tensor([1, 0, 2, 4])
- the layer 1 global src list [tensor([1, 0, 2, 4, 3])]
- the layer 1 global dst list [tensor([1, 0, 2, 4])]
-generate k hop neighbors  [tensor([1, 0, 2, 4, 3])]
-generate_K_hop_neighbors time  0.002772808074951172
-src_list  [tensor([1, 0, 2, 4, 3])]
+partitioner g_bucket_nids_list  [tensor([1]), tensor([2])]
+partitioner local_batches_nid_list  [tensor([0]), tensor([3])]
 self.weights_list  [0.5, 0.5]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.002385854721069336
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0035400390625
-len local_batched_seeds_list  2
-partition total batch output list spend :  0.006368398666381836
-self.buckets_partition() spend  sec:  0.005940437316894531
-layer  0
- the number of batches:  2
-check_connections_block*********************************
+partitioner final local_batches_nid_list  [tensor([0, 1]), tensor([3, 2])]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.002201557159423828
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0011761188507080078
+local_to_global: src global  tensor([3, 0, 2, 1, 4, 5])
+local_to_global: local nid  tensor([0, 1])
+local_to_global: local nid after sort  tensor([0, 1])
+local_to_global: local nid  tensor([3, 2])
+local_to_global: local nid after sort  tensor([2, 3])
+local_to_global: local_batched_seeds_list  [tensor([0, 1]), tensor([3, 2])]
+local_to_global: global_batched_seeds_list  [tensor([3, 0]), tensor([2, 1])]
+partition total batch output list spend :  0.005178689956665039
+self.buckets_partition() spend  sec:  0.003397703170776367
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  2
+bucketing dataloader: global_batched_output_nid_list  [tensor([3, 0]), tensor([2, 1])]
+connection check : local_output_nid  [0, 1]
+connection check : local_output_nid  [2, 3]
 
-the find indices time spent  2.288818359375e-05
+block_gen_time in "generate_blocks_for_one_layer_block"  0.005677461624145508
 
-in edges time spent  0.0035233497619628906
-local to global src and eids time spent  0.00016570091247558594
-time gen tails  1.621246337890625e-05
-res  length 2
+bucketing dataloader: global src_list  [tensor([3, 0, 1, 2, 4]), tensor([2, 1, 3, 0, 5])]
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  2
+connection check : local_output_nid  [0, 1, 3, 2, 4]
+connection check : local_output_nid  [2, 3, 0, 1, 5]
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.005548715591430664
+block_gen_time in "generate_blocks_for_one_layer_block"  0.004027128219604492
 
-layer  1
-num of batch  2
-check_connections_block*********************************
-
-the find indices time spent  1.621246337890625e-05
-
-in edges time spent  0.0033097267150878906
-local to global src and eids time spent  0.00012087821960449219
-time gen tails  1.2159347534179688e-05
-res  length 2
-
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0039730072021484375
-
-block collection to dataloader spend  5.4836273193359375e-06
+bucketing dataloader: src_list  [tensor([3, 0, 1, 2, 4]), tensor([2, 1, 3, 0, 5, 4])]
+block collection to dataloader spend  4.5299530029296875e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.716796875 GB
@@ -616,6 +467,8 @@ Max Memory Allocated: 0.1881237030029297  GigaBytes
     Memory Allocated: 0.12563610076904297  GigaBytes
 Max Memory Allocated: 0.1881237030029297  GigaBytes
 
+unweigthed pseudo_mini_loss  tensor(0.8779, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
 step  1
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.716796875 GB
@@ -632,6 +485,8 @@ Max Memory Allocated: 0.1881237030029297  GigaBytes
     Memory Allocated: 0.12569761276245117  GigaBytes
 Max Memory Allocated: 0.1881237030029297  GigaBytes
 
+unweigthed pseudo_mini_loss  tensor(0.3378, device='cuda:0', grad_fn=<NllLossBackward>)
+unweigthed weights_list[step]  0.5
 ----------------------------------------after optimizer
  Nvidia-smi: 1.716796875 GB
     Memory Allocated: 0.12532520294189453  GigaBytes
@@ -639,9 +494,9 @@ Max Memory Allocated: 0.1881237030029297  GigaBytes
 
 epoch  4
 ----------------------------------------------------------pseudo_mini_loss sum 0.6078296899795532
-pure train time :  0.043079376220703125
-train time :  0.044385433197021484
-end to end time :  0.07035374641418457
-connection check time:  0.007452964782714844
-block generation time  0.009521722793579102
-end to end time  0.0779571533203125
+pure train time :  0.044542789459228516
+train time :  0.045966148376464844
+end to end time :  0.0705268383026123
+connection check time:  0.006507158279418945
+block generation time  0.00970458984375
+end to end time  0.07861590385437012

@@ -245,6 +245,8 @@ def run(args, device, data):
 					# print()
 					print('full batch src global ', len(input_nodes))
 					print('full batch dst global ', len(seeds))
+					print('full batch src global ', input_nodes)
+					print('full batch dst global ', seeds)
 					# print('full batch eid global ', blocks[-1].edata['_ID'])
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 					see_memory_usage("----------------------------------------after load_block_subtensor")

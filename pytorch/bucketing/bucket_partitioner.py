@@ -985,10 +985,12 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				local_batches_nid_list = list(torch.chunk(fanout_dst_nids, self.K))
 				print('partitioner **** batches_nid_list ', local_batches_nid_list)
 				ct = time.time()
-				src_list, weights_list, time_collection = generate_K_hop_neighbors(self.full_batch_dataloader, self.args, local_batches_nid_list)
-				print('generate_K_hop_neighbors time ', time.time()-ct)
-				print('src_list ', src_list)
+				# src_list, weights_list, time_collection = generate_K_hop_neighbors(self.full_batch_dataloader, self.args, local_batches_nid_list)
+				# print('generate_K_hop_neighbors time ', time.time()-ct)
+				# print('global src_list of k hop neighbors', src_list)
 				g_bucket_nids_list = bkt_dst_nodes_list[:-1]
+				print('partitioner g_bucket_nids_list ', g_bucket_nids_list)
+				print('partitioner local_batches_nid_list ', local_batches_nid_list)
 				for i in range(len(local_batches_nid_list)):
 					local_batches_nid_list[i] = torch.cat((local_batches_nid_list[i], g_bucket_nids_list[i])) 
 				length = len(self.output_nids)
@@ -996,6 +998,11 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				print('self.weights_list ', self.weights_list)
 					
 				self.local_batched_seeds_list = local_batches_nid_list
+				print('partitioner final local_batches_nid_list ', local_batches_nid_list)
+				self.local_batched_seeds_list = [torch.tensor([1], dtype=torch.long),torch.tensor([0], dtype=torch.long), torch.tensor([2,3], dtype=torch.long)]
+				print('partitioner final local_batches_nid_list ', local_batches_nid_list)
+				self.weights_list=[0.25, 0.25, 0.5]
+				print('self.weights_list ', self.weights_list)
 				return
 					
 			
@@ -1067,24 +1074,21 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 	
 	def local_to_global(self):
 
-		# print('src global ', self.src_nids_tensor)
+		print('local_to_global: src global ', self.src_nids_tensor)
 
 		for local_seed_nids in self.local_batched_seeds_list:
-			# print('local nid ', local_seed_nids)
-			
+			print('local_to_global: local nid ', local_seed_nids)
+			local_seed_nids, _ = torch.sort(local_seed_nids)
+			print('local_to_global: local nid after sort ', local_seed_nids)
 			local_all = torch.tensor(list(range(len(self.src_nids_tensor))))
-			
 			eqidx = nonzero_1d(torch_is_in_1d(local_all, local_seed_nids))
-			
-			
 			after_sort = gather_row(self.src_nids_tensor, eqidx)
-				
-			
 			self.global_batched_seeds_list.append(after_sort)
 				
 			
 		self.local=False
-		print('len local_batched_seeds_list ', len(self.local_batched_seeds_list))
+		print('local_to_global: local_batched_seeds_list ', self.local_batched_seeds_list)
+		print('local_to_global: global_batched_seeds_list ', self.global_batched_seeds_list)
 		return
 
 

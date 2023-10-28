@@ -110,7 +110,8 @@ def remove_duplicated_values(my_dict):
 
 def check_connections_block(local_batched_nodes_list, current_layer_block):
 	
-	res=[]
+	res_global=[]
+	res_local = []
 	print('gen K hop neighbors check_connections_block*********************************')
 
 	induced_src = current_layer_block.srcdata[dgl.NID]
@@ -124,8 +125,9 @@ def check_connections_block(local_batched_nodes_list, current_layer_block):
 	print()
 	# print(type(local_batched_nodes_list[0][0]))
 	for step, local_output_nid in enumerate(local_batched_nodes_list):
-		if step > 0: break
+		# if step > 0: break
 		print('step ', step)
+		print('check_connections_block local_output_nid ', local_output_nid)
 		# in current layer subgraph, only has src and dst nodes,
 		# and src nodes includes dst nodes, src nodes equals dst nodes.
 		# if torch.is_tensor(local_output_nid): local_output_nid = local_output_nid.tolist()
@@ -149,21 +151,29 @@ def check_connections_block(local_batched_nodes_list, current_layer_block):
 
 		eid_local_list = list(local_in_edges_tensor)[2] # local (𝑈,𝑉,𝐸𝐼𝐷); 
 		global_eid_tensor = eids_global[eid_local_list] # map local eid to global.
-		print("len(mini_batch_src_global) ", len(mini_batch_src_global))
 		
 		time1=time.time()
 		r_ = remove_values.remove_values(mini_batch_src_global, mini_batch_dst_global)
 		time2=time.time()
-		print("len(r_) ", len(r_))
+		# print("len(r_) ", len(r_))
+		# print('r_ ', r_)
 		print("remove values openmp spend ", time2-time1)
 
 		src_nid = torch.tensor(mini_batch_dst_global + r_, dtype=torch.long)
 		dst_nid = torch.tensor(mini_batch_dst_global, dtype=torch.long)
 
-		res.append((src_nid, dst_nid, global_eid_tensor))
+		res_global.append((src_nid, dst_nid, global_eid_tensor))
+		r_local = remove_values.remove_values(mini_batch_src_local, local_output_nid.tolist())
+		src_nid_local = torch.tensor(local_output_nid.tolist() + r_local, dtype=torch.long)
+		print("len(mini_batch_src_local) ", len(mini_batch_src_local))
+		print(" mini_batch_src_local ", mini_batch_src_local)
+		print("len(mini_batch_src_global) ", len(mini_batch_src_global))
+		print(" mini_batch_src_global ", mini_batch_src_global)
+		res_local.append((src_nid_local,local_output_nid, eid_local_list))
+		print()
 	print('one layer mini_batch_src_local collection stoped ')
 	
-	return res # global src nids , dst nids and global  eids
+	return res_local, res_global # global src nids , dst nids and global  eids
 
 
 
@@ -172,23 +182,94 @@ def generate_one_hop_neighbors(layer_block, local_batches_nid_list):
 	check_connection_time = []
 
 	t1= time.time()
-	batches_temp_res_list = check_connections_block(local_batches_nid_list, layer_block)
+	batches_local_res_list, batches_global_res_list = check_connections_block(local_batches_nid_list, layer_block)
 	t2 = time.time()
 	check_connection_time.append(t2-t1)
 
-	src_list=[]
-	dst_list=[]
+	src_list_l=[]
+	dst_list_l=[]
 
-	for step, (srcnid, dstnid, current_block_global_eid) in enumerate(batches_temp_res_list):
+	for step, (srcnid, dstnid, current_block_global_eid) in enumerate(batches_local_res_list):
+		print('generate_one_hop_neighbors local srcnid ',srcnid)
+		print('generate_one_hop_neighbors local dstnid ',dstnid)
+		src_list_l.append(srcnid)
+		dst_list_l.append(dstnid)
+
+	src_list_g=[]
+	dst_list_g=[]
+
+	for step, (srcnid, dstnid, current_block_global_eid) in enumerate(batches_global_res_list):
 		print('generate_one_hop_neighbors global srcnid ',srcnid)
 		print('generate_one_hop_neighbors global dstnid ',dstnid)
-		src_list.append(srcnid)
-		dst_list.append(dstnid)
+		src_list_g.append(srcnid)
+		dst_list_g.append(dstnid)
 
 	connection_time = sum(check_connection_time)
 	
 
-	return src_list, dst_list, (connection_time)
+	return src_list_l, dst_list_l, src_list_g, dst_list_g,(connection_time)
+	# return src_list_l, dst_list_l,(connection_time)
+
+def global_2_local_batch_list(layer_block, global_batches_nid_list):
+	local_batches_nid_list =[]
+	induced_src = layer_block.srcdata[dgl.NID]
+	induced_dst = layer_block.dstdata[dgl.NID]
+	# eids_global = current_layer_block.edata['_ID']
+	print("induced_src ", induced_src)
+	print("induced_dst ", induced_dst)
+	
+	src_nid_list = induced_src.tolist()
+	
+	dict_nid_2_local = dict(zip(src_nid_list, range(len(src_nid_list)))) # speedup 
+	print('dict_nid_2_local ', dict_nid_2_local)
+	print('len of global_batches_nid_list ', len(global_batches_nid_list))
+	print('global_batches_nid_list ', global_batches_nid_list)
+	for step, output_nid in enumerate(global_batches_nid_list):
+		# if step > 0: break
+		print('step ', step)
+		# in current layer subgraph, only has src and dst nodes,
+		# and src nodes includes dst nodes, src nodes equals dst nodes.
+		if torch.is_tensor(output_nid): 
+			output_nid = output_nid.tolist()
+		local_output_nid = list(map(dict_nid_2_local.get, output_nid))
+		local_output_nid = torch.tensor(local_output_nid, dtype=torch.long)
+		local_batches_nid_list.append(local_output_nid)
+
+	return local_batches_nid_list
+
+def generate_one_hop_neighbors_2(layer_block, global_batches_nid_list):
+	local_batches_nid_list = global_2_local_batch_list(layer_block, global_batches_nid_list)
+	print('local_batches_nid_list ', local_batches_nid_list)
+	check_connection_time = []
+
+	t1= time.time()
+	batches_local_res_list, batches_global_res_list = check_connections_block(local_batches_nid_list, layer_block)
+	t2 = time.time()
+	check_connection_time.append(t2-t1)
+
+	src_list_l=[]
+	dst_list_l=[]
+
+	for step, (srcnid, dstnid, current_block_global_eid) in enumerate(batches_local_res_list):
+		print('generate_one_hop_neighbors local srcnid ',srcnid)
+		print('generate_one_hop_neighbors local dstnid ',dstnid)
+		src_list_l.append(srcnid)
+		dst_list_l.append(dstnid)
+
+	src_list_g=[]
+	dst_list_g=[]
+
+	for step, (srcnid, dstnid, current_block_global_eid) in enumerate(batches_global_res_list):
+		print('generate_one_hop_neighbors global srcnid ',srcnid)
+		print('generate_one_hop_neighbors global dstnid ',dstnid)
+		src_list_g.append(srcnid)
+		dst_list_g.append(dstnid)
+
+	connection_time = sum(check_connection_time)
+	
+
+	return src_list_l, dst_list_l, src_list_g, dst_list_g,(connection_time)
+	# return src_list_l, dst_list_l,(connection_time)
 
 
 
@@ -233,13 +314,15 @@ def	generate_K_hop_neighbors(full_block_dataloader, args, local_batched_output_n
 		for layer_id, layer_block in enumerate(reversed(full_blocks)):
 			print('generate K hop neighbors layer id (from bottom to top)), ', layer_id )
 			if layer_id == 0:
-				src_list, dst_list, time_1 = generate_one_hop_neighbors( layer_block,  local_batched_output_nid_list)
-				print('the bottom layer global src list ', src_list)
-				print('the bottom layer global dst list ', dst_list)
-				final_dst_list=dst_list
+				src_list_l, dst_list_l, src_list_g, dst_list_g, time_1 = generate_one_hop_neighbors( layer_block,  local_batched_output_nid_list)
+				print('the bottom layer local src list ', src_list_l)
+				print('the bottom layer local dst list ', dst_list_l)
+				print('the bottom layer global src list ', src_list_g)
+				print('the bottom layer global dst list ', dst_list_g)
+				final_dst_list=dst_list_g
 				if layer_id==args.num_layers-1:
-					final_src_list=src_list
-				prev_layer_src = src_list
+					final_src_list=src_list_g
+				prev_layer_src = src_list_g
 			else:
 
 				grouped_output_nid_list = prev_layer_src
@@ -247,12 +330,14 @@ def	generate_K_hop_neighbors(full_block_dataloader, args, local_batched_output_n
 				num_batch=len(grouped_output_nid_list)
 				print('layer ', layer_id)
 				print('gen k hop neighbor num of batch ',num_batch )
-				src_list, dst_list, time_1 = generate_one_hop_neighbors( layer_block, grouped_output_nid_list)
-				print(' the layer '+ str(layer_id) +' global src list '+ str(src_list) )
-				print(' the layer '+ str(layer_id) +' global dst list ' + str(dst_list) )
+				src_list_l, dst_list_l, src_list_g, dst_list_g, time_1 = generate_one_hop_neighbors_2( layer_block, grouped_output_nid_list)
+				print(' the layer '+ str(layer_id) +' local src list '+ str(src_list_l) )
+				print(' the layer '+ str(layer_id) +' local dst list ' + str(dst_list_l) )
+				print(' the layer '+ str(layer_id) +' global src list '+ str(src_list_g) )
+				print(' the layer '+ str(layer_id) +' global dst list ' + str(dst_list_g) )
 				if layer_id==args.num_layers-1: # if current block is the final block, the src list will be the final src
-					final_src_list=src_list
-				prev_layer_src = src_list
+					final_src_list=src_list_g
+				prev_layer_src = src_list_g
 				
 			connection_time = time_1
 			connect_checking_time_list.append(connection_time)

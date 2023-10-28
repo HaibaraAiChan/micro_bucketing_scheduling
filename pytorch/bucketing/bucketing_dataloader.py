@@ -102,78 +102,159 @@ def generate_one_block(raw_graph, global_srcnid, global_dstnid, global_eids):
 
 
 
-def check_connections_block(batched_nodes_list, current_layer_block):
+# def check_connections_block(g_batched_nodes_list, current_layer_block):
     
-	print('check_connections_block*********************************')
+# 	print('check connections block*********************************')
+
+# 	induced_src = current_layer_block.srcdata[dgl.NID]
+# 	eids_global = current_layer_block.edata['_ID']
+
+# 	src_nid_list = induced_src.tolist()
+
+# 	print('')
+# 	global_batched_nids_list = [nid.tolist() for nid in g_batched_nodes_list]
+# 	timess = time.time()
+# 	# global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
+# 	# output_nid_list = find_indices.find_indices(src_nid_list, global_batched_nids_list)
+# 	dict_nid_2_local = dict(zip(src_nid_list, range(len(src_nid_list)))) # speedup global to local
+# 	local_output_nid_list =[]
+# 	for step, output_nid in enumerate(g_batched_nodes_list):
+# 		# in current layer subgraph, only has src and dst nodes,
+# 		# and src nodes includes dst nodes, src nodes equals dst nodes.
+# 		if torch.is_tensor(output_nid): output_nid = output_nid.tolist()
+# 		local_output_nid = list(map(dict_nid_2_local.get, output_nid))
+# 		local_output_nid_list.append(local_output_nid)
+# 	print('bucketing dataloader: connection check: local output nid list ', local_output_nid_list)
+# 	print('the find indices time spent ', time.time()-timess)
+	
+# 	# in current layer subgraph, only has src and dst nodes,
+# 	# and src nodes includes dst nodes, src nodes equals dst nodes.
+# 	print()
+	
+	
+# 	time1= time.time()
+# 	# dgl graph.in_edges() sequential
+# 	local_in_edges_tensor_list=[]
+# 	for step, local_output_nid in enumerate(local_output_nid_list):
+# 		local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
+# 		local_in_edges_res = [id.tolist() for id in local_in_edges_tensor]
+# 		local_in_edges_tensor_list.append(local_in_edges_res)
+# 	time2=time.time()
+# 	print('in edges time spent ', time2-time1)
+
+# 	time31=time.time()
+	
+# 	eids_list = []
+# 	src_long_list = []
+
+# 	for local_in_edges_tensor, global_output_nid in (zip(local_in_edges_tensor_list, global_batched_nids_list)):
+# 		mini_batch_src_local= local_in_edges_tensor[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
+# 		# mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local))
+# 		mini_batch_src_local = remove_duplicates.remove_duplicates(mini_batch_src_local)
+# 		mini_batch_src_global= induced_src[mini_batch_src_local].tolist() # map local src nid to global.
+
+
+# 		eid_local_list = local_in_edges_tensor[2] # local (𝑈,𝑉,𝐸𝐼𝐷); 
+# 		global_eid_tensor = eids_global[eid_local_list] # map local eid to global.
+# 		eids_list.append(global_eid_tensor)
+# 		src_long_list.append(mini_batch_src_global)
+# 		print('bucketing dataloader: connection check:  mini_batch_src_local ', mini_batch_src_local)
+# 		print('bucketing dataloader: connection check:  mini_batch_src_global ', mini_batch_src_global)
+# 	time32 = time.time()
+# 	print('local to global src and eids time spent ', time32-time31)
+	
+# 	time33 = time.time()
+# 	tails_list = gen_tails.gen_tails(src_long_list, global_batched_nids_list)
+# 	time34 = time.time()
+# 	print('time gen tails ', time34-time33)
+# 	res =[]
+# 	for global_output_nid, r_,eid  in zip(global_batched_nids_list,tails_list,eids_list):
+# 		src_nid = torch.tensor(global_output_nid + r_, dtype=torch.long)
+# 		output_nid = torch.tensor(global_output_nid, dtype=torch.long)
+
+# 		res.append((src_nid, output_nid, eid))
+# 	# parallel-------------------------------------------------end
+# 	print("res  length", len(res))
+# 	return res
+
+
+def check_connections_block(batched_nodes_list, current_layer_block):
+	str_=''
+	res=[]
+	# print('check_connections_block*********************************')
 
 	induced_src = current_layer_block.srcdata[dgl.NID]
 	eids_global = current_layer_block.edata['_ID']
 
+	t1=time.time()
 	src_nid_list = induced_src.tolist()
+	# print('src_nid_list ', src_nid_list)
+	# the order of srcdata in current block is not increased as the original graph. For example,
+	# src_nid_list  [1049, 432, 741, 554, ... 1683, 1857, 1183, ... 1676]
+	# dst_nid_list  [1049, 432, 741, 554, ... 1683]
+	
+	dict_nid_2_local = dict(zip(src_nid_list, range(len(src_nid_list)))) # speedup 
+	str_+= 'time for parepare 1: '+str(time.time()-t1)+'\n'
 
-	print('')
-	global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
-	timess = time.time()
-	# global_batched_nids_list = [nid.tolist() for nid in batched_nodes_list]
-	# output_nid_list = find_indices.find_indices(src_nid_list, global_batched_nids_list)
-	dict_nid_2_local = dict(zip(src_nid_list, range(len(src_nid_list)))) # speedup
-	output_nid_list =[]
+
 	for step, output_nid in enumerate(batched_nodes_list):
 		# in current layer subgraph, only has src and dst nodes,
 		# and src nodes includes dst nodes, src nodes equals dst nodes.
-		if torch.is_tensor(output_nid): output_nid = output_nid.tolist()
+		tt=time.time()
+		output_nid = output_nid.tolist()
 		local_output_nid = list(map(dict_nid_2_local.get, output_nid))
-		output_nid_list.append(local_output_nid)
-	
-	print('the find indices time spent ', time.time()-timess)
-	
-	# in current layer subgraph, only has src and dst nodes,
-	# and src nodes includes dst nodes, src nodes equals dst nodes.
-	print()
-	
-	
-	time1= time.time()
-	# dgl graph.in_edges() sequential
-	local_in_edges_tensor_list=[]
-	for step, local_output_nid in enumerate(output_nid_list):
+		print('connection check : local_output_nid ', local_output_nid)
+		str_+= 'local_output_nid generation: '+ str(time.time()-tt)+'\n'
+		tt1=time.time()
+
 		local_in_edges_tensor = current_layer_block.in_edges(local_output_nid, form='all')
-		local_in_edges_res = [id.tolist() for id in local_in_edges_tensor]
-		local_in_edges_tensor_list.append(local_in_edges_res)
-	time2=time.time()
-	print('in edges time spent ', time2-time1)
-
-	time31=time.time()
-	
-	eids_list = []
-	src_long_list = []
-
-	for local_in_edges_tensor, global_output_nid in (zip(local_in_edges_tensor_list, global_batched_nids_list)):
-		mini_batch_src_local= local_in_edges_tensor[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
-		mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local))
-		# mini_batch_src_local = remove_duplicates.remove_duplicates(mini_batch_src_local)
+		# print('local_in_edges_tensor', local_in_edges_tensor)
+		str_+= 'local_in_edges_tensor generation: '+str(time.time()-tt1)+'\n'
+		
+		# return (𝑈,𝑉,𝐸𝐼𝐷)
+		# get local srcnid and dstnid from subgraph
+		mini_batch_src_local= list(local_in_edges_tensor)[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
+		str_+= "\n&&&&&&&&&&&&&&& before remove duplicate length: "+ str(len(mini_batch_src_local))+'\n'
+		ttpp=time.time()
+		# print('mini_batch_src_local', mini_batch_src_local)
+		mini_batch_src_local = list(OrderedDict.fromkeys(mini_batch_src_local.tolist()))
+		# print('mini_batch_src_local', mini_batch_src_local)
+		str_+= 'remove duplicated spend time : '+ str(time.time()-ttpp)+'\n\n'
+		str_+= "&&&&&&&&&&&&&&& after remove duplicate length: "+ str(len(mini_batch_src_local)) +'\n\n'
+		
+		tt2=time.time()
+		# mini_batch_src_local = torch.tensor(mini_batch_src_local, dtype=torch.long)
 		mini_batch_src_global= induced_src[mini_batch_src_local].tolist() # map local src nid to global.
+		str_+= 'mini_batch_src_global generation: '+str( time.time()-tt2) +'\n'
+		
 
-
-
-		eid_local_list = local_in_edges_tensor[2] # local (𝑈,𝑉,𝐸𝐼𝐷); 
+		mini_batch_dst_local= list(local_in_edges_tensor)[1]
+		
+		if set(mini_batch_dst_local.tolist()) != set(local_output_nid):
+			print('local dst not match')
+		eid_local_list = list(local_in_edges_tensor)[2] # local (𝑈,𝑉,𝐸𝐼𝐷); 
 		global_eid_tensor = eids_global[eid_local_list] # map local eid to global.
-		eids_list.append(global_eid_tensor)
-		src_long_list.append(mini_batch_src_global)
-	time32 = time.time()
-	print('local to global src and eids time spent ', time32-time31)
-	
-	time33 = time.time()
-	tails_list = gen_tails.gen_tails(src_long_list, global_batched_nids_list)
-	time34 = time.time()
-	print('time gen tails ', time34-time33)
-	res =[]
-	for global_output_nid, r_,eid  in zip(global_batched_nids_list,tails_list,eids_list):
-		src_nid = torch.tensor(global_output_nid + r_, dtype=torch.long)
-		output_nid = torch.tensor(global_output_nid, dtype=torch.long)
+	# 	# $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  bottleneck  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+		# str_+= "\n&&&&&&&&&&&&&&& before remove duplicate length: "+ str(len(mini_batch_src_global))+'\n'
+		# # ttp=time.time()
+		# print('mini_batch_src_global', mini_batch_src_global)
+		# mini_batch_src_global = list(OrderedDict.fromkeys(mini_batch_src_global))
+		# print('mini_batch_src_global', mini_batch_src_global)
+		# str_+= "&&&&&&&&&&&&&&& after remove duplicate length: "+ str(len(mini_batch_src_global)) +'\n\n'
+		ttp1=time.time()
 
-		res.append((src_nid, output_nid, eid))
-	# parallel-------------------------------------------------end
-	print("res  length", len(res))
+		c=OrderedCounter(mini_batch_src_global)
+		list(map(c.__delitem__, filter(c.__contains__,output_nid)))
+		r_=list(c.keys())
+		# 	# $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   bottleneck  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+		# str_+= 'remove duplicate: '+ str(ttp1-ttp)+'\n'
+		# str_+= 'r_  generation: '+ str(time.time()-ttp1)+'\n\n'
+	
+		src_nid = torch.tensor(output_nid + r_, dtype=torch.long)
+		output_nid = torch.tensor(output_nid, dtype=torch.long)
+
+		res.append((src_nid, output_nid, global_eid_tensor))
+	# print(str_)
 	return res
 
 
@@ -181,15 +262,14 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 
 
 
-
-def generate_blocks_for_one_layer_block(raw_graph, layer_block, batches_nid_list):
+def generate_blocks_for_one_layer_block(raw_graph, layer_block, global_batched_output_nid_list):
 
 	blocks = []
 	check_connection_time = []
 	block_generation_time = []
 
 	t1= time.time()
-	batches_temp_res_list = check_connections_block(batches_nid_list, layer_block)
+	batches_temp_res_list = check_connections_block(global_batched_output_nid_list, layer_block)
 	t2 = time.time()
 	check_connection_time.append(t2-t1)
 
@@ -315,15 +395,16 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 			if layer_id == 0:
 
 				bucket_partitioner = Bucket_Partitioner(layer_block, args, full_block_dataloader)
-				batched_output_nid_list,weights_list,batch_list_generation_time, p_len_list = bucket_partitioner.init_partition()
-
-				args.num_batch=len(batched_output_nid_list)
-				print('layer ',layer_id )
-				print(' the number of batches: ', args.num_batch)
+				global_batched_output_nid_list,weights_list,batch_list_generation_time, p_len_list = bucket_partitioner.init_partition()
+				# global output nids list ([tensor,tensor])
+				args.num_batch=len(global_batched_output_nid_list)
+				print('bucketing dataloader: layer ',layer_id )
+				print('bucketing dataloader: the number of batches: ', args.num_batch)
+				print('bucketing dataloader: global_batched_output_nid_list ', global_batched_output_nid_list)
 				
 				# block 0 : (src_0, dst_0); block 1 : (src_1, dst_1);.......
-				blocks, src_list, dst_list, time_1 = generate_blocks_for_one_layer_block(raw_graph, layer_block,  batched_output_nid_list)
-				
+				blocks, src_list, dst_list, time_1 = generate_blocks_for_one_layer_block(raw_graph, layer_block,  global_batched_output_nid_list)
+				print('bucketing dataloader: global src_list ', src_list)
 				prev_layer_blocks=blocks
 				blocks_list.append(blocks)
 				final_dst_list=dst_list
@@ -333,11 +414,11 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 				
 				grouped_output_nid_list=gen_grouped_dst_list(prev_layer_blocks)
 				
-				
-				print('layer ',layer_id )
-				print('num of batch ',args.num_batch )
+				print('-'*40)
+				print('bucketing dataloader: layer ',layer_id )
+				print('bucketing dataloader: num of batch ',args.num_batch )
 				blocks, src_list, _, time_1 = generate_blocks_for_one_layer_block(raw_graph, layer_block, grouped_output_nid_list)
-
+				print('bucketing dataloader: src_list ', src_list)
 				if layer_id==args.num_layers-1: # if current block is the final block, the src list will be the final src
 					final_src_list=src_list
 				else:

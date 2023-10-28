@@ -214,6 +214,8 @@ def run(args, device, data):
 					pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
 					
 					see_memory_usage("----------------------------------------after loss function")
+					print("unweigthed pseudo_mini_loss ", pseudo_mini_loss)
+					print("unweigthed weights_list[step] ", weights_list[step]) 
 					pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
 					pseudo_mini_loss.backward()#------------*
 					time12= time.time()
@@ -246,7 +248,10 @@ def run(args, device, data):
 					# print()
 					print('full batch src global ', len(input_nodes))
 					print('full batch dst global ', len(seeds))
-					# print('full batch eid global ', blocks[-1].edata['_ID'])
+					print('full batch : seeds ', seeds)
+					print('full batch : input_nodes ', input_nodes)
+					print('full batch :  blocks[0]  eid global ', blocks[0].edata['_ID'])
+					print('full batch : output layer eid global ', blocks[-1].edata['_ID'])
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 					see_memory_usage("----------------------------------------after load_block_subtensor")
 					blocks = [block.int().to(device) for block in blocks]
