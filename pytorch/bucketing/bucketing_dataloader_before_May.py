@@ -27,8 +27,7 @@ from collections import Counter, OrderedDict
 import copy
 from typing import Union, Collection
 from my_utils import torch_is_in_1d
-sys.path.insert(0, './pybind_mp')
-import remove_values
+
 import pdb
 
 class OrderedCounter(Counter, OrderedDict):
@@ -66,6 +65,8 @@ def get_global_graph_edges_ids_block(raw_graph, block):
 	# https://docs.dgl.ai/en/0.4.x/generated/dgl.DGLGraph.edge_ids.html#dgl.DGLGraph.edge_ids
 
 	return global_graph_eids_raw, (raw_src, raw_dst)
+
+
 
 def generate_one_block(raw_graph, global_srcnid, global_dstnid, global_eids):
 	'''
@@ -131,9 +132,7 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 		# and src nodes includes dst nodes, src nodes equals dst nodes.
 		if torch.is_tensor(output_nid): output_nid = output_nid.tolist()
 		local_output_nid = list(map(dict_nid_2_local.get, output_nid))
-		# print('local_output_nid ', len(local_output_nid))
-		# print('type local_output_nid ', type(local_output_nid[0]))
-		# print('type local_output_nid ', local_output_nid[0])
+		# print('local_output_nid ', local_output_nid)
 		# local_output_nid_tmp = torch.tensor(local_output_nid)
 		# ind_tmp = torch.nonzero(local_output_nid_tmp > 90941 )
 		# if len(ind_tmp)>1:
@@ -146,8 +145,7 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 		mini_batch_src_local= list(local_in_edges_tensor)[0] # local (𝑈,𝑉,𝐸𝐼𝐷);
 		
 		# print('mini_batch_src_local', mini_batch_src_local)
-		# mini_batch_src_local = list(OrderedDict.fromkeys(mini_batch_src_local.tolist()))
-		mini_batch_src_local = list(dict.fromkeys(mini_batch_src_local.tolist()))
+		mini_batch_src_local = list(OrderedDict.fromkeys(mini_batch_src_local.tolist()))
 
 
 		# mini_batch_src_local = torch.tensor(mini_batch_src_local, dtype=torch.long)
@@ -161,17 +159,16 @@ def check_connections_block(batched_nodes_list, current_layer_block):
 		eid_local_list = list(local_in_edges_tensor)[2] # local (𝑈,𝑉,𝐸𝐼𝐷); 
 		global_eid_tensor = eids_global[eid_local_list] # map local eid to global.
 		
-		# seen = set()
-		# r_ = [x for x in mini_batch_src_global if not (x in seen or seen.add(x))]
-		# c=OrderedCounter(mini_batch_src_global)
-		# list(map(c.__delitem__, filter(c.__contains__,output_nid)))
-		# r_=list(c.keys())
-		r_ = remove_values.remove_values(mini_batch_src_global, output_nid)
+
+		c=OrderedCounter(mini_batch_src_global)
+		list(map(c.__delitem__, filter(c.__contains__,output_nid)))
+		r_=list(c.keys())
+		
 		src_nid = torch.tensor(output_nid + r_, dtype=torch.long)
 		output_nid = torch.tensor(output_nid, dtype=torch.long)
 
 		res.append((src_nid, output_nid, global_eid_tensor))
-	print("res  length", len(res))
+
 	return res
 
 
@@ -208,12 +205,15 @@ def generate_blocks_for_one_layer_block(raw_graph, layer_block, batches_nid_list
 
 
 
+
 def gen_grouped_dst_list(prev_layer_blocks):
 	post_dst=[]
 	for block in prev_layer_blocks:
 		src_nids = block.srcdata['_ID']
 		post_dst.append(src_nids)
 	return post_dst # return next layer's dst nids(equals prev layer src nids)
+
+
 
 
 def generate_dataloader_block(raw_graph, full_block_dataloader, args):
@@ -232,7 +232,6 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 	blocks_list=[]
 	connect_checking_time_list=[]
 	block_gen_time_total=0
-	num_batch = 0
 	for _,(src_full, dst_full, full_blocks) in enumerate(full_block_dataloader):
 
 		dst_nids = dst_full
@@ -250,7 +249,6 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 				batched_output_nid_list,weights_list,batch_list_generation_time, p_len_list = bucket_partitioner.init_partition()
 
 				num_batch=len(batched_output_nid_list)
-				print('layer ',layer_id )
 				print(' the number of batches: ', num_batch)
 				# print('the batched output global nids ', batched_output_nid_list)
 
@@ -271,9 +269,9 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 				grouped_output_nid_list=gen_grouped_dst_list(prev_layer_blocks)
 				# print('gen group dst list time: ', time.time()-tmm)
 				num_batch=len(grouped_output_nid_list)
-				print('layer ',layer_id )
 				print('num of batch ',num_batch )
 				blocks, src_list, dst_list, time_1 = generate_blocks_for_one_layer_block(raw_graph, layer_block, grouped_output_nid_list)
+
 				if layer_id==args.num_layers-1: # if current block is the final block, the src list will be the final src
 					final_src_list=src_list
 				else:

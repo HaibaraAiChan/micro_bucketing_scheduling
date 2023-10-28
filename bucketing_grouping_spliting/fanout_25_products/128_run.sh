@@ -4,12 +4,12 @@ hidden=128
 np=1
 # for nb in  15 16 17 18 19 20 32
 # for nb in  18 19 20 24 32 
-for nb in  24
+for nb in  19
 do
     echo "---start products_25_time.py   nb  ${nb}  batches "
     python products_25_time.py \
         --dataset ogbn-products \
-        --selection-method 25_backpack_products_bucketing \
+        --selection-method 25_group_bucketing \
         --num-batch $nb \
         --mem-constraint 18.1 \
         --num-layers 2 \
@@ -20,8 +20,26 @@ do
         --aggre lstm \
         --log-indent 3 \
         --lr 1e-2 \
-        > ${save_path}/nb_${nb}_bucketing_${hidden}_new.log
+        > ${save_path}/nb_${nb}_bucketing_${hidden}_old.log
 done
+# for nb in  24
+# do
+#     echo "---start products_25_time.py   nb  ${nb}  batches "
+#     python products_25_time.py \
+#         --dataset ogbn-products \
+#         --selection-method 25_backpack_products_bucketing \
+#         --num-batch $nb \
+#         --mem-constraint 18.1 \
+#         --num-layers 2 \
+#         --fan-out 10,25 \
+#         --num-hidden $hidden \
+#         --num-runs 1 \
+#         --num-epoch $np \
+#         --aggre lstm \
+#         --log-indent 3 \
+#         --lr 1e-2 \
+#         > ${save_path}/nb_${nb}_bucketing_${hidden}_new.log
+# done
 # echo '---start products_25_time.py REG  15 batches '
 # python products_25_time.py \
 #     --dataset ogbn-products \
