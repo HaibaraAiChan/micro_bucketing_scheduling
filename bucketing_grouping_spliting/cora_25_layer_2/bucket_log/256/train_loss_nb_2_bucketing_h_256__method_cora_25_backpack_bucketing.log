@@ -1,4 +1,4 @@
-main start at this time 1698473505.5203743
+main start at this time 1698474232.9545333
 -----------------------------------------before load data 
  Nvidia-smi: 0.166015625 GB
     Memory Allocated: 0.0  GigaBytes
@@ -163,13 +163,13 @@ after remove pre pack weights,  [49, 39, 17, 14, 14, 14, 10, 9, 5]
 G_BUCKET_ID_list [[3, 2, 1, 14, 8, 9], [4, 2, 6, 7, 11, 13, 12, 0, 10]]
 Groups_mem_list  [[54, 39, 29, 28, 22, 18], [49, 39, 17, 14, 14, 14, 10, 9, 5]]
 G_BUCKET_ID_list length 2
-backpack scheduling spend  0.004441499710083008
+backpack scheduling spend  0.004317522048950195
 current group_mem  0.192594476044178
 current group_mem  0.17561374604701996
-batches output list generation spend  0.0007429122924804688
+batches output list generation spend  0.0006680488586425781
 self.weights_list  [0.5857142857142857, 0.5214285714285715]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.01113438606262207
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0052487850189208984
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.011136531829833984
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.00505375862121582
 local_to_global: src global  tensor([  48,  128,  122,   89,  129,   69,   97,  131,   99,  101,   74,  118,
            5,   12,   51,   77,   85,    7,   34,  107,   78,  138,   17,    3,
           30,   11,   45,   98,   10,   68,   66,   25,  102,   80,  137,  106,
@@ -223,8 +223,11 @@ local_to_global: src global  tensor([  48,  128,  122,   89,  129,   69,   97,  
         2380,  286,  588,  698,  911, 1051, 2040, 2119, 2120, 2121, 2056,  603,
         2097,  412,  447, 1849, 1687,  347,  423,  527, 2180,  583, 2222, 2225,
          895, 1296, 1913])
-partition total batch output list spend :  0.021572351455688477
-self.buckets_partition() spend  sec:  0.016400575637817383
+partition results combined together num_output  155
+self.output_nids  140
+output nodes length not match !!!!
+partition total batch output list spend :  0.021569252014160156
+self.buckets_partition() spend  sec:  0.016213417053222656
 bucketing dataloader: layer  0
 bucketing dataloader: the number of batches:  2
 bucketing dataloader: global_batched_output_nid_list  [tensor([ 48, 128, 122,  89, 129,  97, 131, 101,  74,   5,  12,  77,  85, 107,
@@ -242,7 +245,7 @@ check_connections_block*********************************
 connection check : local_output_nid  82
 connection check : local_output_nid  73
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.007836103439331055
+block_gen_time in "generate_blocks_for_one_layer_block"  0.007540225982666016
 
 ----------------------------------------
 bucketing dataloader: layer  1
@@ -251,9 +254,9 @@ check_connections_block*********************************
 connection check : local_output_nid  365
 connection check : local_output_nid  345
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.005754947662353516
+block_gen_time in "generate_blocks_for_one_layer_block"  0.005777835845947266
 
-block collection to dataloader spend  8.821487426757812e-06
+block collection to dataloader spend  4.5299530029296875e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.515625 GB
@@ -292,11 +295,11 @@ Max Memory Allocated: 0.3395729064941406  GigaBytes
 Max Memory Allocated: 0.39820384979248047  GigaBytes
 
 ----------------------------------------------------------pseudo_mini_loss sum 2.1504859924316406
-pure train time :  0.5526947975158691
-train time :  1.1057937145233154
-end to end time :  1.1537044048309326
-connection check time:  0.010608434677124023
-block generation time  0.01359105110168457
+pure train time :  0.5682528018951416
+train time :  1.1007683277130127
+end to end time :  1.147679328918457
+connection check time:  0.00997614860534668
+block generation time  0.013318061828613281
 generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([  29,   48,   79,   69,   43,   66,  124,   75,   28,   63,   33,  127,
          114,    7,   17,   77,   34,   64,  110,   84,   51,   62,  104,   18,
@@ -432,13 +435,13 @@ after remove pre pack weights,  [49, 39, 17, 14, 14, 14, 10, 9, 5]
 G_BUCKET_ID_list [[3, 2, 1, 14, 8, 9], [4, 2, 6, 7, 11, 13, 12, 0, 10]]
 Groups_mem_list  [[54, 39, 29, 28, 22, 18], [49, 39, 17, 14, 14, 14, 10, 9, 5]]
 G_BUCKET_ID_list length 2
-backpack scheduling spend  0.004070281982421875
+backpack scheduling spend  0.0039844512939453125
 current group_mem  0.192594476044178
 current group_mem  0.17561374604701996
-batches output list generation spend  5.1975250244140625e-05
+batches output list generation spend  5.221366882324219e-05
 self.weights_list  [0.5857142857142857, 0.5214285714285715]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.010700702667236328
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.004168033599853516
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.010328054428100586
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.004082679748535156
 local_to_global: src global  tensor([  29,   48,   79,   69,   43,   66,  124,   75,   28,   63,   33,  127,
          114,    7,   17,   77,   34,   64,  110,   84,   51,   62,  104,   18,
          121,   25,  139,   54,   10,  109,   49,   67,   22,   57,   70,   19,
@@ -492,8 +495,11 @@ local_to_global: src global  tensor([  29,   48,   79,   69,   43,   66,  124,  
         1721, 2476, 2487, 2488, 1629, 1659, 2546, 1551, 2079,  210,  323,  651,
          787, 1079, 1983, 2020, 1647, 2157, 2209,  406, 1072, 2269, 2374, 2375,
         1080, 2312])
-partition total batch output list spend :  0.01952838897705078
-self.buckets_partition() spend  sec:  0.01488351821899414
+num_output  155
+self.output_nids  140
+output nodes length not match !!!!
+partition total batch output list spend :  0.019003868103027344
+self.buckets_partition() spend  sec:  0.014425277709960938
 bucketing dataloader: layer  0
 bucketing dataloader: the number of batches:  2
 bucketing dataloader: global_batched_output_nid_list  [tensor([ 29,  48,  79,  33, 114,  77,  64, 104,  25,  54,  10, 109,  49,  67,
@@ -511,7 +517,7 @@ check_connections_block*********************************
 connection check : local_output_nid  82
 connection check : local_output_nid  73
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0040819644927978516
+block_gen_time in "generate_blocks_for_one_layer_block"  0.004051923751831055
 
 ----------------------------------------
 bucketing dataloader: layer  1
@@ -520,7 +526,7 @@ check_connections_block*********************************
 connection check : local_output_nid  364
 connection check : local_output_nid  345
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0058443546295166016
+block_gen_time in "generate_blocks_for_one_layer_block"  0.00590205192565918
 
 block collection to dataloader spend  4.291534423828125e-06
 step  0
@@ -561,11 +567,11 @@ Max Memory Allocated: 0.5375308990478516  GigaBytes
 Max Memory Allocated: 0.5375308990478516  GigaBytes
 
 ----------------------------------------------------------pseudo_mini_loss sum 2.1234865188598633
-pure train time :  0.16358661651611328
-train time :  0.18822693824768066
-end to end time :  0.2262413501739502
-connection check time:  0.006791353225708008
-block generation time  0.009926319122314453
+pure train time :  0.1635749340057373
+train time :  0.1889359951019287
+end to end time :  0.2262871265411377
+connection check time:  0.006750822067260742
+block generation time  0.009953975677490234
 generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([  53,   39,   50,   55,   10,   80,  123,   37,  134,   83,   51,  125,
           92,   25,  102,  111,   89,  119,    0,   49,  120,  126,   61,  139,
@@ -701,13 +707,13 @@ after remove pre pack weights,  [49, 39, 17, 14, 14, 14, 10, 9, 5]
 G_BUCKET_ID_list [[3, 2, 1, 14, 8, 9], [4, 2, 6, 7, 11, 13, 12, 0, 10]]
 Groups_mem_list  [[54, 39, 29, 28, 22, 18], [49, 39, 17, 14, 14, 14, 10, 9, 5]]
 G_BUCKET_ID_list length 2
-backpack scheduling spend  0.004063606262207031
+backpack scheduling spend  0.003979682922363281
 current group_mem  0.192594476044178
 current group_mem  0.17561374604701996
-batches output list generation spend  5.0067901611328125e-05
+batches output list generation spend  4.887580871582031e-05
 self.weights_list  [0.5857142857142857, 0.5214285714285715]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.01123189926147461
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.004158973693847656
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.010388374328613281
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0040740966796875
 local_to_global: src global  tensor([  53,   39,   50,   55,   10,   80,  123,   37,  134,   83,   51,  125,
           92,   25,  102,  111,   89,  119,    0,   49,  120,  126,   61,  139,
          105,   96,   28,   99,   88,  136,    1,   84,   95,   36,   17,    2,
@@ -761,8 +767,11 @@ local_to_global: src global  tensor([  53,   39,   50,   55,   10,   80,  123,  
          206, 2691, 2164,  550,  950, 1495, 2151,  330, 1046, 2001, 2122, 2123,
         2380, 1655, 1839,  973, 1594, 2184,  862,  863, 1160,  163, 1579,  606,
         2360, 2578, 1982, 2017,  391,  487, 2080,  373])
-partition total batch output list spend :  0.02010512351989746
-self.buckets_partition() spend  sec:  0.015405893325805664
+num_output  155
+self.output_nids  140
+output nodes length not match !!!!
+partition total batch output list spend :  0.0191195011138916
+self.buckets_partition() spend  sec:  0.014476776123046875
 bucketing dataloader: layer  0
 bucketing dataloader: the number of batches:  2
 bucketing dataloader: global_batched_output_nid_list  [tensor([ 53,  10,  80, 123,  37,  83, 125,  92,  25,  89,   0,  49, 105,  88,
@@ -780,7 +789,7 @@ check_connections_block*********************************
 connection check : local_output_nid  82
 connection check : local_output_nid  73
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0038335323333740234
+block_gen_time in "generate_blocks_for_one_layer_block"  0.003911733627319336
 
 ----------------------------------------
 bucketing dataloader: layer  1
@@ -789,9 +798,9 @@ check_connections_block*********************************
 connection check : local_output_nid  368
 connection check : local_output_nid  345
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.005839109420776367
+block_gen_time in "generate_blocks_for_one_layer_block"  0.0059392452239990234
 
-block collection to dataloader spend  4.5299530029296875e-06
+block collection to dataloader spend  4.291534423828125e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 2.091796875 GB
@@ -830,11 +839,11 @@ Max Memory Allocated: 0.5387849807739258  GigaBytes
 Max Memory Allocated: 0.5387849807739258  GigaBytes
 
 ----------------------------------------------------------pseudo_mini_loss sum 2.101271390914917
-pure train time :  0.15990900993347168
-train time :  0.1848764419555664
-end to end time :  0.22313523292541504
-connection check time:  0.0067327022552490234
-block generation time  0.00967264175415039
+pure train time :  0.15735507011413574
+train time :  0.1828315258026123
+end to end time :  0.22012543678283691
+connection check time:  0.006689548492431641
+block generation time  0.00985097885131836
 generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([ 106,   38,   72,   55,   86,   23,  110,   44,   73,  133,   52,  135,
          104,   16,  118,   65,  112,  107,   98,   30,    9,   74,   76,   50,
@@ -970,13 +979,13 @@ after remove pre pack weights,  [49, 39, 17, 14, 14, 14, 10, 9, 5]
 G_BUCKET_ID_list [[3, 2, 1, 14, 8, 9], [4, 2, 6, 7, 11, 13, 12, 0, 10]]
 Groups_mem_list  [[54, 39, 29, 28, 22, 18], [49, 39, 17, 14, 14, 14, 10, 9, 5]]
 G_BUCKET_ID_list length 2
-backpack scheduling spend  0.004057645797729492
+backpack scheduling spend  0.003988027572631836
 current group_mem  0.192594476044178
 current group_mem  0.17561374604701996
-batches output list generation spend  5.125999450683594e-05
+batches output list generation spend  5.0067901611328125e-05
 self.weights_list  [0.5857142857142857, 0.5214285714285715]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.012558937072753906
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.004153728485107422
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.010071516036987305
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.004083871841430664
 local_to_global: src global  tensor([ 106,   38,   72,   55,   86,   23,  110,   44,   73,  133,   52,  135,
          104,   16,  118,   65,  112,  107,   98,   30,    9,   74,   76,   50,
          127,  132,  103,   84,  138,   12,   28,   91,   70,   66,   43,  109,
@@ -1030,8 +1039,11 @@ local_to_global: src global  tensor([ 106,   38,   72,   55,   86,   23,  110,  
          258,  884, 1087, 1094, 1157, 1401, 1585, 2463,  659, 1803, 1322, 1219,
         1329, 1418, 1367, 1622, 2478,  646, 1537, 1549, 1901, 2303, 2667, 2217,
          767, 1594,  550,  950, 1495, 2151,  476, 2545])
-partition total batch output list spend :  0.02146744728088379
-self.buckets_partition() spend  sec:  0.016727924346923828
+num_output  155
+self.output_nids  140
+output nodes length not match !!!!
+partition total batch output list spend :  0.018816232681274414
+self.buckets_partition() spend  sec:  0.014169454574584961
 bucketing dataloader: layer  0
 bucketing dataloader: the number of batches:  2
 bucketing dataloader: global_batched_output_nid_list  [tensor([ 38,  72,  86,  44, 133, 135, 104,  16,  65, 112, 107,   9,  74,  76,
@@ -1049,7 +1061,7 @@ check_connections_block*********************************
 connection check : local_output_nid  82
 connection check : local_output_nid  73
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.003932476043701172
+block_gen_time in "generate_blocks_for_one_layer_block"  0.004004716873168945
 
 ----------------------------------------
 bucketing dataloader: layer  1
@@ -1058,9 +1070,9 @@ check_connections_block*********************************
 connection check : local_output_nid  367
 connection check : local_output_nid  345
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.005945444107055664
+block_gen_time in "generate_blocks_for_one_layer_block"  0.005856037139892578
 
-block collection to dataloader spend  4.5299530029296875e-06
+block collection to dataloader spend  5.0067901611328125e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 2.09375 GB
@@ -1099,11 +1111,11 @@ Max Memory Allocated: 0.5393943786621094  GigaBytes
 Max Memory Allocated: 0.5393943786621094  GigaBytes
 
 ----------------------------------------------------------pseudo_mini_loss sum 2.050168514251709
-pure train time :  0.1637587547302246
-train time :  0.18832039833068848
-end to end time :  0.2281172275543213
-connection check time:  0.006742715835571289
-block generation time  0.009877920150756836
+pure train time :  0.15429401397705078
+train time :  0.17908668518066406
+end to end time :  0.2160933017730713
+connection check time:  0.006665945053100586
+block generation time  0.009860754013061523
 generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([ 128,   15,  123,   91,  135,   81,  110,   66,   41,  139,   33,   26,
           44,   77,   22,    0,   65,   59,    7,    9,   57,   99,  100,  103,
@@ -1239,13 +1251,13 @@ after remove pre pack weights,  [49, 39, 17, 14, 14, 14, 10, 9, 5]
 G_BUCKET_ID_list [[3, 2, 1, 14, 8, 9], [4, 2, 6, 7, 11, 13, 12, 0, 10]]
 Groups_mem_list  [[54, 39, 29, 28, 22, 18], [49, 39, 17, 14, 14, 14, 10, 9, 5]]
 G_BUCKET_ID_list length 2
-backpack scheduling spend  0.004061698913574219
+backpack scheduling spend  0.0039789676666259766
 current group_mem  0.192594476044178
 current group_mem  0.17561374604701996
-batches output list generation spend  5.1021575927734375e-05
+batches output list generation spend  4.863739013671875e-05
 self.weights_list  [0.5857142857142857, 0.5214285714285715]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.012796401977539062
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.00415802001953125
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.010317564010620117
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.004073143005371094
 local_to_global: src global  tensor([ 128,   15,  123,   91,  135,   81,  110,   66,   41,  139,   33,   26,
           44,   77,   22,    0,   65,   59,    7,    9,   57,   99,  100,  103,
           51,   39,   95,   13,   30,   74,   75,   84,   19,   36,   64,  102,
@@ -1299,8 +1311,11 @@ local_to_global: src global  tensor([ 128,   15,  123,   91,  135,   81,  110,  
         1169, 1762, 2492, 2643, 1655, 1839, 1604, 2366, 1001, 1318, 2661, 2662,
          541,  971, 1113, 1650,  201, 1636, 2139, 2141, 2018,  589,  802,  980,
         1158, 1910, 2251, 2252, 1322, 1441,  550,  950, 1495, 2151])
-partition total batch output list spend :  0.021634817123413086
-self.buckets_partition() spend  sec:  0.016968965530395508
+num_output  155
+self.output_nids  140
+output nodes length not match !!!!
+partition total batch output list spend :  0.019048452377319336
+self.buckets_partition() spend  sec:  0.014404773712158203
 bucketing dataloader: layer  0
 bucketing dataloader: the number of batches:  2
 bucketing dataloader: global_batched_output_nid_list  [tensor([128,  15, 123, 135,  81,  41,  33,  44,  77,   0,  65,  59,   9, 100,
@@ -1318,7 +1333,7 @@ check_connections_block*********************************
 connection check : local_output_nid  82
 connection check : local_output_nid  73
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0039026737213134766
+block_gen_time in "generate_blocks_for_one_layer_block"  0.0039539337158203125
 
 ----------------------------------------
 bucketing dataloader: layer  1
@@ -1327,9 +1342,9 @@ check_connections_block*********************************
 connection check : local_output_nid  371
 connection check : local_output_nid  345
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.005933046340942383
+block_gen_time in "generate_blocks_for_one_layer_block"  0.00593876838684082
 
-block collection to dataloader spend  4.5299530029296875e-06
+block collection to dataloader spend  4.76837158203125e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 2.09375 GB
@@ -1368,13 +1383,13 @@ Max Memory Allocated: 0.5393943786621094  GigaBytes
 Max Memory Allocated: 0.5393943786621094  GigaBytes
 
 ----------------------------------------------------------pseudo_mini_loss sum 2.014854907989502
-pure train time :  0.1699056625366211
-train time :  0.19401979446411133
-end to end time :  0.23401427268981934
-connection check time:  0.006821632385253906
-block generation time  0.00983572006225586
-end to end time  0.2575650215148926
-Total (block generation + training)time/epoch 0.2575650215148926
-pure train time per /epoch  [0.5526947975158691, 0.16358661651611328, 0.15990900993347168, 0.1637587547302246, 0.1699056625366211]
-pure train time average  0.16683220863342285
+pure train time :  0.14265227317810059
+train time :  0.16788148880004883
+end to end time :  0.205153226852417
+connection check time:  0.006716251373291016
+block generation time  0.009892702102661133
+end to end time  0.22890257835388184
+Total (block generation + training)time/epoch 0.22890257835388184
+pure train time per /epoch  [0.5682528018951416, 0.1635749340057373, 0.15735507011413574, 0.15429401397705078, 0.14265227317810059]
+pure train time average  0.14847314357757568
 input num list  [1839, 1849, 1859, 1853, 1843]

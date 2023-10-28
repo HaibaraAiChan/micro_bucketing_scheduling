@@ -1001,10 +1001,10 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					
 				self.local_batched_seeds_list = local_batches_nid_list
 				print('partitioner final local_batches_nid_list ', local_batches_nid_list)
-				self.local_batched_seeds_list = [torch.tensor([1], dtype=torch.long),torch.tensor([0], dtype=torch.long), torch.tensor([2,3], dtype=torch.long)]
-				print('partitioner final local_batches_nid_list ', local_batches_nid_list)
-				self.weights_list=[0.25, 0.25, 0.5]
-				print('self.weights_list ', self.weights_list)
+				# self.local_batched_seeds_list = [torch.tensor([1], dtype=torch.long),torch.tensor([0], dtype=torch.long), torch.tensor([2,3], dtype=torch.long)]
+				# print('partitioner final local_batches_nid_list ', local_batches_nid_list)
+				# self.weights_list=[0.25, 0.25, 0.5]
+				# print('self.weights_list ', self.weights_list)
 				return
 					
 			
@@ -1089,6 +1089,8 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 			num_output += len(after_sort)
 			self.global_batched_seeds_list.append(after_sort)
 				
+		print('num_output ', num_output)
+		print('self.output_nids ', len(self.output_nids))
 		if num_output == len(self.output_nids):
 			print('output nodes length match')
 			g_o= torch.cat(self.global_batched_seeds_list)
