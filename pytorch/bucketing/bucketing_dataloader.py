@@ -405,7 +405,7 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 				
 				# block 0 : (src_0, dst_0); block 1 : (src_1, dst_1);.......
 				blocks, src_list, dst_list, time_1 = generate_blocks_for_one_layer_block(raw_graph, layer_block,  global_batched_output_nid_list)
-				print('bucketing dataloader: global src_list ', src_list)
+				# print('bucketing dataloader: global src_list ', src_list)
 				prev_layer_blocks=blocks
 				blocks_list.append(blocks)
 				final_dst_list=dst_list
@@ -419,7 +419,7 @@ def	generate_dataloader_bucket_block(raw_graph, full_block_dataloader, args):
 				print('bucketing dataloader: layer ',layer_id )
 				print('bucketing dataloader: num of batch ',args.num_batch )
 				blocks, src_list, _, time_1 = generate_blocks_for_one_layer_block(raw_graph, layer_block, grouped_output_nid_list)
-				print('bucketing dataloader: src_list ', src_list)
+				# print('bucketing dataloader: src_list ', src_list)
 				if layer_id==args.num_layers-1: # if current block is the final block, the src list will be the final src
 					final_src_list=src_list
 				else:

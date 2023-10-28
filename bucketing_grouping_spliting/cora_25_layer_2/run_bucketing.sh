@@ -52,9 +52,9 @@ hidden=256
 #     --log-indent 3 \
 #     --lr 1e-3 \
 #     > ${save_path}/train_loss_nb_${nb}_bucketing_h_${hidden}___.log
-nb=4
+nb=2
 method=cora_25_backpack_bucketing
-method=random_bucketing
+# method=random_bucketing
 python cora_buckey.py \
     --dataset cora \
     --selection-method $method \
