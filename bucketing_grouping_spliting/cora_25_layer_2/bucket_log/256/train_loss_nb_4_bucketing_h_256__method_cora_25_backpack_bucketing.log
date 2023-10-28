@@ -1,4 +1,4 @@
-main start at this time 1698526800.1361504
+main start at this time 1698527445.636333
 -----------------------------------------before load data 
  Nvidia-smi: 0.166015625 GB
     Memory Allocated: 0.0  GigaBytes
@@ -143,11 +143,11 @@ bucket partitioner: bkt_dst_nodes_list_local  [tensor([ 17,  18,  23,  27,  30, 
          97,  99, 103, 106, 107, 127, 135, 137]), tensor([ 22,  42,  47,  48,  56,  58,  60,  65,  70,  71,  77,  82, 101, 110,
         119]), tensor([  8,  14,  24,  26,  50,  51,  57,  84,  89, 131, 138]), tensor([ 5, 38, 83, 94]), tensor([ 32, 105, 117]), tensor([  0,  10,  95, 132]), tensor([ 3, 52, 90]), tensor([113]), tensor([114, 129]), tensor([11]), tensor([120]), tensor([74, 85])]
 ---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
-memory_constraint:  0.19
+memory_constraint:  0.095
 sum(estimated_mem)  0.36848267912864685
 len(estimated_mem)  15
 grouping float:  the grouping_fanout_cora called successfully
-capacity  190
+capacity  95
  enter split_cora function
 [9, 29, 39, 54, 49, 39, 17, 14, 22, 18, 5, 14, 10, 14, 28]
 indexed_dict  {0: 9, 1: 29, 2: 39, 3: 54, 4: 49, 5: 39, 6: 17, 7: 14, 8: 22, 9: 18, 10: 5, 11: 14, 12: 10, 13: 14, 14: 28}
@@ -155,42 +155,84 @@ sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7:
 split cora: sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 weights after sort [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
 
-packs  [[0, 2, 4, 5, 6, 7]]
-res_tmp  [54 39 29 28 22 18]
-GROUPS_weight  [[54, 39, 29, 28, 22, 18]]
-values_list  [54, 39, 29, 28, 22, 18]
+packs  [[1, 5, 7]]
+res_tmp  [49 28 18]
+GROUPS_weight  [[49, 28, 18]]
+values_list  [49, 28, 18]
 sorted dictionary  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 keys ------
-[3, 2, 1, 14, 8, 9]
+[4, 14, 9]
 keys ------end
 
-remove bucket_id in sorted dict ids:  [0, 2, 4, 5, 6, 7]
-original bucket_ids :,  [3, 2, 1, 14, 8, 9]
-remove weights:  [54 39 29 28 22 18], 		------------sum 190
+remove bucket_id in sorted dict ids:  [1, 5, 7]
+original bucket_ids :,  [4, 14, 9]
+remove weights:  [49 28 18], 		------------sum 95
 
 before remove, the weights list  [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
 sorted_dict before remove_bucket_ids {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-original_bucket_ids  [3, 2, 1, 14, 8, 9]
-left sorted_dict  {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-sorted_dict after remove_bucket_ids {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-after remove one pack weights,  [49, 39, 17, 14, 14, 14, 10, 9, 5]
-sum of left weights  171
-values_list  [49, 39, 17, 14, 14, 14, 10, 9, 5]
-sorted dictionary  {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [4, 14, 9]
+left sorted_dict  {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+sorted_dict after remove_bucket_ids {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+after remove one pack weights,  [54, 39, 39, 29, 22, 17, 14, 14, 14, 10, 9, 5]
+sum of left weights  266
+packs  [[1, 2, 5]]
+res_tmp  [39 39 17]
+GROUPS_weight  [[49, 28, 18], [39, 39, 17]]
+values_list  [39, 39, 17]
+sorted dictionary  {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 keys ------
-[4, 5, 6, 7, 11, 13, 12, 0, 10]
+[2, 5, 6]
 keys ------end
-after original_index = get_index_by_value(sorted_dict, weights)  [4, 5, 6, 7, 11, 13, 12, 0, 10]
-G_BUCKET_ID_list [[3, 2, 1, 14, 8, 9], [4, 5, 6, 7, 11, 13, 12, 0, 10]]
-Groups_mem_list  [[54, 39, 29, 28, 22, 18], [49, 39, 17, 14, 14, 14, 10, 9, 5]]
-G_BUCKET_ID_list length 2
-backpack scheduling spend  0.004601716995239258
-current group_mem  0.192594476044178
-current group_mem  0.17588820308446884
-batches output list generation spend  0.0006971359252929688
-self.weights_list  [0.5857142857142857, 0.4142857142857143]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.011458635330200195
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.005364179611206055
+
+remove bucket_id in sorted dict ids:  [1, 2, 5]
+original bucket_ids :,  [2, 5, 6]
+remove weights:  [39 39 17], 		------------sum 95
+
+before remove, the weights list  [54, 39, 39, 29, 22, 17, 14, 14, 14, 10, 9, 5]
+sorted_dict before remove_bucket_ids {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [2, 5, 6]
+left sorted_dict  {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+sorted_dict after remove_bucket_ids {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+after remove one pack weights,  [54, 29, 22, 14, 14, 14, 10, 9, 5]
+sum of left weights  171
+packs  [[0, 2, 6, 7]]
+res_tmp  [54 22 10  9]
+GROUPS_weight  [[49, 28, 18], [39, 39, 17], [54, 22, 10, 9]]
+values_list  [54, 22, 10, 9]
+sorted dictionary  {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+keys ------
+[3, 8, 12, 0]
+keys ------end
+
+remove bucket_id in sorted dict ids:  [0, 2, 6, 7]
+original bucket_ids :,  [3, 8, 12, 0]
+remove weights:  [54 22 10  9], 		------------sum 95
+
+before remove, the weights list  [54, 29, 22, 14, 14, 14, 10, 9, 5]
+sorted_dict before remove_bucket_ids {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [3, 8, 12, 0]
+left sorted_dict  {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+sorted_dict after remove_bucket_ids {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+after remove one pack weights,  [29, 14, 14, 14, 5]
+sum of left weights  76
+values_list  [29, 14, 14, 14, 5]
+sorted dictionary  {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+keys ------
+[1, 7, 11, 13, 10]
+keys ------end
+after original_index = get_index_by_value(sorted_dict, weights)  [1, 7, 11, 13, 10]
+G_BUCKET_ID_list [[4, 14, 9], [2, 5, 6], [3, 8, 12, 0], [1, 7, 11, 13, 10]]
+Groups_mem_list  [[49, 28, 18], [39, 39, 17], [54, 22, 10, 9], [29, 14, 14, 14, 5]]
+G_BUCKET_ID_list length 4
+backpack scheduling spend  0.0052738189697265625
+current group_mem  0.09644472599029541
+current group_mem  0.09673655033111572
+current group_mem  0.09706250578165054
+current group_mem  0.07823889702558517
+batches output list generation spend  0.0007300376892089844
+self.weights_list  [0.14285714285714285, 0.29285714285714287, 0.3357142857142857, 0.22857142857142856]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.011171102523803711
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.00607609748840332
 local_to_global: src global  tensor([  48,  128,  122,   89,  129,   69,   97,  131,   99,  101,   74,  118,
            5,   12,   51,   77,   85,    7,   34,  107,   78,  138,   17,    3,
           30,   11,   45,   98,   10,   68,   66,   25,  102,   80,  137,  106,
@@ -248,79 +290,114 @@ num_output  140
 self.output_nids  140
 output nodes length match
 global output equals  True
-partition total batch output list spend :  0.02252340316772461
-self.buckets_partition() spend  sec:  0.016840219497680664
+partition total batch output list spend :  0.023227930068969727
+self.buckets_partition() spend  sec:  0.017264366149902344
 bucketing dataloader: layer  0
-bucketing dataloader: the number of batches:  2
-bucketing dataloader: global_batched_output_nid_list  [tensor([ 48, 128, 122,  89, 129,  97, 131, 101,  74,   5,  12,  77,  85, 107,
-         78, 138,  11,  10,  68,  25,  80, 137,  82, 116,  41, 123, 114,  13,
-          0,  38,  59,  93,   1, 130, 104,  44,  64, 135,  90,  27,  37,  72,
-        109,  53,   9,  21,  87,  71,  29,  88,   8, 108, 117,  65, 105,  67,
-        125, 133,  40, 112,  49,  15,  47,  42,   6,  16,  32, 113,  83,  76,
-         92,  46,  54,  60,  70,  86,  33, 100,  79,  56,  81,  35]), tensor([ 69,  99, 118,  51,   7,  34,  17,   3,  30,  45,  98,  66, 102, 106,
-         62, 121,   2, 132,  26,  50, 111, 103,  84, 119,   4,  61,  20,  96,
-        120,  14,  58,  23, 110,  52,  39,  43, 126,  24, 124, 115, 139,  31,
-         22, 134,  94,  73,  63,  36,  18,  95, 136,  57,  19,  55, 127,  91,
-         28,  75])]
+bucketing dataloader: the number of batches:  4
+bucketing dataloader: global_batched_output_nid_list  [tensor([ 89,  17,   2, 132,  26,  59,  84,   4,  61,  20, 120,  14, 109, 110,
+         52,  88,  65, 124,  22,  18]), tensor([ 69,  99, 101,   5,  51,  85,  78, 138,  30,  45,  68,  80, 121, 114,
+          0, 111, 103,   1, 130, 119,  44,  64, 135,  37,  53,  87,  71,  39,
+         43,   8, 108, 126,  67,  24,  40, 113,  76,  60,  91,  75,  35]), tensor([ 48, 128, 122,  74, 118,  12,   7,  34, 107,   3,  98,  66,  25, 137,
+        106,  62,  41, 123,  38,  50,  93, 104,  90,  27,  96,  58,  23, 105,
+        133, 112,  15,   6, 115,  16,  32,  31, 134,  63, 136,  57,  86,  19,
+        127,  33,  56,  28,  81]), tensor([129,  97, 131,  77,  11,  10, 102,  82, 116,  13,  72,   9,  21,  29,
+        117, 125,  49,  47,  42, 139,  83,  94,  73,  36,  92,  95,  46,  54,
+         70,  55, 100,  79])]
 check_connections_block*********************************
-connection check : local_output_nid  82
-connection check : local_output_nid  58
+connection check : local_output_nid  20
+connection check : local_output_nid  41
+connection check : local_output_nid  47
+connection check : local_output_nid  32
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.006951570510864258
+block_gen_time in "generate_blocks_for_one_layer_block"  0.008913755416870117
 
 ----------------------------------------
 bucketing dataloader: layer  1
-bucketing dataloader: num of batch  2
+bucketing dataloader: num of batch  4
 check_connections_block*********************************
-connection check : local_output_nid  365
-connection check : local_output_nid  308
+connection check : local_output_nid  171
+connection check : local_output_nid  198
+connection check : local_output_nid  200
+connection check : local_output_nid  158
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0056536197662353516
+block_gen_time in "generate_blocks_for_one_layer_block"  0.00928640365600586
 
-block collection to dataloader spend  4.5299530029296875e-06
+block collection to dataloader spend  6.9141387939453125e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
  Nvidia-smi: 1.515625 GB
-    Memory Allocated: 0.072296142578125  GigaBytes
-Max Memory Allocated: 0.072296142578125  GigaBytes
+    Memory Allocated: 0.07007360458374023  GigaBytes
+Max Memory Allocated: 0.07007360458374023  GigaBytes
 
 ----------------------------------------after batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 1.759765625 GB
-    Memory Allocated: 0.22182989120483398  GigaBytes
-Max Memory Allocated: 0.22883224487304688  GigaBytes
+ Nvidia-smi: 1.685546875 GB
+    Memory Allocated: 0.15086078643798828  GigaBytes
+Max Memory Allocated: 0.15499544143676758  GigaBytes
 
 ----------------------------------------after loss function
- Nvidia-smi: 1.759765625 GB
-    Memory Allocated: 0.2218332290649414  GigaBytes
-Max Memory Allocated: 0.22883224487304688  GigaBytes
+ Nvidia-smi: 1.685546875 GB
+    Memory Allocated: 0.1508626937866211  GigaBytes
+Max Memory Allocated: 0.15499544143676758  GigaBytes
 
 step  1
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 1.896484375 GB
-    Memory Allocated: 0.14019489288330078  GigaBytes
-Max Memory Allocated: 0.3395729064941406  GigaBytes
+ Nvidia-smi: 1.822265625 GB
+    Memory Allocated: 0.13756275177001953  GigaBytes
+Max Memory Allocated: 0.27421140670776367  GigaBytes
 
 ----------------------------------------after batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 1.91015625 GB
-    Memory Allocated: 0.2765774726867676  GigaBytes
-Max Memory Allocated: 0.3395729064941406  GigaBytes
+ Nvidia-smi: 1.822265625 GB
+    Memory Allocated: 0.22115468978881836  GigaBytes
+Max Memory Allocated: 0.27421140670776367  GigaBytes
 
 ----------------------------------------after loss function
- Nvidia-smi: 1.91015625 GB
-    Memory Allocated: 0.2765798568725586  GigaBytes
-Max Memory Allocated: 0.3395729064941406  GigaBytes
+ Nvidia-smi: 1.822265625 GB
+    Memory Allocated: 0.22115659713745117  GigaBytes
+Max Memory Allocated: 0.27421140670776367  GigaBytes
+
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.916015625 GB
+    Memory Allocated: 0.1374797821044922  GigaBytes
+Max Memory Allocated: 0.33939170837402344  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.916015625 GB
+    Memory Allocated: 0.22052764892578125  GigaBytes
+Max Memory Allocated: 0.33939170837402344  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.916015625 GB
+    Memory Allocated: 0.22052955627441406  GigaBytes
+Max Memory Allocated: 0.33939170837402344  GigaBytes
+
+step  3
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.916015625 GB
+    Memory Allocated: 0.13734674453735352  GigaBytes
+Max Memory Allocated: 0.33939170837402344  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.916015625 GB
+    Memory Allocated: 0.20482969284057617  GigaBytes
+Max Memory Allocated: 0.33939170837402344  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 1.916015625 GB
+    Memory Allocated: 0.20483112335205078  GigaBytes
+Max Memory Allocated: 0.33939170837402344  GigaBytes
 
 ----------------------------------------after optimizer
- Nvidia-smi: 2.0703125 GB
-    Memory Allocated: 0.2752985954284668  GigaBytes
-Max Memory Allocated: 0.38956403732299805  GigaBytes
+ Nvidia-smi: 1.978515625 GB
+    Memory Allocated: 0.27185964584350586  GigaBytes
+Max Memory Allocated: 0.36560964584350586  GigaBytes
 
-----------------------------------------------------------pseudo_mini_loss sum 1.9409677982330322
-pure train time :  0.557349443435669
-train time :  1.0996983051300049
-end to end time :  1.1471967697143555
-connection check time:  0.010514497756958008
-block generation time  0.01260519027709961
+----------------------------------------------------------pseudo_mini_loss sum 1.9461668729782104
+pure train time :  0.6149160861968994
+train time :  1.1893119812011719
+end to end time :  1.2451722621917725
+connection check time:  0.012253999710083008
+block generation time  0.018200159072875977
 generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([  29,   48,   79,   69,   43,   66,  124,   75,   28,   63,   33,  127,
          114,    7,   17,   77,   34,   64,  110,   84,   51,   62,  104,   18,
@@ -436,11 +513,11 @@ bucket partitioner: bkt_dst_nodes_list_local  [tensor([  5,   8,   9,  11,  13, 
         105, 106, 113, 118, 119, 122, 130, 131]), tensor([  6,  14,  18,  19,  23,  32,  37,  38,  80,  90, 123, 125, 129, 138,
         139]), tensor([  4,   7,  20,  39,  54,  57,  61,  88,  89,  91, 134]), tensor([  3,  24, 102, 103]), tensor([26, 87, 99]), tensor([ 1, 10, 75, 86]), tensor([ 72, 107, 128]), tensor([65]), tensor([ 70, 135]), tensor([92]), tensor([115]), tensor([29, 55])]
 ---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
-memory_constraint:  0.19
+memory_constraint:  0.095
 sum(estimated_mem)  0.36848267912864685
 len(estimated_mem)  15
 grouping float:  the grouping_fanout_cora called successfully
-capacity  190
+capacity  95
  enter split_cora function
 [9, 29, 39, 54, 49, 39, 17, 14, 22, 18, 5, 14, 10, 14, 28]
 indexed_dict  {0: 9, 1: 29, 2: 39, 3: 54, 4: 49, 5: 39, 6: 17, 7: 14, 8: 22, 9: 18, 10: 5, 11: 14, 12: 10, 13: 14, 14: 28}
@@ -448,42 +525,84 @@ sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7:
 split cora: sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 weights after sort [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
 
-packs  [[0, 2, 4, 5, 6, 7]]
-res_tmp  [54 39 29 28 22 18]
-GROUPS_weight  [[54, 39, 29, 28, 22, 18]]
-values_list  [54, 39, 29, 28, 22, 18]
+packs  [[1, 5, 7]]
+res_tmp  [49 28 18]
+GROUPS_weight  [[49, 28, 18]]
+values_list  [49, 28, 18]
 sorted dictionary  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 keys ------
-[3, 2, 1, 14, 8, 9]
+[4, 14, 9]
 keys ------end
 
-remove bucket_id in sorted dict ids:  [0, 2, 4, 5, 6, 7]
-original bucket_ids :,  [3, 2, 1, 14, 8, 9]
-remove weights:  [54 39 29 28 22 18], 		------------sum 190
+remove bucket_id in sorted dict ids:  [1, 5, 7]
+original bucket_ids :,  [4, 14, 9]
+remove weights:  [49 28 18], 		------------sum 95
 
 before remove, the weights list  [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
 sorted_dict before remove_bucket_ids {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-original_bucket_ids  [3, 2, 1, 14, 8, 9]
-left sorted_dict  {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-sorted_dict after remove_bucket_ids {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-after remove one pack weights,  [49, 39, 17, 14, 14, 14, 10, 9, 5]
-sum of left weights  171
-values_list  [49, 39, 17, 14, 14, 14, 10, 9, 5]
-sorted dictionary  {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [4, 14, 9]
+left sorted_dict  {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+sorted_dict after remove_bucket_ids {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+after remove one pack weights,  [54, 39, 39, 29, 22, 17, 14, 14, 14, 10, 9, 5]
+sum of left weights  266
+packs  [[1, 2, 5]]
+res_tmp  [39 39 17]
+GROUPS_weight  [[49, 28, 18], [39, 39, 17]]
+values_list  [39, 39, 17]
+sorted dictionary  {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 keys ------
-[4, 5, 6, 7, 11, 13, 12, 0, 10]
+[2, 5, 6]
 keys ------end
-after original_index = get_index_by_value(sorted_dict, weights)  [4, 5, 6, 7, 11, 13, 12, 0, 10]
-G_BUCKET_ID_list [[3, 2, 1, 14, 8, 9], [4, 5, 6, 7, 11, 13, 12, 0, 10]]
-Groups_mem_list  [[54, 39, 29, 28, 22, 18], [49, 39, 17, 14, 14, 14, 10, 9, 5]]
-G_BUCKET_ID_list length 2
-backpack scheduling spend  0.004032611846923828
-current group_mem  0.192594476044178
-current group_mem  0.17588820308446884
-batches output list generation spend  5.2928924560546875e-05
-self.weights_list  [0.5857142857142857, 0.4142857142857143]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.010697364807128906
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.004133701324462891
+
+remove bucket_id in sorted dict ids:  [1, 2, 5]
+original bucket_ids :,  [2, 5, 6]
+remove weights:  [39 39 17], 		------------sum 95
+
+before remove, the weights list  [54, 39, 39, 29, 22, 17, 14, 14, 14, 10, 9, 5]
+sorted_dict before remove_bucket_ids {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [2, 5, 6]
+left sorted_dict  {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+sorted_dict after remove_bucket_ids {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+after remove one pack weights,  [54, 29, 22, 14, 14, 14, 10, 9, 5]
+sum of left weights  171
+packs  [[0, 2, 6, 7]]
+res_tmp  [54 22 10  9]
+GROUPS_weight  [[49, 28, 18], [39, 39, 17], [54, 22, 10, 9]]
+values_list  [54, 22, 10, 9]
+sorted dictionary  {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+keys ------
+[3, 8, 12, 0]
+keys ------end
+
+remove bucket_id in sorted dict ids:  [0, 2, 6, 7]
+original bucket_ids :,  [3, 8, 12, 0]
+remove weights:  [54 22 10  9], 		------------sum 95
+
+before remove, the weights list  [54, 29, 22, 14, 14, 14, 10, 9, 5]
+sorted_dict before remove_bucket_ids {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [3, 8, 12, 0]
+left sorted_dict  {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+sorted_dict after remove_bucket_ids {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+after remove one pack weights,  [29, 14, 14, 14, 5]
+sum of left weights  76
+values_list  [29, 14, 14, 14, 5]
+sorted dictionary  {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+keys ------
+[1, 7, 11, 13, 10]
+keys ------end
+after original_index = get_index_by_value(sorted_dict, weights)  [1, 7, 11, 13, 10]
+G_BUCKET_ID_list [[4, 14, 9], [2, 5, 6], [3, 8, 12, 0], [1, 7, 11, 13, 10]]
+Groups_mem_list  [[49, 28, 18], [39, 39, 17], [54, 22, 10, 9], [29, 14, 14, 14, 5]]
+G_BUCKET_ID_list length 4
+backpack scheduling spend  0.004897594451904297
+current group_mem  0.09644472599029541
+current group_mem  0.09673655033111572
+current group_mem  0.09706250578165054
+current group_mem  0.07823889702558517
+batches output list generation spend  8.153915405273438e-05
+self.weights_list  [0.14285714285714285, 0.29285714285714287, 0.3357142857142857, 0.22857142857142856]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.01052713394165039
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.005034685134887695
 local_to_global: src global  tensor([  29,   48,   79,   69,   43,   66,  124,   75,   28,   63,   33,  127,
          114,    7,   17,   77,   34,   64,  110,   84,   51,   62,  104,   18,
          121,   25,  139,   54,   10,  109,   49,   67,   22,   57,   70,   19,
@@ -541,79 +660,114 @@ num_output  140
 self.output_nids  140
 output nodes length match
 global output equals  True
-partition total batch output list spend :  0.019593000411987305
-self.buckets_partition() spend  sec:  0.01484537124633789
+partition total batch output list spend :  0.020816326141357422
+self.buckets_partition() spend  sec:  0.015619516372680664
 bucketing dataloader: layer  0
-bucketing dataloader: the number of batches:  2
-bucketing dataloader: global_batched_output_nid_list  [tensor([ 29,  48,  79,  33, 114,  77,  64, 104,  25,  54,  10, 109,  49,  67,
-         70,  11,  38, 125,  68,  81,   0, 137, 100,  37,  47,  46,   9,  88,
-         32, 107, 123,  86, 122,  78,  76,  40,  41,  80, 130,  59, 116, 133,
-         97,  42,  44,  72,  60, 128, 131,  12,  74,   1,  92,  87, 101,  15,
-         53, 112,   6,  65,  71, 135, 113,  35,  82,  93, 138,  83, 129,  90,
-         16,   8,  13,  56, 117,  21,  89,  27, 105,  85,   5, 108]), tensor([ 69,  43,  66, 124,  75,  28,  63, 127,   7,  17,  34, 110,  84,  51,
-         62,  18, 121, 139,  22,  57,  19, 132,  52,  91, 115,   3,  96,  45,
-        111,  99,  94,  58,  73,  31,  98,  14, 102, 119, 103,   4,  30, 118,
-        106,  36, 136,  39,  24,  50,  95,  26, 120,  23,   2, 126,  55, 134,
-         20,  61])]
+bucketing dataloader: the number of batches:  4
+bucketing dataloader: global_batched_output_nid_list  [tensor([124,  17, 110,  84,  18, 109,  22, 132,  52,  88,  59,  14,   4,  65,
+         26, 120,  89,   2,  20,  61]), tensor([ 69,  43,  75, 114,  64,  51, 121,  67,  91,  68,   0,  37,  45, 111,
+         99,  78,  76,  40,  80, 130,  44,  60, 119, 103,  30,   1,  87, 101,
+         53,  39,  24,  71, 135, 113,  35, 138,   8,  85,   5, 126, 108]), tensor([ 48,  66,  28,  63,  33, 127,   7,  34,  62, 104,  25,  57,  19,  38,
+         81, 137, 115,   3,  96,  32, 107, 123,  86, 122,  58,  41,  31, 133,
+         98, 128,  12,  74, 118, 106,  15, 136,  50, 112,   6,  93,  90,  16,
+         56,  23,  27, 105, 134]), tensor([ 29,  79,  77, 139,  54,  10,  49,  70,  11, 125, 100,  47,  46,   9,
+         94,  73, 116,  97,  42,  72, 131, 102,  92,  36,  82,  95,  83, 129,
+         13, 117,  21,  55])]
 check_connections_block*********************************
-connection check : local_output_nid  82
-connection check : local_output_nid  58
+connection check : local_output_nid  20
+connection check : local_output_nid  41
+connection check : local_output_nid  47
+connection check : local_output_nid  32
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.003930807113647461
+block_gen_time in "generate_blocks_for_one_layer_block"  0.006726980209350586
 
 ----------------------------------------
 bucketing dataloader: layer  1
-bucketing dataloader: num of batch  2
+bucketing dataloader: num of batch  4
 check_connections_block*********************************
-connection check : local_output_nid  364
-connection check : local_output_nid  308
+connection check : local_output_nid  171
+connection check : local_output_nid  198
+connection check : local_output_nid  200
+connection check : local_output_nid  158
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0056705474853515625
+block_gen_time in "generate_blocks_for_one_layer_block"  0.00897669792175293
 
-block collection to dataloader spend  4.76837158203125e-06
+block collection to dataloader spend  6.9141387939453125e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.0703125 GB
-    Memory Allocated: 0.2752799987792969  GigaBytes
-Max Memory Allocated: 0.38956403732299805  GigaBytes
+ Nvidia-smi: 1.978515625 GB
+    Memory Allocated: 0.2718973159790039  GigaBytes
+Max Memory Allocated: 0.36560964584350586  GigaBytes
 
 ----------------------------------------after batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.0703125 GB
-    Memory Allocated: 0.4245777130126953  GigaBytes
-Max Memory Allocated: 0.43216705322265625  GigaBytes
+ Nvidia-smi: 1.978515625 GB
+    Memory Allocated: 0.3534965515136719  GigaBytes
+Max Memory Allocated: 0.36560964584350586  GigaBytes
 
 ----------------------------------------after loss function
- Nvidia-smi: 2.0703125 GB
-    Memory Allocated: 0.42457008361816406  GigaBytes
-Max Memory Allocated: 0.43216705322265625  GigaBytes
+ Nvidia-smi: 1.978515625 GB
+    Memory Allocated: 0.35349082946777344  GigaBytes
+Max Memory Allocated: 0.36560964584350586  GigaBytes
 
 step  1
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.1015625 GB
-    Memory Allocated: 0.27527761459350586  GigaBytes
-Max Memory Allocated: 0.5375308990478516  GigaBytes
+ Nvidia-smi: 2.013671875 GB
+    Memory Allocated: 0.27206850051879883  GigaBytes
+Max Memory Allocated: 0.47188615798950195  GigaBytes
 
 ----------------------------------------after batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.1015625 GB
-    Memory Allocated: 0.41084718704223633  GigaBytes
-Max Memory Allocated: 0.5375308990478516  GigaBytes
+ Nvidia-smi: 2.013671875 GB
+    Memory Allocated: 0.35469722747802734  GigaBytes
+Max Memory Allocated: 0.47188615798950195  GigaBytes
 
 ----------------------------------------after loss function
- Nvidia-smi: 2.1015625 GB
-    Memory Allocated: 0.41084957122802734  GigaBytes
-Max Memory Allocated: 0.5375308990478516  GigaBytes
+ Nvidia-smi: 2.013671875 GB
+    Memory Allocated: 0.35469913482666016  GigaBytes
+Max Memory Allocated: 0.47188615798950195  GigaBytes
+
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.044921875 GB
+    Memory Allocated: 0.2719907760620117  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.044921875 GB
+    Memory Allocated: 0.35481739044189453  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 2.044921875 GB
+    Memory Allocated: 0.35481929779052734  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+step  3
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.044921875 GB
+    Memory Allocated: 0.2718472480773926  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.044921875 GB
+    Memory Allocated: 0.3395042419433594  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 2.044921875 GB
+    Memory Allocated: 0.339505672454834  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
 ----------------------------------------after optimizer
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.2752985954284668  GigaBytes
-Max Memory Allocated: 0.5375308990478516  GigaBytes
+ Nvidia-smi: 2.044921875 GB
+    Memory Allocated: 0.27185964584350586  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
-----------------------------------------------------------pseudo_mini_loss sum 1.9230926036834717
-pure train time :  0.16016292572021484
-train time :  0.1844196319580078
-end to end time :  0.2218494415283203
-connection check time:  0.006580352783203125
-block generation time  0.009601354598999023
+----------------------------------------------------------pseudo_mini_loss sum 1.915675401687622
+pure train time :  0.27982068061828613
+train time :  0.33384227752685547
+end to end time :  0.3806283473968506
+connection check time:  0.008518218994140625
+block generation time  0.015703678131103516
 generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([  53,   39,   50,   55,   10,   80,  123,   37,  134,   83,   51,  125,
           92,   25,  102,  111,   89,  119,    0,   49,  120,  126,   61,  139,
@@ -729,11 +883,11 @@ bucket partitioner: bkt_dst_nodes_list_local  [tensor([  2,   8,  25,  26,  29, 
         103, 106, 115, 126, 133, 135, 138, 139]), tensor([ 20,  22,  31,  34,  35,  39,  43,  49,  59,  78,  86,  87,  99, 100,
         116]), tensor([ 10,  15,  17,  21,  27,  37,  75,  97, 113, 121, 127]), tensor([ 1, 53, 66, 92]), tensor([14, 23, 33]), tensor([ 52,  82, 105, 108]), tensor([ 16, 102, 117]), tensor([94]), tensor([ 3, 42]), tensor([44]), tensor([32]), tensor([28, 93])]
 ---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
-memory_constraint:  0.19
+memory_constraint:  0.095
 sum(estimated_mem)  0.36848267912864685
 len(estimated_mem)  15
 grouping float:  the grouping_fanout_cora called successfully
-capacity  190
+capacity  95
  enter split_cora function
 [9, 29, 39, 54, 49, 39, 17, 14, 22, 18, 5, 14, 10, 14, 28]
 indexed_dict  {0: 9, 1: 29, 2: 39, 3: 54, 4: 49, 5: 39, 6: 17, 7: 14, 8: 22, 9: 18, 10: 5, 11: 14, 12: 10, 13: 14, 14: 28}
@@ -741,42 +895,84 @@ sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7:
 split cora: sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 weights after sort [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
 
-packs  [[0, 2, 4, 5, 6, 7]]
-res_tmp  [54 39 29 28 22 18]
-GROUPS_weight  [[54, 39, 29, 28, 22, 18]]
-values_list  [54, 39, 29, 28, 22, 18]
+packs  [[1, 5, 7]]
+res_tmp  [49 28 18]
+GROUPS_weight  [[49, 28, 18]]
+values_list  [49, 28, 18]
 sorted dictionary  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 keys ------
-[3, 2, 1, 14, 8, 9]
+[4, 14, 9]
 keys ------end
 
-remove bucket_id in sorted dict ids:  [0, 2, 4, 5, 6, 7]
-original bucket_ids :,  [3, 2, 1, 14, 8, 9]
-remove weights:  [54 39 29 28 22 18], 		------------sum 190
+remove bucket_id in sorted dict ids:  [1, 5, 7]
+original bucket_ids :,  [4, 14, 9]
+remove weights:  [49 28 18], 		------------sum 95
 
 before remove, the weights list  [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
 sorted_dict before remove_bucket_ids {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-original_bucket_ids  [3, 2, 1, 14, 8, 9]
-left sorted_dict  {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-sorted_dict after remove_bucket_ids {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-after remove one pack weights,  [49, 39, 17, 14, 14, 14, 10, 9, 5]
-sum of left weights  171
-values_list  [49, 39, 17, 14, 14, 14, 10, 9, 5]
-sorted dictionary  {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [4, 14, 9]
+left sorted_dict  {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+sorted_dict after remove_bucket_ids {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+after remove one pack weights,  [54, 39, 39, 29, 22, 17, 14, 14, 14, 10, 9, 5]
+sum of left weights  266
+packs  [[1, 2, 5]]
+res_tmp  [39 39 17]
+GROUPS_weight  [[49, 28, 18], [39, 39, 17]]
+values_list  [39, 39, 17]
+sorted dictionary  {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 keys ------
-[4, 5, 6, 7, 11, 13, 12, 0, 10]
+[2, 5, 6]
 keys ------end
-after original_index = get_index_by_value(sorted_dict, weights)  [4, 5, 6, 7, 11, 13, 12, 0, 10]
-G_BUCKET_ID_list [[3, 2, 1, 14, 8, 9], [4, 5, 6, 7, 11, 13, 12, 0, 10]]
-Groups_mem_list  [[54, 39, 29, 28, 22, 18], [49, 39, 17, 14, 14, 14, 10, 9, 5]]
-G_BUCKET_ID_list length 2
-backpack scheduling spend  0.004028797149658203
-current group_mem  0.192594476044178
-current group_mem  0.17588820308446884
-batches output list generation spend  4.887580871582031e-05
-self.weights_list  [0.5857142857142857, 0.4142857142857143]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.012538909912109375
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.004122734069824219
+
+remove bucket_id in sorted dict ids:  [1, 2, 5]
+original bucket_ids :,  [2, 5, 6]
+remove weights:  [39 39 17], 		------------sum 95
+
+before remove, the weights list  [54, 39, 39, 29, 22, 17, 14, 14, 14, 10, 9, 5]
+sorted_dict before remove_bucket_ids {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [2, 5, 6]
+left sorted_dict  {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+sorted_dict after remove_bucket_ids {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+after remove one pack weights,  [54, 29, 22, 14, 14, 14, 10, 9, 5]
+sum of left weights  171
+packs  [[0, 2, 6, 7]]
+res_tmp  [54 22 10  9]
+GROUPS_weight  [[49, 28, 18], [39, 39, 17], [54, 22, 10, 9]]
+values_list  [54, 22, 10, 9]
+sorted dictionary  {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+keys ------
+[3, 8, 12, 0]
+keys ------end
+
+remove bucket_id in sorted dict ids:  [0, 2, 6, 7]
+original bucket_ids :,  [3, 8, 12, 0]
+remove weights:  [54 22 10  9], 		------------sum 95
+
+before remove, the weights list  [54, 29, 22, 14, 14, 14, 10, 9, 5]
+sorted_dict before remove_bucket_ids {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [3, 8, 12, 0]
+left sorted_dict  {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+sorted_dict after remove_bucket_ids {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+after remove one pack weights,  [29, 14, 14, 14, 5]
+sum of left weights  76
+values_list  [29, 14, 14, 14, 5]
+sorted dictionary  {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+keys ------
+[1, 7, 11, 13, 10]
+keys ------end
+after original_index = get_index_by_value(sorted_dict, weights)  [1, 7, 11, 13, 10]
+G_BUCKET_ID_list [[4, 14, 9], [2, 5, 6], [3, 8, 12, 0], [1, 7, 11, 13, 10]]
+Groups_mem_list  [[49, 28, 18], [39, 39, 17], [54, 22, 10, 9], [29, 14, 14, 14, 5]]
+G_BUCKET_ID_list length 4
+backpack scheduling spend  0.004915475845336914
+current group_mem  0.09644472599029541
+current group_mem  0.09673655033111572
+current group_mem  0.09706250578165054
+current group_mem  0.07823889702558517
+batches output list generation spend  8.320808410644531e-05
+self.weights_list  [0.14285714285714285, 0.29285714285714287, 0.3357142857142857, 0.22857142857142856]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.012671947479248047
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.005055427551269531
 local_to_global: src global  tensor([  53,   39,   50,   55,   10,   80,  123,   37,  134,   83,   51,  125,
           92,   25,  102,  111,   89,  119,    0,   49,  120,  126,   61,  139,
          105,   96,   28,   99,   88,  136,    1,   84,   95,   36,   17,    2,
@@ -834,79 +1030,114 @@ num_output  140
 self.output_nids  140
 output nodes length match
 global output equals  True
-partition total batch output list spend :  0.021411657333374023
-self.buckets_partition() spend  sec:  0.016675710678100586
+partition total batch output list spend :  0.022947311401367188
+self.buckets_partition() spend  sec:  0.01774120330810547
 bucketing dataloader: layer  0
-bucketing dataloader: the number of batches:  2
-bucketing dataloader: global_batched_output_nid_list  [tensor([ 53,  10,  80, 123,  37,  83, 125,  92,  25,  89,   0,  49, 105,  88,
-          1, 131,  77,  60,  29, 135,  97,  56,  46,  33,  32,  12,  42,  54,
-        116,  79,  64,  72,  76, 108, 100,  13,  86,  85, 107, 104,  40,  21,
-        122,  48,  82,  15, 117,  81, 137,  44, 109,  41,   9,   8,  65,  16,
-         35, 133, 128,  74,  78, 138,   5, 129, 113,  90,  59, 114,  67, 101,
-         71,  87,  93,  11,  70,  38,  47,  27, 130,  68, 112,   6]), tensor([ 39,  50,  55, 134,  51, 102, 111, 119, 120, 126,  61, 139,  96,  28,
-         99, 136,  84,  95,  36,  17,   2,  45,  26,  62,  73, 110, 118,  18,
-        127,  69,  58,   4,  19,  24,  98,   7,  30,  52,  57,  20, 124,  23,
-        121,  94,  66,  43, 132,  22,   3, 103,  14, 106,  75,  63,  91, 115,
-         34,  31])]
+bucketing dataloader: the number of batches:  4
+bucketing dataloader: global_batched_output_nid_list  [tensor([ 89, 120,  61,  88,  84,  17,   2,  26, 110,  18,   4,  52,  20, 124,
+        109, 132,  22,  65,  14,  59]), tensor([ 53,  39,  80,  37,  51, 111, 119,   0, 126,  99,   1,  45,  60, 135,
+         69,  64,  76,  24, 108,  85,  30,  40,  44, 121,  43,   8,  35,  78,
+        138,   5, 103, 113, 114,  67,  75, 101,  71,  87,  91, 130,  68]), tensor([ 50, 123, 134,  25, 105,  96,  28, 136,  62, 118,  56, 127,  33,  32,
+         12,  58,  19,  86,  98,   7, 107, 104, 122,  57,  48,  15,  81,  23,
+        137,  41,  66,  16, 133, 128,   3,  74,  90, 106,  63,  93, 115,  34,
+         31,  38,  27, 112,   6]), tensor([ 55,  10,  83, 125,  92, 102,  49, 139,  95,  36, 131,  77,  73,  29,
+         97,  46,  42,  54, 116,  79,  72, 100,  13,  21,  82, 117,  94,   9,
+        129,  11,  70,  47])]
 check_connections_block*********************************
-connection check : local_output_nid  82
-connection check : local_output_nid  58
+connection check : local_output_nid  20
+connection check : local_output_nid  41
+connection check : local_output_nid  47
+connection check : local_output_nid  32
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.0037505626678466797
+block_gen_time in "generate_blocks_for_one_layer_block"  0.006956815719604492
 
 ----------------------------------------
 bucketing dataloader: layer  1
-bucketing dataloader: num of batch  2
+bucketing dataloader: num of batch  4
 check_connections_block*********************************
-connection check : local_output_nid  368
-connection check : local_output_nid  308
+connection check : local_output_nid  172
+connection check : local_output_nid  198
+connection check : local_output_nid  200
+connection check : local_output_nid  158
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.005728244781494141
+block_gen_time in "generate_blocks_for_one_layer_block"  0.009304285049438477
 
-block collection to dataloader spend  4.291534423828125e-06
+block collection to dataloader spend  6.4373016357421875e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.27531003952026367  GigaBytes
-Max Memory Allocated: 0.5375308990478516  GigaBytes
+ Nvidia-smi: 2.044921875 GB
+    Memory Allocated: 0.27193450927734375  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
 ----------------------------------------after batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.4263644218444824  GigaBytes
-Max Memory Allocated: 0.5375308990478516  GigaBytes
+ Nvidia-smi: 2.044921875 GB
+    Memory Allocated: 0.3536977767944336  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
 ----------------------------------------after loss function
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.42635679244995117  GigaBytes
-Max Memory Allocated: 0.5375308990478516  GigaBytes
+ Nvidia-smi: 2.044921875 GB
+    Memory Allocated: 0.35369205474853516  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
 step  1
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.27527761459350586  GigaBytes
-Max Memory Allocated: 0.5387849807739258  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.2720632553100586  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
 ----------------------------------------after batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.41084718704223633  GigaBytes
-Max Memory Allocated: 0.5387849807739258  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.3546919822692871  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
 ----------------------------------------after loss function
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.41084957122802734  GigaBytes
-Max Memory Allocated: 0.5387849807739258  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.3546938896179199  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.27202272415161133  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35481739044189453  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35481929779052734  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+step  3
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.2718238830566406  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.3393068313598633  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.3393082618713379  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
 ----------------------------------------after optimizer
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.2752985954284668  GigaBytes
-Max Memory Allocated: 0.5387849807739258  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.2718362808227539  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
-----------------------------------------------------------pseudo_mini_loss sum 1.9011728763580322
-pure train time :  0.15763068199157715
-train time :  0.18317222595214844
-end to end time :  0.22224998474121094
-connection check time:  0.006613254547119141
-block generation time  0.00947880744934082
+----------------------------------------------------------pseudo_mini_loss sum 1.9072291851043701
+pure train time :  0.2832674980163574
+train time :  0.33240532875061035
+end to end time :  0.3821144104003906
+connection check time:  0.008668661117553711
+block generation time  0.01626110076904297
 generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([ 106,   38,   72,   55,   86,   23,  110,   44,   73,  133,   52,  135,
          104,   16,  118,   65,  112,  107,   98,   30,    9,   74,   76,   50,
@@ -1022,11 +1253,11 @@ bucket partitioner: bkt_dst_nodes_list_local  [tensor([  0,   5,  18,  23,  24, 
          85,  89,  95, 100, 121, 124, 126, 138]), tensor([  6,  10,  25,  27,  37,  43,  63,  66,  87,  97,  99, 109, 110, 122,
         131]), tensor([ 19,  26,  31,  34,  38,  50,  52,  56, 119, 132, 133]), tensor([ 67,  86, 101, 111]), tensor([ 45,  61, 114]), tensor([ 9, 21, 51, 90]), tensor([ 15,  60, 127]), tensor([102]), tensor([3, 8]), tensor([14]), tensor([91]), tensor([ 35, 117])]
 ---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
-memory_constraint:  0.19
+memory_constraint:  0.095
 sum(estimated_mem)  0.36848267912864685
 len(estimated_mem)  15
 grouping float:  the grouping_fanout_cora called successfully
-capacity  190
+capacity  95
  enter split_cora function
 [9, 29, 39, 54, 49, 39, 17, 14, 22, 18, 5, 14, 10, 14, 28]
 indexed_dict  {0: 9, 1: 29, 2: 39, 3: 54, 4: 49, 5: 39, 6: 17, 7: 14, 8: 22, 9: 18, 10: 5, 11: 14, 12: 10, 13: 14, 14: 28}
@@ -1034,42 +1265,84 @@ sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7:
 split cora: sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 weights after sort [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
 
-packs  [[0, 2, 4, 5, 6, 7]]
-res_tmp  [54 39 29 28 22 18]
-GROUPS_weight  [[54, 39, 29, 28, 22, 18]]
-values_list  [54, 39, 29, 28, 22, 18]
+packs  [[1, 5, 7]]
+res_tmp  [49 28 18]
+GROUPS_weight  [[49, 28, 18]]
+values_list  [49, 28, 18]
 sorted dictionary  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 keys ------
-[3, 2, 1, 14, 8, 9]
+[4, 14, 9]
 keys ------end
 
-remove bucket_id in sorted dict ids:  [0, 2, 4, 5, 6, 7]
-original bucket_ids :,  [3, 2, 1, 14, 8, 9]
-remove weights:  [54 39 29 28 22 18], 		------------sum 190
+remove bucket_id in sorted dict ids:  [1, 5, 7]
+original bucket_ids :,  [4, 14, 9]
+remove weights:  [49 28 18], 		------------sum 95
 
 before remove, the weights list  [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
 sorted_dict before remove_bucket_ids {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-original_bucket_ids  [3, 2, 1, 14, 8, 9]
-left sorted_dict  {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-sorted_dict after remove_bucket_ids {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-after remove one pack weights,  [49, 39, 17, 14, 14, 14, 10, 9, 5]
-sum of left weights  171
-values_list  [49, 39, 17, 14, 14, 14, 10, 9, 5]
-sorted dictionary  {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [4, 14, 9]
+left sorted_dict  {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+sorted_dict after remove_bucket_ids {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+after remove one pack weights,  [54, 39, 39, 29, 22, 17, 14, 14, 14, 10, 9, 5]
+sum of left weights  266
+packs  [[1, 2, 5]]
+res_tmp  [39 39 17]
+GROUPS_weight  [[49, 28, 18], [39, 39, 17]]
+values_list  [39, 39, 17]
+sorted dictionary  {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 keys ------
-[4, 5, 6, 7, 11, 13, 12, 0, 10]
+[2, 5, 6]
 keys ------end
-after original_index = get_index_by_value(sorted_dict, weights)  [4, 5, 6, 7, 11, 13, 12, 0, 10]
-G_BUCKET_ID_list [[3, 2, 1, 14, 8, 9], [4, 5, 6, 7, 11, 13, 12, 0, 10]]
-Groups_mem_list  [[54, 39, 29, 28, 22, 18], [49, 39, 17, 14, 14, 14, 10, 9, 5]]
-G_BUCKET_ID_list length 2
-backpack scheduling spend  0.004022836685180664
-current group_mem  0.192594476044178
-current group_mem  0.17588820308446884
-batches output list generation spend  4.9114227294921875e-05
-self.weights_list  [0.5857142857142857, 0.4142857142857143]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.011256217956542969
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.004117250442504883
+
+remove bucket_id in sorted dict ids:  [1, 2, 5]
+original bucket_ids :,  [2, 5, 6]
+remove weights:  [39 39 17], 		------------sum 95
+
+before remove, the weights list  [54, 39, 39, 29, 22, 17, 14, 14, 14, 10, 9, 5]
+sorted_dict before remove_bucket_ids {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [2, 5, 6]
+left sorted_dict  {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+sorted_dict after remove_bucket_ids {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+after remove one pack weights,  [54, 29, 22, 14, 14, 14, 10, 9, 5]
+sum of left weights  171
+packs  [[0, 2, 6, 7]]
+res_tmp  [54 22 10  9]
+GROUPS_weight  [[49, 28, 18], [39, 39, 17], [54, 22, 10, 9]]
+values_list  [54, 22, 10, 9]
+sorted dictionary  {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+keys ------
+[3, 8, 12, 0]
+keys ------end
+
+remove bucket_id in sorted dict ids:  [0, 2, 6, 7]
+original bucket_ids :,  [3, 8, 12, 0]
+remove weights:  [54 22 10  9], 		------------sum 95
+
+before remove, the weights list  [54, 29, 22, 14, 14, 14, 10, 9, 5]
+sorted_dict before remove_bucket_ids {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [3, 8, 12, 0]
+left sorted_dict  {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+sorted_dict after remove_bucket_ids {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+after remove one pack weights,  [29, 14, 14, 14, 5]
+sum of left weights  76
+values_list  [29, 14, 14, 14, 5]
+sorted dictionary  {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+keys ------
+[1, 7, 11, 13, 10]
+keys ------end
+after original_index = get_index_by_value(sorted_dict, weights)  [1, 7, 11, 13, 10]
+G_BUCKET_ID_list [[4, 14, 9], [2, 5, 6], [3, 8, 12, 0], [1, 7, 11, 13, 10]]
+Groups_mem_list  [[49, 28, 18], [39, 39, 17], [54, 22, 10, 9], [29, 14, 14, 14, 5]]
+G_BUCKET_ID_list length 4
+backpack scheduling spend  0.0049250125885009766
+current group_mem  0.09644472599029541
+current group_mem  0.09673655033111572
+current group_mem  0.09706250578165054
+current group_mem  0.07823889702558517
+batches output list generation spend  8.368492126464844e-05
+self.weights_list  [0.14285714285714285, 0.29285714285714287, 0.3357142857142857, 0.22857142857142856]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.012817621231079102
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.005065202713012695
 local_to_global: src global  tensor([ 106,   38,   72,   55,   86,   23,  110,   44,   73,  133,   52,  135,
          104,   16,  118,   65,  112,  107,   98,   30,    9,   74,   76,   50,
          127,  132,  103,   84,  138,   12,   28,   91,   70,   66,   43,  109,
@@ -1127,79 +1400,114 @@ num_output  140
 self.output_nids  140
 output nodes length match
 global output equals  True
-partition total batch output list spend :  0.020215272903442383
-self.buckets_partition() spend  sec:  0.01538705825805664
+partition total batch output list spend :  0.023276329040527344
+self.buckets_partition() spend  sec:  0.01795196533203125
 bucketing dataloader: layer  0
-bucketing dataloader: the number of batches:  2
-bucketing dataloader: global_batched_output_nid_list  [tensor([ 38,  72,  86,  44, 133, 135, 104,  16,  65, 112, 107,   9,  74,  76,
-        138,  12,  70, 109, 131,  71,  21, 101,  42,  25,  27,  11,  35,  33,
-         60,  97,  15,   8,  87,  82,  59,  85, 137,  13, 105, 114, 122,  92,
-        100,  37, 108,  41,  53,  64,  47, 125,  79,   6, 128,  48,  67, 117,
-        129, 123,  80,  46,  81,   0, 116,  68, 113,  40,  29,  83,  88,   5,
-         56, 130,  32,   1,  90,  89,  77,  78,  54,  49,  93,  10]), tensor([106,  55,  23, 110,  73,  52, 118,  98,  30,  50, 127, 132, 103,  84,
-         28,  91,  66,  43, 120, 111,  14, 139,  58, 126,  75,  99,  36,  34,
-         18,  26,  24,   3,  57, 134,  39,   4, 115,  95,  22,  61,  69,  94,
-        136,  17,   2, 121,   7, 102,  62,  19,  51,  20,  63, 124, 119,  45,
-         96,  31])]
+bucketing dataloader: the number of batches:  4
+bucketing dataloader: global_batched_output_nid_list  [tensor([110,  52,  65, 132,  84, 109, 120,  14,  59,  18,  26,   4,  22,  61,
+         17,   2,  88,  20,  89, 124]), tensor([ 44, 135,  30,  76, 103, 138,  91,  43, 111,  71, 101,  35, 126,  75,
+         60,  99,   8,  87,  85,  24, 114,  37, 108,  53,  64,  39,  67,  80,
+         69,   0,  68, 113,  40, 121,  51,   5, 130,   1,  78, 119,  45]), tensor([106,  38,  86,  23, 133, 104,  16, 118, 112, 107,  98,  74,  50, 127,
+         12,  28,  66,  25,  58,  27,  33,  15,  34, 137, 105, 122,   3,  57,
+         41, 134,   6, 115, 128,  48, 123,  81, 136,   7,  62,  19,  56,  32,
+         90,  63,  96,  31,  93]), tensor([ 72,  55,  73,   9,  70, 131,  21,  42, 139,  11,  97,  82,  36,  13,
+         92, 100,  47, 125,  79,  95, 117, 129,  46,  94, 116,  29, 102,  83,
+         77,  54,  49,  10])]
 check_connections_block*********************************
-connection check : local_output_nid  82
-connection check : local_output_nid  58
+connection check : local_output_nid  20
+connection check : local_output_nid  41
+connection check : local_output_nid  47
+connection check : local_output_nid  32
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.003834962844848633
+block_gen_time in "generate_blocks_for_one_layer_block"  0.007171154022216797
 
 ----------------------------------------
 bucketing dataloader: layer  1
-bucketing dataloader: num of batch  2
+bucketing dataloader: num of batch  4
 check_connections_block*********************************
-connection check : local_output_nid  367
-connection check : local_output_nid  308
+connection check : local_output_nid  173
+connection check : local_output_nid  198
+connection check : local_output_nid  200
+connection check : local_output_nid  158
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.005686044692993164
+block_gen_time in "generate_blocks_for_one_layer_block"  0.009336709976196289
 
-block collection to dataloader spend  4.5299530029296875e-06
+block collection to dataloader spend  6.67572021484375e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.275299072265625  GigaBytes
-Max Memory Allocated: 0.5387849807739258  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.2720146179199219  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
 ----------------------------------------after batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.42664623260498047  GigaBytes
-Max Memory Allocated: 0.5387849807739258  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.3548398017883301  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
 ----------------------------------------after loss function
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.4266386032104492  GigaBytes
-Max Memory Allocated: 0.5387849807739258  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35483407974243164  GigaBytes
+Max Memory Allocated: 0.4729342460632324  GigaBytes
 
 step  1
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.27527761459350586  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.27200984954833984  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
 
 ----------------------------------------after batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.41084718704223633  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35463857650756836  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
 
 ----------------------------------------after loss function
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.41084957122802734  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35464048385620117  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
+
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.27202272415161133  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35481739044189453  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35481929779052734  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
+
+step  3
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.2718238830566406  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.3393068313598633  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.3393082618713379  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
 
 ----------------------------------------after optimizer
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.2752985954284668  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.2718362808227539  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
 
-----------------------------------------------------------pseudo_mini_loss sum 1.8634854555130005
-pure train time :  0.16350340843200684
-train time :  0.18824458122253418
-end to end time :  0.22619128227233887
-connection check time:  0.006560325622558594
-block generation time  0.009521007537841797
+----------------------------------------------------------pseudo_mini_loss sum 1.885077953338623
+pure train time :  0.24986577033996582
+train time :  0.3106570243835449
+end to end time :  0.361067533493042
+connection check time:  0.00871419906616211
+block generation time  0.016507863998413086
 generate_dataloader_bucket_block=======
 get_in_degree_bucketing src global nid  tensor([ 128,   15,  123,   91,  135,   81,  110,   66,   41,  139,   33,   26,
           44,   77,   22,    0,   65,   59,    7,    9,   57,   99,  100,  103,
@@ -1315,11 +1623,11 @@ bucket partitioner: bkt_dst_nodes_list_local  [tensor([  7,  18,  20,  32,  44, 
          84, 114, 118, 122, 131, 132, 137, 139]), tensor([  6,  11,  14,  31,  50,  51,  69,  70,  79,  86,  87,  89, 101, 120,
         124]), tensor([  3,  21,  23,  24,  28,  30,  58,  95, 100, 127, 128]), tensor([ 25,  93, 133, 135]), tensor([ 9, 33, 35]), tensor([10, 29, 39, 71]), tensor([16, 17, 88]), tensor([67]), tensor([ 92, 106]), tensor([52]), tensor([26]), tensor([37, 72])]
 ---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
-memory_constraint:  0.19
+memory_constraint:  0.095
 sum(estimated_mem)  0.36848267912864685
 len(estimated_mem)  15
 grouping float:  the grouping_fanout_cora called successfully
-capacity  190
+capacity  95
  enter split_cora function
 [9, 29, 39, 54, 49, 39, 17, 14, 22, 18, 5, 14, 10, 14, 28]
 indexed_dict  {0: 9, 1: 29, 2: 39, 3: 54, 4: 49, 5: 39, 6: 17, 7: 14, 8: 22, 9: 18, 10: 5, 11: 14, 12: 10, 13: 14, 14: 28}
@@ -1327,42 +1635,84 @@ sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7:
 split cora: sorted_dict  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 weights after sort [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
 
-packs  [[0, 2, 4, 5, 6, 7]]
-res_tmp  [54 39 29 28 22 18]
-GROUPS_weight  [[54, 39, 29, 28, 22, 18]]
-values_list  [54, 39, 29, 28, 22, 18]
+packs  [[1, 5, 7]]
+res_tmp  [49 28 18]
+GROUPS_weight  [[49, 28, 18]]
+values_list  [49, 28, 18]
 sorted dictionary  {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 keys ------
-[3, 2, 1, 14, 8, 9]
+[4, 14, 9]
 keys ------end
 
-remove bucket_id in sorted dict ids:  [0, 2, 4, 5, 6, 7]
-original bucket_ids :,  [3, 2, 1, 14, 8, 9]
-remove weights:  [54 39 29 28 22 18], 		------------sum 190
+remove bucket_id in sorted dict ids:  [1, 5, 7]
+original bucket_ids :,  [4, 14, 9]
+remove weights:  [49 28 18], 		------------sum 95
 
 before remove, the weights list  [54, 49, 39, 39, 29, 28, 22, 18, 17, 14, 14, 14, 10, 9, 5]
 sorted_dict before remove_bucket_ids {3: 54, 4: 49, 2: 39, 5: 39, 1: 29, 14: 28, 8: 22, 9: 18, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-original_bucket_ids  [3, 2, 1, 14, 8, 9]
-left sorted_dict  {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-sorted_dict after remove_bucket_ids {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
-after remove one pack weights,  [49, 39, 17, 14, 14, 14, 10, 9, 5]
-sum of left weights  171
-values_list  [49, 39, 17, 14, 14, 14, 10, 9, 5]
-sorted dictionary  {4: 49, 5: 39, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [4, 14, 9]
+left sorted_dict  {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+sorted_dict after remove_bucket_ids {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+after remove one pack weights,  [54, 39, 39, 29, 22, 17, 14, 14, 14, 10, 9, 5]
+sum of left weights  266
+packs  [[1, 2, 5]]
+res_tmp  [39 39 17]
+GROUPS_weight  [[49, 28, 18], [39, 39, 17]]
+values_list  [39, 39, 17]
+sorted dictionary  {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
 keys ------
-[4, 5, 6, 7, 11, 13, 12, 0, 10]
+[2, 5, 6]
 keys ------end
-after original_index = get_index_by_value(sorted_dict, weights)  [4, 5, 6, 7, 11, 13, 12, 0, 10]
-G_BUCKET_ID_list [[3, 2, 1, 14, 8, 9], [4, 5, 6, 7, 11, 13, 12, 0, 10]]
-Groups_mem_list  [[54, 39, 29, 28, 22, 18], [49, 39, 17, 14, 14, 14, 10, 9, 5]]
-G_BUCKET_ID_list length 2
-backpack scheduling spend  0.005082845687866211
-current group_mem  0.192594476044178
-current group_mem  0.17588820308446884
-batches output list generation spend  6.079673767089844e-05
-self.weights_list  [0.5857142857142857, 0.4142857142857143]
-bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.020838499069213867
-self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0051991939544677734
+
+remove bucket_id in sorted dict ids:  [1, 2, 5]
+original bucket_ids :,  [2, 5, 6]
+remove weights:  [39 39 17], 		------------sum 95
+
+before remove, the weights list  [54, 39, 39, 29, 22, 17, 14, 14, 14, 10, 9, 5]
+sorted_dict before remove_bucket_ids {3: 54, 2: 39, 5: 39, 1: 29, 8: 22, 6: 17, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [2, 5, 6]
+left sorted_dict  {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+sorted_dict after remove_bucket_ids {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+after remove one pack weights,  [54, 29, 22, 14, 14, 14, 10, 9, 5]
+sum of left weights  171
+packs  [[0, 2, 6, 7]]
+res_tmp  [54 22 10  9]
+GROUPS_weight  [[49, 28, 18], [39, 39, 17], [54, 22, 10, 9]]
+values_list  [54, 22, 10, 9]
+sorted dictionary  {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+keys ------
+[3, 8, 12, 0]
+keys ------end
+
+remove bucket_id in sorted dict ids:  [0, 2, 6, 7]
+original bucket_ids :,  [3, 8, 12, 0]
+remove weights:  [54 22 10  9], 		------------sum 95
+
+before remove, the weights list  [54, 29, 22, 14, 14, 14, 10, 9, 5]
+sorted_dict before remove_bucket_ids {3: 54, 1: 29, 8: 22, 7: 14, 11: 14, 13: 14, 12: 10, 0: 9, 10: 5}
+original_bucket_ids  [3, 8, 12, 0]
+left sorted_dict  {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+sorted_dict after remove_bucket_ids {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+after remove one pack weights,  [29, 14, 14, 14, 5]
+sum of left weights  76
+values_list  [29, 14, 14, 14, 5]
+sorted dictionary  {1: 29, 7: 14, 11: 14, 13: 14, 10: 5}
+keys ------
+[1, 7, 11, 13, 10]
+keys ------end
+after original_index = get_index_by_value(sorted_dict, weights)  [1, 7, 11, 13, 10]
+G_BUCKET_ID_list [[4, 14, 9], [2, 5, 6], [3, 8, 12, 0], [1, 7, 11, 13, 10]]
+Groups_mem_list  [[49, 28, 18], [39, 39, 17], [54, 22, 10, 9], [29, 14, 14, 14, 5]]
+G_BUCKET_ID_list length 4
+backpack scheduling spend  0.004900932312011719
+current group_mem  0.09644472599029541
+current group_mem  0.09673655033111572
+current group_mem  0.09706250578165054
+current group_mem  0.07823889702558517
+batches output list generation spend  7.891654968261719e-05
+self.weights_list  [0.14285714285714285, 0.29285714285714287, 0.3357142857142857, 0.22857142857142856]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.012003421783447266
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.005033969879150391
 local_to_global: src global  tensor([ 128,   15,  123,   91,  135,   81,  110,   66,   41,  139,   33,   26,
           44,   77,   22,    0,   65,   59,    7,    9,   57,   99,  100,  103,
           51,   39,   95,   13,   30,   74,   75,   84,   19,   36,   64,  102,
@@ -1420,81 +1770,116 @@ num_output  140
 self.output_nids  140
 output nodes length match
 global output equals  True
-partition total batch output list spend :  0.03097820281982422
-self.buckets_partition() spend  sec:  0.026055574417114258
+partition total batch output list spend :  0.022182941436767578
+self.buckets_partition() spend  sec:  0.017050981521606445
 bucketing dataloader: layer  0
-bucketing dataloader: the number of batches:  2
-bucketing dataloader: global_batched_output_nid_list  [tensor([128,  15, 123, 135,  81,  41,  33,  44,  77,   0,  65,  59,   9, 100,
-         13,  74,  64,  16, 109, 137,  48, 105,  78,  27,  85,  37, 138, 129,
-         70,  21, 114,  86,  60, 113,  80,  92,  56, 108, 131, 133,  88,  32,
-          1, 116, 104,  49,   6,  40,  90,  89,  87,  72,  82,  29,   5,  35,
-         97,  67,   8, 117,  79,  68,  47,  42,  10,  83,  38, 130, 125, 112,
-         71, 101,  25,  54,  53,  11,  46,  12, 107,  76, 122,  93]), tensor([ 91, 110,  66, 139,  26,  22,   7,  57,  99, 103,  51,  39,  95,  30,
-         75,  84,  19,  36, 102, 115,  34,  61,  18, 118, 106, 119,  31, 136,
-          3,  94,  17,   2,  28,  23, 124,  96,  98, 120,  20,  14,  55,  69,
-         43, 127, 126,   4, 134,  73,  58, 132,  52,  62,  45, 111,  24, 121,
-         63,  50])]
+bucketing dataloader: the number of batches:  4
+bucketing dataloader: global_batched_output_nid_list  [tensor([110,  26,  22,  65,  59,  84, 109,  61,  18,  17,   2,  88, 124, 120,
+         20,  89,  14,   4, 132,  52]), tensor([ 91, 135,  44,   0,  99, 103,  51,  39,  30,  75,  64,  78,  85,  37,
+        138, 114,  60, 119, 113,  80, 108,   1,  40,  87,  69,  43,   5,  35,
+        126,  67,   8,  68, 130,  71, 101,  53,  45, 111,  24,  76, 121]), tensor([128,  15, 123,  81,  66,  41,  33,   7,  57,  74,  19,  16, 137,  48,
+        105,  27, 115,  34, 118, 106,  86,  31,  56, 136,   3, 133,  32,  28,
+        104,  23,  96,   6,  90,  98, 127, 134,  38,  58, 112,  25,  62,  12,
+        107,  63, 122,  50,  93]), tensor([139,  77,   9, 100,  95,  13,  36, 102, 129,  70,  21,  92,  94, 131,
+        116,  49,  72,  55,  82,  29,  97,  73, 117,  79,  47,  42,  10,  83,
+        125,  54,  11,  46])]
 check_connections_block*********************************
-connection check : local_output_nid  82
-connection check : local_output_nid  58
+connection check : local_output_nid  20
+connection check : local_output_nid  41
+connection check : local_output_nid  47
+connection check : local_output_nid  32
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.003915071487426758
+block_gen_time in "generate_blocks_for_one_layer_block"  0.006540060043334961
 
 ----------------------------------------
 bucketing dataloader: layer  1
-bucketing dataloader: num of batch  2
+bucketing dataloader: num of batch  4
 check_connections_block*********************************
-connection check : local_output_nid  371
-connection check : local_output_nid  308
+connection check : local_output_nid  171
+connection check : local_output_nid  198
+connection check : local_output_nid  200
+connection check : local_output_nid  158
 
-block_gen_time in "generate_blocks_for_one_layer_block"  0.005805492401123047
+block_gen_time in "generate_blocks_for_one_layer_block"  0.008841991424560547
 
-block collection to dataloader spend  5.0067901611328125e-06
+block collection to dataloader spend  6.9141387939453125e-06
 step  0
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.27529382705688477  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.2718329429626465  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
 
 ----------------------------------------after batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.4274125099182129  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35230064392089844  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
 
 ----------------------------------------after loss function
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.42740488052368164  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.352294921875  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
 
 step  1
 ----------------------------------------before batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.27527761459350586  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.272031307220459  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
 
 ----------------------------------------after batch_pred = model(blocks, batch_inputs)
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.41084718704223633  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35516977310180664  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
 
 ----------------------------------------after loss function
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.41084957122802734  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35517168045043945  GigaBytes
+Max Memory Allocated: 0.47321462631225586  GigaBytes
+
+step  2
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.2720065116882324  GigaBytes
+Max Memory Allocated: 0.4734067916870117  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35414743423461914  GigaBytes
+Max Memory Allocated: 0.4734067916870117  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.35414934158325195  GigaBytes
+Max Memory Allocated: 0.4734067916870117  GigaBytes
+
+step  3
+----------------------------------------before batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.2718472480773926  GigaBytes
+Max Memory Allocated: 0.4734067916870117  GigaBytes
+
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.3395042419433594  GigaBytes
+Max Memory Allocated: 0.4734067916870117  GigaBytes
+
+----------------------------------------after loss function
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.339505672454834  GigaBytes
+Max Memory Allocated: 0.4734067916870117  GigaBytes
 
 ----------------------------------------after optimizer
- Nvidia-smi: 2.10546875 GB
-    Memory Allocated: 0.2752985954284668  GigaBytes
-Max Memory Allocated: 0.5393943786621094  GigaBytes
+ Nvidia-smi: 2.046875 GB
+    Memory Allocated: 0.27185964584350586  GigaBytes
+Max Memory Allocated: 0.4734067916870117  GigaBytes
 
-----------------------------------------------------------pseudo_mini_loss sum 1.8268756866455078
-pure train time :  0.16830778121948242
-train time :  0.1926887035369873
-end to end time :  0.24206972122192383
-connection check time:  0.006736040115356445
-block generation time  0.009720563888549805
-end to end time  0.26912736892700195
-Total (block generation + training)time/epoch 0.26912736892700195
-pure train time per /epoch  [0.557349443435669, 0.16016292572021484, 0.15763068199157715, 0.16350340843200684, 0.16830778121948242]
-pure train time average  0.16590559482574463
-input num list  [1762, 1768, 1780, 1780, 1766]
+----------------------------------------------------------pseudo_mini_loss sum 1.830542802810669
+pure train time :  0.267425537109375
+train time :  0.3236558437347412
+end to end time :  0.37139177322387695
+connection check time:  0.008459806442260742
+block generation time  0.015382051467895508
+end to end time  0.392838716506958
+Total (block generation + training)time/epoch 0.392838716506958
+pure train time per /epoch  [0.6149160861968994, 0.27982068061828613, 0.2832674980163574, 0.24986577033996582, 0.267425537109375]
+pure train time average  0.2586456537246704
+input num list  [2158, 2167, 2175, 2156, 2142]

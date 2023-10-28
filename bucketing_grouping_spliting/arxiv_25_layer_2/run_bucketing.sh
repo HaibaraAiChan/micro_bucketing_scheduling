@@ -70,7 +70,7 @@ nb=4
 hidden=256
 n_epoch=5
 method=arxiv_25_backpack_bucketing
-method=range_bucketing
+# method=range_bucketing
 echo "---start backpack_24_mem_25_split.py ${nb} batches "
 python arxiv_backpack_24_mem_25_split.py \
     --dataset ogbn-arxiv \

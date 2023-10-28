@@ -239,13 +239,13 @@ def run(args, device, data):
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 					blocks = [block.int().to(device) for block in blocks]#------------*
 					time11= time.time()
-					see_memory_usage("----------------------------------------before batch_pred = model(blocks, batch_inputs)")
+					# see_memory_usage("----------------------------------------before batch_pred = model(blocks, batch_inputs)")
 					
 					batch_pred = model(blocks, batch_inputs)#------------*
-					see_memory_usage("----------------------------------------after batch_pred = model(blocks, batch_inputs)")
+					# see_memory_usage("----------------------------------------after batch_pred = model(blocks, batch_inputs)")
 					pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
 					
-					see_memory_usage("----------------------------------------after loss function")
+					# see_memory_usage("----------------------------------------after loss function")
 					pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
 					pseudo_mini_loss.backward()#------------*
 					time12= time.time()
@@ -259,7 +259,7 @@ def run(args, device, data):
 				time_end = time.time()
     
 				num_input_list.append(num_input)
-				see_memory_usage("----------------------------------------after optimizer")
+				# see_memory_usage("----------------------------------------after optimizer")
 
 				pure_train_time += (time_end-time13)
 				pure_train_time_list.append(pure_train_time)
@@ -378,7 +378,7 @@ def main():
 						# help='If not set, we will only do the training part.')
 	argparser.add_argument('--num-workers', type=int, default=4,
 		help="Number of sampling processes. Use 0 for no extra process.")
-	argparser.add_argument('--eval-every', type=int, default=10)
+	argparser.add_argument('--eval-every', type=int, default=1000)
 
 	args = argparser.parse_args()
 	if args.setseed:

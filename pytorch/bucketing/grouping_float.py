@@ -3,6 +3,10 @@ import itertools
 from math import ceil
 
 def backpack_split(weights, values, capacity):
+    '''
+    multi-backpack algorithm
+    return packs=[[]], we just the first pack result, packs[0]
+    '''
     n = len(weights)
     
     # Create a table to store the maximum values for each pack and weight combination
@@ -43,18 +47,43 @@ def remove_items_by_indices(lst, indices):
     # print('rst ', rst)
     return rst
 
-def sort_with_original_index(lst):
-    indexed_dict = {index: value for index, value in enumerate(lst)}
+def remove_bucket_ids(sorted_dict, original_bucket_ids):
+    
+    # print('original_bucket_ids ',original_bucket_ids)
+    rst = {key: value for key, value in sorted_dict.items() if key not in original_bucket_ids}
+    # rst = {key:wgt for key, wgt in (sorted_dict) if key not in original_bucket_ids}
+    # print('left sorted_dict ', rst)
+    
+    return rst
+
+def sort_with_original_index(weight_lst):
+    '''
+    sort the integer weight list in desending order
+    '''
+    print(weight_lst)
+    # weight list = [weight_0, weight_1, ...]
+    indexed_dict = {index: value for index, value in enumerate(weight_lst)}
+    #indexed_dict = {0: weight_0, 1: weight_1,...}
     sorted_dict = dict(sorted(indexed_dict.items(), key=lambda x: -x[1]))
+    #sorted_dict = {a: weight_a, b: weight_b, ...},  weight_a > weight_b
+    print('indexed_dict ', indexed_dict)
+    print('sorted_dict ', sorted_dict)
     sorted_indices = list(sorted_dict.keys())
     sorted_values = list(sorted_dict.values())
     return sorted_indices, sorted_values, indexed_dict, sorted_dict
 
 def get_index_by_value(dictionary, values_list):
+    '''
+    get the keys of the given values
+    '''
+    # some values are the same in the dictionary
+    # e.g. dictionary = {0: 9, 1: 29, 2: 39, 3: 54, 4: 49, 5: 39, 6: 17, 7: 14, 8: 22, 9: 18, 10: 5, 11: 14, 12: 10, 13: 14, 14: 28}
+    # there are degree bucket 7, 11, 13 share the same weights 14.
     n = len(values_list)
     values_list = list(values_list)
     keys = []
     # print('values_list ', values_list)
+    # print('sorted dictionary ', dictionary)
     # print('keys ------')
     
     for va in values_list:
@@ -67,7 +96,7 @@ def get_index_by_value(dictionary, values_list):
             if idx[0] not in keys:
                 keys += idx[:m]
         
-        # print(keys)
+    # print(keys)
     # print('keys ------end')
     return keys
 
@@ -77,9 +106,9 @@ def split_all(weights, values, capacity):
     
     # weights.sort(reverse=True)
     sorted_indices, sorted_values, my_dict, sorted_dict = sort_with_original_index(weights)
-    print('sorted_dict ', sorted_dict)
-    print()
-    print('weights after sort', sorted_values)
+    # print('sorted_dict ', sorted_dict)
+    # print()
+    # print('weights after sort', sorted_values)
     weights = sorted_values
     values = sorted_values
     GROUPS_weight =[]
@@ -106,13 +135,14 @@ def split_all(weights, values, capacity):
 
             original_index = get_index_by_value(sorted_dict, res_tmp)
             GROUPS_bucket_idx.append(original_index)
-            print()
-            print("remove bucket_id: ",packs[0])
-            print('original bucket_id :, ', original_index)
-            print("remove weights:  "+ str(res_tmp) + ", \t\t------------sum "+ str(sum(res_tmp)))
-            print()
-            print('before remove weights, ',weights)
+            # print()
+            # print("remove bucket_id: ",packs[0])
+            # print('original bucket_id :, ', original_index)
+            # print("remove weights:  "+ str(res_tmp) + ", \t\t------------sum "+ str(sum(res_tmp)))
+            # print()
+            # print('before remove weights, ',weights)
             weights = remove_items_by_indices(weights, packs[0])
+            sorted_dict = remove_bucket_ids(sorted_dict, original_index)
             print('after remove pre pack weights, ', weights)
             values = weights
                 
@@ -158,9 +188,9 @@ def split_all_arxiv(weights, values, capacity, fanout, K):
     
     # weights.sort(reverse=True)
     sorted_indices, sorted_values, my_dict, sorted_dict = sort_with_original_index(weights)
-    print('sorted_dict ', sorted_dict)
-    print()
-    print('weights after sort', sorted_values)
+    # print('sorted_dict ', sorted_dict)
+    # print()
+    # print('weights after sort', sorted_values)
     weights = sorted_values
     values = sorted_values
     GROUPS_weight =[]
@@ -184,7 +214,7 @@ def split_all_arxiv(weights, values, capacity, fanout, K):
             max_values, packs = backpack_split(weights, values, capacity)
             
             res_tmp = np.array(weights)[packs[0]]
-            print('res_tmp ', res_tmp)
+            # print('res_tmp ', res_tmp)
             
             # if len(packs[0]) > 4 or  (len(packs[0]) > 3 and max(res_tmp) > min(res_tmp)* 2.5) :
             # if len(packs[0]) > 3 or  (len(packs[0]) > 2 and max(res_tmp) > min(res_tmp)* 1.5) :
@@ -200,18 +230,19 @@ def split_all_arxiv(weights, values, capacity, fanout, K):
             original_index = get_index_by_value(sorted_dict, res_tmp)
             GROUPS_bucket_idx.append(original_index)
             print()
-            print("remove bucket_id: ",packs[0])
-            print('original bucket_id :, ', original_index)
-            print("remove weights:  "+ str(res_tmp) + ", \t\t------------sum "+ str(sum(res_tmp)))
-            print()
-            print('before remove weights, ',weights)
+            # print("remove bucket_id: ",packs[0])
+            # print('original bucket_id :, ', original_index)
+            # print("remove weights:  "+ str(res_tmp) + ", \t\t------------sum "+ str(sum(res_tmp)))
+            # print()
+            # print('before remove weights, ',weights)
             weights = remove_items_by_indices(weights, packs[0])
-            print('after remove pre pack weights, ', weights)
+            sorted_dict = remove_bucket_ids(sorted_dict, original_index)
+            # print('after remove pre pack weights, ', weights)
             values = weights
                 
     if len(weights)==1 :
         if sum(weights)< capacity:
-            print('the last batch value is ', weights[0])
+            # print('the last batch value is ', weights[0])
             GROUPS_weight.append([weights[0]])
         else:
             print('error, OOM!')
@@ -277,34 +308,29 @@ def grouping_fanout_arxiv_new(adjust, weights, capacity):
 def split_cora(weights, values, capacity, fanout, K):
     
     # weights.sort(reverse=True)
-    sorted_indices, sorted_values, my_dict, sorted_dict = sort_with_original_index(weights)
-    print('sorted_dict ', sorted_dict)
-    print()
-    print('weights after sort', sorted_values)
+    sorted_indices, sorted_values, _, sorted_dict = sort_with_original_index(weights)
+    # print('split cora: sorted_dict ', sorted_dict)
+    # print('weights after sort', sorted_values)
+    # print()
     weights = sorted_values
     values = sorted_values
     GROUPS_weight =[]
     GROUPS_bucket_idx =[]
     while len(weights)>=1:
-        if sum(weights)< capacity:
+        if sum(weights)< capacity: # sum of weights are smaller than the capacity, we can group them to one group
             original_index = get_index_by_value(sorted_dict, weights)
+            # print('after original_index = get_index_by_value(sorted_dict, weights) ', original_index)
             GROUPS_weight.append(weights)
             GROUPS_bucket_idx.append(original_index)
-            # if K == 1:
-                # GROUPS_weight.append(weights)
-                # GROUPS_bucket_idx.append(original_index)
-            # else:
-            #     # print('split_list(weights, K) ', split_list(weights, K))
-            #     GROUPS_weight += split_list(weights, K)
-            #     GROUPS_bucket_idx += split_list(original_index,K)
             break
-        else:    # sum(weights)>= capacity
+        else:    # sum(weights) >= capacity
             # if 1.25 * np.mean(res_tmp) < max(res_tmp) and np.mean(res_tmp) < 1.25 * min(res_tmp):
             
-            max_values, packs = backpack_split(weights, values, capacity)
-            
+            _, packs = backpack_split(weights, values, capacity)
+            # print('max_values ', max_values)
+            # print('packs ', packs)
             res_tmp = np.array(weights)[packs[0]]
-            print('res_tmp ', res_tmp)
+            # print('res_tmp ', res_tmp)
             
             # if len(packs[0]) > 4 or  (len(packs[0]) > 3 and max(res_tmp) > min(res_tmp)* 2.5) :
             # if len(packs[0]) > 3 or  (len(packs[0]) > 2 and max(res_tmp) > min(res_tmp)* 1.5) :
@@ -313,21 +339,27 @@ def split_cora(weights, values, capacity, fanout, K):
                 packs[0].remove(aa)
                 res_tmp = np.array(weights)[packs[0]]
             
-                
             GROUPS_weight.append(list(res_tmp))
-            
-
+            # print('GROUPS_weight ', GROUPS_weight)
+            # print('sorted_dict before get_index_by_value(sorted_dict, res_tmp)', sorted_dict)
             original_index = get_index_by_value(sorted_dict, res_tmp)
+            # print('sorted_dict after get_index_by_value(sorted_dict, res_tmp)', sorted_dict)
             GROUPS_bucket_idx.append(original_index)
-            print()
-            print("remove bucket_id: ",packs[0])
-            print('original bucket_id :, ', original_index)
-            print("remove weights:  "+ str(res_tmp) + ", \t\t------------sum "+ str(sum(res_tmp)))
-            print()
-            print('before remove weights, ',weights)
+            # print()
+            # print("remove bucket_id in sorted dict ids: ",packs[0])
+            # print('original bucket_ids :, ', original_index)
+            # print("remove weights:  "+ str(res_tmp) + ", \t\t------------sum "+ str(sum(res_tmp)))
+            # print()
+            # print('before remove, the weights list ',weights)
             weights = remove_items_by_indices(weights, packs[0])
-            print('after remove pre pack weights, ', weights)
+            
+            # print('sorted_dict before remove_bucket_ids', sorted_dict)
+            sorted_dict = remove_bucket_ids(sorted_dict, original_index)
+            # print('sorted_dict after remove_bucket_ids', sorted_dict)
+            
+            # print('after remove one pack weights, ', weights)
             values = weights
+            # print('sum of left weights ', sum(weights))
                 
     if len(weights)==1 :
         if sum(weights)< capacity:
@@ -353,7 +385,7 @@ def grouping_pre(adjust, weights, capacity, fanout, K):
 	return GROUPS_weight, GROUPS_bucket_idx
 
 def grouping_cora(adjust, weights, capacity, fanout, K):
-	print('the grouping_fanout_cora called successfully')
+	print('grouping float:  the grouping_fanout_cora called successfully')
     # weights is a dict
 	degrees = weights.keys()
 	weights = weights.values()
@@ -361,8 +393,8 @@ def grouping_cora(adjust, weights, capacity, fanout, K):
 	values = weights
 	capacity = int(capacity * adjust)
 	print('capacity ', capacity)
-
-	print(' ')
+    
+	print(' enter split_cora function')
 	GROUPS_weight, GROUPS_bucket_idx = split_cora(weights, values, capacity, fanout, K) #####
 	
 	return GROUPS_weight, GROUPS_bucket_idx

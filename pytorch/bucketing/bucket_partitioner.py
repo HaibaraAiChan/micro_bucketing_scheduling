@@ -171,11 +171,11 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 	def get_in_degree_bucketing(self):
 		
 		degs = self.layer_block.in_degrees()
-		print('get_in_degree_bucketing src global nid ', self.layer_block.srcdata['_ID'])
-		print('get_in_degree_bucketing dst global nid ', self.layer_block.dstdata['_ID'])
-		print('get_in_degree_bucketing corresponding in degs', degs)
+		# print('get_in_degree_bucketing src global nid ', self.layer_block.srcdata['_ID'])
+		# print('get_in_degree_bucketing dst global nid ', self.layer_block.dstdata['_ID'])
+		# print('get_in_degree_bucketing corresponding in degs', degs)
 		nodes = self.layer_block.dstnodes() # local dst nid (e.g. in full batch layer block)
-		
+		total_output_nids = 0
 		# degree bucketing
 		unique_degs, bucketor = self._bucketing(degs)
 		bkt_nodes = []
@@ -184,9 +184,10 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				# skip reduce function for zero-degree nodes
 				continue
 			bkt_nodes.append(node_bkt) # local nid idx
-			print('len(bkt) ', len(node_bkt))
-			print('local bkt nids ', node_bkt)
-
+			# print('len(bkt) ', len(node_bkt))
+			# print('local bkt nids ', node_bkt)
+			total_output_nids += len(node_bkt)
+		# print('total indegree bucketing result , ', total_output_nids)
 		return bkt_nodes  # local nid idx
 	
 
@@ -403,9 +404,9 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				elif '25_backpack_' in self.selection_method:	
 					if 'cora_' in self.selection_method :
 						est_mem_dict = {1: 0.009952336549758911, 2: 0.029204897582530975, 3: 0.039294563233852386, 4: 0.054936736822128296, 5: 0.04942861944437027, 6: 0.03956902027130127, 7: 0.017872966825962067, 8: 0.014537237584590912, 9: 0.02214217185974121, 10: 0.018099479377269745, 11: 0.005473785102367401, 12: 0.014345057308673859, 19: 0.010031260550022125, 21: 0.014677919447422028, 25: 0.028916627168655396}
-					print('sum(estimated_mem)')
-					print(sum(est_mem_dict.values()))
-					print(len(est_mem_dict))
+					print('sum(estimated_mem) ', sum(est_mem_dict.values()))
+					
+					print('len(estimated_mem) ', len(est_mem_dict))
 					# time_backpack_start = time.time()
 					capacity_imp = self.memory_constraint
 					Groups_mem_list, G_BUCKET_ID_list = grouping_cora(adjust, est_mem_dict, capacity_imp, 25, self.K)
@@ -991,16 +992,16 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				# print('generate_K_hop_neighbors time ', time.time()-ct)
 				# print('global src_list of k hop neighbors', src_list)
 				g_bucket_nids_list = bkt_dst_nodes_list[:-1]
-				print('partitioner g_bucket_nids_list ', g_bucket_nids_list)
-				print('partitioner local_batches_nid_list ', local_batches_nid_list)
+				# print('partitioner g_bucket_nids_list ', g_bucket_nids_list)
+				# print('partitioner local_batches_nid_list ', local_batches_nid_list)
 				for i in range(len(local_batches_nid_list)):
 					local_batches_nid_list[i] = torch.cat((local_batches_nid_list[i], g_bucket_nids_list[i])) 
 				length = len(self.output_nids)
 				self.weights_list = [len(batch_nids)/length  for batch_nids in local_batches_nid_list]
-				print('self.weights_list ', self.weights_list)
+				# print('self.weights_list ', self.weights_list)
 					
 				self.local_batched_seeds_list = local_batches_nid_list
-				print('partitioner final local_batches_nid_list ', local_batches_nid_list)
+				# print('partitioner final local_batches_nid_list ', local_batches_nid_list)
 				# self.local_batched_seeds_list = [torch.tensor([1], dtype=torch.long),torch.tensor([0], dtype=torch.long), torch.tensor([2,3], dtype=torch.long)]
 				# print('partitioner final local_batches_nid_list ', local_batches_nid_list)
 				# self.weights_list=[0.25, 0.25, 0.5]
@@ -1045,7 +1046,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 	def buckets_partition(self):
 		t1 = time.time()
 		bkt_dst_nodes_list_local = self.get_in_degree_bucketing() # the nids list is local
-		print('bucket partitioner: bkt_dst_nodes_list_local ', bkt_dst_nodes_list_local)
+		# print('bucket partitioner: bkt_dst_nodes_list_local ', bkt_dst_nodes_list_local)
 		t2 = time.time()
 		self.gen_batches_seeds_list(bkt_dst_nodes_list_local)
 		t3 = time.time()

@@ -1,0 +1,453 @@
+main start at this time 1698528846.4041164
+-----------------------------------------before load data 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+ogbn-arxiv
+# Nodes: 169343
+# Edges: 2315598
+# Train: 90941
+# Val: 29799
+# Test: 48603
+# Classes: 40
+
+----------------------------------------start of run function 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+generate_dataloader_bucket_block=======
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+self.K  4
+the grouping_fanout_arxiv called successfully
+capacity  6300
+ 
+[928, 1092, 1174, 1206, 1237, 1233, 1219, 1211, 1184, 1176, 1116, 1121, 1061, 1035, 1013, 955, 960, 928, 916, 900, 868, 787, 800, 795]
+indexed_dict  {0: 928, 1: 1092, 2: 1174, 3: 1206, 4: 1237, 5: 1233, 6: 1219, 7: 1211, 8: 1184, 9: 1176, 10: 1116, 11: 1121, 12: 1061, 13: 1035, 14: 1013, 15: 955, 16: 960, 17: 928, 18: 916, 19: 900, 20: 868, 21: 787, 22: 800, 23: 795}
+sorted_dict  {4: 1237, 5: 1233, 6: 1219, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 1: 1092, 12: 1061, 13: 1035, 14: 1013, 16: 960, 15: 955, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+
+weights after sort [1237, 1233, 1219, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1092, 1061, 1035, 1013, 960, 955, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1219 1092 1061 1013  960  955]
+
+original_bucket_ids  [6, 1, 12, 14, 16, 15]
+left sorted_dict  {4: 1237, 5: 1233, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 13: 1035, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+after remove pre pack weights,  [1237, 1233, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1035, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1184 1121 1116 1035  928  916]
+
+original_bucket_ids  [8, 11, 10, 13, 0, 18]
+left sorted_dict  {4: 1237, 5: 1233, 7: 1211, 3: 1206, 9: 1176, 2: 1174, 17: 928, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+after remove pre pack weights,  [1237, 1233, 1211, 1206, 1176, 1174, 928, 900, 868, 800, 795, 787]
+res_tmp  [1237 1233 1206  928  900  795]
+
+original_bucket_ids  [4, 5, 3, 17, 19, 23]
+left sorted_dict  {7: 1211, 9: 1176, 2: 1174, 20: 868, 22: 800, 21: 787}
+after remove pre pack weights,  [1211, 1176, 1174, 868, 800, 787]
+G_BUCKET_ID_list [[6, 1, 12, 14, 16, 15], [8, 11, 10, 13, 0, 18], [4, 5, 3, 17, 19, 23], [7, 9, 2, 20, 22, 21]]
+Groups_mem_list  [[1219, 1092, 1061, 1013, 960, 955], [1184, 1121, 1116, 1035, 928, 916], [1237, 1233, 1206, 928, 900, 795], [1211, 1176, 1174, 868, 800, 787]]
+G_BUCKET_ID_list length 4
+len(g_bucket_nids_list)  4
+len(local_split_batches_nid_list)  4
+current group_mem  6.301913490222002
+current group_mem  6.303814864294991
+current group_mem  6.302184587104289
+current group_mem  6.019397373772354
+batches output list generation spend  0.0008084774017333984
+self.weights_list  [0.25513244851057276, 0.27687181799188487, 0.25351601587842665, 0.2144797176191157]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.014650821685791016
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.6984925270080566
+local_to_global: src global  tensor([ 23007, 150522,  54718,  ..., 125337,  91159, 156129])
+num_output  90941
+self.output_nids  90941
+output nodes length match
+global output equals  True
+partition total batch output list spend :  0.8694593906402588
+self.buckets_partition() spend  sec:  0.7131743431091309
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  4
+bucketing dataloader: global_batched_output_nid_list  [tensor([ 23007, 150522,  54718,  ...,  31930,   7763,  35266]), tensor([ 41947,  42485, 136244,  ...,  90263,  27508,  25494]), tensor([100655,  90073, 111439,  ..., 161235, 117513,  84319]), tensor([123233,  46003,   7412,  ..., 159173, 164434, 142662])]
+check connections block*********************************
+
+the find indices time spent  0.042075395584106445
+
+in edges time spent  0.14798212051391602
+local to global src and eids time spent  0.3302345275878906
+time gen tails  0.06211447715759277
+res  length 4
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.33748483657836914
+
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  4
+check connections block*********************************
+
+the find indices time spent  0.12506365776062012
+
+in edges time spent  0.5864644050598145
+local to global src and eids time spent  0.8883616924285889
+time gen tails  0.1300063133239746
+res  length 4
+
+block_gen_time in "generate_blocks_for_one_layer_block"  1.0058274269104004
+
+block collection to dataloader spend  1.9073486328125e-05
+step  0
+step  1
+step  2
+step  3
+----------------------------------------------------------pseudo_mini_loss sum 3.834010601043701
+pure train time :  0.95334792137146
+train time :  1.7228565216064453
+end to end time :  6.64429497718811
+connection check time:  2.6853151321411133
+block generation time  1.3433122634887695
+generate_dataloader_bucket_block=======
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+self.K  4
+the grouping_fanout_arxiv called successfully
+capacity  6300
+ 
+[928, 1092, 1174, 1206, 1237, 1233, 1219, 1211, 1184, 1176, 1116, 1121, 1061, 1035, 1013, 955, 960, 928, 916, 900, 868, 787, 800, 795]
+indexed_dict  {0: 928, 1: 1092, 2: 1174, 3: 1206, 4: 1237, 5: 1233, 6: 1219, 7: 1211, 8: 1184, 9: 1176, 10: 1116, 11: 1121, 12: 1061, 13: 1035, 14: 1013, 15: 955, 16: 960, 17: 928, 18: 916, 19: 900, 20: 868, 21: 787, 22: 800, 23: 795}
+sorted_dict  {4: 1237, 5: 1233, 6: 1219, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 1: 1092, 12: 1061, 13: 1035, 14: 1013, 16: 960, 15: 955, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+
+weights after sort [1237, 1233, 1219, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1092, 1061, 1035, 1013, 960, 955, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1219 1092 1061 1013  960  955]
+
+original_bucket_ids  [6, 1, 12, 14, 16, 15]
+left sorted_dict  {4: 1237, 5: 1233, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 13: 1035, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+after remove pre pack weights,  [1237, 1233, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1035, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1184 1121 1116 1035  928  916]
+
+original_bucket_ids  [8, 11, 10, 13, 0, 18]
+left sorted_dict  {4: 1237, 5: 1233, 7: 1211, 3: 1206, 9: 1176, 2: 1174, 17: 928, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+after remove pre pack weights,  [1237, 1233, 1211, 1206, 1176, 1174, 928, 900, 868, 800, 795, 787]
+res_tmp  [1237 1233 1206  928  900  795]
+
+original_bucket_ids  [4, 5, 3, 17, 19, 23]
+left sorted_dict  {7: 1211, 9: 1176, 2: 1174, 20: 868, 22: 800, 21: 787}
+after remove pre pack weights,  [1211, 1176, 1174, 868, 800, 787]
+G_BUCKET_ID_list [[6, 1, 12, 14, 16, 15], [8, 11, 10, 13, 0, 18], [4, 5, 3, 17, 19, 23], [7, 9, 2, 20, 22, 21]]
+Groups_mem_list  [[1219, 1092, 1061, 1013, 960, 955], [1184, 1121, 1116, 1035, 928, 916], [1237, 1233, 1206, 928, 900, 795], [1211, 1176, 1174, 868, 800, 787]]
+G_BUCKET_ID_list length 4
+len(g_bucket_nids_list)  4
+len(local_split_batches_nid_list)  4
+current group_mem  6.301913490222002
+current group_mem  6.303814864294991
+current group_mem  6.302184587104289
+current group_mem  6.019397373772354
+batches output list generation spend  0.00039315223693847656
+self.weights_list  [0.25513244851057276, 0.27687181799188487, 0.25351601587842665, 0.2144797176191157]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.015845537185668945
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.677577018737793
+local_to_global: src global  tensor([128336, 128372,  67754,  ...,  93288,  21837,  41856])
+num_output  90941
+self.output_nids  90941
+output nodes length match
+global output equals  True
+partition total batch output list spend :  0.850898265838623
+self.buckets_partition() spend  sec:  0.6934597492218018
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  4
+bucketing dataloader: global_batched_output_nid_list  [tensor([128336, 128372,  73470,  ...,   8701,  48234,  98775]), tensor([  2998,  17526,   9181,  ...,  44051, 137958, 169059]), tensor([ 67754, 116109,  95408,  ...,  99684,  61945, 148673]), tensor([ 45525,  83438,  18231,  ..., 103566,  65264, 130617])]
+check connections block*********************************
+
+the find indices time spent  0.04438972473144531
+
+in edges time spent  0.1465742588043213
+local to global src and eids time spent  0.33489155769348145
+time gen tails  0.06427645683288574
+res  length 4
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.335857629776001
+
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  4
+check connections block*********************************
+
+the find indices time spent  0.1252298355102539
+
+in edges time spent  0.5857665538787842
+local to global src and eids time spent  0.8831710815429688
+time gen tails  0.13273143768310547
+res  length 4
+
+block_gen_time in "generate_blocks_for_one_layer_block"  1.0127840042114258
+
+block collection to dataloader spend  1.0251998901367188e-05
+step  0
+step  1
+step  2
+step  3
+----------------------------------------------------------pseudo_mini_loss sum 3.578627109527588
+pure train time :  0.5202927589416504
+train time :  0.7671282291412354
+end to end time :  5.649986505508423
+connection check time:  2.6606714725494385
+block generation time  1.3486416339874268
+generate_dataloader_bucket_block=======
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+self.K  4
+the grouping_fanout_arxiv called successfully
+capacity  6300
+ 
+[928, 1092, 1174, 1206, 1237, 1233, 1219, 1211, 1184, 1176, 1116, 1121, 1061, 1035, 1013, 955, 960, 928, 916, 900, 868, 787, 800, 795]
+indexed_dict  {0: 928, 1: 1092, 2: 1174, 3: 1206, 4: 1237, 5: 1233, 6: 1219, 7: 1211, 8: 1184, 9: 1176, 10: 1116, 11: 1121, 12: 1061, 13: 1035, 14: 1013, 15: 955, 16: 960, 17: 928, 18: 916, 19: 900, 20: 868, 21: 787, 22: 800, 23: 795}
+sorted_dict  {4: 1237, 5: 1233, 6: 1219, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 1: 1092, 12: 1061, 13: 1035, 14: 1013, 16: 960, 15: 955, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+
+weights after sort [1237, 1233, 1219, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1092, 1061, 1035, 1013, 960, 955, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1219 1092 1061 1013  960  955]
+
+original_bucket_ids  [6, 1, 12, 14, 16, 15]
+left sorted_dict  {4: 1237, 5: 1233, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 13: 1035, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+after remove pre pack weights,  [1237, 1233, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1035, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1184 1121 1116 1035  928  916]
+
+original_bucket_ids  [8, 11, 10, 13, 0, 18]
+left sorted_dict  {4: 1237, 5: 1233, 7: 1211, 3: 1206, 9: 1176, 2: 1174, 17: 928, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+after remove pre pack weights,  [1237, 1233, 1211, 1206, 1176, 1174, 928, 900, 868, 800, 795, 787]
+res_tmp  [1237 1233 1206  928  900  795]
+
+original_bucket_ids  [4, 5, 3, 17, 19, 23]
+left sorted_dict  {7: 1211, 9: 1176, 2: 1174, 20: 868, 22: 800, 21: 787}
+after remove pre pack weights,  [1211, 1176, 1174, 868, 800, 787]
+G_BUCKET_ID_list [[6, 1, 12, 14, 16, 15], [8, 11, 10, 13, 0, 18], [4, 5, 3, 17, 19, 23], [7, 9, 2, 20, 22, 21]]
+Groups_mem_list  [[1219, 1092, 1061, 1013, 960, 955], [1184, 1121, 1116, 1035, 928, 916], [1237, 1233, 1206, 928, 900, 795], [1211, 1176, 1174, 868, 800, 787]]
+G_BUCKET_ID_list length 4
+len(g_bucket_nids_list)  4
+len(local_split_batches_nid_list)  4
+current group_mem  6.301913490222002
+current group_mem  6.303814864294991
+current group_mem  6.302184587104289
+current group_mem  6.019397373772354
+batches output list generation spend  0.0004017353057861328
+self.weights_list  [0.25513244851057276, 0.27687181799188487, 0.25351601587842665, 0.2144797176191157]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.014675378799438477
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.6855988502502441
+local_to_global: src global  tensor([ 67828,  46044,  11141,  ..., 130313,  89671, 126855])
+num_output  90941
+self.output_nids  90941
+output nodes length match
+global output equals  True
+partition total batch output list spend :  0.8716335296630859
+self.buckets_partition() spend  sec:  0.7003130912780762
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  4
+bucketing dataloader: global_batched_output_nid_list  [tensor([ 11141, 115605, 161510,  ...,  46644,  65467,  50197]), tensor([167110,   7389,  70623,  ...,  15926,  88400,  42149]), tensor([ 67828,  79838,  18894,  ...,  27975, 128776,   1064]), tensor([ 46044,  38594, 127349,  ..., 102137,  76462,  86090])]
+check connections block*********************************
+
+the find indices time spent  0.04275035858154297
+
+in edges time spent  0.15134096145629883
+local to global src and eids time spent  0.3375234603881836
+time gen tails  0.06348776817321777
+res  length 4
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.33573436737060547
+
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  4
+check connections block*********************************
+
+the find indices time spent  0.12609124183654785
+
+in edges time spent  0.5269529819488525
+local to global src and eids time spent  0.8787031173706055
+time gen tails  0.13230037689208984
+res  length 4
+
+block_gen_time in "generate_blocks_for_one_layer_block"  1.0127286911010742
+
+block collection to dataloader spend  9.298324584960938e-06
+step  0
+step  1
+step  2
+step  3
+----------------------------------------------------------pseudo_mini_loss sum 3.366530656814575
+pure train time :  0.5179111957550049
+train time :  0.7923712730407715
+end to end time :  5.630352735519409
+connection check time:  2.6012449264526367
+block generation time  1.3484630584716797
+generate_dataloader_bucket_block=======
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+self.K  4
+the grouping_fanout_arxiv called successfully
+capacity  6300
+ 
+[928, 1092, 1174, 1206, 1237, 1233, 1219, 1211, 1184, 1176, 1116, 1121, 1061, 1035, 1013, 955, 960, 928, 916, 900, 868, 787, 800, 795]
+indexed_dict  {0: 928, 1: 1092, 2: 1174, 3: 1206, 4: 1237, 5: 1233, 6: 1219, 7: 1211, 8: 1184, 9: 1176, 10: 1116, 11: 1121, 12: 1061, 13: 1035, 14: 1013, 15: 955, 16: 960, 17: 928, 18: 916, 19: 900, 20: 868, 21: 787, 22: 800, 23: 795}
+sorted_dict  {4: 1237, 5: 1233, 6: 1219, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 1: 1092, 12: 1061, 13: 1035, 14: 1013, 16: 960, 15: 955, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+
+weights after sort [1237, 1233, 1219, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1092, 1061, 1035, 1013, 960, 955, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1219 1092 1061 1013  960  955]
+
+original_bucket_ids  [6, 1, 12, 14, 16, 15]
+left sorted_dict  {4: 1237, 5: 1233, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 13: 1035, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+after remove pre pack weights,  [1237, 1233, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1035, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1184 1121 1116 1035  928  916]
+
+original_bucket_ids  [8, 11, 10, 13, 0, 18]
+left sorted_dict  {4: 1237, 5: 1233, 7: 1211, 3: 1206, 9: 1176, 2: 1174, 17: 928, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+after remove pre pack weights,  [1237, 1233, 1211, 1206, 1176, 1174, 928, 900, 868, 800, 795, 787]
+res_tmp  [1237 1233 1206  928  900  795]
+
+original_bucket_ids  [4, 5, 3, 17, 19, 23]
+left sorted_dict  {7: 1211, 9: 1176, 2: 1174, 20: 868, 22: 800, 21: 787}
+after remove pre pack weights,  [1211, 1176, 1174, 868, 800, 787]
+G_BUCKET_ID_list [[6, 1, 12, 14, 16, 15], [8, 11, 10, 13, 0, 18], [4, 5, 3, 17, 19, 23], [7, 9, 2, 20, 22, 21]]
+Groups_mem_list  [[1219, 1092, 1061, 1013, 960, 955], [1184, 1121, 1116, 1035, 928, 916], [1237, 1233, 1206, 928, 900, 795], [1211, 1176, 1174, 868, 800, 787]]
+G_BUCKET_ID_list length 4
+len(g_bucket_nids_list)  4
+len(local_split_batches_nid_list)  4
+current group_mem  6.301913490222002
+current group_mem  6.303814864294991
+current group_mem  6.302184587104289
+current group_mem  6.019397373772354
+batches output list generation spend  0.00040793418884277344
+self.weights_list  [0.25513244851057276, 0.27687181799188487, 0.25351601587842665, 0.2144797176191157]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.01754283905029297
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.563072919845581
+local_to_global: src global  tensor([ 98340, 127906,  11795,  ..., 105097,  47669, 107740])
+num_output  90941
+self.output_nids  90941
+output nodes length match
+global output equals  True
+partition total batch output list spend :  0.751187801361084
+self.buckets_partition() spend  sec:  0.5806479454040527
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  4
+bucketing dataloader: global_batched_output_nid_list  [tensor([119181, 126094,  89128,  ...,  10005, 143234, 111132]), tensor([ 98340,  11795,  95296,  ...,  14189, 107540,  50603]), tensor([127906, 151686,  14101,  ...,  79805,  90471,  37979]), tensor([116139,  10592,  49333,  ...,  60555,  10705, 146720])]
+check connections block*********************************
+
+the find indices time spent  0.044380903244018555
+
+in edges time spent  0.15413808822631836
+local to global src and eids time spent  0.345958948135376
+time gen tails  0.06380105018615723
+res  length 4
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.33878445625305176
+
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  4
+check connections block*********************************
+
+the find indices time spent  0.1272118091583252
+
+in edges time spent  0.6021058559417725
+local to global src and eids time spent  0.9042482376098633
+time gen tails  0.13547706604003906
+res  length 4
+
+block_gen_time in "generate_blocks_for_one_layer_block"  1.0092804431915283
+
+block collection to dataloader spend  1.3589859008789062e-05
+step  0
+step  1
+step  2
+step  3
+----------------------------------------------------------pseudo_mini_loss sum 3.218183994293213
+pure train time :  0.5122783184051514
+train time :  0.7836670875549316
+end to end time :  5.625395059585571
+connection check time:  2.722536087036133
+block generation time  1.34806489944458
+generate_dataloader_bucket_block=======
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+type of fanout_dst_nids  <class 'torch.Tensor'>
+self.K  4
+the grouping_fanout_arxiv called successfully
+capacity  6300
+ 
+[928, 1092, 1174, 1206, 1237, 1233, 1219, 1211, 1184, 1176, 1116, 1121, 1061, 1035, 1013, 955, 960, 928, 916, 900, 868, 787, 800, 795]
+indexed_dict  {0: 928, 1: 1092, 2: 1174, 3: 1206, 4: 1237, 5: 1233, 6: 1219, 7: 1211, 8: 1184, 9: 1176, 10: 1116, 11: 1121, 12: 1061, 13: 1035, 14: 1013, 15: 955, 16: 960, 17: 928, 18: 916, 19: 900, 20: 868, 21: 787, 22: 800, 23: 795}
+sorted_dict  {4: 1237, 5: 1233, 6: 1219, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 1: 1092, 12: 1061, 13: 1035, 14: 1013, 16: 960, 15: 955, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+
+weights after sort [1237, 1233, 1219, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1092, 1061, 1035, 1013, 960, 955, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1219 1092 1061 1013  960  955]
+
+original_bucket_ids  [6, 1, 12, 14, 16, 15]
+left sorted_dict  {4: 1237, 5: 1233, 7: 1211, 3: 1206, 8: 1184, 9: 1176, 2: 1174, 11: 1121, 10: 1116, 13: 1035, 0: 928, 17: 928, 18: 916, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+after remove pre pack weights,  [1237, 1233, 1211, 1206, 1184, 1176, 1174, 1121, 1116, 1035, 928, 928, 916, 900, 868, 800, 795, 787]
+res_tmp  [1184 1121 1116 1035  928  916]
+
+original_bucket_ids  [8, 11, 10, 13, 0, 18]
+left sorted_dict  {4: 1237, 5: 1233, 7: 1211, 3: 1206, 9: 1176, 2: 1174, 17: 928, 19: 900, 20: 868, 22: 800, 23: 795, 21: 787}
+after remove pre pack weights,  [1237, 1233, 1211, 1206, 1176, 1174, 928, 900, 868, 800, 795, 787]
+res_tmp  [1237 1233 1206  928  900  795]
+
+original_bucket_ids  [4, 5, 3, 17, 19, 23]
+left sorted_dict  {7: 1211, 9: 1176, 2: 1174, 20: 868, 22: 800, 21: 787}
+after remove pre pack weights,  [1211, 1176, 1174, 868, 800, 787]
+G_BUCKET_ID_list [[6, 1, 12, 14, 16, 15], [8, 11, 10, 13, 0, 18], [4, 5, 3, 17, 19, 23], [7, 9, 2, 20, 22, 21]]
+Groups_mem_list  [[1219, 1092, 1061, 1013, 960, 955], [1184, 1121, 1116, 1035, 928, 916], [1237, 1233, 1206, 928, 900, 795], [1211, 1176, 1174, 868, 800, 787]]
+G_BUCKET_ID_list length 4
+len(g_bucket_nids_list)  4
+len(local_split_batches_nid_list)  4
+current group_mem  6.301913490222002
+current group_mem  6.303814864294991
+current group_mem  6.302184587104289
+current group_mem  6.019397373772354
+batches output list generation spend  0.0003826618194580078
+self.weights_list  [0.25513244851057276, 0.27687181799188487, 0.25351601587842665, 0.2144797176191157]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.016145706176757812
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.7143814563751221
+local_to_global: src global  tensor([ 97434, 105923,  99325,  ...,  56877, 112947,  79437])
+num_output  90941
+self.output_nids  90941
+output nodes length match
+global output equals  True
+partition total batch output list spend :  0.8878405094146729
+self.buckets_partition() spend  sec:  0.7305607795715332
+bucketing dataloader: layer  0
+bucketing dataloader: the number of batches:  4
+bucketing dataloader: global_batched_output_nid_list  [tensor([ 97434,  99325,  83088,  ..., 164381, 161623, 115603]), tensor([ 97459,  25609, 168053,  ..., 166886,  17492, 141825]), tensor([105923, 111493, 159702,  ...,  15886, 127041,  86947]), tensor([109947, 168868, 117819,  ...,   9252,  59875,  65849])]
+check connections block*********************************
+
+the find indices time spent  0.04804372787475586
+
+in edges time spent  0.16801667213439941
+local to global src and eids time spent  0.33610987663269043
+time gen tails  0.06395387649536133
+res  length 4
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.3354625701904297
+
+----------------------------------------
+bucketing dataloader: layer  1
+bucketing dataloader: num of batch  4
+check connections block*********************************
+
+the find indices time spent  0.12874817848205566
+
+in edges time spent  0.5807242393493652
+local to global src and eids time spent  0.9078245162963867
+time gen tails  0.13663530349731445
+res  length 4
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.9944789409637451
+
+block collection to dataloader spend  9.059906005859375e-06
+step  0
+step  1
+step  2
+step  3
+----------------------------------------------------------pseudo_mini_loss sum 3.17102313041687
+pure train time :  0.502089262008667
+train time :  0.7770812511444092
+end to end time :  5.73589825630188
+connection check time:  2.7231242656707764
+block generation time  1.3299415111541748
+end to end time  5.843669176101685
+Total (block generation + training)time/epoch 5.843669176101685
+pure train time per /epoch  [0.95334792137146, 0.5202927589416504, 0.5179111957550049, 0.5122783184051514, 0.502089262008667]
+pure train time average  0.502089262008667
