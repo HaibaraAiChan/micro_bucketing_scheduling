@@ -234,7 +234,7 @@ def run(args, device, data):
 				time_start = time.time()
 				num_input =0
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
-					print('step ', step )
+					# print('step ', step )
 					num_input += len(input_nodes)
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 					blocks = [block.int().to(device) for block in blocks]#------------*

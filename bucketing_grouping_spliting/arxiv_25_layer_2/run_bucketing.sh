@@ -65,12 +65,13 @@
 #     --lr 1e-3 \
 #     > ${save_path}/nb_${nb}_h_1024_bk_2.2.log
 
-save_path=./bucketing_log/256
+save_path=./bucketing_log/256/400/
 nb=4
 hidden=256
-n_epoch=5
+n_epoch=400
 method=arxiv_25_backpack_bucketing
 # method=range_bucketing
+nb=2
 echo "---start backpack_24_mem_25_split.py ${nb} batches "
 python arxiv_backpack_24_mem_25_split.py \
     --dataset ogbn-arxiv \
@@ -85,5 +86,39 @@ python arxiv_backpack_24_mem_25_split.py \
     --aggre lstm \
     --log-indent 3 \
     --lr 1e-3 \
-    --eval-every 5 \
+    --eval-every 1000 \
+    > ${save_path}/nb_${nb}_h_${hidden}_epoch_${n_epoch}_group_${method}.log
+nb=4
+echo "---start backpack_24_mem_25_split.py ${nb} batches "
+python arxiv_backpack_24_mem_25_split.py \
+    --dataset ogbn-arxiv \
+    --selection-method $method \
+    --num-batch $nb \
+    --mem-constraint 18 \
+    --num-layers 2 \
+    --fan-out 10,25 \
+    --num-hidden $hidden \
+    --num-runs 1 \
+    --num-epoch $n_epoch \
+    --aggre lstm \
+    --log-indent 3 \
+    --lr 1e-3 \
+    --eval-every 1000 \
+    > ${save_path}/nb_${nb}_h_${hidden}_epoch_${n_epoch}_group_${method}.log
+nb=8
+echo "--start backpack_24_mem_25_split.py ${nb} batches "
+python arxiv_backpack_24_mem_25_split.py \
+    --dataset ogbn-arxiv \
+    --selection-method $method \
+    --num-batch $nb \
+    --mem-constraint 18 \
+    --num-layers 2 \
+    --fan-out 10,25 \
+    --num-hidden $hidden \
+    --num-runs 1 \
+    --num-epoch $n_epoch \
+    --aggre lstm \
+    --log-indent 3 \
+    --lr 1e-3 \
+    --eval-every 1000 \
     > ${save_path}/nb_${nb}_h_${hidden}_epoch_${n_epoch}_group_${method}.log
