@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # mkdir ./log1
-save_path=./bucket_log/256
+save_path=./bucket_log/256/400
 # mkdir $save_path
 
 # echo '---start cora_backpack.py 3 batches '
@@ -35,12 +35,13 @@ save_path=./bucket_log/256
 #     --lr 1e-5 \
 #     > ${save_path}/nb_4_bucketing_h_2048.log
 # echo '---start cora_backpack.py 4 batches '
-np=5
-nb=1
+np=400
+# nb=1
 hidden=256
+method=cora_25_backpack_bucketing
 # python cora_buckey.py \
 #     --dataset cora \
-#     --selection-method cora_25_backpack_bucketing \
+#     --selection-method $method \
 #     --num-batch $nb \
 #     --mem-constraint 0.38\
 #     --num-layers 2 \
@@ -51,24 +52,24 @@ hidden=256
 #     --aggre lstm \
 #     --log-indent 3 \
 #     --lr 1e-3 \
-#     > ${save_path}/train_loss_nb_${nb}_bucketing_h_${hidden}___.log
-# nb=2
-method=cora_25_backpack_bucketing
-# # method=random_bucketing
-# python cora_buckey.py \
-#     --dataset cora \
-#     --selection-method $method \
-#     --num-batch $nb \
-#     --mem-constraint 0.19\
-#     --num-layers 2 \
-#     --fan-out 10,25 \
-#     --num-hidden $hidden \
-#     --num-runs 1 \
-#     --num-epoch $np \
-#     --aggre lstm \
-#     --log-indent 3 \
-#     --lr 1e-3 \
 #     > ${save_path}/train_loss_nb_${nb}_bucketing_h_${hidden}__method_${method}.log
+
+nb=2
+# method=random_bucketing
+python cora_buckey.py \
+    --dataset cora \
+    --selection-method $method \
+    --num-batch $nb \
+    --mem-constraint 0.19\
+    --num-layers 2 \
+    --fan-out 10,25 \
+    --num-hidden $hidden \
+    --num-runs 1 \
+    --num-epoch $np \
+    --aggre lstm \
+    --log-indent 3 \
+    --lr 1e-3 \
+    > ${save_path}/train_loss_nb_${nb}_bucketing_h_${hidden}__method_${method}.log
 nb=4
 hidden=256
 python cora_buckey.py \
@@ -85,3 +86,19 @@ python cora_buckey.py \
     --log-indent 3 \
     --lr 1e-3 \
     > ${save_path}/train_loss_nb_${nb}_bucketing_h_${hidden}__method_${method}.log
+# nb=8
+# hidden=256
+# python cora_buckey.py \
+#     --dataset cora \
+#     --selection-method $method \
+#     --num-batch $nb \
+#     --mem-constraint 0.048 \
+#     --num-layers 2 \
+#     --fan-out 10,25 \
+#     --num-hidden $hidden \
+#     --num-runs 1 \
+#     --num-epoch $np \
+#     --aggre lstm \
+#     --log-indent 3 \
+#     --lr 1e-3 \
+#     > ${save_path}/train_loss_nb_${nb}_bucketing_h_${hidden}__method_${method}.log

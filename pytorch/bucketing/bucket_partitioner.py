@@ -404,13 +404,22 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				elif '25_backpack_' in self.selection_method:	
 					if 'cora_' in self.selection_method :
 						est_mem_dict = {1: 0.009952336549758911, 2: 0.029204897582530975, 3: 0.039294563233852386, 4: 0.054936736822128296, 5: 0.04942861944437027, 6: 0.03956902027130127, 7: 0.017872966825962067, 8: 0.014537237584590912, 9: 0.02214217185974121, 10: 0.018099479377269745, 11: 0.005473785102367401, 12: 0.014345057308673859, 19: 0.010031260550022125, 21: 0.014677919447422028, 25: 0.028916627168655396}
+						capacity_imp = self.memory_constraint
+					if 'pubmed_' in self.selection_method :
+						est_mem_dict = {1: 0.008472561836242676, 2: 0.004270613193511963, 3: 0.00498005747795105, 4: 0.0036263465881347656, 5: 0.0025652647018432617, 6: 0.008285075426101685, 7: 0.001278609037399292, 8: 0.007463514804840088, 9: 0.0038363635540008545, 10: 0.0014977455139160156, 11: 0.002338886260986328, 17: 0.010301828384399414, 18: 0.006973743438720703, 22: 0.005353689193725586, 25: 0.015277057886123657}
+						if self.num_batch == 2:
+							capacity_imp = 0.045
+						elif self.num_batch == 4:
+							capacity_imp = 0.023
 					print('sum(estimated_mem) ', sum(est_mem_dict.values()))
 					
 					print('len(estimated_mem) ', len(est_mem_dict))
 					# time_backpack_start = time.time()
-					capacity_imp = self.memory_constraint
+					
 					Groups_mem_list, G_BUCKET_ID_list = grouping_cora(adjust, est_mem_dict, capacity_imp, 25, self.K)
-				
+					# print('sum(estimated_mem) ', sum(est_mem_dict.values()))
+					
+					
 				elif '10_backpack_' in self.selection_method:	
 					if 'cora_' in self.selection_method :
 						est_mem_dict = {1: 0.0019218027591705322, 2: 0.004804506897926331, 3: 0.007495030760765076, 4: 0.008455932140350342, 5: 0.007206760346889496, 6: 0.006341949105262756, 7: 0.002690523862838745, 8: 0.0023061633110046387, 9: 0.003459244966506958, 10: 0.009609013795852661}
@@ -485,9 +494,12 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 							capacity_imp = self.memory_constraint-17.70
 						elif self.num_batch == 7:
 							capacity_imp = self.memory_constraint-17.74
-					# elif '25_backpack_' in self.selection_method:
-					# 	estimated_mem = [3.6379471541090243, 3.519859292701475, 1.3139044948856264, 1.168023258447647, 1.1110345689631933, 1.0174509148766198, 0.939528083329737, 0.871675177344254, 0.8272551951869841, 0.7875044051387211, 0.7164326450037946, 0.7157693082792709, 0.6781556913286547, 0.6342095800024695, 0.623858655895532, 0.5609127309921086, 0.5670484961134443, 0.5411179518397851, 0.5307433498923407, 0.5061348172368614, 0.5054305008764547, 0.4282287766997373, 0.4350062972128945, 0.43397694928305497]
-					# 	capacity_imp = self.memory_constraint-11.97 # nb 6 capcity = 6.03
+					elif '25_backpack_' in self.selection_method:
+						if self.hidden==256:
+							# fanout split 136.9*8/50 = 22 GB
+							estimated_mem = [1.3390388304942122, 1.1511607853654562, 0.9968803828513182, 1.1330254407898046, 1.273968707844615, 1.4271276523896628, 1.482011009895538, 1.6097993905165318, 1.6116104018773965, 1.6784923510901304, 1.8729928371372757, 1.915525670833232, 2.0752913576516465, 2.0264824781498296, 2.1645393796554804, 2.1370398432040925, 2.1997352567082333, 2.1771046663129945, 2.3384675421966064, 2.2770233221822953, 2.454792454762997, 2.4747481289605364, 2.518576996875674, 2.593600036529913]
+							if self.num_batch == 51:
+								capacity_imp = 2.6 # maximum of est mem [1,fanout-1]
 						
 					# elif '30_backpack_' in self.selection_method:
 					# 	estimated_mem = [11.09133707869788, 7.949351660231331, 4.247930594170108, 3.767815723282392, 3.521911913357682, 3.3171698192934964, 3.1136675746243436, 2.9493490757618086, 2.783152518733855, 2.690315310282632, 2.4780320925231085, 2.4736405822131586, 2.424331795810457, 2.3423791134065306, 2.2508307132173453, 2.0888736283425056, 2.1393341709313427, 2.0144231711761864, 2.028492122175591, 1.8952586057017728, 1.9272310948984677, 1.7648288977543771, 1.8025470147872276, 1.7435488087790354, 1.624197941655698, 1.6781451757272114, 1.585553364875989, 1.5579015641599088, 1.508019266507371]
@@ -518,8 +530,8 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 						current_group_mem = get_sum(G_BUCKET_ID_list[j], estimated_mem)
 						print("current group_mem ", current_group_mem)
 						
-						split_batches_nid_list[j] = torch.cat((split_batches_nid_list[j], tensor_group)) 
-						
+						# split_batches_nid_list[j] = torch.cat((split_batches_nid_list[j], tensor_group)) 
+						# split_batches_nid_list[j] = tensor_group
 					
 					time_batch_gen_end = time.time()
 					print('batches output list generation spend ', time_batch_gen_end-time_batch_gen_start)
@@ -1078,7 +1090,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 	
 	def local_to_global(self):
 
-		print('local_to_global: src global ', self.src_nids_tensor)
+		# print('local_to_global: src global ', self.src_nids_tensor)
 		num_output =0
 		for local_seed_nids in self.local_batched_seeds_list:
 			# print('local_to_global: local nid ', local_seed_nids)

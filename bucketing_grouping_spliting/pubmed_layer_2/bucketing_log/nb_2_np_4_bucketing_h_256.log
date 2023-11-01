@@ -1,0 +1,275 @@
+main start at this time 1698798670.9305625
+-----------------------------------------before load data 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+  NumNodes: 19717
+  NumEdges: 88651
+  NumFeats: 500
+  NumClasses: 3
+  NumTrainingSamples: 60
+  NumValidationSamples: 500
+  NumTestSamples: 1000
+Done loading data from cached files.
+success----------------------------------------
+60
+500
+19157
+# Nodes: 19717
+# Edges: 88648
+# Train: 60
+# Val: 500
+# Test: 19157
+# Classes: 3
+
+----------------------------------------start of run function 
+ Nvidia-smi: 0.166015625 GB
+    Memory Allocated: 0.0  GigaBytes
+Max Memory Allocated: 0.0  GigaBytes
+
+generate_dataloader_bucket_block=======
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+memory_constraint:  0.045
+sum(estimated_mem)  0.08652135729789734
+len(estimated_mem)  15
+grouping float:  the grouping_fanout_cora called successfully
+ enter split_cora function
+G_BUCKET_ID_list [[14, 11, 0, 7, 13], [5, 12, 1, 2, 3, 8, 4, 10, 6, 9]]
+Groups_mem_list  [[15, 10, 8, 7, 5], [8, 6, 4, 4, 3, 3, 2, 2, 1, 1]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.0012881755828857422
+current group_mem  0.04686865210533142
+current group_mem  0.03965270519256592
+batches output list generation spend  0.00067138671875
+self.weights_list  [0.5666666666666667, 0.43333333333333335]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0015347003936767578
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0020279884338378906
+num_output  60
+self.output_nids  60
+output nodes length match
+global output equals  True
+partition total batch output list spend :  0.004885196685791016
+self.buckets_partition() spend  sec:  0.0035772323608398438
+check connections block*********************************
+
+the find indices time spent  7.843971252441406e-05
+
+in edges time spent  0.0005199909210205078
+local to global src and eids time spent  0.00028443336486816406
+time gen tails  6.866455078125e-05
+res  length 2
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.0065877437591552734
+
+----------------------------------------
+check connections block*********************************
+
+the find indices time spent  0.0003082752227783203
+
+in edges time spent  0.0008718967437744141
+local to global src and eids time spent  0.0012989044189453125
+time gen tails  0.00029468536376953125
+res  length 2
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.0040013790130615234
+
+block collection to dataloader spend  9.775161743164062e-06
+step  0
+step  1
+----------------------------------------after optimizer
+ Nvidia-smi: 1.62890625 GB
+    Memory Allocated: 0.04299783706665039  GigaBytes
+Max Memory Allocated: 0.0629582405090332  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.0996761322021484
+pure train time :  0.542625904083252
+train time :  1.0642304420471191
+end to end time :  1.0848407745361328
+connection check time:  0.004408121109008789
+block generation time  0.010589122772216797
+generate_dataloader_bucket_block=======
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+memory_constraint:  0.045
+sum(estimated_mem)  0.08652135729789734
+len(estimated_mem)  15
+grouping float:  the grouping_fanout_cora called successfully
+ enter split_cora function
+G_BUCKET_ID_list [[14, 11, 0, 7, 13], [5, 12, 1, 2, 3, 8, 4, 10, 6, 9]]
+Groups_mem_list  [[15, 10, 8, 7, 5], [8, 6, 4, 4, 3, 3, 2, 2, 1, 1]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.002097606658935547
+current group_mem  0.04686865210533142
+current group_mem  0.03965270519256592
+batches output list generation spend  7.557868957519531e-05
+self.weights_list  [0.5666666666666667, 0.43333333333333335]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.001386404037475586
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0022470951080322266
+num_output  60
+self.output_nids  60
+output nodes length match
+global output equals  True
+partition total batch output list spend :  0.004527568817138672
+self.buckets_partition() spend  sec:  0.003662109375
+check connections block*********************************
+
+the find indices time spent  0.00011849403381347656
+
+in edges time spent  0.0005500316619873047
+local to global src and eids time spent  0.0003020763397216797
+time gen tails  6.67572021484375e-05
+res  length 2
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.005235910415649414
+
+----------------------------------------
+check connections block*********************************
+
+the find indices time spent  0.00034427642822265625
+
+in edges time spent  0.0009839534759521484
+local to global src and eids time spent  0.0015101432800292969
+time gen tails  0.0003311634063720703
+res  length 2
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.00400090217590332
+
+block collection to dataloader spend  4.76837158203125e-06
+step  0
+step  1
+----------------------------------------after optimizer
+ Nvidia-smi: 1.63671875 GB
+    Memory Allocated: 0.043211936950683594  GigaBytes
+Max Memory Allocated: 0.08811712265014648  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.080823540687561
+pure train time :  0.1466357707977295
+train time :  0.15227580070495605
+end to end time :  0.1716783046722412
+connection check time:  0.004936695098876953
+block generation time  0.009236812591552734
+generate_dataloader_bucket_block=======
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+memory_constraint:  0.045
+sum(estimated_mem)  0.08652135729789734
+len(estimated_mem)  15
+grouping float:  the grouping_fanout_cora called successfully
+ enter split_cora function
+G_BUCKET_ID_list [[14, 11, 0, 7, 13], [5, 12, 1, 2, 3, 8, 4, 10, 6, 9]]
+Groups_mem_list  [[15, 10, 8, 7, 5], [8, 6, 4, 4, 3, 3, 2, 2, 1, 1]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.002862215042114258
+current group_mem  0.04686865210533142
+current group_mem  0.03965270519256592
+batches output list generation spend  7.081031799316406e-05
+self.weights_list  [0.5666666666666667, 0.43333333333333335]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0019507408142089844
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0030176639556884766
+num_output  60
+self.output_nids  60
+output nodes length match
+global output equals  True
+partition total batch output list spend :  0.005808353424072266
+self.buckets_partition() spend  sec:  0.004991769790649414
+check connections block*********************************
+
+the find indices time spent  0.00011205673217773438
+
+in edges time spent  0.0007050037384033203
+local to global src and eids time spent  0.00042366981506347656
+time gen tails  9.059906005859375e-05
+res  length 2
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.004939556121826172
+
+----------------------------------------
+check connections block*********************************
+
+the find indices time spent  0.0005261898040771484
+
+in edges time spent  0.0013115406036376953
+local to global src and eids time spent  0.0015001296997070312
+time gen tails  0.0003254413604736328
+res  length 2
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.004315853118896484
+
+block collection to dataloader spend  5.0067901611328125e-06
+step  0
+step  1
+----------------------------------------after optimizer
+ Nvidia-smi: 1.63671875 GB
+    Memory Allocated: 0.043211936950683594  GigaBytes
+Max Memory Allocated: 0.08884572982788086  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.0676305294036865
+pure train time :  0.16303062438964844
+train time :  0.16853976249694824
+end to end time :  0.190291166305542
+connection check time:  0.005805015563964844
+block generation time  0.009255409240722656
+generate_dataloader_bucket_block=======
+---||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||-----||--
+memory_constraint:  0.045
+sum(estimated_mem)  0.08652135729789734
+len(estimated_mem)  15
+grouping float:  the grouping_fanout_cora called successfully
+ enter split_cora function
+G_BUCKET_ID_list [[14, 11, 0, 7, 13], [5, 12, 1, 2, 3, 8, 4, 10, 6, 9]]
+Groups_mem_list  [[15, 10, 8, 7, 5], [8, 6, 4, 4, 3, 3, 2, 2, 1, 1]]
+G_BUCKET_ID_list length 2
+backpack scheduling spend  0.0024712085723876953
+current group_mem  0.04686865210533142
+current group_mem  0.03965270519256592
+batches output list generation spend  8.96453857421875e-05
+self.weights_list  [0.5666666666666667, 0.43333333333333335]
+bkt_dst_nodes_list = self.get_in_degree_bucketing() spend:  0.0015938282012939453
+self.gen_batches_seeds_list(bkt_dst_nodes_list_local) spend  0.0027811527252197266
+num_output  60
+self.output_nids  60
+output nodes length match
+global output equals  True
+partition total batch output list spend :  0.005408048629760742
+self.buckets_partition() spend  sec:  0.0044023990631103516
+check connections block*********************************
+
+the find indices time spent  0.00013780593872070312
+
+in edges time spent  0.0007333755493164062
+local to global src and eids time spent  0.00035762786865234375
+time gen tails  7.534027099609375e-05
+res  length 2
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.004198789596557617
+
+----------------------------------------
+check connections block*********************************
+
+the find indices time spent  0.0004057884216308594
+
+in edges time spent  0.0010612010955810547
+local to global src and eids time spent  0.001752614974975586
+time gen tails  0.0003924369812011719
+res  length 2
+
+block_gen_time in "generate_blocks_for_one_layer_block"  0.004119157791137695
+
+block collection to dataloader spend  4.291534423828125e-06
+step  0
+step  1
+----------------------------------------after optimizer
+ Nvidia-smi: 1.63671875 GB
+    Memory Allocated: 0.043211936950683594  GigaBytes
+Max Memory Allocated: 0.08884572982788086  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.0533766746520996
+pure train time :  0.1576240062713623
+train time :  0.16269969940185547
+end to end time :  0.18296360969543457
+connection check time:  0.005787372589111328
+block generation time  0.008317947387695312
+end to end time  0.19209527969360352
+Total (block generation + training)time/epoch 0.19209527969360352
+pure train time per /epoch  [0.542625904083252, 0.1466357707977295, 0.16303062438964844, 0.1576240062713623]
+pure train time average  0.1576240062713623
+input num list  [1639, 1675, 1677, 1649]

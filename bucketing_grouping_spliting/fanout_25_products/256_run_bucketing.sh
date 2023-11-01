@@ -19,22 +19,24 @@ save_path=./bucketing_log/256
 #     --log-indent 3 \
 #     --lr 1e-2 \
 #     > ${save_path}/nb_16_bucketing.log
-
-echo '---start products_25_time.py REG  15 batches '
+hidden=256
+nb=15
+np=60
+echo "---start products_25_time.py REG  ${nb} batches "
 python products_25_time.py \
     --dataset ogbn-products \
     --selection-method 25_backpack_products_bucketing \
-    --num-batch 15 \
+    --num-batch $nb \
     --mem-constraint 18.1 \
     --num-layers 2 \
     --fan-out 10,25 \
-    --num-hidden 256 \
+    --num-hidden $hidden \
     --num-runs 1 \
-    --num-epoch 10 \
+    --num-epoch $np \
     --aggre lstm \
-    --log-indent 3 \
+    --log-indent 0 \
     --lr 1e-2 \
-    > ${save_path}/nb_15_bucketing.log
+    > ${save_path}/${np}_epoch_nb_${nb}_2_layer_h_${hidden}.log
 # echo '---start products_25_time.py REG  14 batches '
 # python products_25_time.py \
 #     --dataset ogbn-products \

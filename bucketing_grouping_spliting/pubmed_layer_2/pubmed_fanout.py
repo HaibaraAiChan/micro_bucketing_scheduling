@@ -296,7 +296,7 @@ def run(args, device, data):
 			# start of data preprocessing part---s---------s--------s-------------s--------s------------s--------s----
 			if args.load_full_batch:
 				full_batch_dataloader=[]
-				file_name=r'/home/cc/Betty_baseline/dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
+				file_name=r'../../../dataset/fan_out_'+args.fan_out+'/'+args.dataset+'_'+str(epoch)+'_items.pickle'
 				with open(file_name, 'rb') as handle:
 					item=pickle.load(handle)
 					full_batch_dataloader.append(item)
@@ -367,7 +367,7 @@ def run(args, device, data):
 				print("modified_res ", modified_res)
 				print(sum(modified_res))
 				print('mem size of fanout degree bucket by formula (GB): ', res)
-				pritn(sum(res.values()))
+				print(sum(res.values()))
 				print()
 				print('the modified memory estimation spend (sec)', time.time()-time1)
 				print('the time of number of fanout blocks generation (sec)', time1-time0)
@@ -437,23 +437,23 @@ def main():
 	argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='__bucketing')
-	argparser.add_argument('--num-batch', type=int, default=30)
+	argparser.add_argument('--num-batch', type=int, default=25)
 	argparser.add_argument('--mem-constraint', type=float, default=18.1)
 
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
 
-	argparser.add_argument('--num-hidden', type=int, default=4096)
+	argparser.add_argument('--num-hidden', type=int, default=256)
 
 
-	argparser.add_argument('--num-layers', type=int, default=3)
-	argparser.add_argument('--fan-out', type=str, default='10,25,30')
+	argparser.add_argument('--num-layers', type=int, default=2)
+	argparser.add_argument('--fan-out', type=str, default='10,25')
 
 	argparser.add_argument('--log-indent', type=float, default=0)
 #--------------------------------------------------------------------------------------
 
-	argparser.add_argument('--lr', type=float, default=1e-5)
+	argparser.add_argument('--lr', type=float, default=1e-3)
 	argparser.add_argument('--dropout', type=float, default=0.5)
 	argparser.add_argument("--weight-decay", type=float, default=5e-4,
 						help="Weight for L2 loss")

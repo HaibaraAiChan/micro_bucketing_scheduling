@@ -207,13 +207,13 @@ def run(args, device, data):
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
 					blocks = [block.int().to(device) for block in blocks]#------------*
 					time11= time.time()
-					see_memory_usage("----------------------------------------before batch_pred = model(blocks, batch_inputs)")
+					# see_memory_usage("----------------------------------------before batch_pred = model(blocks, batch_inputs)")
 					
 					batch_pred = model(blocks, batch_inputs)#------------*
-					see_memory_usage("----------------------------------------after batch_pred = model(blocks, batch_inputs)")
+					# see_memory_usage("----------------------------------------after batch_pred = model(blocks, batch_inputs)")
 					pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
 					
-					see_memory_usage("----------------------------------------after loss function")
+					# see_memory_usage("----------------------------------------after loss function")
 					pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
 					pseudo_mini_loss.backward()#------------*
 					time12= time.time()
@@ -247,24 +247,24 @@ def run(args, device, data):
 					print('full batch dst global ', len(seeds))
 					# print('full batch eid global ', blocks[-1].edata['_ID'])
 					batch_inputs, batch_labels = load_block_subtensor(nfeats, labels, blocks, device,args)#------------*
-					see_memory_usage("----------------------------------------after load_block_subtensor")
+					# see_memory_usage("----------------------------------------after load_block_subtensor")
 					blocks = [block.int().to(device) for block in blocks]
-					see_memory_usage("----------------------------------------after block to device")
+					# see_memory_usage("----------------------------------------after block to device")
 
 					batch_pred = model(blocks, batch_inputs)
-					see_memory_usage("----------------------------------------after model")
+					# see_memory_usage("----------------------------------------after model")
 
 					loss = loss_fcn(batch_pred, batch_labels)
 					print('full batch train ------ loss ' + str(loss.item()) )
-					see_memory_usage("----------------------------------------after loss")
+					# see_memory_usage("----------------------------------------after loss")
 
 					loss.backward()
-					see_memory_usage("----------------------------------------after loss backward")
+					# see_memory_usage("----------------------------------------after loss backward")
 
 					optimizer.step()
 					optimizer.zero_grad()
 					print()
-					see_memory_usage("----------------------------------------full batch")
+					# see_memory_usage("----------------------------------------full batch")
 		if epoch >= args.log_indent:
 			
 			full_epoch=time.time() - t0
