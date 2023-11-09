@@ -31,17 +31,17 @@ def read_files_in_folder(folder_path):
     for file_name in file_list:
         if not 'log' in file_name:
             continue
-        # if not '400' in file_name:
-        #     continue
-        # if not 'nb_2_' in file_name:
+        if not '400' in file_name:
+            continue
+        # if not 'lr_0.01' in file_name:
         #     continue
         # if not 'cora' in file_name:
         #     continue
         # dataset = 'cora'
-        # if not 'arxiv' in file_name:
-        #     continue
+        if not 'arxiv' in file_name:
+            continue
         
-        dataset = 'products'
+        dataset = 'arxiv'
         # if not 'pubmed' in file_name:
         #     continue
         # dataset = 'pubmed'
@@ -53,16 +53,16 @@ def read_files_in_folder(folder_path):
             with open(file_path, 'r') as file:
                 lines = file.readlines()
                 for line in lines:
-                    if line.startswith("----------------------------------------------------------pseudo_mini_loss sum "):
-                        # print(line.split(" "))
-                        print(line.split(" ")[2].strip())
-                        loss = float(line.split(" ")[2].strip())
+                    if line.startswith("full batch train ------ loss "):
+                        print(line.split(" "))
+                        print(line.split(" ")[5].strip())
+                        loss = float(line.split(" ")[5].strip())
                         
                         loss_list.append(loss)
                         
         
         # print('f1_list ', f1_list)
-        draw(loss_list, str(file_name[:-4]) + '_training_loss ')
+        draw(loss_list, str(dataset) + ' training loss ')
         # print()
     print('max loss_list ',max(loss_list))
     print('min loss_list ',min(loss_list))
@@ -72,17 +72,9 @@ def read_files_in_folder(folder_path):
 
 numbers = read_files_in_folder('./')
 length = len(numbers)
-start = 50
-end = 59
+start = 360
+end = 399
 mean = statistics.mean(numbers[start: end])
 std_dev = statistics.stdev(numbers[start: end])
 formatted_result = f"{mean:.8f} ± {std_dev:.8f}"
 print(formatted_result)
-
-file_path = 'nb_15_loss.txt'
-
-
-with open(file_path, 'w') as file:
-    # Iterate through the list and write each item on a new line
-    for item in numbers:
-        file.write(str(item) + '\n')

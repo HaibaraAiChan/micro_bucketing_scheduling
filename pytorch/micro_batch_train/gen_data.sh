@@ -8,7 +8,7 @@ File=gen_data.py
 data=reddit
 # data=karate
 
-num_epoch=40
+num_epoch=400
 # fan_out=10
 # data=ogbn-arxiv
 

@@ -41,7 +41,7 @@ def read_files_in_folder(folder_path):
         # if not 'arxiv' in file_name:
         #     continue
         
-        dataset = 'products'
+        # dataset = 'cora'
         # if not 'pubmed' in file_name:
         #     continue
         # dataset = 'pubmed'
@@ -72,14 +72,14 @@ def read_files_in_folder(folder_path):
 
 numbers = read_files_in_folder('./')
 length = len(numbers)
-start = 50
-end = 59
+start = 360
+end = 399
 mean = statistics.mean(numbers[start: end])
 std_dev = statistics.stdev(numbers[start: end])
 formatted_result = f"{mean:.8f} ± {std_dev:.8f}"
 print(formatted_result)
 
-file_path = 'nb_15_loss.txt'
+file_path = 'nb_2_loss.txt'
 
 
 with open(file_path, 'w') as file:

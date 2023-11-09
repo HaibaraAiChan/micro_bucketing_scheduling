@@ -466,7 +466,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					# split_batches_nid_list = split_list(map_output_list, self.K)
 					
 					split_batches_nid_list = [map_output_list[i:i + fanout_batch_size] for i in range(0, len(map_output_list), fanout_batch_size)]
-					print("print(split_batches_nid_list) ",split_batches_nid_list)
+					# print("print(split_batches_nid_list) ",split_batches_nid_list)
 					# return
 					# ct = time.time()
 					# src_list, weights_list, time_collection = generate_K_hop_neighbors(self.full_batch_dataloader, self.args, split_batches_nid_list)
@@ -496,11 +496,12 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 							capacity_imp = self.memory_constraint-17.74
 					elif '25_backpack_' in self.selection_method:
 						if self.hidden==256:
-							# fanout split 136.9*8/50 = 22 GB
+							# fanout split 136.9*8/50 = 22 GB # graphsage + lstm
 							estimated_mem = [1.3390388304942122, 1.1511607853654562, 0.9968803828513182, 1.1330254407898046, 1.273968707844615, 1.4271276523896628, 1.482011009895538, 1.6097993905165318, 1.6116104018773965, 1.6784923510901304, 1.8729928371372757, 1.915525670833232, 2.0752913576516465, 2.0264824781498296, 2.1645393796554804, 2.1370398432040925, 2.1997352567082333, 2.1771046663129945, 2.3384675421966064, 2.2770233221822953, 2.454792454762997, 2.4747481289605364, 2.518576996875674, 2.593600036529913]
 							if self.num_batch == 51:
 								capacity_imp = 2.6 # maximum of est mem [1,fanout-1]
-						
+							elif self.num_batch == 180: # GAT+lstm
+								capacity_imp = 2.6 # maximum of est mem [1,fanout-1]
 					# elif '30_backpack_' in self.selection_method:
 					# 	estimated_mem = [11.09133707869788, 7.949351660231331, 4.247930594170108, 3.767815723282392, 3.521911913357682, 3.3171698192934964, 3.1136675746243436, 2.9493490757618086, 2.783152518733855, 2.690315310282632, 2.4780320925231085, 2.4736405822131586, 2.424331795810457, 2.3423791134065306, 2.2508307132173453, 2.0888736283425056, 2.1393341709313427, 2.0144231711761864, 2.028492122175591, 1.8952586057017728, 1.9272310948984677, 1.7648288977543771, 1.8025470147872276, 1.7435488087790354, 1.624197941655698, 1.6781451757272114, 1.585553364875989, 1.5579015641599088, 1.508019266507371]
 					# 	capacity_imp = self.memory_constraint-10 # nb 11 capcity = 8
@@ -530,14 +531,14 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 						current_group_mem = get_sum(G_BUCKET_ID_list[j], estimated_mem)
 						print("current group_mem ", current_group_mem)
 						
-						# split_batches_nid_list[j] = torch.cat((split_batches_nid_list[j], tensor_group)) 
-						# split_batches_nid_list[j] = tensor_group
+						split_batches_nid_list[j] = torch.cat((split_batches_nid_list[j], tensor_group)) # split + group
+						# split_batches_nid_list[j] = tensor_group # group only
 					
 					time_batch_gen_end = time.time()
 					print('batches output list generation spend ', time_batch_gen_end-time_batch_gen_start)
 					length = len(self.output_nids)
 					self.weights_list = [len(batch_nids)/length  for batch_nids in split_batches_nid_list]
-					print('self.weights_list ', self.weights_list)
+					# print('self.weights_list ', self.weights_list)
 					
 					self.local_batched_seeds_list = split_batches_nid_list
 
@@ -592,6 +593,8 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 								capacity_imp = 3.2 # nb 8 
 							elif self.num_batch == 16:
 								capacity_imp = 1.95 # nb 16 
+							elif self.num_batch == 20:
+								capacity_imp = 1.75 # nb 20 
 						elif  self.hidden == 128: # 2-layers =========================================
 							estimated_mem = [0.42060097957744036, 0.47311523799417204, 0.5099940648098965, 0.5260206879067616, 0.5394331193958898, 0.5433008773297489, 0.5375267645234505, 0.535240380926753, 0.5229354704483863, 0.5202699559667836, 0.494472521700576, 0.49753113977861085, 0.47079622652897474, 0.46104649837089745, 0.451559590774548, 0.4241338345118196, 0.4282073690309857, 0.4134191343331639, 0.4082059832911322, 0.4015348967842896, 0.38770616330547525, 0.35303355384683827, 0.35899451293571416, 0.35517937969207763]
 							# sum of above 11.03(GB),  degree 25 mem estimated =  7.83 GB
