@@ -1,0 +1,3581 @@
+main start at this time 1695363684.430912
+  NumNodes: 2708
+  NumEdges: 10556
+  NumFeats: 1433
+  NumClasses: 7
+  NumTrainingSamples: 140
+  NumValidationSamples: 500
+  NumTestSamples: 1000
+Done loading data from cached files.
+success----------------------------------------
+140
+500
+2068
+# Nodes: 2708
+# Edges: 10556
+# Train: 140
+# Val: 500
+# Test: 2068
+# Classes: 7
+
+in feats:  1433
+loading full batch data spends  0.003023862838745117
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   3.266334533691406e-05
+step  0
+num_input_nids 1347
+140
+140
+num_output_nids of first layer 635
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (lstm): LSTM(64, 64, batch_first=True)
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1347, num_dst_nodes=635, num_edges=2951)
+else: feat size  torch.Size([1347, 1433])
+el size torch.Size([1347, 8, 1])
+er szie torch.Size([635, 8, 1])
+graph.srcdata[ft]  torch.Size([1347, 8, 8])
+------graph.edata a size torch.Size([2951, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48e03dca20>
+graph-in degree
+{1: 46, 2: 97, 3: 105, 4: 111, 5: 84, 6: 58, 7: 34, 8: 23, 9: 8, 10: 69}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 46, 2: 97, 3: 105, 4: 111, 5: 84, 6: 58, 7: 34, 8: 23, 9: 8, 10: 69}
+mailbox .size torch.Size([46, 1, 8, 8])
+
+batch size  46
+
+m.size torch.Size([46, 1, 64])
+h.size  torch.Size([1, 46, 64])
+------rst shape  torch.Size([1, 46, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03c7550>
+func(nbatch).neighbor  torch.Size([46, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([97, 2, 8, 8])
+
+batch size  97
+
+m.size torch.Size([97, 2, 64])
+h.size  torch.Size([1, 97, 64])
+------rst shape  torch.Size([1, 97, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03c7588>
+func(nbatch).neighbor  torch.Size([97, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([105, 3, 8, 8])
+
+batch size  105
+
+m.size torch.Size([105, 3, 64])
+h.size  torch.Size([1, 105, 64])
+------rst shape  torch.Size([1, 105, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03c7ac8>
+func(nbatch).neighbor  torch.Size([105, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([111, 4, 8, 8])
+
+batch size  111
+
+m.size torch.Size([111, 4, 64])
+h.size  torch.Size([1, 111, 64])
+------rst shape  torch.Size([1, 111, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03c7e10>
+func(nbatch).neighbor  torch.Size([111, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([84, 5, 8, 8])
+
+batch size  84
+
+m.size torch.Size([84, 5, 64])
+h.size  torch.Size([1, 84, 64])
+------rst shape  torch.Size([1, 84, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b60f0>
+func(nbatch).neighbor  torch.Size([84, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([58, 6, 8, 8])
+
+batch size  58
+
+m.size torch.Size([58, 6, 64])
+h.size  torch.Size([1, 58, 64])
+------rst shape  torch.Size([1, 58, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b6390>
+func(nbatch).neighbor  torch.Size([58, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([34, 7, 8, 8])
+
+batch size  34
+
+m.size torch.Size([34, 7, 64])
+h.size  torch.Size([1, 34, 64])
+------rst shape  torch.Size([1, 34, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b66d8>
+func(nbatch).neighbor  torch.Size([34, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([23, 8, 8, 8])
+
+batch size  23
+
+m.size torch.Size([23, 8, 64])
+h.size  torch.Size([1, 23, 64])
+------rst shape  torch.Size([1, 23, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b6a20>
+func(nbatch).neighbor  torch.Size([23, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([8, 9, 8, 8])
+
+batch size  8
+
+m.size torch.Size([8, 9, 64])
+h.size  torch.Size([1, 8, 64])
+------rst shape  torch.Size([1, 8, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b6d68>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([69, 10, 8, 8])
+
+batch size  69
+
+m.size torch.Size([69, 10, 64])
+h.size  torch.Size([1, 69, 64])
+------rst shape  torch.Size([1, 69, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ba0f0>
+func(nbatch).neighbor  torch.Size([69, 64])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([635, 64])
+rst.size() torch.Size([635, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([635, 8, 8])
+h.size()  torch.Size([635, 8, 8])
+after flatten h.size()  torch.Size([635, 64])
+layer  1
+layer name  GATConv2(
+  (lstm): LSTM(7, 7, batch_first=True)
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=635, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([635, 64])
+el size torch.Size([635, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([635, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48e03dce10>
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+mailbox .size torch.Size([20, 1, 1, 7])
+
+batch size  20
+
+m.size torch.Size([20, 1, 7])
+h.size  torch.Size([1, 20, 7])
+------rst shape  torch.Size([1, 20, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83bad30>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([25, 2, 1, 7])
+
+batch size  25
+
+m.size torch.Size([25, 2, 7])
+h.size  torch.Size([1, 25, 7])
+------rst shape  torch.Size([1, 25, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83bad68>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([26, 3, 1, 7])
+
+batch size  26
+
+m.size torch.Size([26, 3, 7])
+h.size  torch.Size([1, 26, 7])
+------rst shape  torch.Size([1, 26, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c02e8>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 4, 1, 7])
+
+batch size  22
+
+m.size torch.Size([22, 4, 7])
+h.size  torch.Size([1, 22, 7])
+------rst shape  torch.Size([1, 22, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c0630>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([15, 5, 1, 7])
+
+batch size  15
+
+m.size torch.Size([15, 5, 7])
+h.size  torch.Size([1, 15, 7])
+------rst shape  torch.Size([1, 15, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c0978>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([11, 6, 1, 7])
+
+batch size  11
+
+m.size torch.Size([11, 6, 7])
+h.size  torch.Size([1, 11, 7])
+------rst shape  torch.Size([1, 11, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c0cc0>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 7, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 7, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03c7320>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 8, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 8, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03c7438>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 9, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 9, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b6198>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 10, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 10, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b6c18>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 11, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 11, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ba6a0>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 12, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 12, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c0da0>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 19, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 19, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c04a8>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 21, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 21, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c0a90>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 25, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 25, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b72e8>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([140, 7])
+rst.size() torch.Size([140, 7])
+h.size() after h = layer(block, h)  torch.Size([1, 140, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.552734375 GB
+    Memory Allocated: 0.027452468872070312  GigaBytes
+Max Memory Allocated: 0.027903079986572266  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.552734375 GB
+    Memory Allocated: 0.027457237243652344  GigaBytes
+Max Memory Allocated: 0.027903079986572266  GigaBytes
+
+pure train time  0.5315427780151367
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.560546875 GB
+    Memory Allocated: 0.009185314178466797  GigaBytes
+Max Memory Allocated: 0.027903079986572266  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.95107901096344
+loading full batch data spends  0.004023075103759766
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   6.031990051269531e-05
+step  0
+num_input_nids 1355
+140
+140
+num_output_nids of first layer 630
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (lstm): LSTM(64, 64, batch_first=True)
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1355, num_dst_nodes=630, num_edges=2934)
+else: feat size  torch.Size([1355, 1433])
+el size torch.Size([1355, 8, 1])
+er szie torch.Size([630, 8, 1])
+graph.srcdata[ft]  torch.Size([1355, 8, 8])
+------graph.edata a size torch.Size([2934, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48e03dc320>
+graph-in degree
+{1: 46, 2: 95, 3: 103, 4: 109, 5: 85, 6: 59, 7: 34, 8: 23, 9: 8, 10: 68}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 46, 2: 95, 3: 103, 4: 109, 5: 85, 6: 59, 7: 34, 8: 23, 9: 8, 10: 68}
+mailbox .size torch.Size([46, 1, 8, 8])
+
+batch size  46
+
+m.size torch.Size([46, 1, 64])
+h.size  torch.Size([1, 46, 64])
+------rst shape  torch.Size([1, 46, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ba278>
+func(nbatch).neighbor  torch.Size([46, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([95, 2, 8, 8])
+
+batch size  95
+
+m.size torch.Size([95, 2, 64])
+h.size  torch.Size([1, 95, 64])
+------rst shape  torch.Size([1, 95, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d3048>
+func(nbatch).neighbor  torch.Size([95, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([103, 3, 8, 8])
+
+batch size  103
+
+m.size torch.Size([103, 3, 64])
+h.size  torch.Size([1, 103, 64])
+------rst shape  torch.Size([1, 103, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d3588>
+func(nbatch).neighbor  torch.Size([103, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([109, 4, 8, 8])
+
+batch size  109
+
+m.size torch.Size([109, 4, 64])
+h.size  torch.Size([1, 109, 64])
+------rst shape  torch.Size([1, 109, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d38d0>
+func(nbatch).neighbor  torch.Size([109, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([85, 5, 8, 8])
+
+batch size  85
+
+m.size torch.Size([85, 5, 64])
+h.size  torch.Size([1, 85, 64])
+------rst shape  torch.Size([1, 85, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d3b70>
+func(nbatch).neighbor  torch.Size([85, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([59, 6, 8, 8])
+
+batch size  59
+
+m.size torch.Size([59, 6, 64])
+h.size  torch.Size([1, 59, 64])
+------rst shape  torch.Size([1, 59, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d3e10>
+func(nbatch).neighbor  torch.Size([59, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([34, 7, 8, 8])
+
+batch size  34
+
+m.size torch.Size([34, 7, 64])
+h.size  torch.Size([1, 34, 64])
+------rst shape  torch.Size([1, 34, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83db198>
+func(nbatch).neighbor  torch.Size([34, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([23, 8, 8, 8])
+
+batch size  23
+
+m.size torch.Size([23, 8, 64])
+h.size  torch.Size([1, 23, 64])
+------rst shape  torch.Size([1, 23, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b66d8>
+func(nbatch).neighbor  torch.Size([23, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([8, 9, 8, 8])
+
+batch size  8
+
+m.size torch.Size([8, 9, 64])
+h.size  torch.Size([1, 8, 64])
+------rst shape  torch.Size([1, 8, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b64e0>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([68, 10, 8, 8])
+
+batch size  68
+
+m.size torch.Size([68, 10, 64])
+h.size  torch.Size([1, 68, 64])
+------rst shape  torch.Size([1, 68, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c0a90>
+func(nbatch).neighbor  torch.Size([68, 64])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([630, 64])
+rst.size() torch.Size([630, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([630, 8, 8])
+h.size()  torch.Size([630, 8, 8])
+after flatten h.size()  torch.Size([630, 64])
+layer  1
+layer name  GATConv2(
+  (lstm): LSTM(7, 7, batch_first=True)
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=630, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([630, 64])
+el size torch.Size([630, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([630, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48e03dc518>
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+mailbox .size torch.Size([20, 1, 1, 7])
+
+batch size  20
+
+m.size torch.Size([20, 1, 7])
+h.size  torch.Size([1, 20, 7])
+------rst shape  torch.Size([1, 20, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d3978>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([25, 2, 1, 7])
+
+batch size  25
+
+m.size torch.Size([25, 2, 7])
+h.size  torch.Size([1, 25, 7])
+------rst shape  torch.Size([1, 25, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d3b70>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([26, 3, 1, 7])
+
+batch size  26
+
+m.size torch.Size([26, 3, 7])
+h.size  torch.Size([1, 26, 7])
+------rst shape  torch.Size([1, 26, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83db550>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 4, 1, 7])
+
+batch size  22
+
+m.size torch.Size([22, 4, 7])
+h.size  torch.Size([1, 22, 7])
+------rst shape  torch.Size([1, 22, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83db898>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([15, 5, 1, 7])
+
+batch size  15
+
+m.size torch.Size([15, 5, 7])
+h.size  torch.Size([1, 15, 7])
+------rst shape  torch.Size([1, 15, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dbbe0>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([11, 6, 1, 7])
+
+batch size  11
+
+m.size torch.Size([11, 6, 7])
+h.size  torch.Size([1, 11, 7])
+------rst shape  torch.Size([1, 11, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dbf28>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 7, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 7, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dc2b0>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 8, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 8, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dc5f8>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 9, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 9, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dc940>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 10, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 10, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dcc88>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 11, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 11, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dcfd0>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 12, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 12, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dd358>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 19, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 19, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dd6a0>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 21, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 21, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dd9e8>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 25, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 25, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ddd30>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([140, 7])
+rst.size() torch.Size([140, 7])
+h.size() after h = layer(block, h)  torch.Size([1, 140, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028888702392578125  GigaBytes
+Max Memory Allocated: 0.029431819915771484  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028893470764160156  GigaBytes
+Max Memory Allocated: 0.029431819915771484  GigaBytes
+
+pure train time  0.1253812313079834
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.009224891662597656  GigaBytes
+Max Memory Allocated: 0.029431819915771484  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.949252724647522
+loading full batch data spends  0.00438237190246582
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   5.269050598144531e-05
+step  0
+num_input_nids 1355
+140
+140
+num_output_nids of first layer 629
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (lstm): LSTM(64, 64, batch_first=True)
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1355, num_dst_nodes=629, num_edges=2923)
+else: feat size  torch.Size([1355, 1433])
+el size torch.Size([1355, 8, 1])
+er szie torch.Size([629, 8, 1])
+graph.srcdata[ft]  torch.Size([1355, 8, 8])
+------graph.edata a size torch.Size([2923, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83ba470>
+graph-in degree
+{1: 45, 2: 97, 3: 103, 4: 108, 5: 85, 6: 59, 7: 34, 8: 23, 9: 8, 10: 67}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 45, 2: 97, 3: 103, 4: 108, 5: 85, 6: 59, 7: 34, 8: 23, 9: 8, 10: 67}
+mailbox .size torch.Size([45, 1, 8, 8])
+
+batch size  45
+
+m.size torch.Size([45, 1, 64])
+h.size  torch.Size([1, 45, 64])
+------rst shape  torch.Size([1, 45, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b7b70>
+func(nbatch).neighbor  torch.Size([45, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([97, 2, 8, 8])
+
+batch size  97
+
+m.size torch.Size([97, 2, 64])
+h.size  torch.Size([1, 97, 64])
+------rst shape  torch.Size([1, 97, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b7b00>
+func(nbatch).neighbor  torch.Size([97, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([103, 3, 8, 8])
+
+batch size  103
+
+m.size torch.Size([103, 3, 64])
+h.size  torch.Size([1, 103, 64])
+------rst shape  torch.Size([1, 103, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03dca20>
+func(nbatch).neighbor  torch.Size([103, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([108, 4, 8, 8])
+
+batch size  108
+
+m.size torch.Size([108, 4, 64])
+h.size  torch.Size([1, 108, 64])
+------rst shape  torch.Size([1, 108, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d3e10>
+func(nbatch).neighbor  torch.Size([108, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([85, 5, 8, 8])
+
+batch size  85
+
+m.size torch.Size([85, 5, 64])
+h.size  torch.Size([1, 85, 64])
+------rst shape  torch.Size([1, 85, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dd0f0>
+func(nbatch).neighbor  torch.Size([85, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([59, 6, 8, 8])
+
+batch size  59
+
+m.size torch.Size([59, 6, 64])
+h.size  torch.Size([1, 59, 64])
+------rst shape  torch.Size([1, 59, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dd780>
+func(nbatch).neighbor  torch.Size([59, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([34, 7, 8, 8])
+
+batch size  34
+
+m.size torch.Size([34, 7, 64])
+h.size  torch.Size([1, 34, 64])
+------rst shape  torch.Size([1, 34, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ddef0>
+func(nbatch).neighbor  torch.Size([34, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([23, 8, 8, 8])
+
+batch size  23
+
+m.size torch.Size([23, 8, 64])
+h.size  torch.Size([1, 23, 64])
+------rst shape  torch.Size([1, 23, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83de2b0>
+func(nbatch).neighbor  torch.Size([23, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([8, 9, 8, 8])
+
+batch size  8
+
+m.size torch.Size([8, 9, 64])
+h.size  torch.Size([1, 8, 64])
+------rst shape  torch.Size([1, 8, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83de5c0>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([67, 10, 8, 8])
+
+batch size  67
+
+m.size torch.Size([67, 10, 64])
+h.size  torch.Size([1, 67, 64])
+------rst shape  torch.Size([1, 67, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83de940>
+func(nbatch).neighbor  torch.Size([67, 64])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([629, 64])
+rst.size() torch.Size([629, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([629, 8, 8])
+h.size()  torch.Size([629, 8, 8])
+after flatten h.size()  torch.Size([629, 64])
+layer  1
+layer name  GATConv2(
+  (lstm): LSTM(7, 7, batch_first=True)
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=629, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([629, 64])
+el size torch.Size([629, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([629, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83c04a8>
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+mailbox .size torch.Size([20, 1, 1, 7])
+
+batch size  20
+
+m.size torch.Size([20, 1, 7])
+h.size  torch.Size([1, 20, 7])
+------rst shape  torch.Size([1, 20, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ea4a8>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([25, 2, 1, 7])
+
+batch size  25
+
+m.size torch.Size([25, 2, 7])
+h.size  torch.Size([1, 25, 7])
+------rst shape  torch.Size([1, 25, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ea4e0>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([26, 3, 1, 7])
+
+batch size  26
+
+m.size torch.Size([26, 3, 7])
+h.size  torch.Size([1, 26, 7])
+------rst shape  torch.Size([1, 26, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83eaa20>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 4, 1, 7])
+
+batch size  22
+
+m.size torch.Size([22, 4, 7])
+h.size  torch.Size([1, 22, 7])
+------rst shape  torch.Size([1, 22, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ead68>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([15, 5, 1, 7])
+
+batch size  15
+
+m.size torch.Size([15, 5, 7])
+h.size  torch.Size([1, 15, 7])
+------rst shape  torch.Size([1, 15, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e20f0>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([11, 6, 1, 7])
+
+batch size  11
+
+m.size torch.Size([11, 6, 7])
+h.size  torch.Size([1, 11, 7])
+------rst shape  torch.Size([1, 11, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d38d0>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 7, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 7, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d3320>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 8, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 8, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b7f98>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 9, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 9, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83de0f0>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 10, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 10, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83de9e8>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 11, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 11, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ea358>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 12, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 12, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ead68>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 19, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 19, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e2470>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 21, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 21, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e2748>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 25, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 25, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e2a90>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([140, 7])
+rst.size() torch.Size([140, 7])
+h.size() after h = layer(block, h)  torch.Size([1, 140, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028851985931396484  GigaBytes
+Max Memory Allocated: 0.029431819915771484  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028856754302978516  GigaBytes
+Max Memory Allocated: 0.029431819915771484  GigaBytes
+
+pure train time  0.12703442573547363
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.009224891662597656  GigaBytes
+Max Memory Allocated: 0.029431819915771484  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9493523836135864
+loading full batch data spends  0.005457878112792969
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   5.269050598144531e-05
+step  0
+num_input_nids 1351
+140
+140
+num_output_nids of first layer 631
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (lstm): LSTM(64, 64, batch_first=True)
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1351, num_dst_nodes=631, num_edges=2940)
+else: feat size  torch.Size([1351, 1433])
+el size torch.Size([1351, 8, 1])
+er szie torch.Size([631, 8, 1])
+graph.srcdata[ft]  torch.Size([1351, 8, 8])
+------graph.edata a size torch.Size([2940, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83dee80>
+graph-in degree
+{1: 45, 2: 97, 3: 102, 4: 109, 5: 85, 6: 60, 7: 34, 8: 23, 9: 8, 10: 68}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 45, 2: 97, 3: 102, 4: 109, 5: 85, 6: 60, 7: 34, 8: 23, 9: 8, 10: 68}
+mailbox .size torch.Size([45, 1, 8, 8])
+
+batch size  45
+
+m.size torch.Size([45, 1, 64])
+h.size  torch.Size([1, 45, 64])
+------rst shape  torch.Size([1, 45, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ed7f0>
+func(nbatch).neighbor  torch.Size([45, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([97, 2, 8, 8])
+
+batch size  97
+
+m.size torch.Size([97, 2, 64])
+h.size  torch.Size([1, 97, 64])
+------rst shape  torch.Size([1, 97, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ed828>
+func(nbatch).neighbor  torch.Size([97, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([102, 3, 8, 8])
+
+batch size  102
+
+m.size torch.Size([102, 3, 64])
+h.size  torch.Size([1, 102, 64])
+------rst shape  torch.Size([1, 102, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83edd68>
+func(nbatch).neighbor  torch.Size([102, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([109, 4, 8, 8])
+
+batch size  109
+
+m.size torch.Size([109, 4, 64])
+h.size  torch.Size([1, 109, 64])
+------rst shape  torch.Size([1, 109, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c30f0>
+func(nbatch).neighbor  torch.Size([109, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([85, 5, 8, 8])
+
+batch size  85
+
+m.size torch.Size([85, 5, 64])
+h.size  torch.Size([1, 85, 64])
+------rst shape  torch.Size([1, 85, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c3390>
+func(nbatch).neighbor  torch.Size([85, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([60, 6, 8, 8])
+
+batch size  60
+
+m.size torch.Size([60, 6, 64])
+h.size  torch.Size([1, 60, 64])
+------rst shape  torch.Size([1, 60, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c3630>
+func(nbatch).neighbor  torch.Size([60, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([34, 7, 8, 8])
+
+batch size  34
+
+m.size torch.Size([34, 7, 64])
+h.size  torch.Size([1, 34, 64])
+------rst shape  torch.Size([1, 34, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b7940>
+func(nbatch).neighbor  torch.Size([34, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([23, 8, 8, 8])
+
+batch size  23
+
+m.size torch.Size([23, 8, 64])
+h.size  torch.Size([1, 23, 64])
+------rst shape  torch.Size([1, 23, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b7b00>
+func(nbatch).neighbor  torch.Size([23, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([8, 9, 8, 8])
+
+batch size  8
+
+m.size torch.Size([8, 9, 64])
+h.size  torch.Size([1, 8, 64])
+------rst shape  torch.Size([1, 8, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83de5c0>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([68, 10, 8, 8])
+
+batch size  68
+
+m.size torch.Size([68, 10, 64])
+h.size  torch.Size([1, 68, 64])
+------rst shape  torch.Size([1, 68, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03c7f28>
+func(nbatch).neighbor  torch.Size([68, 64])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([631, 64])
+rst.size() torch.Size([631, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([631, 8, 8])
+h.size()  torch.Size([631, 8, 8])
+after flatten h.size()  torch.Size([631, 64])
+layer  1
+layer name  GATConv2(
+  (lstm): LSTM(7, 7, batch_first=True)
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=631, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([631, 64])
+el size torch.Size([631, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([631, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48e78b7780>
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+mailbox .size torch.Size([20, 1, 1, 7])
+
+batch size  20
+
+m.size torch.Size([20, 1, 7])
+h.size  torch.Size([1, 20, 7])
+------rst shape  torch.Size([1, 20, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c3358>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([25, 2, 1, 7])
+
+batch size  25
+
+m.size torch.Size([25, 2, 7])
+h.size  torch.Size([1, 25, 7])
+------rst shape  torch.Size([1, 25, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c34e0>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([26, 3, 1, 7])
+
+batch size  26
+
+m.size torch.Size([26, 3, 7])
+h.size  torch.Size([1, 26, 7])
+------rst shape  torch.Size([1, 26, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c3da0>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 4, 1, 7])
+
+batch size  22
+
+m.size torch.Size([22, 4, 7])
+h.size  torch.Size([1, 22, 7])
+------rst shape  torch.Size([1, 22, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee128>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([15, 5, 1, 7])
+
+batch size  15
+
+m.size torch.Size([15, 5, 7])
+h.size  torch.Size([1, 15, 7])
+------rst shape  torch.Size([1, 15, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee470>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([11, 6, 1, 7])
+
+batch size  11
+
+m.size torch.Size([11, 6, 7])
+h.size  torch.Size([1, 11, 7])
+------rst shape  torch.Size([1, 11, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee7b8>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 7, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 7, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83eeb00>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 8, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 8, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83eee48>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 9, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 9, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83f01d0>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 10, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 10, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83f0518>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 11, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 11, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83f0860>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 12, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 12, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83f0ba8>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 19, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 19, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83f0ef0>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 21, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 21, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0365278>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 25, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 25, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03655c0>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([140, 7])
+rst.size() torch.Size([140, 7])
+h.size() after h = layer(block, h)  torch.Size([1, 140, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028885841369628906  GigaBytes
+Max Memory Allocated: 0.029431819915771484  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028890609741210938  GigaBytes
+Max Memory Allocated: 0.029431819915771484  GigaBytes
+
+pure train time  0.12901735305786133
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.009203433990478516  GigaBytes
+Max Memory Allocated: 0.029431819915771484  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9482024908065796
+loading full batch data spends  0.004801511764526367
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   5.340576171875e-05
+step  0
+num_input_nids 1367
+140
+140
+num_output_nids of first layer 632
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (lstm): LSTM(64, 64, batch_first=True)
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1367, num_dst_nodes=632, num_edges=2937)
+else: feat size  torch.Size([1367, 1433])
+el size torch.Size([1367, 8, 1])
+er szie torch.Size([632, 8, 1])
+graph.srcdata[ft]  torch.Size([1367, 8, 8])
+------graph.edata a size torch.Size([2937, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83dc438>
+graph-in degree
+{1: 45, 2: 96, 3: 106, 4: 110, 5: 82, 6: 61, 7: 34, 8: 22, 9: 8, 10: 68}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 45, 2: 96, 3: 106, 4: 110, 5: 82, 6: 61, 7: 34, 8: 22, 9: 8, 10: 68}
+mailbox .size torch.Size([45, 1, 8, 8])
+
+batch size  45
+
+m.size torch.Size([45, 1, 64])
+h.size  torch.Size([1, 45, 64])
+------rst shape  torch.Size([1, 45, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e2e80>
+func(nbatch).neighbor  torch.Size([45, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([96, 2, 8, 8])
+
+batch size  96
+
+m.size torch.Size([96, 2, 64])
+h.size  torch.Size([1, 96, 64])
+------rst shape  torch.Size([1, 96, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e2fd0>
+func(nbatch).neighbor  torch.Size([96, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([106, 3, 8, 8])
+
+batch size  106
+
+m.size torch.Size([106, 3, 64])
+h.size  torch.Size([1, 106, 64])
+------rst shape  torch.Size([1, 106, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e4475160>
+func(nbatch).neighbor  torch.Size([106, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([110, 4, 8, 8])
+
+batch size  110
+
+m.size torch.Size([110, 4, 64])
+h.size  torch.Size([1, 110, 64])
+------rst shape  torch.Size([1, 110, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dba58>
+func(nbatch).neighbor  torch.Size([110, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([82, 5, 8, 8])
+
+batch size  82
+
+m.size torch.Size([82, 5, 64])
+h.size  torch.Size([1, 82, 64])
+------rst shape  torch.Size([1, 82, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c30b8>
+func(nbatch).neighbor  torch.Size([82, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([61, 6, 8, 8])
+
+batch size  61
+
+m.size torch.Size([61, 6, 64])
+h.size  torch.Size([1, 61, 64])
+------rst shape  torch.Size([1, 61, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c3f60>
+func(nbatch).neighbor  torch.Size([61, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([34, 7, 8, 8])
+
+batch size  34
+
+m.size torch.Size([34, 7, 64])
+h.size  torch.Size([1, 34, 64])
+------rst shape  torch.Size([1, 34, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03653c8>
+func(nbatch).neighbor  torch.Size([34, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 8, 8, 8])
+
+batch size  22
+
+m.size torch.Size([22, 8, 64])
+h.size  torch.Size([1, 22, 64])
+------rst shape  torch.Size([1, 22, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03659e8>
+func(nbatch).neighbor  torch.Size([22, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([8, 9, 8, 8])
+
+batch size  8
+
+m.size torch.Size([8, 9, 64])
+h.size  torch.Size([1, 8, 64])
+------rst shape  torch.Size([1, 8, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0365d30>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([68, 10, 8, 8])
+
+batch size  68
+
+m.size torch.Size([68, 10, 64])
+h.size  torch.Size([1, 68, 64])
+------rst shape  torch.Size([1, 68, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c50b8>
+func(nbatch).neighbor  torch.Size([68, 64])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([632, 64])
+rst.size() torch.Size([632, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([632, 8, 8])
+h.size()  torch.Size([632, 8, 8])
+after flatten h.size()  torch.Size([632, 64])
+layer  1
+layer name  GATConv2(
+  (lstm): LSTM(7, 7, batch_first=True)
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=632, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([632, 64])
+el size torch.Size([632, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([632, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83dce48>
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+mailbox .size torch.Size([20, 1, 1, 7])
+
+batch size  20
+
+m.size torch.Size([20, 1, 7])
+h.size  torch.Size([1, 20, 7])
+------rst shape  torch.Size([1, 20, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c5cf8>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([25, 2, 1, 7])
+
+batch size  25
+
+m.size torch.Size([25, 2, 7])
+h.size  torch.Size([1, 25, 7])
+------rst shape  torch.Size([1, 25, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c5d30>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([26, 3, 1, 7])
+
+batch size  26
+
+m.size torch.Size([26, 3, 7])
+h.size  torch.Size([1, 26, 7])
+------rst shape  torch.Size([1, 26, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e02b0>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 4, 1, 7])
+
+batch size  22
+
+m.size torch.Size([22, 4, 7])
+h.size  torch.Size([1, 22, 7])
+------rst shape  torch.Size([1, 22, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e05f8>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([15, 5, 1, 7])
+
+batch size  15
+
+m.size torch.Size([15, 5, 7])
+h.size  torch.Size([1, 15, 7])
+------rst shape  torch.Size([1, 15, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e2da0>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([11, 6, 1, 7])
+
+batch size  11
+
+m.size torch.Size([11, 6, 7])
+h.size  torch.Size([1, 11, 7])
+------rst shape  torch.Size([1, 11, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e2ba8>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 7, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 7, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b7978>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 8, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 8, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0365780>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 9, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 9, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0365eb8>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 10, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 10, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c5ac8>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 11, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 11, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e0668>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 12, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 12, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e09b0>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 19, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 19, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e0cf8>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 21, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 21, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e7080>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 25, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 25, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e73c8>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([140, 7])
+rst.size() torch.Size([140, 7])
+h.size() after h = layer(block, h)  torch.Size([1, 140, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.029020309448242188  GigaBytes
+Max Memory Allocated: 0.029561519622802734  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.02902507781982422  GigaBytes
+Max Memory Allocated: 0.029561519622802734  GigaBytes
+
+pure train time  0.12871360778808594
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.009288787841796875  GigaBytes
+Max Memory Allocated: 0.029561519622802734  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9485418796539307
+loading full batch data spends  0.004964590072631836
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   5.412101745605469e-05
+step  0
+num_input_nids 1353
+140
+140
+num_output_nids of first layer 630
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (lstm): LSTM(64, 64, batch_first=True)
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1353, num_dst_nodes=630, num_edges=2917)
+else: feat size  torch.Size([1353, 1433])
+el size torch.Size([1353, 8, 1])
+er szie torch.Size([630, 8, 1])
+graph.srcdata[ft]  torch.Size([1353, 8, 8])
+------graph.edata a size torch.Size([2917, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83f0390>
+graph-in degree
+{1: 46, 2: 97, 3: 104, 4: 110, 5: 83, 6: 59, 7: 34, 8: 22, 9: 8, 10: 67}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 46, 2: 97, 3: 104, 4: 110, 5: 83, 6: 59, 7: 34, 8: 22, 9: 8, 10: 67}
+mailbox .size torch.Size([46, 1, 8, 8])
+
+batch size  46
+
+m.size torch.Size([46, 1, 64])
+h.size  torch.Size([1, 46, 64])
+------rst shape  torch.Size([1, 46, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03770f0>
+func(nbatch).neighbor  torch.Size([46, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([97, 2, 8, 8])
+
+batch size  97
+
+m.size torch.Size([97, 2, 64])
+h.size  torch.Size([1, 97, 64])
+------rst shape  torch.Size([1, 97, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0377128>
+func(nbatch).neighbor  torch.Size([97, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([104, 3, 8, 8])
+
+batch size  104
+
+m.size torch.Size([104, 3, 64])
+h.size  torch.Size([1, 104, 64])
+------rst shape  torch.Size([1, 104, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0377668>
+func(nbatch).neighbor  torch.Size([104, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([110, 4, 8, 8])
+
+batch size  110
+
+m.size torch.Size([110, 4, 64])
+h.size  torch.Size([1, 110, 64])
+------rst shape  torch.Size([1, 110, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03779b0>
+func(nbatch).neighbor  torch.Size([110, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([83, 5, 8, 8])
+
+batch size  83
+
+m.size torch.Size([83, 5, 64])
+h.size  torch.Size([1, 83, 64])
+------rst shape  torch.Size([1, 83, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0377c50>
+func(nbatch).neighbor  torch.Size([83, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([59, 6, 8, 8])
+
+batch size  59
+
+m.size torch.Size([59, 6, 64])
+h.size  torch.Size([1, 59, 64])
+------rst shape  torch.Size([1, 59, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0377ef0>
+func(nbatch).neighbor  torch.Size([59, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([34, 7, 8, 8])
+
+batch size  34
+
+m.size torch.Size([34, 7, 64])
+h.size  torch.Size([1, 34, 64])
+------rst shape  torch.Size([1, 34, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0365ba8>
+func(nbatch).neighbor  torch.Size([34, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 8, 8, 8])
+
+batch size  22
+
+m.size torch.Size([22, 8, 64])
+h.size  torch.Size([1, 22, 64])
+------rst shape  torch.Size([1, 22, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0365be0>
+func(nbatch).neighbor  torch.Size([22, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([8, 9, 8, 8])
+
+batch size  8
+
+m.size torch.Size([8, 9, 64])
+h.size  torch.Size([1, 8, 64])
+------rst shape  torch.Size([1, 8, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dc438>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([67, 10, 8, 8])
+
+batch size  67
+
+m.size torch.Size([67, 10, 64])
+h.size  torch.Size([1, 67, 64])
+------rst shape  torch.Size([1, 67, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83f01d0>
+func(nbatch).neighbor  torch.Size([67, 64])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([630, 64])
+rst.size() torch.Size([630, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([630, 8, 8])
+h.size()  torch.Size([630, 8, 8])
+after flatten h.size()  torch.Size([630, 64])
+layer  1
+layer name  GATConv2(
+  (lstm): LSTM(7, 7, batch_first=True)
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=630, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([630, 64])
+el size torch.Size([630, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([630, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83e7c88>
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+mailbox .size torch.Size([20, 1, 1, 7])
+
+batch size  20
+
+m.size torch.Size([20, 1, 7])
+h.size  torch.Size([1, 20, 7])
+------rst shape  torch.Size([1, 20, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0377cf8>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([25, 2, 1, 7])
+
+batch size  25
+
+m.size torch.Size([25, 2, 7])
+h.size  torch.Size([1, 25, 7])
+------rst shape  torch.Size([1, 25, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0377cc0>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([26, 3, 1, 7])
+
+batch size  26
+
+m.size torch.Size([26, 3, 7])
+h.size  torch.Size([1, 26, 7])
+------rst shape  torch.Size([1, 26, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03785f8>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 4, 1, 7])
+
+batch size  22
+
+m.size torch.Size([22, 4, 7])
+h.size  torch.Size([1, 22, 7])
+------rst shape  torch.Size([1, 22, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0378940>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([15, 5, 1, 7])
+
+batch size  15
+
+m.size torch.Size([15, 5, 7])
+h.size  torch.Size([1, 15, 7])
+------rst shape  torch.Size([1, 15, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0378c88>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([11, 6, 1, 7])
+
+batch size  11
+
+m.size torch.Size([11, 6, 7])
+h.size  torch.Size([1, 11, 7])
+------rst shape  torch.Size([1, 11, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0378fd0>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 7, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 7, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e6358>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 8, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 8, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e66a0>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 9, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 9, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e69e8>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 10, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 10, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e6d30>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 11, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 11, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e90b8>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 12, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 12, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e9400>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 19, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 19, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e9748>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 21, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 21, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e9a90>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 25, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 25, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e9dd8>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([140, 7])
+rst.size() torch.Size([140, 7])
+h.size() after h = layer(block, h)  torch.Size([1, 140, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028876304626464844  GigaBytes
+Max Memory Allocated: 0.029561519622802734  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028881072998046875  GigaBytes
+Max Memory Allocated: 0.029561519622802734  GigaBytes
+
+pure train time  0.12916278839111328
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.009214401245117188  GigaBytes
+Max Memory Allocated: 0.029561519622802734  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9476100206375122
+loading full batch data spends  0.005131721496582031
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   5.1975250244140625e-05
+step  0
+num_input_nids 1359
+140
+140
+num_output_nids of first layer 635
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (lstm): LSTM(64, 64, batch_first=True)
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1359, num_dst_nodes=635, num_edges=2950)
+else: feat size  torch.Size([1359, 1433])
+el size torch.Size([1359, 8, 1])
+er szie torch.Size([635, 8, 1])
+graph.srcdata[ft]  torch.Size([1359, 8, 8])
+------graph.edata a size torch.Size([2950, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83e7588>
+graph-in degree
+{1: 46, 2: 96, 3: 104, 4: 110, 5: 86, 6: 61, 7: 34, 8: 23, 9: 8, 10: 67}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 46, 2: 96, 3: 104, 4: 110, 5: 86, 6: 61, 7: 34, 8: 23, 9: 8, 10: 67}
+mailbox .size torch.Size([46, 1, 8, 8])
+
+batch size  46
+
+m.size torch.Size([46, 1, 64])
+h.size  torch.Size([1, 46, 64])
+------rst shape  torch.Size([1, 46, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0378470>
+func(nbatch).neighbor  torch.Size([46, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([96, 2, 8, 8])
+
+batch size  96
+
+m.size torch.Size([96, 2, 64])
+h.size  torch.Size([1, 96, 64])
+------rst shape  torch.Size([1, 96, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0378278>
+func(nbatch).neighbor  torch.Size([96, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([104, 3, 8, 8])
+
+batch size  104
+
+m.size torch.Size([104, 3, 64])
+h.size  torch.Size([1, 104, 64])
+------rst shape  torch.Size([1, 104, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e61d0>
+func(nbatch).neighbor  torch.Size([104, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([110, 4, 8, 8])
+
+batch size  110
+
+m.size torch.Size([110, 4, 64])
+h.size  torch.Size([1, 110, 64])
+------rst shape  torch.Size([1, 110, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e69e8>
+func(nbatch).neighbor  torch.Size([110, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([86, 5, 8, 8])
+
+batch size  86
+
+m.size torch.Size([86, 5, 64])
+h.size  torch.Size([1, 86, 64])
+------rst shape  torch.Size([1, 86, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e9e48>
+func(nbatch).neighbor  torch.Size([86, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([61, 6, 8, 8])
+
+batch size  61
+
+m.size torch.Size([61, 6, 64])
+h.size  torch.Size([1, 61, 64])
+------rst shape  torch.Size([1, 61, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e9240>
+func(nbatch).neighbor  torch.Size([61, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([34, 7, 8, 8])
+
+batch size  34
+
+m.size torch.Size([34, 7, 64])
+h.size  torch.Size([1, 34, 64])
+------rst shape  torch.Size([1, 34, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e9b70>
+func(nbatch).neighbor  torch.Size([34, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([23, 8, 8, 8])
+
+batch size  23
+
+m.size torch.Size([23, 8, 64])
+h.size  torch.Size([1, 23, 64])
+------rst shape  torch.Size([1, 23, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d92e8>
+func(nbatch).neighbor  torch.Size([23, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([8, 9, 8, 8])
+
+batch size  8
+
+m.size torch.Size([8, 9, 64])
+h.size  torch.Size([1, 8, 64])
+------rst shape  torch.Size([1, 8, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d9630>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([67, 10, 8, 8])
+
+batch size  67
+
+m.size torch.Size([67, 10, 64])
+h.size  torch.Size([1, 67, 64])
+------rst shape  torch.Size([1, 67, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d9978>
+func(nbatch).neighbor  torch.Size([67, 64])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([635, 64])
+rst.size() torch.Size([635, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([635, 8, 8])
+h.size()  torch.Size([635, 8, 8])
+after flatten h.size()  torch.Size([635, 64])
+layer  1
+layer name  GATConv2(
+  (lstm): LSTM(7, 7, batch_first=True)
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=635, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([635, 64])
+el size torch.Size([635, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([635, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83e7ba8>
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+mailbox .size torch.Size([20, 1, 1, 7])
+
+batch size  20
+
+m.size torch.Size([20, 1, 7])
+h.size  torch.Size([1, 20, 7])
+------rst shape  torch.Size([1, 20, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03745f8>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([25, 2, 1, 7])
+
+batch size  25
+
+m.size torch.Size([25, 2, 7])
+h.size  torch.Size([1, 25, 7])
+------rst shape  torch.Size([1, 25, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0374630>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([26, 3, 1, 7])
+
+batch size  26
+
+m.size torch.Size([26, 3, 7])
+h.size  torch.Size([1, 26, 7])
+------rst shape  torch.Size([1, 26, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0374b70>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 4, 1, 7])
+
+batch size  22
+
+m.size torch.Size([22, 4, 7])
+h.size  torch.Size([1, 22, 7])
+------rst shape  torch.Size([1, 22, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0378470>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([15, 5, 1, 7])
+
+batch size  15
+
+m.size torch.Size([15, 5, 7])
+h.size  torch.Size([1, 15, 7])
+------rst shape  torch.Size([1, 15, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03780b8>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([11, 6, 1, 7])
+
+batch size  11
+
+m.size torch.Size([11, 6, 7])
+h.size  torch.Size([1, 11, 7])
+------rst shape  torch.Size([1, 11, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e9550>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 7, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 7, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83dee80>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 8, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 8, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83d9470>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 9, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 9, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0374c50>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 10, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 10, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03745f8>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 11, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 11, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0374f28>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 12, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 12, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec2b0>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 19, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 19, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec5f8>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 21, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 21, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec940>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 25, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 25, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ecc88>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([140, 7])
+rst.size() torch.Size([140, 7])
+h.size() after h = layer(block, h)  torch.Size([1, 140, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.029039382934570312  GigaBytes
+Max Memory Allocated: 0.02958393096923828  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.029044151306152344  GigaBytes
+Max Memory Allocated: 0.02958393096923828  GigaBytes
+
+pure train time  0.12898850440979004
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.009291648864746094  GigaBytes
+Max Memory Allocated: 0.02958393096923828  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9460217952728271
+loading full batch data spends  0.004220485687255859
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   5.269050598144531e-05
+step  0
+num_input_nids 1356
+140
+140
+num_output_nids of first layer 630
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (lstm): LSTM(64, 64, batch_first=True)
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1356, num_dst_nodes=630, num_edges=2922)
+else: feat size  torch.Size([1356, 1433])
+el size torch.Size([1356, 8, 1])
+er szie torch.Size([630, 8, 1])
+graph.srcdata[ft]  torch.Size([1356, 8, 8])
+------graph.edata a size torch.Size([2922, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83d9eb8>
+graph-in degree
+{1: 46, 2: 97, 3: 103, 4: 109, 5: 85, 6: 58, 7: 34, 8: 23, 9: 8, 10: 67}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 46, 2: 97, 3: 103, 4: 109, 5: 85, 6: 58, 7: 34, 8: 23, 9: 8, 10: 67}
+mailbox .size torch.Size([46, 1, 8, 8])
+
+batch size  46
+
+m.size torch.Size([46, 1, 64])
+h.size  torch.Size([1, 46, 64])
+------rst shape  torch.Size([1, 46, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379940>
+func(nbatch).neighbor  torch.Size([46, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([97, 2, 8, 8])
+
+batch size  97
+
+m.size torch.Size([97, 2, 64])
+h.size  torch.Size([1, 97, 64])
+------rst shape  torch.Size([1, 97, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379978>
+func(nbatch).neighbor  torch.Size([97, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([103, 3, 8, 8])
+
+batch size  103
+
+m.size torch.Size([103, 3, 64])
+h.size  torch.Size([1, 103, 64])
+------rst shape  torch.Size([1, 103, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379eb8>
+func(nbatch).neighbor  torch.Size([103, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([109, 4, 8, 8])
+
+batch size  109
+
+m.size torch.Size([109, 4, 64])
+h.size  torch.Size([1, 109, 64])
+------rst shape  torch.Size([1, 109, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379cc0>
+func(nbatch).neighbor  torch.Size([109, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([85, 5, 8, 8])
+
+batch size  85
+
+m.size torch.Size([85, 5, 64])
+h.size  torch.Size([1, 85, 64])
+------rst shape  torch.Size([1, 85, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379cf8>
+func(nbatch).neighbor  torch.Size([85, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([58, 6, 8, 8])
+
+batch size  58
+
+m.size torch.Size([58, 6, 64])
+h.size  torch.Size([1, 58, 64])
+------rst shape  torch.Size([1, 58, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0378e48>
+func(nbatch).neighbor  torch.Size([58, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([34, 7, 8, 8])
+
+batch size  34
+
+m.size torch.Size([34, 7, 64])
+h.size  torch.Size([1, 34, 64])
+------rst shape  torch.Size([1, 34, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e2c18>
+func(nbatch).neighbor  torch.Size([34, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([23, 8, 8, 8])
+
+batch size  23
+
+m.size torch.Size([23, 8, 64])
+h.size  torch.Size([1, 23, 64])
+------rst shape  torch.Size([1, 23, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0377a90>
+func(nbatch).neighbor  torch.Size([23, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([8, 9, 8, 8])
+
+batch size  8
+
+m.size torch.Size([8, 9, 64])
+h.size  torch.Size([1, 8, 64])
+------rst shape  torch.Size([1, 8, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e9e10>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([67, 10, 8, 8])
+
+batch size  67
+
+m.size torch.Size([67, 10, 64])
+h.size  torch.Size([1, 67, 64])
+------rst shape  torch.Size([1, 67, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0374c50>
+func(nbatch).neighbor  torch.Size([67, 64])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([630, 64])
+rst.size() torch.Size([630, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([630, 8, 8])
+h.size()  torch.Size([630, 8, 8])
+after flatten h.size()  torch.Size([630, 64])
+layer  1
+layer name  GATConv2(
+  (lstm): LSTM(7, 7, batch_first=True)
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=630, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([630, 64])
+el size torch.Size([630, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([630, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48e78b7780>
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+mailbox .size torch.Size([20, 1, 1, 7])
+
+batch size  20
+
+m.size torch.Size([20, 1, 7])
+h.size  torch.Size([1, 20, 7])
+------rst shape  torch.Size([1, 20, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83f0cf8>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([25, 2, 1, 7])
+
+batch size  25
+
+m.size torch.Size([25, 2, 7])
+h.size  torch.Size([1, 25, 7])
+------rst shape  torch.Size([1, 25, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee2e8>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([26, 3, 1, 7])
+
+batch size  26
+
+m.size torch.Size([26, 3, 7])
+h.size  torch.Size([1, 26, 7])
+------rst shape  torch.Size([1, 26, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec6d8>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 4, 1, 7])
+
+batch size  22
+
+m.size torch.Size([22, 4, 7])
+h.size  torch.Size([1, 22, 7])
+------rst shape  torch.Size([1, 22, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec470>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([15, 5, 1, 7])
+
+batch size  15
+
+m.size torch.Size([15, 5, 7])
+h.size  torch.Size([1, 15, 7])
+------rst shape  torch.Size([1, 15, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec128>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([11, 6, 1, 7])
+
+batch size  11
+
+m.size torch.Size([11, 6, 7])
+h.size  torch.Size([1, 11, 7])
+------rst shape  torch.Size([1, 11, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec7b8>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 7, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 7, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379e48>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 8, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 8, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379588>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 9, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 9, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379a58>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 10, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 10, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379940>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 11, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 11, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379978>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 12, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 12, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c6198>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 19, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 19, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c6438>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 21, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 21, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c6208>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 25, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 25, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e66a0>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([140, 7])
+rst.size() torch.Size([140, 7])
+h.size() after h = layer(block, h)  torch.Size([1, 140, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028915882110595703  GigaBytes
+Max Memory Allocated: 0.02958393096923828  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028920650482177734  GigaBytes
+Max Memory Allocated: 0.02958393096923828  GigaBytes
+
+pure train time  0.1282210350036621
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.00923013687133789  GigaBytes
+Max Memory Allocated: 0.02958393096923828  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.945043921470642
+loading full batch data spends  0.004878044128417969
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   5.459785461425781e-05
+step  0
+num_input_nids 1364
+140
+140
+num_output_nids of first layer 633
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (lstm): LSTM(64, 64, batch_first=True)
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1364, num_dst_nodes=633, num_edges=2951)
+else: feat size  torch.Size([1364, 1433])
+el size torch.Size([1364, 8, 1])
+er szie torch.Size([633, 8, 1])
+graph.srcdata[ft]  torch.Size([1364, 8, 8])
+------graph.edata a size torch.Size([2951, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83d99e8>
+graph-in degree
+{1: 46, 2: 95, 3: 103, 4: 110, 5: 85, 6: 60, 7: 35, 8: 23, 9: 8, 10: 68}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 46, 2: 95, 3: 103, 4: 110, 5: 85, 6: 60, 7: 35, 8: 23, 9: 8, 10: 68}
+mailbox .size torch.Size([46, 1, 8, 8])
+
+batch size  46
+
+m.size torch.Size([46, 1, 64])
+h.size  torch.Size([1, 46, 64])
+------rst shape  torch.Size([1, 46, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee5c0>
+func(nbatch).neighbor  torch.Size([46, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([95, 2, 8, 8])
+
+batch size  95
+
+m.size torch.Size([95, 2, 64])
+h.size  torch.Size([1, 95, 64])
+------rst shape  torch.Size([1, 95, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee128>
+func(nbatch).neighbor  torch.Size([95, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([103, 3, 8, 8])
+
+batch size  103
+
+m.size torch.Size([103, 3, 64])
+h.size  torch.Size([1, 103, 64])
+------rst shape  torch.Size([1, 103, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee898>
+func(nbatch).neighbor  torch.Size([103, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([110, 4, 8, 8])
+
+batch size  110
+
+m.size torch.Size([110, 4, 64])
+h.size  torch.Size([1, 110, 64])
+------rst shape  torch.Size([1, 110, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec0b8>
+func(nbatch).neighbor  torch.Size([110, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([85, 5, 8, 8])
+
+batch size  85
+
+m.size torch.Size([85, 5, 64])
+h.size  torch.Size([1, 85, 64])
+------rst shape  torch.Size([1, 85, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec0f0>
+func(nbatch).neighbor  torch.Size([85, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([60, 6, 8, 8])
+
+batch size  60
+
+m.size torch.Size([60, 6, 64])
+h.size  torch.Size([1, 60, 64])
+------rst shape  torch.Size([1, 60, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ecdd8>
+func(nbatch).neighbor  torch.Size([60, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([35, 7, 8, 8])
+
+batch size  35
+
+m.size torch.Size([35, 7, 64])
+h.size  torch.Size([1, 35, 64])
+------rst shape  torch.Size([1, 35, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ecf98>
+func(nbatch).neighbor  torch.Size([35, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([23, 8, 8, 8])
+
+batch size  23
+
+m.size torch.Size([23, 8, 64])
+h.size  torch.Size([1, 23, 64])
+------rst shape  torch.Size([1, 23, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83eca58>
+func(nbatch).neighbor  torch.Size([23, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([8, 9, 8, 8])
+
+batch size  8
+
+m.size torch.Size([8, 9, 64])
+h.size  torch.Size([1, 8, 64])
+------rst shape  torch.Size([1, 8, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec748>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([68, 10, 8, 8])
+
+batch size  68
+
+m.size torch.Size([68, 10, 64])
+h.size  torch.Size([1, 68, 64])
+------rst shape  torch.Size([1, 68, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379320>
+func(nbatch).neighbor  torch.Size([68, 64])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([633, 64])
+rst.size() torch.Size([633, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([633, 8, 8])
+h.size()  torch.Size([633, 8, 8])
+after flatten h.size()  torch.Size([633, 64])
+layer  1
+layer name  GATConv2(
+  (lstm): LSTM(7, 7, batch_first=True)
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=633, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([633, 64])
+el size torch.Size([633, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([633, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48c83eee48>
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+mailbox .size torch.Size([20, 1, 1, 7])
+
+batch size  20
+
+m.size torch.Size([20, 1, 7])
+h.size  torch.Size([1, 20, 7])
+------rst shape  torch.Size([1, 20, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379fd0>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([25, 2, 1, 7])
+
+batch size  25
+
+m.size torch.Size([25, 2, 7])
+h.size  torch.Size([1, 25, 7])
+------rst shape  torch.Size([1, 25, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379c50>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([26, 3, 1, 7])
+
+batch size  26
+
+m.size torch.Size([26, 3, 7])
+h.size  torch.Size([1, 26, 7])
+------rst shape  torch.Size([1, 26, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379588>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 4, 1, 7])
+
+batch size  22
+
+m.size torch.Size([22, 4, 7])
+h.size  torch.Size([1, 22, 7])
+------rst shape  torch.Size([1, 22, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0377978>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([15, 5, 1, 7])
+
+batch size  15
+
+m.size torch.Size([15, 5, 7])
+h.size  torch.Size([1, 15, 7])
+------rst shape  torch.Size([1, 15, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e78b7780>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([11, 6, 1, 7])
+
+batch size  11
+
+m.size torch.Size([11, 6, 7])
+h.size  torch.Size([1, 11, 7])
+------rst shape  torch.Size([1, 11, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83b77b8>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 7, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 7, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0377c50>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 8, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 8, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83eccf8>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 9, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 9, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec780>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 10, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 10, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ece10>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 11, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 11, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec470>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 12, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 12, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec438>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 19, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 19, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ec7f0>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 21, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 21, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee668>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 25, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 25, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83eefd0>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([140, 7])
+rst.size() torch.Size([140, 7])
+h.size() after h = layer(block, h)  torch.Size([1, 140, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.029070377349853516  GigaBytes
+Max Memory Allocated: 0.02961587905883789  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.029075145721435547  GigaBytes
+Max Memory Allocated: 0.02961587905883789  GigaBytes
+
+pure train time  0.1291055679321289
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.009291648864746094  GigaBytes
+Max Memory Allocated: 0.02961587905883789  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9429807662963867
+loading full batch data spends  0.0045337677001953125
+connection checking time:  0
+block generation total time  0
+generate_dataloader_block spend   5.555152893066406e-05
+step  0
+num_input_nids 1350
+140
+140
+num_output_nids of first layer 629
+num_output_nids of second layer 140
+num_output_nids 140
+layer  0
+layer name  GATConv(
+  (lstm): LSTM(64, 64, batch_first=True)
+  (fc): Linear(in_features=1433, out_features=64, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=1350, num_dst_nodes=629, num_edges=2917)
+else: feat size  torch.Size([1350, 1433])
+el size torch.Size([1350, 8, 1])
+er szie torch.Size([629, 8, 1])
+graph.srcdata[ft]  torch.Size([1350, 8, 8])
+------graph.edata a size torch.Size([2917, 8, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48e0374cc0>
+graph-in degree
+{1: 46, 2: 96, 3: 104, 4: 108, 5: 84, 6: 59, 7: 35, 8: 23, 9: 8, 10: 66}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 46, 2: 96, 3: 104, 4: 108, 5: 84, 6: 59, 7: 35, 8: 23, 9: 8, 10: 66}
+mailbox .size torch.Size([46, 1, 8, 8])
+
+batch size  46
+
+m.size torch.Size([46, 1, 64])
+h.size  torch.Size([1, 46, 64])
+------rst shape  torch.Size([1, 46, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee630>
+func(nbatch).neighbor  torch.Size([46, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([96, 2, 8, 8])
+
+batch size  96
+
+m.size torch.Size([96, 2, 64])
+h.size  torch.Size([1, 96, 64])
+------rst shape  torch.Size([1, 96, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379ac8>
+func(nbatch).neighbor  torch.Size([96, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([104, 3, 8, 8])
+
+batch size  104
+
+m.size torch.Size([104, 3, 64])
+h.size  torch.Size([1, 104, 64])
+------rst shape  torch.Size([1, 104, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03797f0>
+func(nbatch).neighbor  torch.Size([104, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([108, 4, 8, 8])
+
+batch size  108
+
+m.size torch.Size([108, 4, 64])
+h.size  torch.Size([1, 108, 64])
+------rst shape  torch.Size([1, 108, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379a58>
+func(nbatch).neighbor  torch.Size([108, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([84, 5, 8, 8])
+
+batch size  84
+
+m.size torch.Size([84, 5, 64])
+h.size  torch.Size([1, 84, 64])
+------rst shape  torch.Size([1, 84, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e78b7780>
+func(nbatch).neighbor  torch.Size([84, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([59, 6, 8, 8])
+
+batch size  59
+
+m.size torch.Size([59, 6, 64])
+h.size  torch.Size([1, 59, 64])
+------rst shape  torch.Size([1, 59, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e2c18>
+func(nbatch).neighbor  torch.Size([59, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([35, 7, 8, 8])
+
+batch size  35
+
+m.size torch.Size([35, 7, 64])
+h.size  torch.Size([1, 35, 64])
+------rst shape  torch.Size([1, 35, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83e6438>
+func(nbatch).neighbor  torch.Size([35, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([23, 8, 8, 8])
+
+batch size  23
+
+m.size torch.Size([23, 8, 64])
+h.size  torch.Size([1, 23, 64])
+------rst shape  torch.Size([1, 23, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c3240>
+func(nbatch).neighbor  torch.Size([23, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([8, 9, 8, 8])
+
+batch size  8
+
+m.size torch.Size([8, 9, 64])
+h.size  torch.Size([1, 8, 64])
+------rst shape  torch.Size([1, 8, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ecda0>
+func(nbatch).neighbor  torch.Size([8, 64])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([66, 10, 8, 8])
+
+batch size  66
+
+m.size torch.Size([66, 10, 64])
+h.size  torch.Size([1, 66, 64])
+------rst shape  torch.Size([1, 66, 64])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83eca90>
+func(nbatch).neighbor  torch.Size([66, 64])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([629, 64])
+rst.size() torch.Size([629, 8, 8])
+h.size() after h = layer(block, h)  torch.Size([629, 8, 8])
+h.size()  torch.Size([629, 8, 8])
+after flatten h.size()  torch.Size([629, 64])
+layer  1
+layer name  GATConv2(
+  (lstm): LSTM(7, 7, batch_first=True)
+  (fc): Linear(in_features=64, out_features=7, bias=False)
+  (feat_drop): Dropout(p=0.6, inplace=False)
+  (attn_drop): Dropout(p=0.6, inplace=False)
+  (leaky_relu): LeakyReLU(negative_slope=0.2)
+)
+graph.local  Block(num_src_nodes=629, num_dst_nodes=140, num_edges=620)
+else: feat size  torch.Size([629, 64])
+el size torch.Size([629, 1, 1])
+er szie torch.Size([140, 1, 1])
+graph.srcdata[ft]  torch.Size([629, 1, 7])
+------graph.edata a size torch.Size([620, 1, 1])
+msg_func  <dgl.function.message.BinaryMessageFunction object at 0x7f48e03c7128>
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+ builtin mfunc 
+ not builtin rfunc 
+graph-in degree
+{1: 20, 2: 25, 3: 26, 4: 22, 5: 15, 6: 11, 7: 4, 8: 3, 9: 4, 10: 3, 11: 1, 12: 2, 19: 1, 21: 1, 25: 2}
+mailbox .size torch.Size([20, 1, 1, 7])
+
+batch size  20
+
+m.size torch.Size([20, 1, 7])
+h.size  torch.Size([1, 20, 7])
+------rst shape  torch.Size([1, 20, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0374c50>
+func(nbatch).neighbor  torch.Size([20, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([25, 2, 1, 7])
+
+batch size  25
+
+m.size torch.Size([25, 2, 7])
+h.size  torch.Size([1, 25, 7])
+------rst shape  torch.Size([1, 25, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0374cc0>
+func(nbatch).neighbor  torch.Size([25, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([26, 3, 1, 7])
+
+batch size  26
+
+m.size torch.Size([26, 3, 7])
+h.size  torch.Size([1, 26, 7])
+------rst shape  torch.Size([1, 26, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0374ef0>
+func(nbatch).neighbor  torch.Size([26, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([22, 4, 1, 7])
+
+batch size  22
+
+m.size torch.Size([22, 4, 7])
+h.size  torch.Size([1, 22, 7])
+------rst shape  torch.Size([1, 22, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0374630>
+func(nbatch).neighbor  torch.Size([22, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([15, 5, 1, 7])
+
+batch size  15
+
+m.size torch.Size([15, 5, 7])
+h.size  torch.Size([1, 15, 7])
+------rst shape  torch.Size([1, 15, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83eec88>
+func(nbatch).neighbor  torch.Size([15, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([11, 6, 1, 7])
+
+batch size  11
+
+m.size torch.Size([11, 6, 7])
+h.size  torch.Size([1, 11, 7])
+------rst shape  torch.Size([1, 11, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee5f8>
+func(nbatch).neighbor  torch.Size([11, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 7, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 7, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83ee5c0>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 8, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 8, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379048>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([4, 9, 1, 7])
+
+batch size  4
+
+m.size torch.Size([4, 9, 7])
+h.size  torch.Size([1, 4, 7])
+------rst shape  torch.Size([1, 4, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e0379710>
+func(nbatch).neighbor  torch.Size([4, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([3, 10, 1, 7])
+
+batch size  3
+
+m.size torch.Size([3, 10, 7])
+h.size  torch.Size([1, 3, 7])
+------rst shape  torch.Size([1, 3, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03794e0>
+func(nbatch).neighbor  torch.Size([3, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 11, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 11, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c62b0>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 12, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 12, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c6470>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 19, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 19, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c6320>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([1, 21, 1, 7])
+
+batch size  1
+
+m.size torch.Size([1, 21, 7])
+h.size  torch.Size([1, 1, 7])
+------rst shape  torch.Size([1, 1, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48c83c67b8>
+func(nbatch).neighbor  torch.Size([1, 7])
+------------------------------------------------------
+==========================================================
+mailbox .size torch.Size([2, 25, 1, 7])
+
+batch size  2
+
+m.size torch.Size([2, 25, 7])
+h.size  torch.Size([1, 2, 7])
+------rst shape  torch.Size([1, 2, 7])
+nbatch  <dgl.udf.NodeBatch object at 0x7f48e03780b8>
+func(nbatch).neighbor  torch.Size([2, 7])
+------------------------------------------------------
+==========================================================
+graph.dstdata["ft"]  torch.Size([140, 7])
+rst.size() torch.Size([140, 7])
+h.size() after h = layer(block, h)  torch.Size([1, 140, 7])
+h.size() after h = h.mean(1) torch.Size([140, 7])
+----------------------------------------after batch_pred = model(blocks, batch_inputs)
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028856754302978516  GigaBytes
+Max Memory Allocated: 0.02961587905883789  GigaBytes
+
+batch_pred  torch.Size([140, 7])
+batch_labels torch.Size([140])
+----------------------------------------after loss function
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.028861522674560547  GigaBytes
+Max Memory Allocated: 0.02961587905883789  GigaBytes
+
+pure train time  0.12912988662719727
+-----------------------------------------after optimizer zero grad
+ Nvidia-smi: 1.58203125 GB
+    Memory Allocated: 0.009198188781738281  GigaBytes
+Max Memory Allocated: 0.02961587905883789  GigaBytes
+
+----------------------------------------------------------pseudo_mini_loss sum 1.9427697658538818
