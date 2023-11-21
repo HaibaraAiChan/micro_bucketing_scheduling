@@ -1,4 +1,5 @@
 import dgl
+import dgl.data
 import torch as th
 
 def load_reddit():
@@ -39,6 +40,24 @@ def load_ogb(name):
     graph.ndata['test_mask'] = test_mask
     print('finish constructing', name)
     return graph, num_labels
+
+def load_cora():
+	from dgl.data import CoraGraphDataset
+	# load cora data
+	data = CoraGraphDataset()
+	g = data[0]
+	# g = dgl.from_networkx(data.graph)
+	# g = g.long()
+	# g = g.int()
+	g.ndata['features'] = g.ndata['feat']
+	g.ndata['labels'] = g.ndata['label']
+	g = dgl.remove_self_loop(g)
+	
+	
+	return g, data.num_classes
+
+
+
 
 def inductive_split(g):
     """Split the graph into training graph, validation graph, and test graph by training
