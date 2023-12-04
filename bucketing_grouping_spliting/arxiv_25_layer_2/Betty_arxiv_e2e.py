@@ -255,6 +255,7 @@ def run(args, device, data):
 	print('pure train time/epoch {}'.format(np.mean(pure_train_time_list[5:])))
 	print('')
 	print('num_input_list ', num_input_list)
+	print('avg num_input_list ', np.mean(num_input_list))
 				
 			
 	

@@ -17,7 +17,7 @@ sys.path.insert(0,'../../pytorch/bucketing')
 sys.path.insert(0,'../../pytorch/utils/')
 sys.path.insert(0,'../../pytorch/micro_batch_train/')
 sys.path.insert(0,'../../pytorch/models/')
-from load_graph import load_reddit, inductive_split, load_cora, load_karate, prepare_data, load_pubmed
+from load_graph import load_reddit, inductive_split, load_cora, load_karate, prepare_data, load_pubmed, load_ogb
 from load_graph import load_ogbn_dataset
 from block_dataloader import generate_dataloader_block
 from bucketing_dataloader import generate_dataloader_bucket_block
@@ -267,6 +267,7 @@ def run(args, device, data):
 				t01 = time.time()
 				# print('loading full batch data spends ', t01-t0)
 			if args.num_batch > 1:
+				print('args.num_batch (main) ', args.num_batch)
 				# block_dataloader, weights_list, time_collection = generate_dataloader_block(g, full_batch_dataloader, args)
 				b_block_dataloader, weights_list, time_collection = generate_dataloader_bucket_block(g, full_batch_dataloader, args)
 					
@@ -275,13 +276,14 @@ def run(args, device, data):
 				# print('block generation total time ', block_gen_time_total)
 				if epoch >= args.log_indent:
 					t02 = time.time()
-					# print('generate_dataloader_block spend  ', t02-t01)
+					print('generate_dataloader_block spend  ', t02-t01)
 				
 				
 				pseudo_mini_loss = torch.tensor([], dtype=torch.long)
 				num_input_nids=0
 				all_true_labels = []
 				all_predicted_labels = []
+				time_start = time.time()
 				for step, (input_nodes, seeds, blocks) in enumerate(b_block_dataloader):
 				# for step, (input_nodes, seeds, blocks) in enumerate(block_dataloader):
 					print('step ', step)
@@ -296,7 +298,10 @@ def run(args, device, data):
 					all_true_labels.extend(batch_labels.tolist())
 					all_predicted_labels.extend(batch_pred_labels.tolist())
 					
-
+					# print('batch_pred ', batch_pred)
+					# print('batch_pred ', len(batch_pred))
+					# print('batch_labels ', batch_labels)
+					# print('batch_labels ', len(batch_labels))
 					pseudo_mini_loss = loss_fcn(batch_pred, batch_labels)#------------*
 					# see_memory_usage("----------------------------------------after loss function")
 					pseudo_mini_loss = pseudo_mini_loss*weights_list[step]#------------*
@@ -342,17 +347,18 @@ def run(args, device, data):
 					optimizer.zero_grad()
 					print()
 					see_memory_usage("----------------------------------------full batch")
-			# if epoch >= args.log_indent:
-			# 	dur.append(time.time() - t0)
+			if epoch >= args.log_indent:
+				dur.append(time.time() - t0)
+				print('epoch time: ',time.time() - t0 )
 			# # train_acc, val_acc, test_acc = evaluate(model, g, nfeats, labels, train_nid, val_nid, test_nid, device, args)
 			# from sklearn.metrics import f1_score
 			# # print("Run {:02d} | Epoch {:05d} | Loss {:.4f} | Train {:.4f} | Val {:.4f} | Test {:.4f}".format(run, epoch, loss_sum.item(), train_acc, val_acc, test_acc))
 			# f1 = f1_score(all_true_labels, all_predicted_labels, average='micro')  # You can use 'macro', 'weighted', or None for different averaging options
 			# print("Micro F1 Score:", f1)
-	# print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))
-	# print('pure train time/epoch {}'.format(np.mean(pure_train_time_list[4:])))
-	# print('')
-	# print('num_input_list ', num_input_list)
+	print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))
+	print('pure train time/epoch {}'.format(np.mean(pure_train_time_list[4:])))
+	print('')
+	print('num_input_list ', num_input_list)
 		# evaluate(model, g, nfeats, labels, train_nid, val_nid, test_nid, device, args)
 				
 			
@@ -369,25 +375,26 @@ def main():
 	argparser.add_argument('--setseed', type=bool, default=True)
 	argparser.add_argument('--GPUmem', type=bool, default=True)
 	argparser.add_argument('--load-full-batch', type=bool, default=True)
+	argparser.add_argument('--model', type=str, default='GAT')
 	# argparser.add_argument('--root', type=str, default='../my_full_graph/')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-arxiv')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-mag')
 	# argparser.add_argument('--dataset', type=str, default='ogbn-products')
 	# argparser.add_argument('--dataset', type=str, default='pubmed')
-	# argparser.add_argument('--dataset', type=str, default='cora')
+	argparser.add_argument('--dataset', type=str, default='cora')
 	# argparser.add_argument('--dataset', type=str, default='karate')
-	argparser.add_argument('--dataset', type=str, default='reddit')
+	# argparser.add_argument('--dataset', type=str, default='reddit')
 	argparser.add_argument('--aggre', type=str, default='lstm')
 	# argparser.add_argument('--aggre', type=str, default='sum')
 	# argparser.add_argument('--selection-method', type=str, default='arxiv_25_backpack_bucketing')
-	# argparser.add_argument('--selection-method', type=str, default='cora_25_backpack_bucketing')
-	argparser.add_argument('--selection-method', type=str, default='reddit_25_backpack_bucketing')
+	argparser.add_argument('--selection-method', type=str, default='cora_25_backpack_bucketing')
+	# argparser.add_argument('--selection-method', type=str, default='reddit_25_backpack_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='range_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='custom_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='REG')
-	argparser.add_argument('--num-batch', type=int, default=150)
+	argparser.add_argument('--num-batch', type=int, default=1)
 	argparser.add_argument('--batch-size', type=int, default=0)
 	argparser.add_argument('--mem-constraint', type=float, default=18)
 	# argparser.add_argument('--re-partition-method', type=str, default='REG')
@@ -398,7 +405,7 @@ def main():
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=2)
 
-	argparser.add_argument('--num-hidden', type=int, default=256)
+	argparser.add_argument('--num-hidden', type=int, default=1024)
 	# argparser.add_argument('--num-hidden', type=int, default=8)
 	argparser.add_argument('--num-layers', type=int, default=2)
 	argparser.add_argument('--fan-out', type=str, default='10,25')

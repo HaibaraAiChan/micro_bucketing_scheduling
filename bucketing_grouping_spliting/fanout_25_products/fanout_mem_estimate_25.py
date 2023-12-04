@@ -399,7 +399,7 @@ def main():
 	# argparser.add_argument('--dataset', type=str, default='reddit')
 	# argparser.add_argument('--aggre', type=str, default='mean')
 	argparser.add_argument('--aggre', type=str, default='lstm')
-
+	argparser.add_argument('--model', type=str, default='graphsage')
 	# argparser.add_argument('--selection-method', type=str, default='range_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='random_bucketing')
 	argparser.add_argument('--selection-method', type=str, default='fanout_bucketing')
@@ -412,8 +412,8 @@ def main():
 
 	argparser.add_argument('--num-runs', type=int, default=1)
 	argparser.add_argument('--num-epochs', type=int, default=1)
-
-	argparser.add_argument('--num-hidden', type=int, default=128)
+	argparser.add_argument('--num-hidden', type=int, default=16)
+	# argparser.add_argument('--num-hidden', type=int, default=128)
 	# argparser.add_argument('--num-hidden', type=int, default=512)
 
 	# argparser.add_argument('--num-layers', type=int, default=1)

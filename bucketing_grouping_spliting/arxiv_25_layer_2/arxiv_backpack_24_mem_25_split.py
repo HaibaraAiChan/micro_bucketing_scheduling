@@ -323,7 +323,7 @@ def run(args, device, data):
 		print('Total (block generation + training)time/epoch {}'.format(np.mean(dur)))	
 		print('pure train time per /epoch ', pure_train_time_list)
 		print('pure train time average ', np.mean(pure_train_time_list[4:]))
-		# print('input num  average ', sum(num_input_list)/len(num_input_list))
+		print('input num  average ', sum(num_input_list)/len(num_input_list))
 
 
 def main():
@@ -346,6 +346,7 @@ def main():
 	# argparser.add_argument('--dataset', type=str, default='reddit')
 	# argparser.add_argument('--aggre', type=str, default='mean')
 	argparser.add_argument('--aggre', type=str, default='lstm')
+	argparser.add_argument('--model', type=str, default='graphsage')
 	# argparser.add_argument('--selection-method', type=str, default='arxiv_backpack_bucketing')
 	argparser.add_argument('--selection-method', type=str, default='arxiv_25_backpack_bucketing')
 	# argparser.add_argument('--selection-method', type=str, default='range_bucketing')

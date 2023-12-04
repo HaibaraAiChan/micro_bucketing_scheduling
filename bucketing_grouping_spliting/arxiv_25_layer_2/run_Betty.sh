@@ -2,14 +2,14 @@
 
 # mkdir ./log1
 
-mkdir $save_path
-hidden=1024
+
+hidden=128
 md=REG
 n_layer=2
 fanout=10,25
 save_path=./betty_log/2-layer/betty_slow_version
-
-for nb in  5 6 7 8 9 10 11 12 16 32
+mkdir $save_path
+for nb in 18
 do
     echo "---start ${md}  ${nb} batches "
     python Betty_arxiv_e2e.py \
@@ -20,7 +20,7 @@ do
         --fan-out $fanout\
         --num-hidden $hidden \
         --num-runs 1 \
-        --num-epoch 20 \
+        --num-epoch 15 \
         --aggre lstm \
         --log-indent 3 \
         --lr 1e-3 \

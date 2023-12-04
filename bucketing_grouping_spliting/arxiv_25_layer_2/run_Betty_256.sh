@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# mkdir ./log1
+
+
+hidden=256
+md=REG
+n_layer=2
+fanout=10,25
+save_path=./betty_log/2-layer/betty_slow_version/256
+mkdir $save_path
+for nb in 1 2 4 6 8 10 12 16 
+do
+    echo "---start ${md}  ${nb} batches "
+    python Betty_arxiv_e2e.py \
+        --dataset ogbn-arxiv \
+        --selection-method $md \
+        --num-batch $nb \
+        --num-layers $n_layer \
+        --fan-out $fanout\
+        --num-hidden $hidden \
+        --num-runs 1 \
+        --num-epoch 15 \
+        --aggre lstm \
+        --log-indent 3 \
+        --lr 1e-3 \
+        > ${save_path}/${md}_nb_${nb}_hidden_${hidden}_fanout_${fanout}.log
+done
+

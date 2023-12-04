@@ -3,7 +3,7 @@
 # mkdir ./log1
 save_path=./bucketing_log
 # mkdir $save_path
-nb=7
+nb=8
 echo "---start reddit_backpack.py   ${nb} batches "
 python reddit_backpack.py \
     --dataset reddit \
