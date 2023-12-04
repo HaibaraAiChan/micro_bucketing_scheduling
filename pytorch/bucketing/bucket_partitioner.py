@@ -105,6 +105,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 	def __init__(self, layer_block, args, full_batch_dataloader):
 		# self.balanced_init_ratio=args.balanced_init_ratio
 		self.memory_constraint = args.mem_constraint
+		self.model = args.model
 		self.dataset=args.dataset
 		self.layer_block=layer_block # local graph with global nodes indices
 		self.local=False
@@ -169,7 +170,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 		return unique_val, bucketor
 
 	def get_in_degree_bucketing(self):
-		
+		print('self.num_batch (get_in_degree_bucketing)', self.num_batch)
 		degs = self.layer_block.in_degrees()
 		# print('get_in_degree_bucketing src global nid ', self.layer_block.srcdata['_ID'])
 		# print('get_in_degree_bucketing dst global nid ', self.layer_block.dstdata['_ID'])
@@ -216,6 +217,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 	def gen_batches_seeds_list(self, bkt_dst_nodes_list):
 		
 		print('---||--'*20)
+		print('self.num_batch, ', self.num_batch)
 		length = len(self.output_nids)
 		if "bucketing" in self.selection_method :
 			total_len = len(bkt_dst_nodes_list)
@@ -306,6 +308,44 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 						estimated_mem = [0.03354020171634035, 0.0789222900831052, 0.14299627167576137, 0.2318244492153784, 0.33085486366172856, 0.4555005140345204, 0.5405769855622832, 0.7047147945388569, 0.7768355458776156, 0.9281502018095925, 1.0675311485230141, 1.0285266294845892, 1.2832128918560093, 1.291814475094105, 1.367826536234784, 1.4645761989081698, 1.6565154083265854, 1.5991467489715145, 1.793769060001223, 1.6766132844613435, 1.920127067184496, 2.1946883605045633, 2.232189497508864, 2.223171411479282]
 						# sum estimated_mem[:-1] = 27.02, estimated_mem[-1]=18.92
 						estimated_mem = [0.010282516479492188, 0.026498615741729736, 0.059371769428253174, 0.09871682524681091, 0.13095885515213013, 0.18947795033454895, 0.24908199906349182, 0.2645052373409271, 0.31443214416503906, 0.38681477308273315, 0.43212345242500305, 0.42463982105255127, 0.5091744661331177, 0.5714942514896393, 0.594073086977005, 0.6078604459762573, 0.6297663152217865, 0.6702716946601868, 0.7191262543201447, 0.7044298946857452, 0.7861466109752655, 0.8632670938968658, 0.9334430694580078, 0.9516638517379761]
+						if self.hidden ==32:
+							estimated_mem = [0.030038309142768727, 0.07084391270112667, 0.12535225476460024, 0.20481898381526728, 0.29499237421925145, 0.4037621224400672, 0.47553709239121866, 0.6368548657451465, 0.6928294528722763, 0.8294504749726038, 0.9602086547889414, 0.9185760502540227, 1.1564732894776686, 1.147224248034353, 1.2155314409701379, 1.3127071745620997, 1.494218664138062, 1.429131172109469, 1.61310518345536, 1.497551695710478, 1.7272323720153804, 1.980263964077, 1.9988796256383259, 1.988051485165607]
+							if self.num_batch == 8:
+								capacity_imp = 5
+							if self.num_batch == 14:
+								capacity_imp = 4
+							elif self.num_batch == 16:
+								capacity_imp = 3.6
+							elif self.num_batch == 18:
+								capacity_imp = 2
+							elif self.num_batch == 19:
+								capacity_imp = 2
+							elif self.num_batch == 20:
+								capacity_imp = 2
+							elif self.num_batch == 22:
+								capacity_imp = 2
+							elif self.num_batch == 24:
+								capacity_imp = 2
+						if self.hidden == 16:
+							estimated_mem = [0.030038309142768727, 0.07084391270112667, 0.12535225476460024, 0.20481898381526728, 0.29499237421925145, 0.4037621224400672, 0.47553709239121866, 0.6368548657451465, 0.6928294528722763, 0.8294504749726038, 0.9602086547889414, 0.9185760502540227, 1.1564732894776686, 1.147224248034353, 1.2155314409701379, 1.3127071745620997, 1.494218664138062, 1.429131172109469, 1.61310518345536, 1.497551695710478, 1.7272323720153804, 1.980263964077, 1.9988796256383259, 1.988051485165607]
+							if self.num_batch == 8:
+								capacity_imp = 5
+							if self.num_batch == 14:
+								capacity_imp = 4
+							elif self.num_batch == 16:
+								capacity_imp = 3.6
+							elif self.num_batch == 18:
+								capacity_imp = 2
+							elif self.num_batch == 19:
+								capacity_imp = 2
+							elif self.num_batch == 20:
+								capacity_imp = 2
+							elif self.num_batch == 22:
+								capacity_imp = 2
+							elif self.num_batch == 24:
+								capacity_imp = 2
+							# elif self.num_batch == 8:
+							# 	capacity_imp = 0.055
 						print('sum(estimated_mem)')
 						print(sum(estimated_mem))
 						print(len(estimated_mem))
@@ -364,7 +404,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 						
 						current_group_mem = get_sum(G_BUCKET_ID_list[j], estimated_mem)
 						print("current group_mem ", current_group_mem)
-						
+						# local_split_batches_nid_list[j]=torch.tensor(local_split_batches_nid_list[j])
 						local_split_batches_nid_list[j] = torch.cat((local_split_batches_nid_list[j], g_bucket_nids_list[j])) 
 						# local_split_batches_nid_list[j]=torch.tensor(g_bucket_nids_list[j])
 						# res_tmp.append(g_bucket_nids_list[j])
@@ -386,7 +426,13 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 				time_backpack_start = time.time()
 				if '30_backpack_' in self.selection_method: 
 					if 'cora_' in self.selection_method :
-						est_mem_dict ={1: 0.4396008476614952, 2: 1.374441683292389, 3: 1.5948124453425407, 4: 2.2839434891939163, 5: 1.8786997273564339, 6: 1.5771530494093895, 7: 0.6665662229061127, 8: 0.4780137687921524, 9: 0.8689616918563843, 10: 0.6201625987887383, 11: 0.16984806954860687, 12: 0.40121957659721375, 19: 0.27158090472221375, 21: 0.42578747123479843, 30: 1.1442232578992844}
+						if self.hidden == 2048:
+							est_mem_dict ={1: 0.4396008476614952, 2: 1.374441683292389, 3: 1.5948124453425407, 4: 2.2839434891939163, 5: 1.8786997273564339, 6: 1.5771530494093895, 7: 0.6665662229061127, 8: 0.4780137687921524, 9: 0.8689616918563843, 10: 0.6201625987887383, 11: 0.16984806954860687, 12: 0.40121957659721375, 19: 0.27158090472221375, 21: 0.42578747123479843, 30: 1.1442232578992844}
+						# if self.num_batch == 2:
+						# 	capacity_imp = 0.045
+						# elif self.num_batch == 4:
+						# 	capacity_imp = 0.023
+
 					elif 'pubmed_' in self.selection_method:
 						est_mem_dict ={1: 2.2797432839870453, 2: 0.9267187714576721, 3: 1.3459078073501587, 4: 0.9429364800453186, 5: 0.6352187097072601, 6: 1.315835952758789, 7: 0.07466062903404236, 8: 1.1979998052120209, 9: 0.36177903413772583, 10: 0.15526315569877625, 11: 0.35477203130722046, 17: 1.8221600353717804, 18: 1.1670382618904114, 22: 1.2326273918151855, 29: 0.24611574411392212, 30: 1.5610657632350922}
 					Groups_mem_list, G_BUCKET_ID_list = grouping_cora(adjust, est_mem_dict, capacity_imp, 30, self.K)
@@ -401,16 +447,56 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 						print('we can reschedule split K-->K+1 ')
 						self.K = self.K + 1
 					print('self.K ', self.K)
-				elif '25_backpack_' in self.selection_method:	
+				elif '25_backpack_' in self.selection_method:
+					print('enter 25_backpack_')
 					if 'cora_' in self.selection_method :
-						est_mem_dict = {1: 0.009952336549758911, 2: 0.029204897582530975, 3: 0.039294563233852386, 4: 0.054936736822128296, 5: 0.04942861944437027, 6: 0.03956902027130127, 7: 0.017872966825962067, 8: 0.014537237584590912, 9: 0.02214217185974121, 10: 0.018099479377269745, 11: 0.005473785102367401, 12: 0.014345057308673859, 19: 0.010031260550022125, 21: 0.014677919447422028, 25: 0.028916627168655396}
-						capacity_imp = self.memory_constraint
+						print('enter 25_backpack_cora')
+						if self.hidden == 256:
+							est_mem_dict = {1: 0.009952336549758911, 2: 0.029204897582530975, 3: 0.039294563233852386, 4: 0.054936736822128296, 5: 0.04942861944437027, 6: 0.03956902027130127, 7: 0.017872966825962067, 8: 0.014537237584590912, 9: 0.02214217185974121, 10: 0.018099479377269745, 11: 0.005473785102367401, 12: 0.014345057308673859, 19: 0.010031260550022125, 21: 0.014677919447422028, 25: 0.028916627168655396}
+						elif self.hidden == 1024:
+							est_mem_dict = {1: 0.010982304811477661, 2: 0.03177981823682785, 3: 0.04331143945455551, 4: 0.059468597173690796, 5: 0.05329100042581558, 6: 0.042967915534973145, 7: 0.019314922392368317, 8: 0.015773199498653412, 9: 0.02399611473083496, 10: 0.01964443176984787, 11: 0.006040267646312714, 12: 0.015581019222736359, 19: 0.011009730398654938, 21: 0.015759386122226715, 25: 0.03033846616744995}
+							if self.num_batch == 2:
+								capacity_imp = 0.21
+							elif self.num_batch == 3:
+								capacity_imp = 0.196
+							elif self.num_batch == 4:
+								capacity_imp = 0.10
+							elif self.num_batch == 5:
+								capacity_imp = 0.08
+							elif self.num_batch == 6:
+								capacity_imp = 0.07
+							elif self.num_batch == 7:
+								capacity_imp = 0.06
+						print('self.num_batch cora_', self.num_batch)
+						# capacity_imp = self.memory_constraint
+						print('self.hidden ', self.hidden)
+						print('capacity_imp ', capacity_imp)
 					if 'pubmed_' in self.selection_method :
-						est_mem_dict = {1: 0.008472561836242676, 2: 0.004270613193511963, 3: 0.00498005747795105, 4: 0.0036263465881347656, 5: 0.0025652647018432617, 6: 0.008285075426101685, 7: 0.001278609037399292, 8: 0.007463514804840088, 9: 0.0038363635540008545, 10: 0.0014977455139160156, 11: 0.002338886260986328, 17: 0.010301828384399414, 18: 0.006973743438720703, 22: 0.005353689193725586, 25: 0.015277057886123657}
-						if self.num_batch == 2:
-							capacity_imp = 0.045
-						elif self.num_batch == 4:
-							capacity_imp = 0.023
+						if self.hidden == 256:
+							est_mem_dict = {1: 0.008472561836242676, 2: 0.004270613193511963, 3: 0.00498005747795105, 4: 0.0036263465881347656, 5: 0.0025652647018432617, 6: 0.008285075426101685, 7: 0.001278609037399292, 8: 0.007463514804840088, 9: 0.0038363635540008545, 10: 0.0014977455139160156, 11: 0.002338886260986328, 17: 0.010301828384399414, 18: 0.006973743438720703, 22: 0.005353689193725586, 25: 0.015277057886123657}
+							if self.num_batch == 2:
+								capacity_imp = 0.045
+							elif self.num_batch == 4:
+								capacity_imp = 0.023
+						elif self.hidden == 1024:
+							print('enter pubmed_')
+							est_mem_dict = {1: 0.028659939765930176, 2: 0.014467298984527588, 3: 0.018009155988693237, 4: 0.012896060943603516, 5: 0.009054064750671387, 6: 0.03022339940071106, 7: 0.0040080249309539795, 8: 0.027238905429840088, 9: 0.01423904299736023, 10: 0.004381656646728516, 11: 0.007746219635009766, 17: 0.03718400001525879, 18: 0.006973743438720703, 22: 0.019000768661499023, 25: 0.05457034707069397}
+							# sum is 0.288 GB
+							# modified sum 1.699 GB
+							if self.num_batch == 2:
+								capacity_imp = 0.145
+							elif self.num_batch == 3:
+								capacity_imp = 0.1
+							elif self.num_batch == 4:
+								capacity_imp = 0.09
+							elif self.num_batch == 5:
+								capacity_imp = 0.06
+							elif self.num_batch == 6:
+								capacity_imp = 0.055
+							elif self.num_batch == 7:
+								capacity_imp = 0.055
+							elif self.num_batch == 8:
+								capacity_imp = 0.055
 					print('sum(estimated_mem) ', sum(est_mem_dict.values()))
 					
 					print('len(estimated_mem) ', len(est_mem_dict))
@@ -418,6 +504,12 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 					
 					Groups_mem_list, G_BUCKET_ID_list = grouping_cora(adjust, est_mem_dict, capacity_imp, 25, self.K)
 					# print('sum(estimated_mem) ', sum(est_mem_dict.values()))
+					if len(Groups_mem_list) !=  self.num_batch:
+						print('!!!! len(Groups_mem_list) ',len(Groups_mem_list))
+						print('!!!!  self.num_batch ', self.num_batch)
+						if len(Groups_mem_list) >  self.num_batch:
+							print('Groups_mem_list' , Groups_mem_list)
+							return
 					
 					
 				elif '10_backpack_' in self.selection_method:	
@@ -494,14 +586,42 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 							capacity_imp = self.memory_constraint-17.70
 						elif self.num_batch == 7:
 							capacity_imp = self.memory_constraint-17.74
+						elif self.num_batch == 8:
+							capacity_imp = self.memory_constraint-17.74
+						if self.model == "GAT":# GAT+lstm
+							if self.num_batch == 4:
+								capacity_imp = 0.4
+							elif self.num_batch == 5:
+								capacity_imp = 0.344
+							elif self.num_batch == 6:
+								capacity_imp = 0.3
+							elif self.num_batch == 7:
+								capacity_imp = 0.29
+							elif self.num_batch == 8:
+								capacity_imp = 0.26
+							elif self.num_batch == 9:
+								capacity_imp = 0.258
+							elif self.num_batch == 10:
+								capacity_imp = 0.258
+							elif self.num_batch == 12:
+								capacity_imp = 0.258
+							elif self.num_batch == 14:
+								capacity_imp = 0.258
+							elif self.num_batch == 16:
+								capacity_imp = 0.258
+							elif self.num_batch == 18:
+								capacity_imp = 0.258        
 					elif '25_backpack_' in self.selection_method:
 						if self.hidden==256:
 							# fanout split 136.9*8/50 = 22 GB # graphsage + lstm
 							estimated_mem = [1.3390388304942122, 1.1511607853654562, 0.9968803828513182, 1.1330254407898046, 1.273968707844615, 1.4271276523896628, 1.482011009895538, 1.6097993905165318, 1.6116104018773965, 1.6784923510901304, 1.8729928371372757, 1.915525670833232, 2.0752913576516465, 2.0264824781498296, 2.1645393796554804, 2.1370398432040925, 2.1997352567082333, 2.1771046663129945, 2.3384675421966064, 2.2770233221822953, 2.454792454762997, 2.4747481289605364, 2.518576996875674, 2.593600036529913]
 							if self.num_batch == 51:
 								capacity_imp = 2.6 # maximum of est mem [1,fanout-1]
-							elif self.num_batch == 180: # GAT+lstm
-								capacity_imp = 2.6 # maximum of est mem [1,fanout-1]
+							if self.model == "GAT":
+								if self.num_batch == 180: # GAT+lstm
+									capacity_imp = 2.6 # maximum of est mem [1,fanout-1]
+								elif self.num_batch == 200: # GAT+lstm
+									capacity_imp = 2.6 # maximum of est mem [1,fanout-1]
 					# elif '30_backpack_' in self.selection_method:
 					# 	estimated_mem = [11.09133707869788, 7.949351660231331, 4.247930594170108, 3.767815723282392, 3.521911913357682, 3.3171698192934964, 3.1136675746243436, 2.9493490757618086, 2.783152518733855, 2.690315310282632, 2.4780320925231085, 2.4736405822131586, 2.424331795810457, 2.3423791134065306, 2.2508307132173453, 2.0888736283425056, 2.1393341709313427, 2.0144231711761864, 2.028492122175591, 1.8952586057017728, 1.9272310948984677, 1.7648288977543771, 1.8025470147872276, 1.7435488087790354, 1.624197941655698, 1.6781451757272114, 1.585553364875989, 1.5579015641599088, 1.508019266507371]
 					# 	capacity_imp = self.memory_constraint-10 # nb 11 capcity = 8
@@ -577,12 +697,7 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 							capacity_imp = self.memory_constraint-7.8 # nb 3 capacity = 10.3 
 							capacity_imp = self.memory_constraint-2.75 # nb 3 capacity = 15.35 
 						elif  self.hidden == 256: # 2-layers =========================================
-							# estimated_mem = [0.4801772449125234, 0.5455376537275095, 0.5865084328671475, 0.6025263269829945, 0.6170007844959875, 0.6181547992200076, 0.6099705177659431, 0.6058985726076611, 0.5914075373276588, 0.587221240375353, 0.5578119477412253, 0.5602973627324073, 0.5301562071121657, 0.5184453678853628, 0.5074134306488156, 0.4761857182093294, 0.4801913606539105, 0.46410735721829577, 0.4574199782709907, 0.4499487351708253, 0.43449641122265054, 0.3940781924805663, 0.4000459407769007, 0.3969979879760742]
-							# sum of above 12.471999108382306(GB),  degree 25 mem estimated =  9.851929664611816 GB
 							
-							capacity_imp = 6.24 # nb 2 
-							capacity_imp = 3.12 # nb 4 
-							capacity_imp = 1.58 # nb 8 
 							# new estimation start
 							estimated_mem = [0.9289283752441406, 1.0921419664986132, 1.174592981690282, 1.2067483835407944, 1.2375349585000666, 1.2332499812783622, 1.219712377230607, 1.2118137788993009, 1.184205675680791, 1.17600772351804, 1.1165122126748235, 1.1218068344161014, 1.0613692097616039, 1.0356467682433141, 1.0133642192630459, 0.9551042604703931, 0.9602214569977391, 0.928765299108964, 0.91671499803582, 0.9005825296175082, 0.8687226300373521, 0.7873555455142333, 0.8009047141131459, 0.7953034350585939]
 							if self.num_batch == 2:
@@ -595,11 +710,81 @@ class Bucket_Partitioner:  # ----------------------*** split the output layer bl
 								capacity_imp = 1.95 # nb 16 
 							elif self.num_batch == 20:
 								capacity_imp = 1.75 # nb 20 
+							elif self.num_batch == 24:
+								capacity_imp = 1.75 # nb 24 
+							elif self.num_batch == 32:
+								capacity_imp = 1.75 # nb 32 
+							if self.model=='GAT':
+								if self.num_batch == 16:
+									capacity_imp = 1.935 # nb 16 
+								elif self.num_batch == 18:
+									capacity_imp = 1.85 # nb 18 
+								elif self.num_batch == 20:
+									capacity_imp = 1.77 # nb 20
+								elif self.num_batch == 22:
+									capacity_imp = 1.67 # nb 22
+								elif self.num_batch == 24:
+									capacity_imp = 1.57 # nb 24 
+								elif self.num_batch == 26:
+									capacity_imp = 1.25 # nb 26 
+								elif self.num_batch == 32:
+									capacity_imp = 1.25 # nb 32 
+								elif self.num_batch == 40:
+									capacity_imp = 1.25 # nb 40 
 						elif  self.hidden == 128: # 2-layers =========================================
-							estimated_mem = [0.42060097957744036, 0.47311523799417204, 0.5099940648098965, 0.5260206879067616, 0.5394331193958898, 0.5433008773297489, 0.5375267645234505, 0.535240380926753, 0.5229354704483863, 0.5202699559667836, 0.494472521700576, 0.49753113977861085, 0.47079622652897474, 0.46104649837089745, 0.451559590774548, 0.4241338345118196, 0.4282073690309857, 0.4134191343331639, 0.4082059832911322, 0.4015348967842896, 0.38770616330547525, 0.35303355384683827, 0.35899451293571416, 0.35517937969207763]
+							# estimated_mem = [0.42060097957744036, 0.47311523799417204, 0.5099940648098965, 0.5260206879067616, 0.5394331193958898, 0.5433008773297489, 0.5375267645234505, 0.535240380926753, 0.5229354704483863, 0.5202699559667836, 0.494472521700576, 0.49753113977861085, 0.47079622652897474, 0.46104649837089745, 0.451559590774548, 0.4241338345118196, 0.4282073690309857, 0.4134191343331639, 0.4082059832911322, 0.4015348967842896, 0.38770616330547525, 0.35303355384683827, 0.35899451293571416, 0.35517937969207763]
 							# sum of above 11.03(GB),  degree 25 mem estimated =  7.83 GB
-							capacity_imp = self.memory_constraint-10
-
+							# capacity_imp = self.memory_constraint-10
+							estimated_mem=[0.8136749267578125, 0.9482579950540875, 1.0206992380889157, 1.0538952284680039, 1.0818744809050456, 1.084757384115296, 1.0731104791436792, 1.069628515049197, 1.0480042225122452, 1.0424392025159752, 0.9898839248621336, 0.9953236727234502, 0.9418539936965127, 0.919397501761373, 0.900892277961891, 0.8499588936003988, 0.8558874481191368, 0.8270597629788556, 0.8186162241878332, 0.8020723312370839, 0.7767946092237346, 0.7062005828906696, 0.7157837956733637, 0.7102104830932617]
+							# sum of above 22.04627717461996 ,  degree 25 mem estimated =  7.83 GB
+							if self.num_batch == 2:
+								capacity_imp = 11.2
+							elif self.num_batch == 3: 
+								capacity_imp = 7.4
+							elif self.num_batch == 4: 
+								capacity_imp = 5.51
+							elif self.num_batch == 5: 
+								capacity_imp = 4.45
+							elif self.num_batch == 6: 
+								capacity_imp = 3.7
+							elif self.num_batch == 7: 
+								capacity_imp = 3.3   
+							elif self.num_batch == 8: 
+								capacity_imp = 2.8  
+							elif self.num_batch == 10: 
+								capacity_imp = 2.45
+							elif self.num_batch == 12: 
+								capacity_imp = 2.2
+							elif self.num_batch == 14: 
+								capacity_imp = 1.845
+							elif self.num_batch == 16: 
+								capacity_imp = 1.73
+							elif self.num_batch == 18: 
+								capacity_imp = 1.65
+							# fanout= 10,25, GAT model
+							if self.model == 'GAT':
+								estimated_mem=[0.8136749267578125, 0.9482579950540875, 1.0206992380889157, 1.0538952284680039, 1.0818744809050456, 1.084757384115296, 1.0731104791436792, 1.069628515049197, 1.0480042225122452, 1.0424392025159752, 0.9898839248621336, 0.9953236727234502, 0.9418539936965127, 0.919397501761373, 0.900892277961891, 0.8499588936003988, 0.8558874481191368, 0.8270597629788556, 0.8186162241878332, 0.8020723312370839, 0.7767946092237346, 0.7062005828906696, 0.7157837956733637, 0.7102104830932617]
+								# sum of above 22.04627717461996 ,  degree 25 mem estimated =  7.83 GB
+								if self.num_batch == 3: 
+									capacity_imp = 7.3
+								elif self.num_batch == 4: 
+									capacity_imp = 5.51
+								elif self.num_batch == 5: 
+									capacity_imp = 4.45
+								elif self.num_batch == 6: 
+									capacity_imp = 3.7
+								elif self.num_batch == 7: 
+									capacity_imp = 3.3   
+								elif self.num_batch == 8: 
+									capacity_imp = 2.8  
+								elif self.num_batch == 10: 
+									capacity_imp = 2.45
+								elif self.num_batch == 14: 
+									capacity_imp = 1.845
+								elif self.num_batch == 16: 
+									capacity_imp = 1.73
+								elif self.num_batch == 18: 
+									capacity_imp = 1.65
 						elif  self.hidden == 1024: # 2-layers =========================================
 							estimated_mem = [1.6722423737809742, 1.9625855842993116, 2.091162774761497, 2.1225820131933104, 2.164434594135045, 2.1270061419533235, 2.0853221102618043, 2.056020043092527, 2.003826841183247, 1.9838461929404219, 1.8742896464201482, 1.8757872602731587, 1.7739355233489074, 1.7230819912868847, 1.6827613338597718, 1.5790509384345839, 1.5840132793947195, 1.5308580965452556, 1.511252469938908, 1.481189862667495, 1.429230435772136, 1.2836578043908993, 1.2942055601305504, 1.2939860083007813]
 							# sum of above = 42.186328880365664

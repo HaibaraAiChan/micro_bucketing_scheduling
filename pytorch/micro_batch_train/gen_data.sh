@@ -3,12 +3,12 @@
 File=gen_data.py
 
 # data=ogbn-products
-# data=cora
+data=cora
 # data=pubmed
-data=reddit
+# data=reddit
 # data=karate
 
-num_epoch=400
+num_epoch=10
 # fan_out=10
 # data=ogbn-arxiv
 
@@ -36,17 +36,17 @@ num_epoch=400
 # python $File --fan-out=$fan_out --num-layers=1 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
 
 
-fan_out=10,25
-python $File --fan-out=$fan_out --num-layers=2 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
+# fan_out=10,25
+# python $File --fan-out=$fan_out --num-layers=2 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
 # fan_out=10,50
 # python $File --fan-out=$fan_out --num-layers=2 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
 # fan_out=10,100
 # python $File --fan-out=$fan_out --num-layers=2 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
 
 
-# fan_out=10,25,30
-# mkdir ~/dataset/fan_out_10,25,30
-# python $File --fan-out=$fan_out --num-layers=3 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
+fan_out=10,25,30
+mkdir ~/dataset/fan_out_10,25,30
+python $File --fan-out=$fan_out --num-layers=3 --num-epochs=$num_epoch --num-hidden=1 --dataset=$data
 
 
 # fan_out=10,25,30,40
